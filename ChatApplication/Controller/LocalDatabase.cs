@@ -3,15 +3,15 @@ using WindowsFormsApp3;
 
 namespace ChatApplication
 {
-    public class ApplicationDbContext:DbContext
+    public class LocalDatabase:DbContext
     {
-        public DbSet<Message> Messages { get; set; }
-        
+         public DbSet<Message> Messages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=chatApplication;Uid=root;Pwd=Suriya@123;");
             base.OnConfiguring(optionsBuilder);
-        }   
+            string s = "server=localhost;port=3306;Database=ChatApplication;Uid=root;Pwd=Suriya@123";
+            optionsBuilder.UseMySQL(s);
+        }
     }
 }

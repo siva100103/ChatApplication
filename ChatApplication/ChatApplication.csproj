@@ -179,7 +179,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\ApplicationDbContext.cs" />
+    <Compile Include="Controller\LocalDatabase.cs" />
+    <Compile Include="Controller\RemoteDatabase.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,11 +199,6 @@
     <Compile Include="UserControl\FileSenderPage.Designer.cs">
       <DependentUpon>FileSenderPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20240403100120_Initial.cs" />
-    <Compile Include="Migrations\20240403100120_Initial.designer.cs">
-      <DependentUpon>20240403100120_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="UserControl\BendingMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>

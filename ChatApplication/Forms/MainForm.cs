@@ -96,7 +96,7 @@ namespace ChatApplication
             base.OnClosed(e);
             foreach (var a in Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), a.Value.IP.ToString(), "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

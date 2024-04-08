@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -16,13 +17,15 @@ namespace WindowsFormsApp3
 {
     public class Client
     {
-        public int Id { get; set; }
+        
+        public string IP { get; set; }
         public string Name { get; set; } = "";
         //public string About { get; set; } = "";
         public Image Dp { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
-        public IPAddress IP { get; set; }
         public int Port { get; set; } = 12345;
+
+
         public bool IsConnected { get; set; }
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages=0;
@@ -45,7 +48,7 @@ namespace WindowsFormsApp3
         public event EventHandler<bool> StatusChanged;
         public event EventHandler<int> UnseenMessageChanged;
 
-        public Client(IPAddress ip,string Name,int Port)
+        public Client(string ip,string Name,int Port)
         {
             IP = ip;
             this.Name = Name;
@@ -59,11 +62,13 @@ namespace WindowsFormsApp3
 
         }
 
+
+
         public async void ConnectAsync()
         {
             try
             {
-                ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), IP.ToString(), "Open", DateTime.Now, ChatApplication.Type.Response);
+                ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), IP, "Open", DateTime.Now, ChatApplication.Type.Response);
                 await ChatApplicationNetworkManager.SendMessage(message, this);
                 IsConnected = true;
                 StatusChanged.Invoke(this, true);

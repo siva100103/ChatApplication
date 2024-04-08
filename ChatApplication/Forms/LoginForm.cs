@@ -9,15 +9,18 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp3;
+using ChatApplication.Controller;
 
 namespace ChatApplication
 {
     public partial class LoginForm : Form
     {
-        public LoginForm()
+       
+        public LoginForm(string IPAddress)
         {
             InitializeComponent();
-          
+            label1.Text = IPAddress;
             Resize += LoginFormResize;
             LoginFormResize(this, EventArgs.Empty);
             nextBtn.Click += NextBtnClick;           
@@ -29,18 +32,26 @@ namespace ChatApplication
              
            // ipAddressLB.Text += ChatApplicationNetworkManager.GetPcIPAddress();
             LoginFormResize(this, EventArgs.Empty);
-            
-        
-
         }
 
         private void NextBtnClick(object sender, EventArgs e)
         {
-          // ChatApplicationDatabaseManager.ContactCreate(firstNameTB.TextBoxtext,lastNameTB.TextBoxtext, ChatApplicationNetworkManager.GetPcIPAddress());
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-            this.Hide();
-
+            if(firstNameTB.TextBoxtext.Trim()!="" && lastNameTB.TextBoxtext.Trim() != "")
+            {
+                Client c = new Client()
+                {
+                    IP = label1.Text,
+                    Name = firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(),
+                    LastSeen = DateTime.Now,
+                    Port = 12345,
+                };
+                var clients = new RemoteDatabase();
+                clients.Clients.Add(c);
+                clients.SaveChanges();
+                this.Hide();
+                MainForm mf = new MainForm();
+                mf.Show();
+            }
         }
 
         private void LoginFormResize(object sender, EventArgs e)
@@ -48,7 +59,7 @@ namespace ChatApplication
            centerP.Location= new Point(Width/2-centerP.Width/2, Height/2-centerP.Height/2);
             firstNameTB.Location = new Point(centerP.Width / 2 - firstNameTB.Width/2, firstNameTB.Location.Y);
             lastNameTB.Location = new Point(centerP.Width / 2 - lastNameTB.Width/2, lastNameTB.Location.Y);
-            ipAddressLB.Location = new Point(centerP.Width / 2 - ipAddressLB.Width / 2, ipAddressLB.Location.Y);
+            //ipAddressLB.Location = new Point(centerP.Width / 2 - ipAddressLB.Width / 2, ipAddressLB.Location.Y);
             dpPictureU.Location=new Point(centerP.Width /2 - dpPictureU.Width/2, dpPictureU.Location.Y);
             nextBtn.Location= new Point(centerP.Width / 2 - nextBtn.Width / 2, nextBtn.Location.Y);
             centerP.BringToFront();

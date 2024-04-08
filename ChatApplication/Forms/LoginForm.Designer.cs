@@ -30,13 +30,13 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.centerP = new ChatApplication.CustomPanel();
-            this.ipAddressLB = new System.Windows.Forms.Label();
             this.dpPictureU = new ChatApplication.DpPictureU();
             this.nextBtn = new ChatApplication.EllipseButton();
             this.lastNameTB = new ChatApplication.TextBoxU();
             this.firstNameTB = new ChatApplication.TextBoxU();
-            this.customPanel1 = new ChatApplication.CustomPanel();
             this.ellipseControl1 = new ChatApplication.EllipseControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.centerP.SuspendLayout();
             this.SuspendLayout();
@@ -45,10 +45,9 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.centerP);
-            this.panel1.Controls.Add(this.customPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(753, 525);
             this.panel1.TabIndex = 1;
@@ -61,30 +60,19 @@
             this.centerP.BorderMarginSize = 1;
             this.centerP.BottomLeftRadius = 25;
             this.centerP.BottomRight = 25;
-            this.centerP.Controls.Add(this.ipAddressLB);
+            this.centerP.Controls.Add(this.label2);
+            this.centerP.Controls.Add(this.label1);
             this.centerP.Controls.Add(this.dpPictureU);
             this.centerP.Controls.Add(this.nextBtn);
             this.centerP.Controls.Add(this.lastNameTB);
             this.centerP.Controls.Add(this.firstNameTB);
-            this.centerP.Location = new System.Drawing.Point(90, 50);
+            this.centerP.Location = new System.Drawing.Point(105, 87);
             this.centerP.Margin = new System.Windows.Forms.Padding(2);
             this.centerP.Name = "centerP";
             this.centerP.Size = new System.Drawing.Size(560, 438);
             this.centerP.TabIndex = 7;
             this.centerP.TopLeftRadius = 25;
             this.centerP.TopRightRadius = 25;
-            // 
-            // ipAddressLB
-            // 
-            this.ipAddressLB.AutoSize = true;
-            this.ipAddressLB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ipAddressLB.ForeColor = System.Drawing.Color.Black;
-            this.ipAddressLB.Location = new System.Drawing.Point(152, 292);
-            this.ipAddressLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ipAddressLB.Name = "ipAddressLB";
-            this.ipAddressLB.Size = new System.Drawing.Size(85, 18);
-            this.ipAddressLB.TabIndex = 10;
-            this.ipAddressLB.Text = "IpAddress : ";
             // 
             // dpPictureU
             // 
@@ -112,7 +100,7 @@
             this.nextBtn.Name = "nextBtn";
             this.nextBtn.Size = new System.Drawing.Size(119, 42);
             this.nextBtn.TabIndex = 8;
-            this.nextBtn.Text = "Next";
+            this.nextBtn.Text = "Sign Up";
             this.nextBtn.TextColor = System.Drawing.Color.White;
             this.nextBtn.UseVisualStyleBackColor = false;
             // 
@@ -156,27 +144,30 @@
             this.firstNameTB.TextBoxtext = "";
             this.firstNameTB.UseSystemPasswordChar = false;
             // 
-            // customPanel1
-            // 
-            this.customPanel1.AllBorderRadius = 1;
-            this.customPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
-            this.customPanel1.BorderColor = System.Drawing.Color.Black;
-            this.customPanel1.BorderMarginSize = 0;
-            this.customPanel1.BottomLeftRadius = 1;
-            this.customPanel1.BottomRight = 1;
-            this.customPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.customPanel1.Location = new System.Drawing.Point(0, 0);
-            this.customPanel1.Margin = new System.Windows.Forms.Padding(2);
-            this.customPanel1.Name = "customPanel1";
-            this.customPanel1.Size = new System.Drawing.Size(753, 81);
-            this.customPanel1.TabIndex = 6;
-            this.customPanel1.TopLeftRadius = 1;
-            this.customPanel1.TopRightRadius = 1;
-            // 
             // ellipseControl1
             // 
             this.ellipseControl1.CornerRadius = 20;
             this.ellipseControl1.TargetControl = this.dpPictureU;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(263, 292);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 27);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(144, 292);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 27);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "IpAddress:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginForm
             // 
@@ -185,14 +176,13 @@
             this.ClientSize = new System.Drawing.Size(753, 525);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LoginForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
             this.panel1.ResumeLayout(false);
             this.centerP.ResumeLayout(false);
-            this.centerP.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -200,12 +190,12 @@
         #endregion
         private System.Windows.Forms.Panel panel1;
         private TextBoxU firstNameTB;
-        private CustomPanel customPanel1;
         private CustomPanel centerP;
         private EllipseButton nextBtn;
         private TextBoxU lastNameTB;
         private EllipseControl ellipseControl1;
         private DpPictureU dpPictureU;
-        private System.Windows.Forms.Label ipAddressLB;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
