@@ -41,7 +41,7 @@ namespace ChatApplication
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-            List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.FromIPAddress.ToString(), contact.IP.ToString());
+            List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.FromIPAddress.ToString(), contact.IP);
 
             SharePage = new FileSenderPage
             {
@@ -79,14 +79,14 @@ namespace ChatApplication
 
         private async void SendMessage(object sender, string message)
         {
-            Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), Client.IP.ToString(), message, DateTime.Now, Type.Message);
+            Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), Client.IP, message, DateTime.Now, Type.Message);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
         }
 
         private async void FileSendMessage(object sender, string message)
         {
-            Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), Client.IP.ToString(), message, DateTime.Now, Type.File);
+            Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), Client.IP, message, DateTime.Now, Type.File);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
             chatSenter.Show();

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ChatApplication.Controller;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,10 @@ namespace ChatApplication
     {
         public static MessagePage MessagePage = null;
         public static IPAddress FromIPAddress { get; set; }
-        public static Dictionary<IPAddress, Client> Clients { get; set; }
+
+
+
+        public static Dictionary<IPAddress, Client> Clients { get; set; } = new Dictionary<IPAddress, Client>();
         public static TcpListener Listener;
 
         public static Dictionary<String, Message> Messages { get; set; } = new Dictionary<String, Message>();
@@ -26,19 +30,20 @@ namespace ChatApplication
         public static void Initialize()
         {
             FromIPAddress = GetLocalIPAddress();
-            Clients = new Dictionary<IPAddress, Client>()
+            using (var DbContext=new RemoteDatabase())
             {
-                //{IPAddress.Parse("192.168.3.62"),new Client( IPAddress.Parse("192.168.3.62"),"Kowshic",12345) },
-                //{IPAddress.Parse("192.168.3.59"),new Client( IPAddress.Parse("192.168.3.59"),"Mathan",12345) },
-                {IPAddress.Parse("192.168.3.52"),new Client( IPAddress.Parse("192.168.3.52"),"Siva",12345) },
-               // {IPAddress.Parse("192.168.3.50"),new Client( IPAddress.Parse("192.168.3.50"),"Subu",12345) }
-            };
+                foreach(var c in DbContext.Clients.ToList())
+                {
+                    if(c.IP!=FromIPAddress.ToString()) Clients.Add(IPAddress.Parse(c.IP),new Client(c.IP,c.Name,c.Port));
+                }
+            }
             Listener = new TcpListener(FromIPAddress, 12345);
             Listener.Start();
             AcceptClient();
         }
 
-        private static IPAddress GetLocalIPAddress()
+
+        public static IPAddress GetLocalIPAddress()
         {
             string ipAddress = string.Empty;
             foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
@@ -66,7 +71,7 @@ namespace ChatApplication
         public async static Task SendMessage(Message message, Client c)
         {
             TcpClient Sender = new TcpClient();
-            await Sender.ConnectAsync(c.IP, c.Port);
+            await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
             NetworkStream Stream = Sender.GetStream();
             string msg = JsonConvert.SerializeObject(message);
             byte[] data = Encoding.UTF8.GetBytes(msg);
@@ -86,7 +91,7 @@ namespace ChatApplication
             if (message.type != Type.Response)
             {
                 Messages.Add(message.Id, message);
-                using (var a = new ApplicationDbContext())
+                using (var a = new LocalDatabase())
                 {
                     a.Messages.Add(message);
                     a.SaveChanges();
@@ -110,7 +115,7 @@ namespace ChatApplication
             {
                 Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
 
-                if (msg.type == Type.Response) HandleResponses(msg);
+                if(msg.type==Type.Response) HandleResponses(msg);
                 #region File Share
                 //else if (msg.type == Type.File)
                 //{
@@ -183,13 +188,13 @@ namespace ChatApplication
                 await SendMessage(m, Clients[IPAddress.Parse(m.FromIP)]);
             }
             Messages.Add(msg.Id, msg);
-            using (var c = new ApplicationDbContext())
+            using (var c = new LocalDatabase())
             {
                 c.Messages.Add(msg);
                 c.SaveChanges();
             }
         }
-
+    
 
         public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
         {
@@ -207,7 +212,7 @@ namespace ChatApplication
 
         public static List<Message> GetMessages(string FromIp, string ToIP)
         {
-            return new ApplicationDbContext().Messages.ToList().Where((msg) =>
+            return new LocalDatabase().Messages.ToList().Where((msg) =>
             {
                 return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
             }).ToList();
