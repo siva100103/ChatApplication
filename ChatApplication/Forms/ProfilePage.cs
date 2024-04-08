@@ -26,12 +26,14 @@ namespace ChatApplication
         );
         #endregion
 
+        public event EventHandler<Image> ProfileChoosen;
+
         public string UserName
         {
             get { return NameLabel.Text; }
             set { NameLabel.Text = value; }
         }
-        public Image DP
+        public Image profilePicture
         {
             get { return ProfilePicture.Image; }
             set
@@ -80,13 +82,20 @@ namespace ChatApplication
                 {
                     pfClicked = false;
                     ProfilePicture.Image = Image.FromFile(file.FileName);
+                    ProfileChoosen?.Invoke(this, ProfilePicture.Image);
                 }
             }
         }
 
         private void ProfilePageLoad(object sender, EventArgs e)
         {
-            //ActiveControl = NameLabel;
+            ActiveControl = NameLabel;
+        }
+
+        private void CloseButtonClick(object sender, EventArgs e)
+        {
+            Hide();
+            Visible = false;
         }
     }
 }

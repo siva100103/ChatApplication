@@ -29,15 +29,14 @@ namespace ChatApplication
             Clients = new Dictionary<IPAddress, Client>()
             {
                 //{IPAddress.Parse("192.168.3.62"),new Client( IPAddress.Parse("192.168.3.62"),"Kowshic",12345) },
-                {IPAddress.Parse("192.168.3.59"),new Client( IPAddress.Parse("192.168.3.59"),"Mathan",12345) },
-                //{IPAddress.Parse("192.168.3.52"),new Client( IPAddress.Parse("192.168.3.52"),"Siva",12345) },
+                //{IPAddress.Parse("192.168.3.59"),new Client( IPAddress.Parse("192.168.3.59"),"Mathan",12345) },
+                {IPAddress.Parse("192.168.3.52"),new Client( IPAddress.Parse("192.168.3.52"),"Siva",12345) },
                // {IPAddress.Parse("192.168.3.50"),new Client( IPAddress.Parse("192.168.3.50"),"Subu",12345) }
             };
             Listener = new TcpListener(FromIPAddress, 12345);
             Listener.Start();
             AcceptClient();
         }
-
 
         private static IPAddress GetLocalIPAddress()
         {
@@ -111,7 +110,7 @@ namespace ChatApplication
             {
                 Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
 
-                if(msg.type==Type.Response) HandleResponses(msg);
+                if (msg.type == Type.Response) HandleResponses(msg);
                 #region File Share
                 //else if (msg.type == Type.File)
                 //{
@@ -190,7 +189,7 @@ namespace ChatApplication
                 c.SaveChanges();
             }
         }
-    
+
 
         public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
         {

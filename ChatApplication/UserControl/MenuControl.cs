@@ -19,6 +19,16 @@ namespace ChatApplication
             get { return ProfilePictureBox.Visible; }
             set { ProfilePictureBox.Visible = value; }
         }
+        public Image ProfileImage
+        {
+            get { return ProfilePictureBox.Image; }
+            set
+            {
+                ProfilePictureBox.Image = value;
+                ProfilePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+
         private HoverButton currentObject;
         private Color HoverColor = Color.FromArgb(234, 234, 234);
 

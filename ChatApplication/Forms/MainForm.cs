@@ -37,15 +37,22 @@ namespace ChatApplication
             InitializeComponent();
             Initial();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 UserName = "Mathan",
-                DP = Properties.Resources.user__2_
+                profilePicture = Properties.Resources.user__2_
             };
             MyProfile.StartPosition = FormStartPosition.Manual;
+            MyProfile.profilePicture = SideMenuBar.ProfileImage;
+            MyProfile.ProfileChoosen += NewProfileChoosen;
         }
+
+        private void NewProfileChoosen(object sender, Image image)
+        {
+            SideMenuBar.ProfileImage = image;
+        }
+
         private bool click = false;
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
@@ -55,7 +62,7 @@ namespace ChatApplication
             if (!click)
             {
                 MyProfile.Visible = true;
-            }
+            } 
             else
             {
                 MyProfile.Visible = false;

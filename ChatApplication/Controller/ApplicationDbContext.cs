@@ -10,7 +10,7 @@ namespace ChatApplication
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=chatApplication;Uid=root;Pwd=Suriya@123;");
+            optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=chatApplication;Uid=root;Pwd=12345;");
             base.OnConfiguring(optionsBuilder);
         }   
     }
