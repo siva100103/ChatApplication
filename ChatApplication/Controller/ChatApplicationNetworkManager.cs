@@ -29,8 +29,8 @@ namespace ChatApplication
             Clients = new Dictionary<IPAddress, Client>()
             {
                 //{IPAddress.Parse("192.168.3.62"),new Client( IPAddress.Parse("192.168.3.62"),"Kowshic",12345) },
-                 //{IPAddress.Parse("192.168.3.59"),new Client( IPAddress.Parse("192.168.3.59"),"Mathan",12345) },
-                {IPAddress.Parse("192.168.3.52"),new Client( IPAddress.Parse("192.168.3.52"),"Siva",12345) },
+                {IPAddress.Parse("192.168.3.59"),new Client( IPAddress.Parse("192.168.3.59"),"Mathan",12345) },
+                //{IPAddress.Parse("192.168.3.52"),new Client( IPAddress.Parse("192.168.3.52"),"Siva",12345) },
                // {IPAddress.Parse("192.168.3.50"),new Client( IPAddress.Parse("192.168.3.50"),"Subu",12345) }
             };
             Listener = new TcpListener(FromIPAddress, 12345);
@@ -111,23 +111,7 @@ namespace ChatApplication
             {
                 Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
 
-                if (msg.type == Type.Response)
-                {
-                    if (msg.Msg.Equals("Close"))
-                    {
-                        Client clt = Clients[IPAddress.Parse(msg.FromIP)];
-                        clt.StatusChanger(false);
-                    }
-                    else if (msg.Msg.Equals("Open"))
-                    {
-                        Client clt = Clients[IPAddress.Parse(msg.FromIP)];
-                        clt.StatusChanger(true);
-                    }
-                    else
-                    {
-                        Messages[msg.Id].IsReaderInvoker();
-                    }
-                }
+                if(msg.type==Type.Response) HandleResponses(msg);
                 #region File Share
                 //else if (msg.type == Type.File)
                 //{
@@ -157,35 +141,56 @@ namespace ChatApplication
                 //    }
                 //}
                 #endregion
-                else
-                {
-                    Client clt = Clients[IPAddress.Parse(msg.FromIP)];
-                    clt.MessagePage.AddMessage(msg);
-                    clt.UnSeenMessages.Add(msg);
-                    if (MessagePage != clt.MessagePage)
-                    {
-                        clt.UnseenMessages += 1;
-                        clt.UnSeenMessages.Add(msg);
-                    }
-                    else
-                    {
-                        Message m = new Message(msg)
-                        {
-                            Msg = "Readed",
-                            type = Type.Response
-                        };
-                        await SendMessage(m, Clients[IPAddress.Parse(m.FromIP)]);
-                    }
-                    Messages.Add(msg.Id, msg);
-                    using (var c = new ApplicationDbContext())
-                    {
-                        c.Messages.Add(msg);
-                        c.SaveChanges();
-                    }
-                }
+                else HandleMessages(msg);
             }
             AcceptClient();
         }
+
+        private static void HandleResponses(Message msg)
+        {
+            if (msg.Msg.Equals("Close"))
+            {
+                Client clt = Clients[IPAddress.Parse(msg.FromIP)];
+                clt.StatusChanger(false);
+            }
+            else if (msg.Msg.Equals("Open"))
+            {
+                Client clt = Clients[IPAddress.Parse(msg.FromIP)];
+                clt.StatusChanger(true);
+            }
+            else
+            {
+                Messages[msg.Id].IsReaderInvoker();
+            }
+        }
+
+        private async static void HandleMessages(Message msg)
+        {
+            Client clt = Clients[IPAddress.Parse(msg.FromIP)];
+            clt.MessagePage.AddMessage(msg);
+            clt.UnSeenMessages.Add(msg);
+            if (MessagePage != clt.MessagePage)
+            {
+                clt.UnseenMessages += 1;
+                clt.UnSeenMessages.Add(msg);
+            }
+            else
+            {
+                Message m = new Message(msg)
+                {
+                    Msg = "Readed",
+                    type = Type.Response
+                };
+                await SendMessage(m, Clients[IPAddress.Parse(m.FromIP)]);
+            }
+            Messages.Add(msg.Id, msg);
+            using (var c = new ApplicationDbContext())
+            {
+                c.Messages.Add(msg);
+                c.SaveChanges();
+            }
+        }
+    
 
         public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
         {
