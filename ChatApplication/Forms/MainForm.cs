@@ -16,7 +16,6 @@ namespace ChatApplication
 {
     public partial class MainForm : Form
     {
-        public static Dictionary<IPAddress, Client> Clients = new Dictionary<IPAddress, Client>();
 
         #region Curve Dll
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -76,9 +75,7 @@ namespace ChatApplication
 
         public void Initial()
         {
-            ChatApplicationNetworkManager.Initialize();
-            Clients = ChatApplicationNetworkManager.Clients;
-            foreach (var a in Clients)
+            foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)
                 {
@@ -94,9 +91,10 @@ namespace ChatApplication
         protected async override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            foreach (var a in Clients)
+  
+            foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

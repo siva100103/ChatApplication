@@ -242,7 +242,7 @@ namespace ChatApplication
             this.Height = messageLB.Height + this.Padding.Top + Padding.Bottom + ChatUBottomP.Height;
             Invalidate();
 
-            if (Message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+            if (Message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
             {
                 IsReceivedMessage = false;
             }

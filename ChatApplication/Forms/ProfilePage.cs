@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace ChatApplication
 {
@@ -80,6 +81,10 @@ namespace ChatApplication
                 {
                     pfClicked = false;
                     ProfilePicture.Image = Image.FromFile(file.FileName);
+                    string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+                    string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName));
+                    //File.Copy(file.FileName, newfilePath, true);
+                    ProfilePicture.Image.Save(newfilePath);
                 }
             }
         }
