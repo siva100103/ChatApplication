@@ -17,7 +17,7 @@ namespace ChatApplication
 {
     public static class ChatApplicationNetworkManager
     {
-        public delegate void NewUserEnter();
+        public delegate void NewUserEnter(ContactU label);
         public static event NewUserEnter Inform;
 
         public static MessagePage MessagePage = null;
@@ -32,7 +32,6 @@ namespace ChatApplication
 
         public static void Initialize()
         {
-            FromIPAddress = GetLocalIPAddress();
             using (var DbContext = new RemoteDatabase())
             {
                 foreach (var c in DbContext.Clients.ToList())
@@ -46,30 +45,6 @@ namespace ChatApplication
         }
 
 
-        public static string GetLocalIPAddress()
-        {
-            string ipAddress = string.Empty;
-            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (networkInterface.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation addressInfo in networkInterface.GetIPProperties().UnicastAddresses)
-                    {
-                        if (addressInfo.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) // Check for IPv4 addresses
-                        {
-                            ipAddress = addressInfo.Address.ToString();
-                            break;
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(ipAddress))
-                    {
-                        break;
-                    }
-                }
-            }
-            return ipAddress;
-        }
 
         public async static Task SendMessage(Message message, Client c)
         {
@@ -144,32 +119,59 @@ namespace ChatApplication
             AcceptClient();
         }
 
-        private async static void HandleFile(TcpClient client, NetworkStream stream)
+        private async static void HandleFile(TcpClient client, NetworkStream Stream)
         {
-            // Receive file name
-            byte[] fileNameLengthBytes = new byte[4];
-            await stream.ReadAsync(fileNameLengthBytes, 0, 4);
-            int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
-            byte[] fileNameBytes = new byte[fileNameLength];
-            await stream.ReadAsync(fileNameBytes, 0, fileNameLength);
-            string fileName = Encoding.UTF8.GetString(fileNameBytes);
+            //// Receive file name
+            //byte[] fileNameLengthBytes = new byte[4];
+            //await stream.ReadAsync(fileNameLengthBytes, 0, 4);
+            //int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
+            //byte[] fileNameBytes = new byte[fileNameLength];
+            //await stream.ReadAsync(fileNameBytes, 0, fileNameLength);
+            //string fileName = Encoding.UTF8.GetString(fileNameBytes);
 
-            // Create the directory if it doesn't exist
-            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-            string chatApplicationPath = Path.Combine(downloadsPath, "Chat Application");
-            Directory.CreateDirectory(chatApplicationPath);
+            //// Create the directory if it doesn't exist
+            //string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            //string chatApplicationPath = Path.Combine(downloadsPath, "Chat Application");
+            //Directory.CreateDirectory(chatApplicationPath);
 
-            // Construct the full file path
-            string filePath = Path.Combine(chatApplicationPath, fileName);
+            //// Construct the full file path
+            //string filePath = Path.Combine(chatApplicationPath, fileName);
 
-            // Receive file content and write it to the file
-            using (FileStream fileStream = File.Create(filePath))
+            //// Receive file content and write it to the file
+            //using (FileStream fileStream = File.Create(filePath))
+            //{
+            //    byte[] buffer = new byte[1024];
+            //    int bytesRead;
+            //    while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            //    {
+            //        await fileStream.WriteAsync(buffer, 0, bytesRead);
+            //    }
+            //}
+            using (NetworkStream stream = client.GetStream())
             {
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                //byte[] fileNameLengthBytes = new byte[4];
+                //await stream.ReadAsync(fileNameLengthBytes, 0, fileNameLengthBytes.Length);
+                //int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
+
+                //byte[] fileNameBytes = new byte[fileNameLength];
+                //await stream.ReadAsync(fileNameBytes, 0, fileNameLength);
+                //string filename1 = Encoding.ASCII.GetString(fileNameBytes);
+
+                // Specify the directory where you want to save the file
+                string saveDirectory = @"C:\Users\Public\Downloads";
+
+                // Combine the directory and filename to get the full path
+                string filePath = Path.Combine(saveDirectory, "f.png");
+
+                using (FileStream fileStream = File.Create(filePath))
                 {
-                    await fileStream.WriteAsync(buffer, 0, bytesRead);
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+
+                    while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                    {
+                        fileStream.Write(buffer, 0, bytesRead);
+                    }
                 }
             }
         }
@@ -177,7 +179,7 @@ namespace ChatApplication
         private static void HandleResponses(Message msg)
         {
 
-            if (!Clients.ContainsKey(msg.FromIP))
+            if (!Clients.ContainsKey(msg.FromIP) && ! msg.FromIP.Equals(FromIPAddress))
             {
                 Client c = new RemoteDatabase().Clients.ToDictionary(c1 => c1.IP)[msg.FromIP];
                 Client client = new Client(c.IP, c.Name, c.Port);
@@ -187,7 +189,7 @@ namespace ChatApplication
                     Dock = System.Windows.Forms.DockStyle.Top,
                 };
                 ContactLabels.Add(label);
-                Inform?.Invoke();
+                Inform?.Invoke(label);
             }
 
             Client clt = Clients[msg.FromIP];

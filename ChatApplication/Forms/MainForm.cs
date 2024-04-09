@@ -49,14 +49,10 @@ namespace ChatApplication
             ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
         }
 
-        private void ChatApplicationNetworkManagerInform()
+        private void ChatApplicationNetworkManagerInform(ContactU label)
         {
-            chatContactPanel.Controls.Clear();
-            foreach(var a in ChatApplicationNetworkManager.ContactLabels)
-            {
-                chatContactPanel.Controls.Add(a);
-                a.Clicked += PageAdd;
-            }
+            chatContactPanel.Controls.Add(label);
+            label.Clicked += PageAdd;
         }
 
         private bool click = false;
@@ -89,7 +85,6 @@ namespace ChatApplication
 
         public void Initial()
         {
-            ChatApplicationNetworkManager.Initialize();
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)

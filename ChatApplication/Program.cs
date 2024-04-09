@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.NetworkInformation;
 
 namespace ChatApplication
 {
@@ -20,7 +21,7 @@ namespace ChatApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string IpAddress = ChatApplicationNetworkManager.GetLocalIPAddress().ToString();
+            string IpAddress = GetLocalIPAddress();
             using (var db =new RemoteDatabase())
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
@@ -34,11 +35,39 @@ namespace ChatApplication
                 }
                 else
                 {
+                    ChatApplicationNetworkManager.FromIPAddress = IpAddress;
+                    ChatApplicationNetworkManager.Initialize();
                     Application.Run(new MainForm());
                 }
             }
 
         }
+
+        private static string GetLocalIPAddress()
+        {
+            string ipAddress = string.Empty;
+            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (networkInterface.OperationalStatus == OperationalStatus.Up)
+                {
+                    foreach (UnicastIPAddressInformation addressInfo in networkInterface.GetIPProperties().UnicastAddresses)
+                    {
+                        if (addressInfo.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) // Check for IPv4 addresses
+                        {
+                            ipAddress = addressInfo.Address.ToString();
+                            break;
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(ipAddress))
+                    {
+                        break;
+                    }
+                }
+            }
+            return ipAddress;
+        }
+
 
     }
 }
