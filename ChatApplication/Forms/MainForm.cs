@@ -1,5 +1,4 @@
-﻿using ChatApplication.Controller;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +16,6 @@ namespace ChatApplication
 {
     public partial class MainForm : Form
     {
-        public static Dictionary<IPAddress, Client> Clients = new Dictionary<IPAddress, Client>();
 
         #region Curve Dll
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -38,20 +36,25 @@ namespace ChatApplication
             InitializeComponent();
             Initial();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-            RemoteDatabase MyDetails = new RemoteDatabase();
-            MyProfile = new ProfilePage()
+
+            MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
-                StartPosition = FormStartPosition.Manual,
-                profilePicture = SideMenuBar.ProfileImage,
-                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals("192.168.3.59")).Name
+                UserName = "Mathan",
+                DP = Properties.Resources.user__2_
             };
-            MyProfile.ProfileChoosen += NewProfileChoosen;
+            MyProfile.StartPosition = FormStartPosition.Manual;
+            ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManager_Inform;
         }
 
-        private void NewProfileChoosen(object sender, Image image)
+        private void ChatApplicationNetworkManager_Inform()
         {
-            SideMenuBar.ProfileImage = image;
+            chatContactPanel.Controls.Clear();
+            foreach(var a in ChatApplicationNetworkManager.ContactLabels)
+            {
+                chatContactPanel.Controls.Add(a);
+                a.Clicked += PageAdd;
+            }
         }
 
         private bool click = false;
@@ -85,8 +88,7 @@ namespace ChatApplication
         public void Initial()
         {
             ChatApplicationNetworkManager.Initialize();
-            Clients = ChatApplicationNetworkManager.Clients;
-            foreach (var a in Clients)
+            foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)
                 {
@@ -98,12 +100,14 @@ namespace ChatApplication
             }
 
         }
+
         protected async override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+  
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

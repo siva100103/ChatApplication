@@ -16,6 +16,7 @@ namespace ChatApplication
 {
     public partial class LoginForm : Form
     {
+       
         public LoginForm(string IPAddress)
         {
             InitializeComponent();
@@ -48,9 +49,9 @@ namespace ChatApplication
                 clients.Clients.Add(c);
                 clients.SaveChanges();
                 this.Hide();
-                MainForm main = new MainForm();
-                main.Show();
-                main .FormClosed += (obj, s) => Close();
+
+                MainForm mf = new MainForm();
+                mf.Show();
             }
         }
 

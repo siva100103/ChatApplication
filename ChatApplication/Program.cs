@@ -20,7 +20,6 @@ namespace ChatApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-
             string IpAddress = ChatApplicationNetworkManager.GetLocalIPAddress().ToString();
             using (var db =new RemoteDatabase())
             {
