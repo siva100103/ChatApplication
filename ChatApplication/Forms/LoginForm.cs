@@ -49,6 +49,7 @@ namespace ChatApplication
                 clients.Clients.Add(c);
                 clients.SaveChanges();
                 this.Hide();
+
                 MainForm mf = new MainForm();
                 mf.Show();
             }

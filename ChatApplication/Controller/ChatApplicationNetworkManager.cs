@@ -17,10 +17,13 @@ namespace ChatApplication
 {
     public static class ChatApplicationNetworkManager
     {
+        public delegate void NewUserEnter();
+        public static event NewUserEnter Inform;
+
         public static MessagePage MessagePage = null;
         public static string FromIPAddress { get; set; }
 
-
+        public static List<ContactU> ContactLabels { get; set; } = new List<ContactU>();
 
         public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
         public static TcpListener Listener;
@@ -152,14 +155,28 @@ namespace ChatApplication
 
         private static void HandleResponses(Message msg)
         {
+
+            if (!Clients.ContainsKey(msg.FromIP))
+            {
+                Client c = new RemoteDatabase().Clients.ToDictionary(c1 => c1.IP)[msg.FromIP];
+                Client client = new Client(c.IP, c.Name, c.Port);
+                Clients.Add(client.IP, client);
+                ContactU label = new ContactU(client)
+                {
+                    Dock = System.Windows.Forms.DockStyle.Top,
+                };
+                ContactLabels.Add(label);
+                Inform?.Invoke();
+            }
+
+            Client clt = Clients[msg.FromIP];
+
             if (msg.Msg.Equals("Close"))
             {
-                Client clt = Clients[msg.FromIP];
                 clt.StatusChanger(false);
             }
             else if (msg.Msg.Equals("Open"))
             {
-                Client clt = Clients[msg.FromIP];
                 clt.StatusChanger(true);
             }
             else
