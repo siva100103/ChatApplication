@@ -18,11 +18,11 @@ namespace ChatApplication
     public static class ChatApplicationNetworkManager
     {
         public static MessagePage MessagePage = null;
-        public static IPAddress FromIPAddress { get; set; }
+        public static string FromIPAddress { get; set; }
 
 
 
-        public static Dictionary<IPAddress, Client> Clients { get; set; } = new Dictionary<IPAddress, Client>();
+        public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
         public static TcpListener Listener;
 
         public static Dictionary<String, Message> Messages { get; set; } = new Dictionary<String, Message>();
@@ -34,16 +34,16 @@ namespace ChatApplication
             {
                 foreach(var c in DbContext.Clients.ToList())
                 {
-                    if(c.IP!=FromIPAddress.ToString()) Clients.Add(IPAddress.Parse(c.IP),new Client(c.IP,c.Name,c.Port));
+                    if(!c.IP.Equals(FromIPAddress)) Clients.Add(c.IP,new Client(c.IP,c.Name,c.Port));
                 }
             }
-            Listener = new TcpListener(FromIPAddress, 12345);
+            Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12345);
             Listener.Start();
             AcceptClient();
         }
 
 
-        public static IPAddress GetLocalIPAddress()
+        public static string GetLocalIPAddress()
         {
             string ipAddress = string.Empty;
             foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
@@ -65,7 +65,7 @@ namespace ChatApplication
                     }
                 }
             }
-            return IPAddress.Parse(ipAddress);
+            return ipAddress;
         }
 
         public async static Task SendMessage(Message message, Client c)
@@ -154,12 +154,12 @@ namespace ChatApplication
         {
             if (msg.Msg.Equals("Close"))
             {
-                Client clt = Clients[IPAddress.Parse(msg.FromIP)];
+                Client clt = Clients[msg.FromIP];
                 clt.StatusChanger(false);
             }
             else if (msg.Msg.Equals("Open"))
             {
-                Client clt = Clients[IPAddress.Parse(msg.FromIP)];
+                Client clt = Clients[msg.FromIP];
                 clt.StatusChanger(true);
             }
             else
@@ -170,7 +170,7 @@ namespace ChatApplication
 
         private async static void HandleMessages(Message msg)
         {
-            Client clt = Clients[IPAddress.Parse(msg.FromIP)];
+            Client clt = Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessages.Add(msg);
             if (MessagePage != clt.MessagePage)
@@ -185,7 +185,7 @@ namespace ChatApplication
                     Msg = "Readed",
                     type = Type.Response
                 };
-                await SendMessage(m, Clients[IPAddress.Parse(m.FromIP)]);
+                await SendMessage(m, Clients[m.FromIP]);
             }
             Messages.Add(msg.Id, msg);
             using (var c = new LocalDatabase())
