@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatApplication.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,24 +31,25 @@ namespace ChatApplication
         );
         #endregion
         ProfilePage MyProfile;
+        RemoteDatabase MyDetails = new RemoteDatabase();
 
         public MainForm()
         {
             InitializeComponent();
             Initial();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-
+           
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
-                UserName = "Mathan",
-                DP = Properties.Resources.user__2_
+                StartPosition = FormStartPosition.Manual,
+                UserName = MyDetails.Clients.FirstOrDefault(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
+                ProfilePhoto = SideMenuBar.ProfileImage
             };
-            MyProfile.StartPosition = FormStartPosition.Manual;
-            ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManager_Inform;
+            ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
         }
 
-        private void ChatApplicationNetworkManager_Inform()
+        private void ChatApplicationNetworkManagerInform()
         {
             chatContactPanel.Controls.Clear();
             foreach(var a in ChatApplicationNetworkManager.ContactLabels)

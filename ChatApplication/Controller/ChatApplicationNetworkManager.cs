@@ -33,11 +33,11 @@ namespace ChatApplication
         public static void Initialize()
         {
             FromIPAddress = GetLocalIPAddress();
-            using (var DbContext=new RemoteDatabase())
+            using (var DbContext = new RemoteDatabase())
             {
-                foreach(var c in DbContext.Clients.ToList())
+                foreach (var c in DbContext.Clients.ToList())
                 {
-                    if(!c.IP.Equals(FromIPAddress)) Clients.Add(c.IP,new Client(c.IP,c.Name,c.Port));
+                    if (!c.IP.Equals(FromIPAddress)) Clients.Add(c.IP, new Client(c.IP, c.Name, c.Port));
                 }
             }
             Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12345);
@@ -76,12 +76,13 @@ namespace ChatApplication
             TcpClient Sender = new TcpClient();
             await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
             NetworkStream Stream = Sender.GetStream();
-            string msg = JsonConvert.SerializeObject(message);
-            byte[] data = Encoding.UTF8.GetBytes(msg);
-            await Stream.WriteAsync(data, 0, data.Length);
-            message.IsSendedInvoker();
             if (message.type == Type.File)
             {
+                byte[] fileNameBytes = Encoding.UTF8.GetBytes(Path.GetFileName(message.Msg));
+                byte[] fileNameLengthBytes = BitConverter.GetBytes(fileNameBytes.Length);
+                Stream.Write(fileNameLengthBytes, 0, fileNameLengthBytes.Length);
+                Stream.Write(fileNameBytes, 0, fileNameBytes.Length);
+
                 FileStream fileStream = File.OpenRead(message.Msg);
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -89,7 +90,13 @@ namespace ChatApplication
                 {
                     await Stream.WriteAsync(buffer, 0, bytesRead);
                 }
-
+            }
+            else
+            {
+                string msg = JsonConvert.SerializeObject(message);
+                byte[] data = Encoding.UTF8.GetBytes(msg);
+                await Stream.WriteAsync(data, 0, data.Length);
+                message.IsSendedInvoker();
             }
             if (message.type != Type.Response)
             {
@@ -116,41 +123,55 @@ namespace ChatApplication
 
             if ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
             {
-                Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
+                try
+                {
+                    Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
 
-                if(msg.type==Type.Response) HandleResponses(msg);
-                #region File Share
-                //else if (msg.type == Type.File)
-                //{
-                //    // Receive file name
-                //    byte[] fileNameLengthBytes = new byte[4];
-                //    await stream.ReadAsync(fileNameLengthBytes, 0, 4);
-                //    int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
-                //    byte[] fileNameBytes = new byte[fileNameLength];
-                //    await stream.ReadAsync(fileNameBytes, 0, fileNameLength);
-                //    string fileName = Encoding.UTF8.GetString(fileNameBytes);
-
-                //    // Create the directory if it doesn't exist
-                //    string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-                //    string chatApplicationPath = Path.Combine(downloadsPath, "Chat Application");
-                //    Directory.CreateDirectory(chatApplicationPath);
-
-                //    // Construct the full file path
-                //    string filePath = Path.Combine(chatApplicationPath, fileName);
-
-                //    // Receive file content and write it to the file
-                //    using (FileStream fileStream = File.Create(filePath))
-                //    {
-                //        while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                //        {
-                //            await fileStream.WriteAsync(buffer, 0, bytesRead);
-                //        }
-                //    }
-                //}
-                #endregion
-                else HandleMessages(msg);
+                    if (msg.type == Type.Response)
+                    {
+                        HandleResponses(msg);
+                    }
+                    else
+                    {
+                        HandleMessages(msg);
+                    }
+                }
+                catch
+                {
+                    HandleFile(client, stream);
+                }
             }
             AcceptClient();
+        }
+
+        private async static void HandleFile(TcpClient client, NetworkStream stream)
+        {
+            // Receive file name
+            byte[] fileNameLengthBytes = new byte[4];
+            await stream.ReadAsync(fileNameLengthBytes, 0, 4);
+            int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
+            byte[] fileNameBytes = new byte[fileNameLength];
+            await stream.ReadAsync(fileNameBytes, 0, fileNameLength);
+            string fileName = Encoding.UTF8.GetString(fileNameBytes);
+
+            // Create the directory if it doesn't exist
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+            string chatApplicationPath = Path.Combine(downloadsPath, "Chat Application");
+            Directory.CreateDirectory(chatApplicationPath);
+
+            // Construct the full file path
+            string filePath = Path.Combine(chatApplicationPath, fileName);
+
+            // Receive file content and write it to the file
+            using (FileStream fileStream = File.Create(filePath))
+            {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    await fileStream.WriteAsync(buffer, 0, bytesRead);
+                }
+            }
         }
 
         private static void HandleResponses(Message msg)
@@ -211,7 +232,7 @@ namespace ChatApplication
                 c.SaveChanges();
             }
         }
-    
+
 
         public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
         {
@@ -236,3 +257,7 @@ namespace ChatApplication
         }
     }
 }
+
+
+
+

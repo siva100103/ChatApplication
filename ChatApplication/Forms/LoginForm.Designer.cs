@@ -30,13 +30,13 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.centerP = new ChatApplication.CustomPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.dpPictureU = new ChatApplication.DpPictureU();
             this.nextBtn = new ChatApplication.EllipseButton();
             this.lastNameTB = new ChatApplication.TextBoxU();
             this.firstNameTB = new ChatApplication.TextBoxU();
             this.ellipseControl1 = new ChatApplication.EllipseControl();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.centerP.SuspendLayout();
             this.SuspendLayout();
@@ -66,13 +66,33 @@
             this.centerP.Controls.Add(this.nextBtn);
             this.centerP.Controls.Add(this.lastNameTB);
             this.centerP.Controls.Add(this.firstNameTB);
-            this.centerP.Location = new System.Drawing.Point(105, 87);
+            this.centerP.Location = new System.Drawing.Point(96, 53);
             this.centerP.Margin = new System.Windows.Forms.Padding(2);
             this.centerP.Name = "centerP";
             this.centerP.Size = new System.Drawing.Size(560, 438);
             this.centerP.TabIndex = 7;
             this.centerP.TopLeftRadius = 25;
             this.centerP.TopRightRadius = 25;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(144, 292);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(100, 27);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "IpAddress:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(263, 292);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(100, 27);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dpPictureU
             // 
@@ -148,26 +168,6 @@
             // 
             this.ellipseControl1.CornerRadius = 20;
             this.ellipseControl1.TargetControl = this.dpPictureU;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(263, 292);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 27);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "label1";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(144, 292);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 27);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "IpAddress:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LoginForm
             // 

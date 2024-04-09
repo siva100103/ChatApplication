@@ -34,7 +34,7 @@ namespace ChatApplication
             get { return NameLabel.Text; }
             set { NameLabel.Text = value; }
         }
-        public Image profilePicture
+        public Image ProfilePhoto
         {
             get { return ProfilePicture.Image; }
             set
