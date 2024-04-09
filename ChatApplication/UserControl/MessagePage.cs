@@ -16,7 +16,7 @@ namespace ChatApplication
     public partial class MessagePage : UserControl
     {
         public Client Client { get; set; }
-        FileSenderPage SharePage;
+        FileSenderPage FileSharePage;
         ContentForm Info;
 
         public MessagePage(Client contact)
@@ -43,12 +43,12 @@ namespace ChatApplication
 
             List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.FromIPAddress, contact.IP);
 
-            SharePage = new FileSenderPage
+            FileSharePage = new FileSenderPage
             {
                 Dock = DockStyle.Fill
             };
-            SharePage.FileMsgReady += FileSendMessage;
-            MainPanel.Controls.Add(SharePage);
+            FileSharePage.FileMsgReady += FileSendMessage;
+            MainPanel.Controls.Add(FileSharePage);
 
             Info = new ContentForm()
             {
@@ -87,18 +87,17 @@ namespace ChatApplication
         private async void FileSendMessage(object sender, string message)
         {
             Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, message, DateTime.Now, Type.File);
-            AddMessage(msg);
+            //AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
             chatSenter.Show();
         }
 
         private void FileShare(object sender, string filePath)
         {
-            SharePage.Show();
-            SharePage.BringToFront();
-            //chatSenter.Hide();
-
-            SharePage.FileName = filePath;
+            FileSharePage.Show();
+            FileSharePage.BringToFront();
+            chatSenter.Hide();
+            FileSharePage.FileName = filePath;
         }
 
         public void AddMessage(Message msg)

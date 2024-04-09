@@ -33,7 +33,7 @@ namespace ChatApplication
         {
             if (path != "")
             {
-                //FileMsgReady?.Invoke(this, path); 
+                FileMsgReady?.Invoke(this, path); 
             }
             Hide();
         }
@@ -42,6 +42,7 @@ namespace ChatApplication
         {
             Hide();
             path = "";
+            FileNameLabel.Text = "";
             Chat.TextMessage = "Type a message";
         }
     }
