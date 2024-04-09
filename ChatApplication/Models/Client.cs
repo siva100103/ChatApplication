@@ -63,7 +63,6 @@ namespace WindowsFormsApp3
         }
 
 
-
         public async void ConnectAsync()
         {
             try

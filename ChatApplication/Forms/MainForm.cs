@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatApplication.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,14 +38,14 @@ namespace ChatApplication
             InitializeComponent();
             Initial();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-            MyProfile = new ProfilePage
+            RemoteDatabase MyDetails = new RemoteDatabase();
+            MyProfile = new ProfilePage()
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
-                UserName = "Mathan",
-                profilePicture = Properties.Resources.user__2_
+                StartPosition = FormStartPosition.Manual,
+                profilePicture = SideMenuBar.ProfileImage,
+                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals("192.168.3.59")).Name
             };
-            MyProfile.StartPosition = FormStartPosition.Manual;
-            MyProfile.profilePicture = SideMenuBar.ProfileImage;
             MyProfile.ProfileChoosen += NewProfileChoosen;
         }
 
@@ -62,7 +63,7 @@ namespace ChatApplication
             if (!click)
             {
                 MyProfile.Visible = true;
-            } 
+            }
             else
             {
                 MyProfile.Visible = false;
@@ -97,11 +98,10 @@ namespace ChatApplication
             }
 
         }
-
         protected async override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            foreach (var a in Clients)
+            foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress.ToString(), a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
