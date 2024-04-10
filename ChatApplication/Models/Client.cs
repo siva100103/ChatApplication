@@ -17,18 +17,19 @@ namespace WindowsFormsApp3
 {
     public class Client
     {
-        
+
         public string IP { get; set; }
         public string Name { get; set; } = "";
         //public string About { get; set; } = "";
         public Image Dp { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12345;
+        public string ProfilePath { get; set; } = "";
 
 
         public bool IsConnected { get; set; }
         public MessagePage MessagePage { get; set; }
-        private int unSeenMessages=0;
+        private int unSeenMessages = 0;
 
         public List<ChatApplication.Message> UnSeenMessages { get; set; } = new List<ChatApplication.Message>();
 
@@ -40,7 +41,7 @@ namespace WindowsFormsApp3
             }
             set
             {
-                UnseenMessageChanged?.Invoke(this,value);
+                UnseenMessageChanged?.Invoke(this, value);
                 unSeenMessages = value;
             }
         }
@@ -48,7 +49,7 @@ namespace WindowsFormsApp3
         public event EventHandler<bool> StatusChanged;
         public event EventHandler<int> UnseenMessageChanged;
 
-        public Client(string ip,string Name,int Port)
+        public Client(string ip, string Name, int Port)
         {
             IP = ip;
             this.Name = Name;
@@ -79,7 +80,7 @@ namespace WindowsFormsApp3
                 Console.WriteLine(ex.Message);
             }
         }
-  
+
         public void StatusChanger(bool status)
         {
             IsConnected = status;
@@ -88,7 +89,7 @@ namespace WindowsFormsApp3
                 LastSeen = DateTime.Now;
             }
             StatusChanged?.Invoke(this, status);
-            
+
         }
     }
 }
