@@ -25,7 +25,7 @@ namespace ChatApplication
             Dock = DockStyle.Fill;
 
             Client = contact;
-            ProfilePicture.Image = contact.Dp;
+            ProfilePicture.Image = contact.ProfilePicture;
             NameLabel.Text = contact.Name;
 
             chatSenter.MsgReady += SendMessage;
@@ -56,7 +56,7 @@ namespace ChatApplication
                 Visible = false,
                 NameInfo = contact.Name,
                 ContactInfo = contact.IP.ToString(),
-                DP = contact.Dp
+                DP = contact.ProfilePicture
             };
 
             foreach (var a in Messages)
@@ -86,7 +86,9 @@ namespace ChatApplication
 
         private async void FileSendMessage(object sender, string message)
         {
-            Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, message, DateTime.Now, Type.File);
+            Message msg = new 
+                Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, message, 
+                DateTime.Now, Type.File );
             //AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
             chatSenter.Show();

@@ -21,11 +21,10 @@ namespace WindowsFormsApp3
         public string IP { get; set; }
         public string Name { get; set; } = "";
         //public string About { get; set; } = "";
-        public Image Dp { get; set; } = ChatApplication.Properties.Resources.user__2_;
+        public Image ProfilePicture { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12345;
         public string ProfilePath { get; set; } = "";
-
 
         public bool IsConnected { get; set; }
         public MessagePage MessagePage { get; set; }
