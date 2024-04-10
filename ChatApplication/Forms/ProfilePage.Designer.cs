@@ -31,14 +31,14 @@
             this.TopPanel = new System.Windows.Forms.Panel();
             this.NameLabel = new System.Windows.Forms.Label();
             this.GuideToChangeProfile = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.ProfilePicture = new ChatApplication.CustomPictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AboutBox = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.CloseButton = new ChatApplication.HoverButton();
             this.TopPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TopPanel
@@ -75,39 +75,6 @@
             this.GuideToChangeProfile.Text = "Click to change the profile \r\n";
             this.GuideToChangeProfile.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Mongolian Baiti", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 305);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(800, 28);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "About";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Mongolian Baiti", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(12, 333);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(766, 67);
-            this.textBox1.TabIndex = 5;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.CloseButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 29);
-            this.panel1.TabIndex = 6;
-            // 
             // ProfilePicture
             // 
             this.ProfilePicture.BackColor = System.Drawing.Color.Transparent;
@@ -120,6 +87,39 @@
             this.ProfilePicture.TabIndex = 2;
             this.ProfilePicture.TabStop = false;
             this.ProfilePicture.Click += new System.EventHandler(this.ProfilePictureClick);
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Mongolian Baiti", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(0, 305);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(800, 28);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "About";
+            // 
+            // AboutBox
+            // 
+            this.AboutBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutBox.BackColor = System.Drawing.SystemColors.Window;
+            this.AboutBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AboutBox.Font = new System.Drawing.Font("Mongolian Baiti", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutBox.Location = new System.Drawing.Point(12, 333);
+            this.AboutBox.Multiline = true;
+            this.AboutBox.Name = "AboutBox";
+            this.AboutBox.Size = new System.Drawing.Size(766, 67);
+            this.AboutBox.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.CloseButton);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 29);
+            this.panel1.TabIndex = 6;
             // 
             // CloseButton
             // 
@@ -153,7 +153,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(240)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(800, 412);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.AboutBox);
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -161,8 +161,8 @@
             this.Text = "ProfilePage";
             this.Load += new System.EventHandler(this.ProfilePageLoad);
             this.TopPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,7 +174,7 @@
         private CustomPictureBox ProfilePicture;
         private System.Windows.Forms.Label GuideToChangeProfile;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox AboutBox;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Panel panel1;
         private HoverButton CloseButton;

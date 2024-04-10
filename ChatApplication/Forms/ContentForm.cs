@@ -33,7 +33,11 @@ namespace ChatApplication
                 ProfilePicture.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
-
+        public string About
+        {
+            get { return AboutBox.Text; }
+            set { AboutBox.Text = value; }
+        }
         private Color ContactColor;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]

@@ -42,6 +42,7 @@ namespace ChatApplication
                     {
                         Clients.Add(c.IP, new Client(c.IP, c.Name, c.Port));
                         Clients[c.IP].ProfilePath = c.ProfilePath;
+                        Clients[c.IP].About = c.About;
                         if (c.ProfilePath != "")
                         {
                             Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath); 
