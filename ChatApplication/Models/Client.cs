@@ -20,7 +20,7 @@ namespace WindowsFormsApp3
 
         public string IP { get; set; }
         public string Name { get; set; } = "";
-        //public string About { get; set; } = "";
+        public string About { get; set; } = "";
         public Image ProfilePicture { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12345;
@@ -61,7 +61,6 @@ namespace WindowsFormsApp3
         {
 
         }
-
 
         public async void ConnectAsync()
         {

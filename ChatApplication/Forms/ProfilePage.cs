@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
+using ChatApplication.Controller;
 
 namespace ChatApplication
 {
@@ -43,6 +44,11 @@ namespace ChatApplication
                 ProfilePicture.Image = value;
                 ProfilePicture.SizeMode = PictureBoxSizeMode.Zoom;
             }
+        }
+        public string About
+        {
+            get { return AboutBox.Text; }
+            set { AboutBox.Text = value; }
         }
 
         public ProfilePage()
@@ -106,6 +112,17 @@ namespace ChatApplication
         {
             Hide();
             Visible = false;
+            using (var DbContext = new RemoteDatabase())
+            {
+                foreach (var c in DbContext.Clients.ToList())
+                {
+                    if (c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                    {
+                        c.About = AboutBox.Text;
+                        DbContext.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }

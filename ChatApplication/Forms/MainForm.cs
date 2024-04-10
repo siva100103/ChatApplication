@@ -61,6 +61,7 @@ namespace ChatApplication
                         SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
                         MyProfile.ProfilePhoto = SideMenuBar.ProfileImage; 
                     }
+                    MyProfile.About = client.About;
                     break;
                 }
             }
@@ -116,6 +117,7 @@ namespace ChatApplication
         {
             MessagePagePanel.Controls.Clear();
             MessagePage page = (sender as Client).MessagePage;
+            page.ProfileImage = (sender as Client).ProfilePicture;
             if (page != null)
             {
                 page.Dock = DockStyle.Fill;

@@ -30,7 +30,9 @@
         {
             this.NameLabel = new System.Windows.Forms.Label();
             this.ContactLabel = new System.Windows.Forms.Label();
+            this.AboutLabel = new System.Windows.Forms.Label();
             this.ProfilePicture = new ChatApplication.CustomPictureBox();
+            this.AboutBox = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,9 +41,9 @@
             this.NameLabel.BackColor = System.Drawing.Color.Transparent;
             this.NameLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.NameLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameLabel.Location = new System.Drawing.Point(0, 215);
+            this.NameLabel.Location = new System.Drawing.Point(0, 163);
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(400, 50);
+            this.NameLabel.Size = new System.Drawing.Size(400, 30);
             this.NameLabel.TabIndex = 2;
             this.NameLabel.Text = "label1";
             this.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -53,7 +55,7 @@
             this.ContactLabel.BackColor = System.Drawing.Color.Transparent;
             this.ContactLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ContactLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ContactLabel.Location = new System.Drawing.Point(0, 265);
+            this.ContactLabel.Location = new System.Drawing.Point(0, 193);
             this.ContactLabel.Name = "ContactLabel";
             this.ContactLabel.Size = new System.Drawing.Size(400, 34);
             this.ContactLabel.TabIndex = 3;
@@ -65,6 +67,17 @@
             this.ContactLabel.MouseLeave += new System.EventHandler(this.ContactMouseLeave);
             this.ContactLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ContactMouseUp);
             // 
+            // AboutLabel
+            // 
+            this.AboutLabel.BackColor = System.Drawing.Color.Transparent;
+            this.AboutLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AboutLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutLabel.Location = new System.Drawing.Point(0, 227);
+            this.AboutLabel.Name = "AboutLabel";
+            this.AboutLabel.Size = new System.Drawing.Size(400, 19);
+            this.AboutLabel.TabIndex = 4;
+            this.AboutLabel.Text = "About";
+            // 
             // ProfilePicture
             // 
             this.ProfilePicture.BackColor = System.Drawing.Color.Transparent;
@@ -72,10 +85,20 @@
             this.ProfilePicture.Image = global::ChatApplication.Properties.Resources.user__2_;
             this.ProfilePicture.Location = new System.Drawing.Point(0, 0);
             this.ProfilePicture.Name = "ProfilePicture";
-            this.ProfilePicture.Size = new System.Drawing.Size(400, 215);
+            this.ProfilePicture.Size = new System.Drawing.Size(400, 163);
             this.ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.ProfilePicture.TabIndex = 1;
             this.ProfilePicture.TabStop = false;
+            // 
+            // AboutBox
+            // 
+            this.AboutBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(230)))), ((int)(((byte)(243)))));
+            this.AboutBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AboutBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutBox.Location = new System.Drawing.Point(0, 246);
+            this.AboutBox.Name = "AboutBox";
+            this.AboutBox.Size = new System.Drawing.Size(400, 54);
+            this.AboutBox.TabIndex = 5;
             // 
             // ContentForm
             // 
@@ -83,6 +106,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(240)))), ((int)(((byte)(247)))));
             this.ClientSize = new System.Drawing.Size(400, 300);
+            this.Controls.Add(this.AboutBox);
+            this.Controls.Add(this.AboutLabel);
             this.Controls.Add(this.ContactLabel);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.ProfilePicture);
@@ -99,5 +124,7 @@
         private CustomPictureBox ProfilePicture;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label ContactLabel;
+        private System.Windows.Forms.Label AboutLabel;
+        private System.Windows.Forms.Label AboutBox;
     }
 }

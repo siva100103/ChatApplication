@@ -16,8 +16,17 @@ namespace ChatApplication
     public partial class MessagePage : UserControl
     {
         public Client Client { get; set; }
-        FileSenderPage FileSharePage;
-        ContentForm Info;
+        public Image ProfileImage
+        {
+            get { return ProfilePicture.Image; }
+            set
+            {
+                ProfilePicture.Image = value;
+                ProfilePicture.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+        private FileSenderPage FileSharePage;
+        private ContentForm Info;
 
         public MessagePage(Client contact)
         {
@@ -56,7 +65,6 @@ namespace ChatApplication
                 Visible = false,
                 NameInfo = contact.Name,
                 ContactInfo = contact.IP.ToString(),
-                DP = contact.ProfilePicture
             };
 
             foreach (var a in Messages)
@@ -149,10 +157,13 @@ namespace ChatApplication
         {
             MenuTip.Visible = false;
         }
+
         private void ProfilePictureClick(object sender, EventArgs e)
         {
             if (!Message.ClickedInfo && !Info.Visible)
             {
+                Info.DP = ProfilePicture.Image;
+                Info.About = About();
                 Info.Visible = true;
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);
@@ -160,6 +171,18 @@ namespace ChatApplication
                 Message.ClickedInfo = true;
             }
             Info.Focus();
+        }
+
+        private string About()
+        {
+            foreach(var client in ChatApplicationNetworkManager.Clients)
+            {
+                if(client.Key.Equals(Client.IP))
+                {
+                    return client.Value.About;
+                }
+            }
+            return "";
         }
     }
 }
