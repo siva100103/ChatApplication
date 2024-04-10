@@ -29,7 +29,7 @@ namespace WindowsFormsApp3
         {
             InitializeComponent();
             Client = c;
-            img = c.Dp;
+            img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
             dpPictureBox.Image = img;
 

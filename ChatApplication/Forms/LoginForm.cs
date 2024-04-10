@@ -29,7 +29,6 @@ namespace ChatApplication
 
         private void LoginFormLoad(object sender, EventArgs e)
         {
-             
            // ipAddressLB.Text += ChatApplicationNetworkManager.GetPcIPAddress();
             LoginFormResize(this, EventArgs.Empty);
         }

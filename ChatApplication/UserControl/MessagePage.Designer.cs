@@ -32,13 +32,13 @@ namespace ChatApplication
         {
             this.MainPanel = new System.Windows.Forms.Panel();
             this.ChatPanel = new System.Windows.Forms.Panel();
+            this.chatSenter = new ChatApplication.ChatSenter();
             this.HeaderPanel = new System.Windows.Forms.Panel();
             this.MenuTip = new ChatApplication.HoverMessageU();
             this.LastSeeLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.ProfilePicture = new ChatApplication.CustomPictureBox();
             this.MenuButton = new ChatApplication.HoverButton();
-            this.chatSenter = new ChatApplication.ChatSenter();
             this.MainPanel.SuspendLayout();
             this.HeaderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
@@ -65,6 +65,19 @@ namespace ChatApplication
             this.ChatPanel.Name = "ChatPanel";
             this.ChatPanel.Size = new System.Drawing.Size(537, 456);
             this.ChatPanel.TabIndex = 3;
+            // 
+            // chatSenter
+            // 
+            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
+            this.chatSenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.chatSenter.FileShareIconVisibility = false;
+            this.chatSenter.Location = new System.Drawing.Point(0, 517);
+            this.chatSenter.Name = "chatSenter";
+            this.chatSenter.SendButtonVisibility = true;
+            this.chatSenter.Size = new System.Drawing.Size(537, 41);
+            this.chatSenter.TabIndex = 5;
+            this.chatSenter.TextMessage = " Type a message";
             // 
             // HeaderPanel
             // 
@@ -151,19 +164,6 @@ namespace ChatApplication
             this.MenuButton.Click += new System.EventHandler(this.MenuButtonClick);
             this.MenuButton.MouseLeave += new System.EventHandler(this.MenuButtonMouseLeave);
             this.MenuButton.MouseHover += new System.EventHandler(this.MenuButtonMouseHover);
-            // 
-            // chatSenter
-            // 
-            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
-            this.chatSenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatSenter.FileShareIconVisibility = true;
-            this.chatSenter.Location = new System.Drawing.Point(0, 517);
-            this.chatSenter.Name = "chatSenter";
-            this.chatSenter.SendButtonVisibility = true;
-            this.chatSenter.Size = new System.Drawing.Size(537, 41);
-            this.chatSenter.TabIndex = 5;
-            this.chatSenter.TextMessage = " Type a message";
             // 
             // MessagePage
             // 

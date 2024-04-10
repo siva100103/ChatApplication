@@ -17,7 +17,6 @@ namespace ChatApplication
 {
     public partial class MainForm : Form
     {
-
         #region Curve Dll
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -30,8 +29,9 @@ namespace ChatApplication
             int nHeightEllipse // width of ellipse
         );
         #endregion
-        ProfilePage MyProfile;
-        RemoteDatabase MyDetails = new RemoteDatabase();
+        private ProfilePage MyProfile;
+        private RemoteDatabase MyDetails = new RemoteDatabase();
+        private bool click = false;
 
         public MainForm()
         {
@@ -44,9 +44,46 @@ namespace ChatApplication
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
                 UserName = MyDetails.Clients.FirstOrDefault(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
-                ProfilePhoto = SideMenuBar.ProfileImage
             };
+            MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            foreach (var client in MyDetails.Clients.ToList())
+            {
+                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                {
+                    if (client.ProfilePath != "")
+                    {
+                        SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
+                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage; 
+                    }
+                    break;
+                }
+            }
+        }
+
+        private void MyProfileProfileChoosen(object sender, Dictionary<string, Image> e)
+        {
+            string path = "";
+            Image pic = null;
+            foreach(var dict in e)
+            {
+                path = dict.Key;
+                pic = dict.Value;
+            }
+            SideMenuBar.ProfileImage = pic;
+            foreach(var client in MyDetails.Clients.ToList())
+            {
+                if(client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                {
+                    client.ProfilePath = path;
+                    MyDetails.SaveChanges();
+                }
+            }
         }
 
         private void ChatApplicationNetworkManagerInform()
@@ -59,7 +96,6 @@ namespace ChatApplication
             }
         }
 
-        private bool click = false;
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
             Point location = PointToScreen(SideMenuBar.Location);

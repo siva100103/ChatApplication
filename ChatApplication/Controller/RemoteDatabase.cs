@@ -25,7 +25,7 @@ namespace ChatApplication.Controller
 
             modelBuilder.Entity<Client>().Ignore(c => c.IsConnected);
             modelBuilder.Entity<Client>().Ignore(c => c.MessagePage);
-            modelBuilder.Entity<Client>().Ignore(c => c.Dp);
+            modelBuilder.Entity<Client>().Ignore(c => c.ProfilePicture);
             base.OnModelCreating(modelBuilder);
         }
     }
