@@ -45,7 +45,7 @@ namespace ChatApplication
                         Clients[c.IP].About = c.About;
                         if (c.ProfilePath != "")
                         {
-                            Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath); 
+                            Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
                         }
                     }
                 }
@@ -54,7 +54,6 @@ namespace ChatApplication
             Listener.Start();
             AcceptClient();
         }
-
 
         public static string GetLocalIPAddress()
         {
@@ -86,32 +85,10 @@ namespace ChatApplication
             TcpClient Sender = new TcpClient();
             await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
             NetworkStream Stream = Sender.GetStream();
-            if (message.type == Type.File)
-            {
-                using (FileStream fileStream = File.OpenRead(message.Msg))
-                {
-                    byte[] fileNameBytes = Encoding.UTF8.GetBytes(Path.GetFileName(message.Msg));
-                    byte[] fileNameLengthBytes = BitConverter.GetBytes(fileNameBytes.Length);
-
-                    Stream.Write(fileNameLengthBytes, 0, 4);
-                    Stream.Write(fileNameBytes, 0, fileNameBytes.Length);
-
-                    // Read file content and write to the stream
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        Stream.Write(buffer, 0, bytesRead);
-                    }
-                }
-            }
-            else
-            {
-                string msg = JsonConvert.SerializeObject(message);
-                byte[] data = Encoding.UTF8.GetBytes(msg);
-                await Stream.WriteAsync(data, 0, data.Length);
-                message.IsSendedInvoker();
-            }
+            string msg = JsonConvert.SerializeObject(message);
+            byte[] data = Encoding.UTF8.GetBytes(msg);
+            await Stream.WriteAsync(data, 0, data.Length);
+            message.IsSendedInvoker();
             if (message.type != Type.Response)
             {
                 Messages.Add(message.Id, message);
@@ -137,49 +114,49 @@ namespace ChatApplication
 
             if ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
             {
-                try
-                {
-                    Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
+                Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
 
-                    if (msg.type == Type.Response)
-                    {
-                        HandleResponses(msg);
-                    }
-                    else
-                    {
-                        HandleMessages(msg);
-                    }
-                }
-                catch
+                if (msg.type == Type.Response)
                 {
-                   // HandleFile(client);
+                    HandleResponses(msg);
+                }
+                else if(msg.type == Type.File)
+                {
+                    HandleFile(msg);
+                }
+                else
+                {
+                    HandleMessages(msg);
                 }
             }
 
             AcceptClient();
         }
 
-        private async static void HandleFile(TcpClient client)
+        private async static void HandleFile(Message msg)
         {
-            NetworkStream stream = client.GetStream();
-
-            byte[] fileNameLengthBytes = new byte[4];
-            await stream.ReadAsync(fileNameLengthBytes, 0, 4);
-            int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
-            byte[] fileNameBytes = new byte[14];
-            await stream.ReadAsync(fileNameBytes, 0, fileNameLength);
-            string fileName = Encoding.UTF8.GetString(fileNameBytes);
-
-            string filePath = Path.Combine(@"C:\Users\Public\Downloads", fileName);
-
-            using (FileStream fileStream = File.Create(filePath))
+            Client clt = Clients[msg.FromIP];
+            clt.MessagePage.AddMessage(msg);
+            clt.UnSeenMessages.Add(msg);
+            if (MessagePage != clt.MessagePage)
             {
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                clt.UnseenMessages += 1;
+                clt.UnSeenMessages.Add(msg);
+            }
+            else
+            {
+                Message m = new Message(msg)
                 {
-                    fileStream.Write(buffer, 0, bytesRead);
-                }
+                    Msg = "Readed",
+                    type = Type.Response
+                };
+                await SendMessage(m, Clients[m.FromIP]);
+            }
+            Messages.Add(msg.Id, msg);
+            using (var c = new LocalDatabase())
+            {
+                c.Messages.Add(msg);
+                c.SaveChanges();
             }
         }
 

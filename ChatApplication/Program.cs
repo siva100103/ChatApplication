@@ -21,7 +21,7 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = ChatApplicationNetworkManager.GetLocalIPAddress().ToString();
-            using (var db =new RemoteDatabase())
+            using (var db = new RemoteDatabase())
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
