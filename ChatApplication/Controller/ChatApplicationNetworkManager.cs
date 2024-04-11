@@ -33,7 +33,6 @@ namespace ChatApplication
 
         public static void Initialize()
         {
-            FromIPAddress = GetLocalIPAddress();
             using (var DbContext = new RemoteDatabase())
             {
                 foreach (var c in DbContext.Clients.ToList())
@@ -55,30 +54,7 @@ namespace ChatApplication
             AcceptClient();
         }
 
-        public static string GetLocalIPAddress()
-        {
-            string ipAddress = string.Empty;
-            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (networkInterface.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation addressInfo in networkInterface.GetIPProperties().UnicastAddresses)
-                    {
-                        if (addressInfo.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) // Check for IPv4 addresses
-                        {
-                            ipAddress = addressInfo.Address.ToString();
-                            break;
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(ipAddress))
-                    {
-                        break;
-                    }
-                }
-            }
-            return ipAddress;
-        }
+        
 
         public async static Task SendMessage(Message message, Client c)
         {
@@ -136,7 +112,7 @@ namespace ChatApplication
         private async static void HandleFile(Message msg)
         {
             Client clt = Clients[msg.FromIP];
-            //clt.MessagePage.AddMessage(msg);
+            clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessages.Add(msg);
             string path = msg.Msg;
             string savePath = @"C:\Users\Public\Downloads\";
