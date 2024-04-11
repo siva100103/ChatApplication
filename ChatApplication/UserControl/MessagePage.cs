@@ -96,8 +96,10 @@ namespace ChatApplication
 
         private async void FileSendMessage(object sender, string message)
         {
+            string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+            string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(message) + Path.GetExtension(message));
             Message msg = new
-                Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, message,
+                Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, filePath,
                 DateTime.Now, Type.File);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);

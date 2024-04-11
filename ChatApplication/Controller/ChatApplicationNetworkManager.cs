@@ -136,8 +136,11 @@ namespace ChatApplication
         private async static void HandleFile(Message msg)
         {
             Client clt = Clients[msg.FromIP];
-            clt.MessagePage.AddMessage(msg);
+            //clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessages.Add(msg);
+            string path = msg.Msg;
+            string savePath = @"C:\Users\Public\Downloads\";
+            string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             if (MessagePage != clt.MessagePage)
             {
                 clt.UnseenMessages += 1;
@@ -162,7 +165,7 @@ namespace ChatApplication
 
         private static void HandleResponses(Message msg)
         {
-            if (!Clients.ContainsKey(msg.FromIP))
+            if (!Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(FromIPAddress))
             {
                 Client c = new RemoteDatabase().Clients.ToDictionary(c1 => c1.IP)[msg.FromIP];
                 Client client = new Client(c.IP, c.Name, c.Port);
@@ -175,14 +178,15 @@ namespace ChatApplication
                 Inform?.Invoke();
             }
 
-            Client clt = Clients[msg.FromIP];
 
             if (msg.Msg.Equals("Close"))
             {
+                Client clt = Clients[msg.FromIP];
                 clt.StatusChanger(false);
             }
             else if (msg.Msg.Equals("Open"))
             {
+                Client clt = Clients[msg.FromIP];
                 clt.StatusChanger(true);
             }
             else
