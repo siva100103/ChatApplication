@@ -22,7 +22,7 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = GetLocalIPAddress();
-            using (var db = new RemoteDatabase())
+            using (var db =new RemoteDatabase())
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
@@ -67,6 +67,7 @@ namespace ChatApplication
             }
             return ipAddress;
         }
+
 
     }
 }

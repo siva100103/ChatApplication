@@ -54,8 +54,6 @@ namespace ChatApplication
             AcceptClient();
         }
 
-        
-
         public async static Task SendMessage(Message message, Client c)
         {
             TcpClient Sender = new TcpClient();
