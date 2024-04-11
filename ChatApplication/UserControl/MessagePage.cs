@@ -11,6 +11,8 @@ using WindowsFormsApp3;
 using System.IO;
 using System.Net;
 using ChatApplication;
+using System.Diagnostics;
+
 namespace ChatApplication
 {
     public partial class MessagePage : UserControl
@@ -94,10 +96,12 @@ namespace ChatApplication
 
         private async void FileSendMessage(object sender, string message)
         {
-            Message msg = new 
-                Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, message, 
-                DateTime.Now, Type.File );
-            //AddMessage(msg);
+            string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+            string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(message) + Path.GetExtension(message));
+            Message msg = new
+                Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, filePath,
+                DateTime.Now, Type.File);
+            AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
             chatSenter.Show();
         }
@@ -134,13 +138,40 @@ namespace ChatApplication
                 Dock = DockStyle.Top,
                 Height = 15
             };
+            
             ChatPanel.SuspendLayout();
             ChatPanel.Controls.Add(chatPanel);
             ChatPanel.Controls.Add(space);
             chatPanel.BringToFront();
             space.BringToFront();
-            ChatPanel.ResumeLayout();
             ChatPanel.ScrollControlIntoView(space);
+            ChatPanel.ResumeLayout();
+            if (msg.type == Type.File)
+            {
+                chatMsg.path = msg.Msg;
+                chatMsg.MouseClick += ChatMsgMouseClick;
+            }
+        }
+        private void ChatMsgMouseClick(object sender, MouseEventArgs e)
+        {
+            string path = (sender as ChatU).path;
+            string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+            string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+            //File.Open(filePath, FileMode.Open);
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    Process.Start(filePath);
+                }
+                else
+                {
+                    MessageBox.Show("File not found.");
+                }
+            }
+            catch
+            {
+            }
         }
 
         private void MenuButtonMouseHover(object sender, EventArgs e)
@@ -175,9 +206,9 @@ namespace ChatApplication
 
         private string About()
         {
-            foreach(var client in ChatApplicationNetworkManager.Clients)
+            foreach (var client in ChatApplicationNetworkManager.Clients)
             {
-                if(client.Key.Equals(Client.IP))
+                if (client.Key.Equals(Client.IP))
                 {
                     return client.Value.About;
                 }

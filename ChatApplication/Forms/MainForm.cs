@@ -147,7 +147,7 @@ namespace ChatApplication
   
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress,a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

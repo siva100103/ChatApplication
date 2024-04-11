@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,8 @@ using System.Windows.Forms;
 
 namespace ChatApplication
 {
-
     public delegate void ChatUClickked1(object sender, int a);
+
     public partial class ChatU : UserControl
     {
 
@@ -25,7 +26,7 @@ namespace ChatApplication
         private bool isViewed;
         private Message message;
         private int chatUMaximumWidth = 400;
-
+        public string path { get; set; } = "";
         public ChatUClickked1 ChatUClickked;
 
 
@@ -98,8 +99,6 @@ namespace ChatApplication
                 MessageSendIconPB.Image = Properties.Resources.double_check__1_;
             };
         }
-
-
 
         public GraphicsPath GetPath(Rectangle rec)
         {

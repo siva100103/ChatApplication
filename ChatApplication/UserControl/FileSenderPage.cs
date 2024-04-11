@@ -33,7 +33,10 @@ namespace ChatApplication
         {
             if (path != "")
             {
-                FileMsgReady?.Invoke(this, path); 
+                string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+                string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+                File.Copy(path, newfilePath, true);
+                FileMsgReady?.Invoke(this, path);
             }
             Hide();
         }

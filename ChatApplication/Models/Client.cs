@@ -87,7 +87,6 @@ namespace WindowsFormsApp3
                 LastSeen = DateTime.Now;
             }
             StatusChanged?.Invoke(this, status);
-
         }
     }
 }
