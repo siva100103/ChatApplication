@@ -31,7 +31,7 @@ namespace ChatApplication
 
         public static Dictionary<String, Message> Messages { get; set; } = new Dictionary<String, Message>();
 
-        public static void Initialize()
+        public static void StartServer()
         {
             using (var DbContext = new RemoteDatabase())
             {
@@ -115,6 +115,7 @@ namespace ChatApplication
             string path = msg.Msg;
             string savePath = @"C:\Users\Public\Downloads\";
             string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+            //File.Copy(msg.Msg, newfilePath);
             if (MessagePage != clt.MessagePage)
             {
                 clt.UnseenMessages += 1;

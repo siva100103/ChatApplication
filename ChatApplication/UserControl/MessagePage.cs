@@ -68,9 +68,10 @@ namespace ChatApplication
                 NameInfo = contact.Name,
                 ContactInfo = contact.IP.ToString(),
             };
-
+            Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
             foreach (var a in Messages)
             {
+                if(!a.Msg.Contains(@"\\SPARE-B11\Chat Application Profile\"))
                 AddMessage(a);
             }
         }

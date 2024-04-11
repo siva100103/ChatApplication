@@ -36,7 +36,7 @@ namespace ChatApplication
                 else
                 {
                     ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                    ChatApplicationNetworkManager.Initialize();
+                    ChatApplicationNetworkManager.StartServer();
                     Application.Run(new MainForm());
                 }
             }
