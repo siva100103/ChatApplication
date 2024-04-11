@@ -144,8 +144,8 @@ namespace ChatApplication
             ChatPanel.Controls.Add(space);
             chatPanel.BringToFront();
             space.BringToFront();
-            ChatPanel.ScrollControlIntoView(space);
             ChatPanel.ResumeLayout();
+            ChatPanel.ScrollControlIntoView(space);
             if (msg.type == Type.File)
             {
                 chatMsg.path = msg.Msg;

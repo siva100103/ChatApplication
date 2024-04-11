@@ -127,7 +127,7 @@ namespace ChatApplication
 
         public void Initial()
         {
-            ChatApplicationNetworkManager.Initialize();
+            //ChatApplicationNetworkManager.Initialize();
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)
