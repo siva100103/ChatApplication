@@ -26,17 +26,13 @@ namespace ChatApplication
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
-                    using (var LocalDatabase = new LocalDatabase())
-                    {
-                        LocalDatabase.Database.EnsureCreated();
-                        LocalDatabase.Database.Migrate();
-                    }
+                    ChatApplicationNetworkManager.FromIPAddress = IpAddress;
+                   
                     Application.Run(new LoginForm(IpAddress));
                 }
                 else
                 {
                     ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                    ChatApplicationNetworkManager.Initialize();
                     Application.Run(new MainForm());
                 }
             }

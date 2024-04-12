@@ -40,10 +40,10 @@
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="DatabaseLibrary">
-      <HintPath>..\..\Database\MySQL\DatabaseLibrary.dll</HintPath>
+      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\DatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="GoLibrary">
-      <HintPath>..\..\Database\MySQL\GoLibrary.dll</HintPath>
+      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\GoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
@@ -115,10 +115,10 @@
       <HintPath>..\packages\MySql.Data.EntityFrameworkCore.8.0.22\lib\netstandard2.0\MySql.Data.EntityFrameworkCore.dll</HintPath>
     </Reference>
     <Reference Include="MySqlBackup">
-      <HintPath>..\..\Database\MySQL\MySqlBackup.dll</HintPath>
+      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\MySqlBackup.dll</HintPath>
     </Reference>
     <Reference Include="MySQLDatabase">
-      <HintPath>..\..\Database\MySQL\MySQLDatabase.dll</HintPath>
+      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\MySQLDatabase.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LocalDatabase.cs" />
+    <Compile Include="Controller\LocalStorage.cs" />
     <Compile Include="Controller\RemoteDatabase.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
@@ -193,6 +194,7 @@
     <Compile Include="Forms\ProfilePage.Designer.cs">
       <DependentUpon>ProfilePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\LocalData.cs" />
     <Compile Include="UserControl\FileSenderPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -574,9 +576,7 @@
     <None Include="Resources\double-check.png" />
     <None Include="Resources\icons8-double-tick-13.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

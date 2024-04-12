@@ -23,7 +23,7 @@ namespace WindowsFormsApp3
         public string About { get; set; } = "";
         public Image ProfilePicture { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
-        public int Port { get; set; } = 12345;
+        public int Port { get; set; } = 12346;
         public string ProfilePath { get; set; } = "";
 
         public bool IsConnected { get; set; }

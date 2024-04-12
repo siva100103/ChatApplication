@@ -21,17 +21,15 @@ namespace ChatApplication
         public delegate void NewUserEnter();
         public static event NewUserEnter Inform;
 
-        public static MessagePage MessagePage = null;
         public static string FromIPAddress { get; set; }
+        public static TcpListener Listener;
+        public static MessagePage MessagePage = null;
 
         public static List<ContactU> ContactLabels { get; set; } = new List<ContactU>();
-
         public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
-        public static TcpListener Listener;
-
         public static Dictionary<String, Message> Messages { get; set; } = new Dictionary<String, Message>();
 
-        public static void Initialize()
+        public static void StartServer()
         {
             using (var DbContext = new RemoteDatabase())
             {
@@ -49,7 +47,7 @@ namespace ChatApplication
                     }
                 }
             }
-            Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12345);
+            Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12346);
             Listener.Start();
             AcceptClient();
         }
@@ -66,12 +64,10 @@ namespace ChatApplication
             if (message.type != Type.Response)
             {
                 Messages.Add(message.Id, message);
-                using (var a = new LocalDatabase())
-                {
-                    a.Messages.Add(message);
-                    a.SaveChanges();
-                }
+                LocalStorage ls = new LocalStorage();
+                ls.InsertMessage(message);
             }
+
         }
 
         private async static void AcceptClient()
@@ -94,7 +90,7 @@ namespace ChatApplication
                 {
                     HandleResponses(msg);
                 }
-                else if(msg.type == Type.File)
+                else if (msg.type == Type.File)
                 {
                     HandleFile(msg);
                 }
@@ -130,11 +126,7 @@ namespace ChatApplication
                 await SendMessage(m, Clients[m.FromIP]);
             }
             Messages.Add(msg.Id, msg);
-            using (var c = new LocalDatabase())
-            {
-                c.Messages.Add(msg);
-                c.SaveChanges();
-            }
+
         }
 
         private static void HandleResponses(Message msg)
@@ -189,11 +181,8 @@ namespace ChatApplication
                 await SendMessage(m, Clients[m.FromIP]);
             }
             Messages.Add(msg.Id, msg);
-            using (var c = new LocalDatabase())
-            {
-                c.Messages.Add(msg);
-                c.SaveChanges();
-            }
+            LocalStorage c = new LocalStorage();
+            c.InsertMessage(msg);
         }
 
         public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
@@ -212,7 +201,8 @@ namespace ChatApplication
 
         public static List<Message> GetMessages(string FromIp, string ToIP)
         {
-            return new LocalDatabase().Messages.ToList().Where((msg) =>
+            LocalStorage ls = new LocalStorage();
+            return ls.Messages.Where((msg) =>
             {
                 return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
             }).ToList();

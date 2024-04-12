@@ -37,13 +37,14 @@ namespace ChatApplication
         {
             InitializeComponent();
             Initial();
+
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
            
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                UserName = MyDetails.Clients.FirstOrDefault(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
+                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
@@ -127,7 +128,7 @@ namespace ChatApplication
 
         public void Initial()
         {
-            //ChatApplicationNetworkManager.Initialize();
+            ChatApplicationNetworkManager.StartServer();
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)
@@ -138,7 +139,8 @@ namespace ChatApplication
                 chatContactPanel.Controls.Add(con);
                 con.Clicked += PageAdd;
             }
-
+            LocalStorage ls = new LocalStorage();
+            ChatApplicationNetworkManager.Messages=ls.Messages.ToDictionary((msg)=>msg.Id);
         }
 
         protected async override void OnClosed(EventArgs e)
