@@ -53,6 +53,7 @@ namespace ChatApplication
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
             List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.FromIPAddress, contact.IP);
+            Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
 
             FileSharePage = new FileSenderPage
             {
@@ -68,7 +69,7 @@ namespace ChatApplication
                 NameInfo = contact.Name,
                 ContactInfo = contact.IP.ToString(),
             };
-            Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
+
             foreach (var a in Messages)
             {
                 if(!a.Msg.Contains(@"\\SPARE-B11\Chat Application Profile\"))

@@ -12,8 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp3;
-using System.Xml.Serialization;
-using System.IO;
 
 namespace ChatApplication
 {
@@ -34,14 +32,14 @@ namespace ChatApplication
         private ProfilePage MyProfile;
         private RemoteDatabase MyDetails = new RemoteDatabase();
         private bool click = false;
+
         public MainForm()
         {
             InitializeComponent();
-            //SerializeLocalDataToXml();
             Initial();
-            SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-            //SideMenuBar.ProfileImage = Image.FromFile(MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.ProfilePath);
 
+            SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
+           
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
@@ -50,19 +48,6 @@ namespace ChatApplication
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
-        }
-
-        private void SerializeLocalDataToXml()
-        {
-            string xmlFilePath =@".\data.xml";
-
-            LocalData data = new LocalData();
-
-            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
-            using (TextWriter writer = new StreamWriter(xmlFilePath))
-            {
-                serializer.Serialize(writer, data);
-            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -154,7 +139,8 @@ namespace ChatApplication
                 chatContactPanel.Controls.Add(con);
                 con.Clicked += PageAdd;
             }
-
+            LocalStorage ls = new LocalStorage();
+            ChatApplicationNetworkManager.Messages=ls.Messages.ToDictionary((msg)=>msg.Id);
         }
 
         protected async override void OnClosed(EventArgs e)

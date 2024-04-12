@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using WindowsFormsApp3;
 using ChatApplication.Controller;
 using System.IO;
+using System.Xml.Serialization;
+using ChatApplication.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChatApplication
 {
@@ -26,26 +29,6 @@ namespace ChatApplication
             LoginFormResize(this, EventArgs.Empty);
             nextBtn.Click += NextBtnClick;
             Load += LoginFormLoad;
-            dpPictureU.OnClickDpPicturePathGet += OnClickDpPictureSet;
-        }
-
-        private void OnClickDpPictureSet(object sender, string e)
-        {
-            using (var DbContext = new RemoteDatabase())
-            {
-                foreach (var c in DbContext.Clients.ToList())
-                {
-                    if (c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress))
-                    {
-                        string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
-                        string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(e) + Path.GetExtension(e));
-                        c.ProfilePath = newfilePath;
-                        DbContext.SaveChanges();
-                        Image img = Image.FromFile(e);
-                        img.Save(newfilePath);
-                    }
-                }
-            }
         }
 
         private void LoginFormLoad(object sender, EventArgs e)
@@ -65,14 +48,34 @@ namespace ChatApplication
                     LastSeen = DateTime.Now,
                     Port = 12346,
                 };
-                var clients = new RemoteDatabase();
-                clients.Clients.Add(c);
-                clients.SaveChanges();
-                Hide();
-              
+
+                if(!File.Exists(@".\data.xml"))
+                SerializeLocalDataToXml();
+
+                LocalStorage ls = new LocalStorage();
+
+                using (var clients = new RemoteDatabase())
+                {
+                    clients.Clients.Add(c);
+                    clients.SaveChanges();
+                }
+                this.Hide();
                 MainForm mf = new MainForm();
-                mf.FormClosing += (obj, eargs) => Close();
                 mf.Show();
+                mf.FormClosed += (obj, ev) => Close();       
+            }
+        }
+
+        private void SerializeLocalDataToXml()
+        {
+            string xmlFilePath = @".\data.xml";
+
+            LocalData data = new LocalData();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            using (TextWriter writer = new StreamWriter(xmlFilePath))
+            {
+                serializer.Serialize(writer, data);
             }
         }
 
@@ -86,5 +89,12 @@ namespace ChatApplication
             nextBtn.Location = new Point(centerP.Width / 2 - nextBtn.Width / 2, nextBtn.Location.Y);
             centerP.BringToFront();
         }
+
+
+        private void CreateNew()
+        {
+
+        }
+
     }
 }

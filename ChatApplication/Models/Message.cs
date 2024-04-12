@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ChatApplication.Controller;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,7 +28,7 @@ namespace ChatApplication
         public event EventHandler IsReaded;
 
         [JsonConstructor]
-        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time, Type type)
+        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time,Type type)
         {
             Id = UniqueIdGenerator();
             this.FromIP = FromIP;
@@ -36,6 +37,7 @@ namespace ChatApplication
             this.Time = Time;
             this.type = type;
         }
+
 
         public Message()
         {
@@ -59,10 +61,10 @@ namespace ChatApplication
         public void IsReaderInvoker()
         {
             Seen = true;
-            var context = new LocalDatabase();
-            Message m = context.Messages.ToList().Find((msg) => msg.Id == Id);
+            var context = new LocalStorage();
+            Message m = context.Messages.Find((msg) => msg.Id == Id);
             m.Seen = true;
-            context.SaveChanges();
+            context.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);
         }
 
