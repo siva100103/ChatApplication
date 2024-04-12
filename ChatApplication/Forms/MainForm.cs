@@ -12,6 +12,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp3;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace ChatApplication
 {
@@ -32,21 +34,35 @@ namespace ChatApplication
         private ProfilePage MyProfile;
         private RemoteDatabase MyDetails = new RemoteDatabase();
         private bool click = false;
-
         public MainForm()
         {
             InitializeComponent();
+            //SerializeLocalDataToXml();
             Initial();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-           
+            //SideMenuBar.ProfileImage = Image.FromFile(MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.ProfilePath);
+
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                UserName = MyDetails.Clients.FirstOrDefault(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
+                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
+        }
+
+        private void SerializeLocalDataToXml()
+        {
+            string xmlFilePath =@".\data.xml";
+
+            LocalData data = new LocalData();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            using (TextWriter writer = new StreamWriter(xmlFilePath))
+            {
+                serializer.Serialize(writer, data);
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -127,7 +143,7 @@ namespace ChatApplication
 
         public void Initial()
         {
-            //ChatApplicationNetworkManager.Initialize();
+            ChatApplicationNetworkManager.StartServer();
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)

@@ -24,6 +24,7 @@ namespace ChatApplication
             string IpAddress = GetLocalIPAddress();
             using (var db =new RemoteDatabase())
             {
+                ChatApplicationNetworkManager.FromIPAddress = IpAddress;
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
                     using (var LocalDatabase = new LocalDatabase())
@@ -36,7 +37,6 @@ namespace ChatApplication
                 else
                 {
                     ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                    ChatApplicationNetworkManager.StartServer();
                     Application.Run(new MainForm());
                 }
             }

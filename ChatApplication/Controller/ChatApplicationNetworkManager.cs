@@ -48,8 +48,9 @@ namespace ChatApplication
                         }
                     }
                 }
+                string.Join(",", Clients);
             }
-            Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12345);
+            Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12346);
             Listener.Start();
             AcceptClient();
         }
@@ -112,10 +113,10 @@ namespace ChatApplication
             Client clt = Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessages.Add(msg);
-            string path = msg.Msg;
-            string savePath = @"C:\Users\Public\Downloads\";
-            string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
-            //File.Copy(msg.Msg, newfilePath);
+            //string path = msg.Msg;
+            //string savePath = @"C:\Users\Public\Downloads\";
+            //string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+            ////File.Copy(msg.Msg, newfilePath);
             if (MessagePage != clt.MessagePage)
             {
                 clt.UnseenMessages += 1;

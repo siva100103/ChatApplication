@@ -14,8 +14,9 @@ namespace ChatApplication
     {
         private string dpPicturePath = "";
         private OpenFileDialog OpenFileDialog = new OpenFileDialog();
-        public EventHandler<string> OnClickDpPicturePathGet;
-       public string DpPicturPath
+        public event EventHandler<string> OnClickDpPicturePathGet;
+
+        public string DpPicturPath
         {
             get
             {
@@ -28,7 +29,7 @@ namespace ChatApplication
                     dpPicturePath = value;
                     dpPB.Image = Image.FromFile(dpPicturePath);
                 }
-               
+
             }
         }
         public DpPictureU()
@@ -41,17 +42,17 @@ namespace ChatApplication
 
         private void DpPBClick(object sender, EventArgs e)
         {
-           
+
         }
 
         private void AddDpBtnClick(object sender, EventArgs e)
         {
             OpenFileDialog.Filter = "PNG|*.png|JPEG|*.jpeg";
-           DialogResult result= OpenFileDialog.ShowDialog(this);
+            DialogResult result = OpenFileDialog.ShowDialog(this);
             if (result == DialogResult.OK)
             {
                 DpPicturPath = OpenFileDialog.FileName;
-                OnClickDpPicturePathGet?.Invoke(this,DpPicturPath);
+                OnClickDpPicturePathGet?.Invoke(this, DpPicturPath);
             }
         }
 

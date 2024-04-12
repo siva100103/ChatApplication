@@ -1,16 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.IO;
 using WindowsFormsApp3;
+using System.Xml.Serialization;
 
 namespace ChatApplication
 {
-    public class LocalDatabase:DbContext
+    public class LocalDatabase : DbContext
     {
-         public DbSet<Message> Messages { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            string xmlFilePath = @"data.xml";
+            LocalData data;
+            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            using (TextReader reader = new StreamReader(xmlFilePath))
+            {
+                data = (LocalData)serializer.Deserialize(reader);
+            }
+
             base.OnConfiguring(optionsBuilder);
-            string s = "server=localhost;port=3306;Database=ChatApplication;Uid=root;Pwd=12345";
+            string s = $"server={data.Server};port={data.Port};Database={data.Database};Uid={data.Uid};Pwd={data.Password}";
             optionsBuilder.UseMySQL(s);
         }
     }

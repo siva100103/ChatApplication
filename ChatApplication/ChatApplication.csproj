@@ -193,6 +193,7 @@
     <Compile Include="Forms\ProfilePage.Designer.cs">
       <DependentUpon>ProfilePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="LocalData.cs" />
     <Compile Include="UserControl\FileSenderPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
