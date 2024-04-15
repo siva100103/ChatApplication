@@ -67,6 +67,7 @@ namespace ChatApplication
                 Size = new Size(400, 400),
                 Visible = false,
                 NameInfo = contact.Name,
+                BackColor = Color.FromArgb(207, 227, 251),
                 ContactInfo = contact.IP.ToString(),
             };
 
@@ -119,6 +120,7 @@ namespace ChatApplication
         public void AddMessage(Message msg)
         {
             ChatU chatMsg = new ChatU(msg);
+
             chatMsg.MessageCreate();
             Panel chatPanel = new Panel()
             {
@@ -130,10 +132,12 @@ namespace ChatApplication
             if (msg.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
             {
                 chatMsg.Dock = DockStyle.Right;
+                chatMsg.BackColor = Color.FromArgb(207, 230, 243);
             }
             else
             {
                 chatMsg.Dock = DockStyle.Left;
+                chatMsg.BackColor = Color.WhiteSmoke;
             }
             Panel space = new Panel()
             {
@@ -179,11 +183,13 @@ namespace ChatApplication
         private void MenuButtonMouseHover(object sender, EventArgs e)
         {
             MenuTip.Visible = true;
+            MenuButton.BackColor = Color.FromArgb(220, 239, 250);
         }
 
         private void MenuButtonMouseLeave(object sender, EventArgs e)
         {
             MenuTip.Visible = false;
+            MenuButton.BackColor = Color.Transparent;
         }
 
         private void MenuButtonClick(object sender, EventArgs e)

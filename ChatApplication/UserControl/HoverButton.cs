@@ -17,11 +17,11 @@ namespace ChatApplication
     {
         private Color buttonSideHoverlineColor = ColorTranslator.FromHtml("#1B8755");
         private bool isFormUp;
-        private  bool isSelected;
-        private int startPoint=-3;
-        private int endPoint=-3;
+        private bool isSelected;
+        private int startPoint = -3;
+        private int endPoint = -3;
         System.Windows.Forms.Timer timer;
-        
+
         public bool IsSelected
         {
             get
@@ -29,14 +29,15 @@ namespace ChatApplication
                 return isSelected;
 
             }
-            set 
-            { isSelected = value;
+            set
+            {
+                isSelected = value;
                 if (isSelected)
                 {
                     startPoint = Height / 4 + 2;
                     endPoint = (Height / 4 - 2) * 3;
                 }
-              
+
                 Invalidate();
             }
         }
@@ -47,11 +48,13 @@ namespace ChatApplication
 
         public HoverButton()
         {
-            
+
             MouseClick += SideLineEffectMouseClick;
             Resize += ButtonResize;
-            timer=new System.Windows.Forms.Timer();
-            timer.Interval = 5;
+            timer = new System.Windows.Forms.Timer
+            {
+                Interval = 5
+            };
 
         }
 
@@ -63,9 +66,9 @@ namespace ChatApplication
                 endPoint = (Height / 4 - 2) * 3;
                 Invalidate();
             }
-            
+
         }
-         public void CallToLeaveSideLineEffect()
+        public void CallToLeaveSideLineEffect()
         {
             // SideLineEffectMouseClick(this, new MouseEventArgs(MouseButtons.None, 1, 0, 0, 0));
             if (isSelected == true)
@@ -76,12 +79,10 @@ namespace ChatApplication
                 timer.Tick += SideLineEffectGo;
                 timer.Start();
             }
-            
+
         }
         private void SideLineEffectMouseClick(object sender, MouseEventArgs e)
         {
-
-
             timer.Interval = 1;
             if (!isSelected)
             {
@@ -99,15 +100,13 @@ namespace ChatApplication
                 }
                 timer.Start();
             }
-           
-           
         }
 
         private void SideLineEffectCome(object sender, EventArgs e)
         {
             if (IsFormUp)
             {
-                if (endPoint < (((Height / 4) - 2)*3))
+                if (endPoint < (((Height / 4) - 2) * 3))
                 {
                     endPoint = endPoint + 2;
                     Invalidate();
@@ -116,7 +115,7 @@ namespace ChatApplication
                 {
                     timer.Stop();
                     timer.Tick -= SideLineEffectCome;
-                    startPoint = Height / 4+2;
+                    startPoint = Height / 4 + 2;
                     Invalidate();
                 }
             }
@@ -141,7 +140,7 @@ namespace ChatApplication
         {
             if (isFormUp)
             {
-                if ( startPoint>-3)
+                if (startPoint > -3)
                 {
                     startPoint = startPoint - 2;
                     Invalidate();
@@ -152,13 +151,13 @@ namespace ChatApplication
                     // isSelected = false;
                     timer.Tick -= SideLineEffectGo;
                     endPoint = -3;
-                    Invalidate( );
+                    Invalidate();
                 }
 
             }
             else
             {
-                if (endPoint< Height)
+                if (endPoint < Height)
                 {
                     endPoint = endPoint + 2;
                     Invalidate();
@@ -181,7 +180,7 @@ namespace ChatApplication
             int arcWidth = 4;
             int arcHeight = 4;
             Rectangle topArc = new Rectangle(0, startPoint, arcWidth, arcHeight);
-            Rectangle bottomArc = new Rectangle(0, endPoint , arcWidth, arcHeight);
+            Rectangle bottomArc = new Rectangle(0, endPoint, arcWidth, arcHeight);
             GraphicsPath path = new GraphicsPath();
             path.StartFigure();
             path.AddArc(topArc, 180, 180);
@@ -197,15 +196,14 @@ namespace ChatApplication
         protected override void OnPaint(PaintEventArgs args)
         {
             base.OnPaint(args);
-            
-                var e = args.Graphics;
 
-                GraphicsPath path = GetFigurePath();
-                using (SolidBrush brush = new SolidBrush(ButtonSideHoverlineColor))
-                {
-                    e.FillPath(brush, path);
-                }
-            
+            var e = args.Graphics;
+
+            GraphicsPath path = GetFigurePath();
+            using (SolidBrush brush = new SolidBrush(ButtonSideHoverlineColor))
+            {
+                e.FillPath(brush, path);
+            }
         }
 
     }

@@ -49,20 +49,31 @@ namespace ChatApplication
                     Port = 12346,
                 };
 
-                if(!File.Exists(@".\data.xml"))
-                SerializeLocalDataToXml();
+                if (!File.Exists(@".\data.xml"))
+                {
+                    SerializeLocalDataToXml();
+                    DialogResult message = MessageBox.Show
+                        ("Please set your localhost password in \"data.xml\"",
+                        "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (message == DialogResult.OK)
+                    {
+                        Application.Exit();
+                        Close();
+                    }
+                }
 
                 LocalStorage ls = new LocalStorage();
+
 
                 using (var clients = new RemoteDatabase())
                 {
                     clients.Clients.Add(c);
                     clients.SaveChanges();
                 }
-                this.Hide();
+                Hide();
                 MainForm mf = new MainForm();
                 mf.Show();
-                mf.FormClosed += (obj, ev) => Close();       
+                mf.FormClosed += (obj, ev) => Close();
             }
         }
 

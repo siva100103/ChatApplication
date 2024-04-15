@@ -55,7 +55,7 @@ namespace WindowsFormsApp3
             this.mainP.Location = new System.Drawing.Point(2, 2);
             this.mainP.Name = "mainP";
             this.mainP.Padding = new System.Windows.Forms.Padding(5);
-            this.mainP.Size = new System.Drawing.Size(322, 60);
+            this.mainP.Size = new System.Drawing.Size(326, 64);
             this.mainP.TabIndex = 0;
             // 
             // contactInformationP
@@ -74,7 +74,7 @@ namespace WindowsFormsApp3
             this.contactInformationP.Margin = new System.Windows.Forms.Padding(0);
             this.contactInformationP.Name = "contactInformationP";
             this.contactInformationP.Padding = new System.Windows.Forms.Padding(2);
-            this.contactInformationP.Size = new System.Drawing.Size(190, 50);
+            this.contactInformationP.Size = new System.Drawing.Size(194, 54);
             this.contactInformationP.TabIndex = 5;
             this.contactInformationP.TopLeftRadius = 1;
             this.contactInformationP.TopRightRadius = 1;
@@ -104,7 +104,7 @@ namespace WindowsFormsApp3
             this.lastMessageLB.AutoSize = true;
             this.lastMessageLB.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lastMessageLB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.lastMessageLB.Location = new System.Drawing.Point(2, 35);
+            this.lastMessageLB.Location = new System.Drawing.Point(2, 39);
             this.lastMessageLB.Name = "lastMessageLB";
             this.lastMessageLB.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.lastMessageLB.Size = new System.Drawing.Size(4, 13);
@@ -116,11 +116,11 @@ namespace WindowsFormsApp3
             this.timeP.Controls.Add(this.bendingMessages1);
             this.timeP.Controls.Add(this.timeLB);
             this.timeP.Dock = System.Windows.Forms.DockStyle.Right;
-            this.timeP.Location = new System.Drawing.Point(253, 5);
+            this.timeP.Location = new System.Drawing.Point(257, 5);
             this.timeP.MinimumSize = new System.Drawing.Size(64, 48);
             this.timeP.Name = "timeP";
             this.timeP.Padding = new System.Windows.Forms.Padding(1);
-            this.timeP.Size = new System.Drawing.Size(64, 50);
+            this.timeP.Size = new System.Drawing.Size(64, 54);
             this.timeP.TabIndex = 4;
             // 
             // bendingMessages1
@@ -148,7 +148,7 @@ namespace WindowsFormsApp3
             this.dpPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.dpPictureBox.Location = new System.Drawing.Point(5, 5);
             this.dpPictureBox.Name = "dpPictureBox";
-            this.dpPictureBox.Size = new System.Drawing.Size(58, 50);
+            this.dpPictureBox.Size = new System.Drawing.Size(58, 54);
             this.dpPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.dpPictureBox.TabIndex = 0;
             this.dpPictureBox.TabStop = false;
@@ -157,12 +157,11 @@ namespace WindowsFormsApp3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(239)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.mainP);
             this.Name = "ContactU";
             this.Padding = new System.Windows.Forms.Padding(2);
-            this.Size = new System.Drawing.Size(326, 64);
+            this.Size = new System.Drawing.Size(330, 68);
             this.mainP.ResumeLayout(false);
             this.contactInformationP.ResumeLayout(false);
             this.contactInformationP.PerformLayout();

@@ -14,8 +14,8 @@ namespace WindowsFormsApp3
 {
     public partial class ContactU : UserControl
     {
-        public Image img { get; set; } 
-        public string Name { get; set; } = "";
+        public Image Img { get; set; }
+        public string UserName { get; set; } = "";
         public Client Client { get; set; }
         public string TimeLB
         {
@@ -25,15 +25,17 @@ namespace WindowsFormsApp3
             }
         }
         public event EventHandler Clicked;
+
         public ContactU(Client c)
         {
             InitializeComponent();
             Client = c;
-            img = c.ProfilePicture;
+            UserName = c.Name;
+            Img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
-            dpPictureBox.Image = img;
+            dpPictureBox.Image = Img;
 
-            contactInformationP.MouseEnter+= Hovering;
+            contactInformationP.MouseEnter += Hovering;
             timeP.MouseEnter += Hovering;
             dpPictureBox.MouseEnter += Hovering;
             contactNameLB.MouseEnter += Hovering;
@@ -50,7 +52,7 @@ namespace WindowsFormsApp3
             lastMessageLB.Click += LabelClicked;
             c.StatusChanged += statusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
-            UpdateUnseenMessage(Client,Client.UnseenMessages);
+            UpdateUnseenMessage(Client, Client.UnseenMessages);
         }
 
         private void UpdateUnseenMessage(object sender, int n)
@@ -71,9 +73,9 @@ namespace WindowsFormsApp3
 
         private void LabelClicked(object sender, EventArgs e)
         {
-            Clicked?.Invoke(Client,e);
-            if(Client.IsConnected)
-            ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessages,Client);
+            Clicked?.Invoke(Client, e);
+            if (Client.IsConnected)
+                ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessages, Client);
 
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;
@@ -82,13 +84,13 @@ namespace WindowsFormsApp3
 
         private void Leaving(object sender, EventArgs e)
         {
-            BackColor = Color.White;
+            BackColor = Color.FromArgb(240, 243, 253);
         }
 
         private void Hovering(object sender, EventArgs e)
         {
-            Cursor=Cursors.Hand;
-            BackColor = Color.LightGray;
+            Cursor = Cursors.Hand;
+            BackColor = Color.FromArgb(207, 227, 251);
         }
     }
 }

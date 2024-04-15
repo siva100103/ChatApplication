@@ -1,4 +1,6 @@
 ﻿using ChatApplication.Models;
+using DatabaseLibrary;
+using GoLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,8 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using GoLibrary;
-using DatabaseLibrary;
+
 namespace ChatApplication.Controller
 {
     class LocalStorage
@@ -24,7 +25,6 @@ namespace ChatApplication.Controller
                 data = (LocalData)serializer.Deserialize(reader);
             }
 
-            
             Manager.Database = $"{data.Database}";
             Manager.HostName = $"{data.Server}";
             Manager.UserName = $"{data.Uid}";
@@ -56,22 +56,28 @@ namespace ChatApplication.Controller
         {
             var a = Manager.FetchData("Messages", "");
 
-            if (a.Value.Count > 0)
+            try
             {
-                for (int i = 0; i < a.Value["Id"].Count; i++)
+                if (a.Value.Count > 0)
                 {
-
-                    Message m = new Message()
+                    for (int i = 0; i < a.Value["Id"].Count; i++)
                     {
-                        Id = a.Value["Id"][i].ToString(),
-                        FromIP = a.Value["FromIP"][i].ToString(),
-                        ReceiverIP = a.Value["ReceiverIP"][i].ToString(),
-                        Msg = a.Value["Msg"][i].ToString(),
-                        Time = (DateTime)a.Value["Time"][i],
-                        Seen = a.Value["Seen"][i].ToBoolean()
-                    };                  
-                    Messages.Add(m);
+
+                        Message m = new Message()
+                        {
+                            Id = a.Value["Id"][i].ToString(),
+                            FromIP = a.Value["FromIP"][i].ToString(),
+                            ReceiverIP = a.Value["ReceiverIP"][i].ToString(),
+                            Msg = a.Value["Msg"][i].ToString(),
+                            Time = (DateTime)a.Value["Time"][i],
+                            Seen = a.Value["Seen"][i].ToBoolean()
+                        };
+                        Messages.Add(m);
+                    }
                 }
+            }
+            catch
+            { 
             }
         }
 

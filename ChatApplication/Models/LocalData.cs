@@ -13,7 +13,7 @@ namespace ChatApplication.Models
         public string Database { get; set; } = "ChatApplication";
         public string Port { get; set; } = "3306";
         public string Uid { get; set; } = "root";
-        public string Password { get; set; } = "";
+        public string Password { get; set; } = "123";
     }
 
 }

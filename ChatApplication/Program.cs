@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
+using System.IO;
 
 namespace ChatApplication
 {
@@ -22,14 +23,14 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = GetLocalIPAddress();
-            using (var db =new RemoteDatabase())
+            using (var db = new RemoteDatabase())
             {
                 ChatApplicationNetworkManager.FromIPAddress = IpAddress;
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
                     ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                   
                     Application.Run(new LoginForm(IpAddress));
+
                 }
                 else
                 {
@@ -64,7 +65,5 @@ namespace ChatApplication
             }
             return ipAddress;
         }
-
-
     }
 }

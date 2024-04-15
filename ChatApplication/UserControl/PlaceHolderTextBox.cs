@@ -8,18 +8,19 @@ using System.Windows.Forms;
 
 namespace ExpenseTracker
 {
-    internal class PlaceHolderTextBox:TextBox
+    internal class PlaceHolderTextBox : TextBox
     {
-        private string placeHolderText="";
+        private string placeHolderText = "";
         private bool ispassword;
-        private Color tempForColor=Color.Black;
-        private Color placeHolderColor= Color.FromArgb(97, 97, 97);
+        private Color tempForColor = Color.Black;
+        private Color placeHolderColor = Color.FromArgb(97, 97, 97);
         public bool isPlaceholder = false;
+
         public Color PlaceHolderColor
         {
             set
             {
-                placeHolderColor= value;
+                placeHolderColor = value;
             }
             get
             {
@@ -33,7 +34,7 @@ namespace ExpenseTracker
             {
                 Text = value;
                 placeHolderText = value;
-                isPlaceholder= true;
+                isPlaceholder = true;
             }
             get
             {
@@ -44,33 +45,35 @@ namespace ExpenseTracker
         {
             set
             {
-                ispassword =value;
+                ispassword = value;
             }
             get
             {
                 return ispassword;
             }
         }
-        public override Color ForeColor {
-            get 
-            { 
+        public override Color ForeColor
+        {
+            get
+            {
                 return base.ForeColor;
-            }  
-            set {
+            }
+            set
+            {
                 base.ForeColor = value;
-                if(value != placeHolderColor) 
-                tempForColor = value;
+                if (value != placeHolderColor)
+                    tempForColor = value;
             }
         }
         public PlaceHolderTextBox()
         {
             TextChanged += PlaceHolderTextBox_TextChanged;
-          
+
         }
 
         private void PlaceHolderTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (Text ==null)
+            if (Text == null)
             {
                 OnLostFocus(EventArgs.Empty);
             }
@@ -78,18 +81,17 @@ namespace ExpenseTracker
 
         protected override void OnGotFocus(EventArgs e)
         {
-          
-                    if (Text == PlaceHolderText)
-                    {
-                        
-                        if (IsPassword)
-                            PasswordChar = '*';
-                        Text = "";
-                        ForeColor = tempForColor;
-                isPlaceholder= false;
-                    }
+            if (Text == PlaceHolderText)
+            {
 
-                
+                if (IsPassword)
+                    PasswordChar = '*';
+                Text = "";
+                ForeColor = tempForColor;
+                isPlaceholder = false;
+            }
+
+
             base.OnGotFocus(e);
 
         }
@@ -99,7 +101,6 @@ namespace ExpenseTracker
         }
         protected override void OnLostFocus(EventArgs e)
         {
-
             if (string.IsNullOrWhiteSpace(Text))
             {
                 if (IsPassword)
@@ -107,9 +108,7 @@ namespace ExpenseTracker
                 ForeColor = placeHolderColor;
                 Text = PlaceHolderText;
                 isPlaceholder = true;
-
-
-            }   
+            }
             base.OnLostFocus(e);
         }
     }

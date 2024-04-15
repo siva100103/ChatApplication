@@ -74,7 +74,6 @@ namespace ChatApplication
             int randomNumber = random.Next(0, 99999);
             return $"{FromIP},{ReceiverIP},{DateTime.Now.Ticks},{randomNumber}";
         }
-
     }
 
     public enum Type

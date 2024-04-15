@@ -46,7 +46,7 @@ namespace ChatApplication
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
+            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
             this.MainPanel.Controls.Add(this.ChatPanel);
             this.MainPanel.Controls.Add(this.chatSenter);
             this.MainPanel.Controls.Add(this.HeaderPanel);
@@ -59,7 +59,7 @@ namespace ChatApplication
             // ChatPanel
             // 
             this.ChatPanel.AutoScroll = true;
-            this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(241)))));
+            this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(241)))));
             this.ChatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ChatPanel.Location = new System.Drawing.Point(0, 61);
             this.ChatPanel.Name = "ChatPanel";
@@ -68,10 +68,10 @@ namespace ChatApplication
             // 
             // chatSenter
             // 
-            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
+            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
             this.chatSenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatSenter.FileShareIconVisibility = true;
+            this.chatSenter.FileShareIconVisibility = false;
             this.chatSenter.Location = new System.Drawing.Point(0, 517);
             this.chatSenter.Name = "chatSenter";
             this.chatSenter.SendButtonVisibility = true;
@@ -147,7 +147,7 @@ namespace ChatApplication
             this.MenuButton.BorderSize1 = 0;
             this.MenuButton.ButtonSideHoverlineColor = System.Drawing.Color.Transparent;
             this.MenuButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MenuButton.EndPoint = -3;
+            this.MenuButton.EndPoint = 39;
             this.MenuButton.FlatAppearance.BorderSize = 0;
             this.MenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MenuButton.ForeColor = System.Drawing.Color.White;

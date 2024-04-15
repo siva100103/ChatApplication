@@ -18,7 +18,7 @@ namespace ChatApplication
 {
     public static class ChatApplicationNetworkManager
     {
-        public delegate void NewUserEnter();
+        public delegate void NewUserEnter(ContactU label);
         public static event NewUserEnter Inform;
 
         public static string FromIPAddress { get; set; }
@@ -42,7 +42,13 @@ namespace ChatApplication
                         Clients[c.IP].About = c.About;
                         if (c.ProfilePath != "")
                         {
-                            Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
+                            try
+                            {
+                                Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
+                            }
+                            catch
+                            {
+                            }
                         }
                     }
                 }
@@ -142,8 +148,8 @@ namespace ChatApplication
                 {
                     Dock = System.Windows.Forms.DockStyle.Top,
                 };
-                ContactLabels.Add(label);
-                Inform?.Invoke();
+                //ContactLabels.Add(label);
+                Inform?.Invoke(label);
             }
 
 
