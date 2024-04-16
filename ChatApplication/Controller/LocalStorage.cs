@@ -109,8 +109,5 @@ namespace ChatApplication.Controller
 
             var a=Manager.UpdateData("Messages",condition,data);
         }
-
-        
-       
     }
 }

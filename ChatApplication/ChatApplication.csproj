@@ -563,6 +563,12 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-paper-plane-50 %281%29.png" />
+    <None Include="Resources\icons8-sent-641.png" />
+    <None Include="Resources\icons8-paper-plane-502.png" />
+    <None Include="Resources\icons8-paper-plane-501.png" />
+    <None Include="Resources\icons8-paper-plane-50.png" />
+    <None Include="Resources\icons8-sent-64.png" />
     <None Include="Resources\icons8-no-image-24.png" />
     <None Include="Resources\nopreview.jpeg" />
     <None Include="Resources\no-preview-available.png" />

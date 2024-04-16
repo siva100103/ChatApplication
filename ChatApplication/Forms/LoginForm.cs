@@ -63,8 +63,6 @@ namespace ChatApplication
                 }
 
                 LocalStorage ls = new LocalStorage();
-
-
                 using (var clients = new RemoteDatabase())
                 {
                     clients.Clients.Add(c);

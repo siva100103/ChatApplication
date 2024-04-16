@@ -37,9 +37,9 @@
             this.ChatHeaderPanel = new System.Windows.Forms.Panel();
             this.SearchBox = new ChatApplication.CustomSearchBox();
             this.ChatContainer = new ChatApplication.CustomPanel();
+            this.ChatLabel = new System.Windows.Forms.Label();
             this.ContactButton = new ChatApplication.EllipseButton();
             this.OptionButton = new ChatApplication.EllipseButton();
-            this.ChatLabel = new System.Windows.Forms.Label();
             this.SideMenuBar = new ChatApplication.MenuControl();
             this.MainPanel.SuspendLayout();
             this.ChatPanel.SuspendLayout();
@@ -142,6 +142,18 @@
             this.ChatContainer.TopLeftRadius = 30;
             this.ChatContainer.TopRightRadius = 30;
             // 
+            // ChatLabel
+            // 
+            this.ChatLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ChatLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChatLabel.Location = new System.Drawing.Point(0, 0);
+            this.ChatLabel.Name = "ChatLabel";
+            this.ChatLabel.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.ChatLabel.Size = new System.Drawing.Size(339, 60);
+            this.ChatLabel.TabIndex = 1;
+            this.ChatLabel.Text = "Chats";
+            this.ChatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // ContactButton
             // 
             this.ContactButton.BackColor = System.Drawing.Color.Transparent;
@@ -180,18 +192,6 @@
             this.OptionButton.TextColor = System.Drawing.Color.White;
             this.OptionButton.UseVisualStyleBackColor = false;
             this.OptionButton.Click += new System.EventHandler(this.OptionButtonClick);
-            // 
-            // ChatLabel
-            // 
-            this.ChatLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ChatLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChatLabel.Location = new System.Drawing.Point(0, 0);
-            this.ChatLabel.Name = "ChatLabel";
-            this.ChatLabel.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.ChatLabel.Size = new System.Drawing.Size(339, 60);
-            this.ChatLabel.TabIndex = 1;
-            this.ChatLabel.Text = "Chats";
-            this.ChatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SideMenuBar
             // 

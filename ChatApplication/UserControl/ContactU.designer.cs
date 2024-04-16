@@ -82,7 +82,7 @@ namespace WindowsFormsApp3
             // statusIndicator1
             // 
             this.statusIndicator1.BackColor = System.Drawing.Color.Transparent;
-            this.statusIndicator1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.statusIndicator1.Color = System.Drawing.Color.Crimson;
             this.statusIndicator1.Location = new System.Drawing.Point(6, 29);
             this.statusIndicator1.Name = "statusIndicator1";
             this.statusIndicator1.Size = new System.Drawing.Size(10, 10);

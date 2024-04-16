@@ -42,6 +42,7 @@ namespace ChatApplication
             chatSenter.MsgReady += SendMessage;
             chatSenter.FileChoosen += FileShare;
             contact.StatusChanged += StatusChange;
+            chatSenter.TextMessage = "Type a message";
             chatSenter.Visible = contact.IsConnected;
             //NameLabel.Click += ProfilePictureClick;
             DoubleBuffered = true;
@@ -119,8 +120,8 @@ namespace ChatApplication
 
         public void AddMessage(Message msg)
         {
+            ChatPanel.SuspendLayout();
             ChatU chatMsg = new ChatU(msg);
-
             chatMsg.MessageCreate();
             Panel chatPanel = new Panel()
             {
@@ -132,12 +133,12 @@ namespace ChatApplication
             if (msg.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
             {
                 chatMsg.Dock = DockStyle.Right;
-                chatMsg.BackColor = Color.FromArgb(207, 230, 243);
+                chatMsg.BackColor = Color.FromArgb(215, 228, 253);
             }
             else
             {
                 chatMsg.Dock = DockStyle.Left;
-                chatMsg.BackColor = Color.WhiteSmoke;
+                chatMsg.BackColor = Color.FromArgb(245, 248, 254);
             }
             Panel space = new Panel()
             {
@@ -151,12 +152,13 @@ namespace ChatApplication
             chatPanel.BringToFront();
             space.BringToFront();
             ChatPanel.ResumeLayout();
-            ChatPanel.ScrollControlIntoView(space);
             if (msg.type == Type.File)
             {
                 chatMsg.path = msg.Msg;
                 chatMsg.MouseClick += ChatMsgMouseClick;
             }
+            ChatPanel.ResumeLayout(); 
+            ChatPanel.ScrollControlIntoView(space);
         }
         private void ChatMsgMouseClick(object sender, MouseEventArgs e)
         {

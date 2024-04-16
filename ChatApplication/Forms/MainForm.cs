@@ -70,7 +70,7 @@ namespace ChatApplication
                         else
                         {
                             contact.Visible = false;
-                        } 
+                        }
                     }
                     else
                     {
@@ -126,6 +126,7 @@ namespace ChatApplication
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
+            MyProfile.SuspendLayout();
             Point location = PointToScreen(SideMenuBar.Location);
             location.Offset(SideMenuBar.Width + 10, SideMenuBar.Height - MyProfile.Height - 20);
             MyProfile.Location = location;
@@ -138,11 +139,13 @@ namespace ChatApplication
                 MyProfile.Visible = false;
             }
             click = !click;
+            MyProfile.ResumeLayout();
         }
 
         private void PageAdd(object sender, EventArgs e)
         {
             MessagePagePanel.Controls.Clear();
+            MessagePagePanel.SuspendLayout();
             MessagePage page = (sender as Client).MessagePage;
             page.ProfileImage = (sender as Client).ProfilePicture;
             if (page != null)
@@ -150,6 +153,7 @@ namespace ChatApplication
                 page.Dock = DockStyle.Fill;
                 MessagePagePanel.Controls.Add(page);
             }
+            MessagePagePanel.ResumeLayout();
         }
 
         public void Initial()
