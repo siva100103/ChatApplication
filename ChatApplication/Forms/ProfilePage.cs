@@ -112,7 +112,7 @@ namespace ChatApplication
         {
             Hide();
             Visible = false;
-            using (var DbContext = new RemoteDatabase())
+            using (var DbContext = new ServerDatabase())
             {
                 foreach (var c in DbContext.Clients.ToList())
                 {

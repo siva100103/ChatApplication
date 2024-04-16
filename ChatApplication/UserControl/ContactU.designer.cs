@@ -31,17 +31,17 @@ namespace WindowsFormsApp3
         private void InitializeComponent()
         {
             this.mainP = new System.Windows.Forms.Panel();
+            this.timeP = new System.Windows.Forms.Panel();
+            this.timeLB = new System.Windows.Forms.Label();
             this.contactInformationP = new ChatApplication.CustomPanel();
             this.statusIndicator1 = new ChatApplication.StatusIndicator();
             this.contactNameLB = new System.Windows.Forms.Label();
             this.lastMessageLB = new System.Windows.Forms.Label();
-            this.timeP = new System.Windows.Forms.Panel();
             this.bendingMessages1 = new ChatApplication.BendingMessages();
-            this.timeLB = new System.Windows.Forms.Label();
             this.dpPictureBox = new ChatApplication.CustomPictureBox();
             this.mainP.SuspendLayout();
-            this.contactInformationP.SuspendLayout();
             this.timeP.SuspendLayout();
+            this.contactInformationP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dpPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,6 +57,31 @@ namespace WindowsFormsApp3
             this.mainP.Padding = new System.Windows.Forms.Padding(5);
             this.mainP.Size = new System.Drawing.Size(322, 60);
             this.mainP.TabIndex = 0;
+            // 
+            // timeP
+            // 
+            this.timeP.BackColor = System.Drawing.Color.Transparent;
+            this.timeP.Controls.Add(this.bendingMessages1);
+            this.timeP.Controls.Add(this.timeLB);
+            this.timeP.Dock = System.Windows.Forms.DockStyle.Right;
+            this.timeP.Location = new System.Drawing.Point(253, 5);
+            this.timeP.MinimumSize = new System.Drawing.Size(64, 48);
+            this.timeP.Name = "timeP";
+            this.timeP.Padding = new System.Windows.Forms.Padding(1);
+            this.timeP.Size = new System.Drawing.Size(64, 50);
+            this.timeP.TabIndex = 4;
+            // 
+            // timeLB
+            // 
+            this.timeLB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.timeLB.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.timeLB.Location = new System.Drawing.Point(1, 1);
+            this.timeLB.Name = "timeLB";
+            this.timeLB.Size = new System.Drawing.Size(62, 13);
+            this.timeLB.TabIndex = 3;
+            this.timeLB.Text = "00:00";
+            this.timeLB.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // contactInformationP
             // 
@@ -110,37 +135,12 @@ namespace WindowsFormsApp3
             this.lastMessageLB.Size = new System.Drawing.Size(4, 13);
             this.lastMessageLB.TabIndex = 2;
             // 
-            // timeP
-            // 
-            this.timeP.BackColor = System.Drawing.Color.Transparent;
-            this.timeP.Controls.Add(this.bendingMessages1);
-            this.timeP.Controls.Add(this.timeLB);
-            this.timeP.Dock = System.Windows.Forms.DockStyle.Right;
-            this.timeP.Location = new System.Drawing.Point(253, 5);
-            this.timeP.MinimumSize = new System.Drawing.Size(64, 48);
-            this.timeP.Name = "timeP";
-            this.timeP.Padding = new System.Windows.Forms.Padding(1);
-            this.timeP.Size = new System.Drawing.Size(64, 50);
-            this.timeP.TabIndex = 4;
-            // 
             // bendingMessages1
             // 
             this.bendingMessages1.Location = new System.Drawing.Point(23, 19);
             this.bendingMessages1.Name = "bendingMessages1";
             this.bendingMessages1.Size = new System.Drawing.Size(20, 20);
             this.bendingMessages1.TabIndex = 4;
-            // 
-            // timeLB
-            // 
-            this.timeLB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.timeLB.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeLB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.timeLB.Location = new System.Drawing.Point(1, 1);
-            this.timeLB.Name = "timeLB";
-            this.timeLB.Size = new System.Drawing.Size(62, 13);
-            this.timeLB.TabIndex = 3;
-            this.timeLB.Text = "00:00";
-            this.timeLB.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dpPictureBox
             // 
@@ -164,9 +164,9 @@ namespace WindowsFormsApp3
             this.Padding = new System.Windows.Forms.Padding(2);
             this.Size = new System.Drawing.Size(326, 64);
             this.mainP.ResumeLayout(false);
+            this.timeP.ResumeLayout(false);
             this.contactInformationP.ResumeLayout(false);
             this.contactInformationP.PerformLayout();
-            this.timeP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dpPictureBox)).EndInit();
             this.ResumeLayout(false);
 

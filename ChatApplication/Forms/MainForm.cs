@@ -30,7 +30,7 @@ namespace ChatApplication
         );
         #endregion
         private ProfilePage MyProfile;
-        private RemoteDatabase MyDetails = new RemoteDatabase();
+        private ServerDatabase MyDetails = new ServerDatabase();
         private bool click = false;
 
         public MainForm()
@@ -88,14 +88,10 @@ namespace ChatApplication
             }
         }
 
-        private void ChatApplicationNetworkManagerInform()
+        private void ChatApplicationNetworkManagerInform(ContactU label)
         {
-            chatContactPanel.Controls.Clear();
-            foreach(var a in ChatApplicationNetworkManager.ContactLabels)
-            {
-                chatContactPanel.Controls.Add(a);
-                a.Clicked += PageAdd;
-            }
+            chatContactPanel.Controls.Add(label);
+            label.Clicked += PageAdd;
         }
 
         private void OnProfileInfoClick(object sender, EventArgs e)
@@ -139,8 +135,7 @@ namespace ChatApplication
                 chatContactPanel.Controls.Add(con);
                 con.Clicked += PageAdd;
             }
-            LocalStorage ls = new LocalStorage();
-            ChatApplicationNetworkManager.Messages=ls.Messages.ToDictionary((msg)=>msg.Id);
+            LocalDatabase ls = new LocalDatabase();
         }
 
         protected async override void OnClosed(EventArgs e)

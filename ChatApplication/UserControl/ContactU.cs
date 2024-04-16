@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using ChatApplication;
+using ChatApplication.Controller;
 
 namespace WindowsFormsApp3
 {
     public partial class ContactU : UserControl
     {
         public Image img { get; set; } 
-        public string Name { get; set; } = "";
+        public string UserName { get; set; } = "";
         public Client Client { get; set; }
         public string TimeLB
         {
@@ -29,6 +30,7 @@ namespace WindowsFormsApp3
         {
             InitializeComponent();
             Client = c;
+            UserName = c.Name;
             img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
             dpPictureBox.Image = img;
@@ -51,6 +53,12 @@ namespace WindowsFormsApp3
             c.StatusChanged += statusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
             UpdateUnseenMessage(Client,Client.UnseenMessages);
+
+            if (c.UnseenMessages > 0)
+            {
+                bendingMessages1.Visible = true;
+                bendingMessages1.UnReadCount(c.UnseenMessages);
+            }
         }
 
         private void UpdateUnseenMessage(object sender, int n)
@@ -72,8 +80,8 @@ namespace WindowsFormsApp3
         private void LabelClicked(object sender, EventArgs e)
         {
             Clicked?.Invoke(Client,e);
-            if(Client.IsConnected)
-            ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessages,Client);
+         
+            ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList,Client);
 
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;

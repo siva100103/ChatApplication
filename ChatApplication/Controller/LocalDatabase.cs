@@ -1,17 +1,23 @@
 ﻿using ChatApplication.Models;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
+using GoLibrary;
+using DatabaseLibrary;
 using WindowsFormsApp3;
 
-namespace ChatApplication
+namespace ChatApplication.Controller
 {
-    public class LocalDatabase:DbContext
+    class LocalDatabase
     {
-         public DbSet<Message> Messages { get; set; }
+        public List<Message> Messages { get; set; } = new List<Message>();
 
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        private static DatabaseManager Manager = new MySqlHandler();
+        public LocalDatabase()
         {
             string xmlFilePath = @".\data.xml";
             LocalData data;
@@ -20,9 +26,91 @@ namespace ChatApplication
             {
                 data = (LocalData)serializer.Deserialize(reader);
             }
-            base.OnConfiguring(optionsBuilder);
-            string s = $"server={data.Server};port={data.Port};Database={data.Database};Uid={data.Uid};Pwd={data.Password}";
-            optionsBuilder.UseMySQL(s);
+
+            
+            Manager.Database = $"{data.Database}";
+            Manager.HostName = $"{data.Server}";
+            Manager.UserName = $"{data.Uid}";
+            Manager.Password = $"{data.Password}";
+
+            using (var rem=new ServerDatabase())
+            {
+                Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                if (!me.Password.Equals(Manager.Password) || me.Password==null)
+                {
+                    me.Password = Manager.Password;
+                    rem.SaveChanges();
+                }
+            }
+             var bol = Manager.CheckAndCreateDatabase();
+
+            Manager.Connect();
+            if (!Manager.TableExists("Messages"))
+            {
+                ColumnDetails[] Column = new ColumnDetails[]
+                {
+                    new ColumnDetails("Id",BaseDatatypes.VARCHAR,length:100,notNull:true),
+                    new ColumnDetails("FromIP",BaseDatatypes.VARCHAR,length:100,notNull:true),
+                    new ColumnDetails("ReceiverIP",BaseDatatypes.VARCHAR,length:100,notNull:true),
+                    new ColumnDetails("Msg",BaseDatatypes.VARCHAR,length:1000),
+                    new ColumnDetails("Time",BaseDatatypes.DATETIME,notNull:true),
+                    new ColumnDetails("Seen",BaseDatatypes.TINYINT),
+                };
+                var c=Manager.CreateTable("Messages",Column);
+            }
+            FetchDb();
         }
+
+        public void FetchDb()
+        {
+            var a = Manager.FetchData("Messages", "");
+
+            if (a.Value.Count > 0)
+            {
+                for (int i = 0; i < a.Value["Id"].Count; i++)
+                {
+                    Message m = new Message()
+                    {
+                        Id = a.Value["Id"][i].ToString(),
+                        FromIP = a.Value["FromIP"][i].ToString(),
+                        ReceiverIP = a.Value["ReceiverIP"][i].ToString(),
+                        Msg = a.Value["Msg"][i].ToString(),
+                        Time = (DateTime)a.Value["Time"][i],
+                        Seen = a.Value["Seen"][i].ToBoolean()
+                    };                  
+                    Messages.Add(m);
+                }
+            }
+        }
+
+        public void InsertMessage(Message m)
+        {
+            ParameterData[] data = new ParameterData[] {
+                new ParameterData("Id", m.Id),
+                new ParameterData("FromIP",m.FromIP),
+                new ParameterData("ReceiverIP",m.ReceiverIP),
+                new ParameterData("Msg",m.Msg),
+                new ParameterData("Time",m.Time),
+                new ParameterData("Seen",m.Seen.ToInt32())
+            };
+            Manager.InsertData("Messages",data);            
+        }
+        
+        public void UpdateMessage(Message m)
+        {
+            string condition = $"Id='{m.Id}'";
+            ParameterData[] data = new ParameterData[] {
+                new ParameterData("Id", m.Id),
+                new ParameterData("FromIP",m.FromIP),
+                new ParameterData("ReceiverIP",m.ReceiverIP),
+                new ParameterData("Msg",m.Msg),
+                new ParameterData("Time",m.Time),
+                new ParameterData("Seen",m.Seen.ToInt32())
+            };
+            Manager.UpdateData("Messages",condition,data);
+        }
+
+        
+       
     }
 }

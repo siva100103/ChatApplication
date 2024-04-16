@@ -52,9 +52,7 @@ namespace ChatApplication
                 if(!File.Exists(@".\data.xml"))
                 SerializeLocalDataToXml();
 
-                LocalStorage ls = new LocalStorage();
-
-                using (var clients = new RemoteDatabase())
+                using (var clients = new ServerDatabase())
                 {
                     clients.Clients.Add(c);
                     clients.SaveChanges();

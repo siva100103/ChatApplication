@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DatabaseLibrary;
+using GoLibrary;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,25 +10,33 @@ using WindowsFormsApp3;
 
 namespace ChatApplication.Controller
 {
-    public class RemoteDatabase:DbContext
+    class RemoteDatabase
     {
-        public DbSet<Client> Clients { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        private static DatabaseManager Manager = new MySqlHandler();
+        public RemoteDatabase(string IpAddress)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL("Server=192.168.3.52;Port=3306;Database=chatApplicationServer;Uid=root;Pwd=Suriya@123;");
+            Client c = ChatApplicationNetworkManager.Clients[IpAddress];
+            Manager.HostName = c.IP;
+            Manager.Database = "ChatApplication";
+            Manager.UserName = "root";
+            Manager.Password = c.Password;
+            Manager.Connect();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public void UpdateMessage(Message m)
         {
-            modelBuilder.Entity<Client>()
-                .HasKey(c => c.IP);
+            string condition = $"Id={m.Id}";
 
-            modelBuilder.Entity<Client>().Ignore(c => c.IsConnected);
-            modelBuilder.Entity<Client>().Ignore(c => c.MessagePage);
-            modelBuilder.Entity<Client>().Ignore(c => c.ProfilePicture);
-            base.OnModelCreating(modelBuilder);
+            ParameterData[] data = new ParameterData[] {
+                new ParameterData("Id", m.Id),
+                new ParameterData("FromIP",m.FromIP),
+                new ParameterData("ReceiverIP",m.ReceiverIP),
+                new ParameterData("Msg",m.Msg),
+                new ParameterData("Time",m.Time),
+                new ParameterData("Seen",m.Seen.ToInt32())
+            };
+
+            Manager.UpdateData("Messages", condition, data);
         }
     }
 }

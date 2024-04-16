@@ -82,7 +82,7 @@ namespace ChatApplication
             InitializeComponent();
             Message = message;
 
-            if (message.Seen)
+            if (message.Seen && message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
             {
                 MessageSendIconPB.Visible = true;
                 MessageSendIconPB.Image = Properties.Resources.double_check__1_;
@@ -96,7 +96,8 @@ namespace ChatApplication
 
             message.IsReaded += (obj, e) =>
             {
-                MessageSendIconPB.Image = Properties.Resources.double_check__1_;
+                Message m = obj as Message;
+                if(m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
             };
         }
 
