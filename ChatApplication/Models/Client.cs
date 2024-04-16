@@ -48,12 +48,17 @@ namespace WindowsFormsApp3
 
         public event EventHandler<bool> StatusChanged;
         public event EventHandler<int> UnseenMessageChanged;
+        public event EventHandler MessageSend;
+        public event EventHandler MessageReceive;
 
-        public Client(string ip, string Name, int Port)
+        public Client(string ip, string Name, int Port,DateTime LastSeen,string ProfilePath,string About)
         {
             IP = ip;
             this.Name = Name;
             this.Port = Port;
+            this.ProfilePath = ProfilePath;
+            this.About = About;
+            this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
             IdentifyUnSeenMsgs();
             ConnectAsync();
@@ -61,7 +66,7 @@ namespace WindowsFormsApp3
 
         private void IdentifyUnSeenMsgs()
         {
-            UnSeenMessagesList = ChatApplicationNetworkManager.Messages.Values.Where(m =>
+            UnSeenMessagesList = LocalDatabase.Messages.Values.Where(m =>
               {
                   return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && !m.Seen; 
               }).ToList();
@@ -98,6 +103,16 @@ namespace WindowsFormsApp3
                 LastSeen = DateTime.Now;
             }
             StatusChanged?.Invoke(this, status);
+        }
+
+        public void MessageSendInvoker()
+        {
+            MessageSend?.Invoke(this,EventArgs.Empty);
+        }
+
+        public void MessageReceiveInvoker()
+        {
+            MessageReceive?.Invoke(this, EventArgs.Empty);
         }
     }
 }

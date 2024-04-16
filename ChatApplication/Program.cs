@@ -27,7 +27,6 @@ namespace ChatApplication
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
                     ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                   
                     Application.Run(new LoginForm(IpAddress));
                 }
                 else

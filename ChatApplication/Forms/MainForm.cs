@@ -36,10 +36,24 @@ namespace ChatApplication
         public MainForm()
         {
             InitializeComponent();
-            Initial();
+            
+            
+        }
 
+        private void DbConnectionFailed(string Errormsg)
+        {
+            MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
+            Close();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            LocalDatabase.DbConnectionFailed += DbConnectionFailed;
+            ChatApplicationNetworkManager.ManagerInitializer();
+            LabelsAdder();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-           
+
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
@@ -47,12 +61,8 @@ namespace ChatApplication
                 UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
-            ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
-        }
+            ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
             foreach (var client in MyDetails.Clients.ToList())
             {
                 if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
@@ -88,10 +98,10 @@ namespace ChatApplication
             }
         }
 
-        private void ChatApplicationNetworkManagerInform(ContactU label)
+        private void AddNewLabelForNewUser(ContactU label)
         {
             chatContactPanel.Controls.Add(label);
-            label.Clicked += PageAdd;
+            label.Clicked += MessagePageSwitcher;
         }
 
         private void OnProfileInfoClick(object sender, EventArgs e)
@@ -110,7 +120,7 @@ namespace ChatApplication
             click = !click;
         }
 
-        private void PageAdd(object sender, EventArgs e)
+        private void MessagePageSwitcher(object sender, EventArgs e)
         {
             MessagePagePanel.Controls.Clear();
             MessagePage page = (sender as Client).MessagePage;
@@ -122,9 +132,9 @@ namespace ChatApplication
             }
         }
 
-        public void Initial()
+        private void LabelsAdder()
         {
-            ChatApplicationNetworkManager.StartServer();
+            
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)
@@ -133,9 +143,9 @@ namespace ChatApplication
                 };
                 //ct.Add(con);
                 chatContactPanel.Controls.Add(con);
-                con.Clicked += PageAdd;
+                con.Clicked += MessagePageSwitcher;
             }
-            LocalDatabase ls = new LocalDatabase();
+            
         }
 
         protected async override void OnClosed(EventArgs e)

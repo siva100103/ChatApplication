@@ -12,12 +12,15 @@ using WindowsFormsApp3;
 
 namespace ChatApplication.Controller
 {
-    class LocalDatabase
+    public static class LocalDatabase
     {
-        public List<Message> Messages { get; set; } = new List<Message>();
+        public  delegate void FailureInformer(string Errormsg);
+        public static FailureInformer DbConnectionFailed; 
 
+        public static Dictionary<string, Message> Messages { get; set; } = new Dictionary<string, Message>();
         private static DatabaseManager Manager = new MySqlHandler();
-        public LocalDatabase()
+
+        public static bool LocalDatabaseInitializer()
         {
             string xmlFilePath = @".\data.xml";
             LocalData data;
@@ -36,15 +39,28 @@ namespace ChatApplication.Controller
             using (var rem=new ServerDatabase())
             {
                 Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress));
-                if (!me.Password.Equals(Manager.Password) || me.Password==null)
+                if (me != null)
                 {
-                    me.Password = Manager.Password;
-                    rem.SaveChanges();
+                    if (!me.Password.Equals(Manager.Password) || me.Password == null)
+                    {
+                        me.Password = Manager.Password;
+                        rem.SaveChanges();
+                    }
                 }
             }
-             var bol = Manager.CheckAndCreateDatabase();
+            var DBcreation = Manager.CheckAndCreateDatabase();
 
-            Manager.Connect();
+            var ConnectionStatus=Manager.Connect();
+
+            if (!ConnectionStatus.Result)
+            {
+                DbConnectionFailed?.Invoke(ConnectionStatus.Message);
+                return false;
+            }
+
+           
+
+            
             if (!Manager.TableExists("Messages"))
             {
                 ColumnDetails[] Column = new ColumnDetails[]
@@ -59,9 +75,10 @@ namespace ChatApplication.Controller
                 var c=Manager.CreateTable("Messages",Column);
             }
             FetchDb();
+            return true;
         }
 
-        public void FetchDb()
+        public static void FetchDb()
         {
             var a = Manager.FetchData("Messages", "");
 
@@ -78,12 +95,12 @@ namespace ChatApplication.Controller
                         Time = (DateTime)a.Value["Time"][i],
                         Seen = a.Value["Seen"][i].ToBoolean()
                     };                  
-                    Messages.Add(m);
+                    Messages.Add(m.Id,m);
                 }
             }
         }
 
-        public void InsertMessage(Message m)
+        public static void InsertMessage(Message m)
         {
             ParameterData[] data = new ParameterData[] {
                 new ParameterData("Id", m.Id),
@@ -93,18 +110,14 @@ namespace ChatApplication.Controller
                 new ParameterData("Time",m.Time),
                 new ParameterData("Seen",m.Seen.ToInt32())
             };
-            Manager.InsertData("Messages",data);            
+            Manager.InsertData("Messages",data);
+            Messages.Add(m.Id, m);
         }
-        
-        public void UpdateMessage(Message m)
+
+        public static void UpdateMessage(Message m)
         {
             string condition = $"Id='{m.Id}'";
             ParameterData[] data = new ParameterData[] {
-                new ParameterData("Id", m.Id),
-                new ParameterData("FromIP",m.FromIP),
-                new ParameterData("ReceiverIP",m.ReceiverIP),
-                new ParameterData("Msg",m.Msg),
-                new ParameterData("Time",m.Time),
                 new ParameterData("Seen",m.Seen.ToInt32())
             };
             Manager.UpdateData("Messages",condition,data);

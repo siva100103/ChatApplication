@@ -25,6 +25,7 @@ namespace WindowsFormsApp3
                 timeLB.Text = value;
             }
         }
+
         public event EventHandler Clicked;
         public ContactU(Client c)
         {
@@ -35,21 +36,35 @@ namespace WindowsFormsApp3
             contactNameLB.Text = c.Name;
             dpPictureBox.Image = img;
 
+                ChatApplication.Message LastMsg = LocalDatabase.Messages.Values.LastOrDefault(m =>
+                {
+                    return (m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                });
+
+            if (LastMsg != null)
+            {
+                string LastMsgTime = LastMsg.Time.Hour + ":" + LastMsg.Time.Minute;
+                TimeLB = LastMsgTime;
+            }
+           
             contactInformationP.MouseEnter+= Hovering;
             timeP.MouseEnter += Hovering;
             dpPictureBox.MouseEnter += Hovering;
             contactNameLB.MouseEnter += Hovering;
+            lastMessageLB.MouseEnter += Hovering;
 
             contactInformationP.MouseLeave += Leaving;
             timeP.MouseLeave += Leaving;
             dpPictureBox.MouseLeave += Leaving;
             contactNameLB.MouseLeave += Leaving;
+            lastMessageLB.MouseLeave += Leaving;
 
             contactInformationP.MouseClick += LabelClicked;
             timeP.MouseClick += LabelClicked;
             dpPictureBox.MouseClick += LabelClicked;
             contactNameLB.MouseClick += LabelClicked;
             lastMessageLB.Click += LabelClicked;
+
             c.StatusChanged += statusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
             UpdateUnseenMessage(Client,Client.UnseenMessages);
@@ -59,6 +74,9 @@ namespace WindowsFormsApp3
                 bendingMessages1.Visible = true;
                 bendingMessages1.UnReadCount(c.UnseenMessages);
             }
+
+            c.MessageSend += (obj, e) => SetTimeLbValue();
+            c.MessageReceive += (obj, e) => SetTimeLbValue();
         }
 
         private void UpdateUnseenMessage(object sender, int n)
@@ -80,12 +98,9 @@ namespace WindowsFormsApp3
         private void LabelClicked(object sender, EventArgs e)
         {
             Clicked?.Invoke(Client,e);
-         
             ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList,Client);
-
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;
-            ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
         }
 
         private void Leaving(object sender, EventArgs e)
@@ -98,5 +113,14 @@ namespace WindowsFormsApp3
             Cursor=Cursors.Hand;
             BackColor = Color.LightGray;
         }
+
+        private void SetTimeLbValue()
+        {
+            DateTime now = DateTime.Now;
+            string LbValue = now.Hour + ":" + now.Minute;
+            TimeLB = LbValue;
+        }
+
+        
     }
 }

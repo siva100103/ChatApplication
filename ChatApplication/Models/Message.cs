@@ -61,10 +61,9 @@ namespace ChatApplication
         public void IsReaderInvoker()
         {
             Seen = true;
-            var context = new LocalDatabase();
-            Message m = context.Messages.Find((msg) => msg.Id == Id);
+            Message m = LocalDatabase.Messages.Values.ToList().Find((msg) => msg.Id == Id);
             m.Seen = true;
-            context.UpdateMessage(m);
+            LocalDatabase.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);
         }
 
