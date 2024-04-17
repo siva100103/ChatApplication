@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using ChatApplication;
+using ChatApplication.Controller;
 
 namespace WindowsFormsApp3
 {
     public partial class ContactU : UserControl
     {
-        public Image Img { get; set; }
+        public Image img { get; set; } 
         public string UserName { get; set; } = "";
         public Client Client { get; set; }
         public string TimeLB
@@ -24,35 +25,58 @@ namespace WindowsFormsApp3
                 timeLB.Text = value;
             }
         }
-        public event EventHandler Clicked;
 
+        public event EventHandler Clicked;
         public ContactU(Client c)
         {
             InitializeComponent();
             Client = c;
             UserName = c.Name;
-            Img = c.ProfilePicture;
+            img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
-            dpPictureBox.Image = Img;
+            dpPictureBox.Image = img;
 
-            contactInformationP.MouseEnter += Hovering;
+                ChatApplication.Message LastMsg = LocalDatabase.Messages.Values.LastOrDefault(m =>
+                {
+                    return (m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                });
+
+            if (LastMsg != null)
+            {
+                string LastMsgTime = LastMsg.Time.Hour + ":" + LastMsg.Time.Minute;
+                TimeLB = LastMsgTime;
+            }
+           
+            contactInformationP.MouseEnter+= Hovering;
             timeP.MouseEnter += Hovering;
             dpPictureBox.MouseEnter += Hovering;
             contactNameLB.MouseEnter += Hovering;
+            lastMessageLB.MouseEnter += Hovering;
 
             contactInformationP.MouseLeave += Leaving;
             timeP.MouseLeave += Leaving;
             dpPictureBox.MouseLeave += Leaving;
             contactNameLB.MouseLeave += Leaving;
+            lastMessageLB.MouseLeave += Leaving;
 
             contactInformationP.MouseClick += LabelClicked;
             timeP.MouseClick += LabelClicked;
             dpPictureBox.MouseClick += LabelClicked;
             contactNameLB.MouseClick += LabelClicked;
             lastMessageLB.Click += LabelClicked;
+
             c.StatusChanged += statusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
-            UpdateUnseenMessage(Client, Client.UnseenMessages);
+            UpdateUnseenMessage(Client,Client.UnseenMessages);
+
+            if (c.UnseenMessages > 0)
+            {
+                bendingMessages1.Visible = true;
+                bendingMessages1.UnReadCount(c.UnseenMessages);
+            }
+
+            c.MessageSend += (obj, e) => SetTimeLbValue();
+            c.MessageReceive += (obj, e) => SetTimeLbValue();
         }
 
         private void UpdateUnseenMessage(object sender, int n)
@@ -73,24 +97,30 @@ namespace WindowsFormsApp3
 
         private void LabelClicked(object sender, EventArgs e)
         {
-            Clicked?.Invoke(Client, e);
-            if (Client.IsConnected)
-                ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessages, Client);
-
+            Clicked?.Invoke(Client,e);
+            ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList,Client);
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;
-            ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
         }
 
         private void Leaving(object sender, EventArgs e)
         {
-            BackColor = Color.FromArgb(240, 243, 253);
+            BackColor = Color.White;
         }
 
         private void Hovering(object sender, EventArgs e)
         {
-            Cursor = Cursors.Hand;
-            BackColor = Color.FromArgb(207, 227, 251);
+            Cursor=Cursors.Hand;
+            BackColor = Color.LightGray;
         }
+
+        private void SetTimeLbValue()
+        {
+            DateTime now = DateTime.Now;
+            string LbValue = now.Hour + ":" + now.Minute;
+            TimeLB = LbValue;
+        }
+
+        
     }
 }

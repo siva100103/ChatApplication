@@ -25,18 +25,20 @@ namespace ChatApplication
         {
             InitializeComponent();
             label1.Text = IPAddress;
-            Resize += LoginFormResize;
-            LoginFormResize(this, EventArgs.Empty);
-            nextBtn.Click += NextBtnClick;
-            Load += LoginFormLoad;
         }
 
-        private void LoginFormLoad(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            // ipAddressLB.Text += ChatApplicationNetworkManager.GetPcIPAddress();
-            LoginFormResize(this, EventArgs.Empty);
+            base.OnLoad(e);
+            
+            Resize += LoginFormResize;
+            nextBtn.Click += NextBtnClick;
+            LocalDatabase.DbConnectionFailed += (str) =>
+            {
+                MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
+                Close();
+            };
         }
-
         private void NextBtnClick(object sender, EventArgs e)
         {
             if (firstNameTB.TextBoxtext.Trim() != "" && lastNameTB.TextBoxtext.Trim() != "")
@@ -50,28 +52,17 @@ namespace ChatApplication
                 };
 
                 if (!File.Exists(@".\data.xml"))
-                {
-                    SerializeLocalDataToXml();
-                    DialogResult message = MessageBox.Show
-                        ("Please set your localhost password in \"data.xml\"",
-                        "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (message == DialogResult.OK)
-                    {
-                        Application.Exit();
-                        Close();
-                    }
-                }
+                    SerializeLocalDataToXml();                
+                Hide();
 
-                LocalStorage ls = new LocalStorage();
-                using (var clients = new RemoteDatabase())
+                MainForm mf = new MainForm();
+                mf.Show();
+                mf.FormClosed += (obj, ev) => Close();
+                using (var clients = new ServerDatabase())
                 {
                     clients.Clients.Add(c);
                     clients.SaveChanges();
                 }
-                Hide();
-                MainForm mf = new MainForm();
-                mf.Show();
-                mf.FormClosed += (obj, ev) => Close();
             }
         }
 
@@ -98,12 +89,5 @@ namespace ChatApplication
             nextBtn.Location = new Point(centerP.Width / 2 - nextBtn.Width / 2, nextBtn.Location.Y);
             centerP.BringToFront();
         }
-
-
-        private void CreateNew()
-        {
-
-        }
-
     }
 }

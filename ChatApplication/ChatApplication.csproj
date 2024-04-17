@@ -180,8 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LocalDatabase.cs" />
-    <Compile Include="Controller\LocalStorage.cs" />
     <Compile Include="Controller\RemoteDatabase.cs" />
+    <Compile Include="Controller\ServerDatabase.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +194,11 @@
     <Compile Include="Forms\ProfilePage.Designer.cs">
       <DependentUpon>ProfilePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20240415072444_Initial.cs" />
+    <Compile Include="Migrations\20240415072444_Initial.designer.cs">
+      <DependentUpon>20240415072444_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ServerDatabaseModelSnapshot.cs" />
     <Compile Include="Models\LocalData.cs" />
     <Compile Include="UserControl\FileSenderPage.cs">
       <SubType>UserControl</SubType>

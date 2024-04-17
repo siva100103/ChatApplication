@@ -30,59 +30,39 @@ namespace ChatApplication
         );
         #endregion
         private ProfilePage MyProfile;
-        private RemoteDatabase MyDetails = new RemoteDatabase();
+        private ServerDatabase MyDetails = new ServerDatabase();
         private bool click = false;
-        private List<ContactU> Contacts = new List<ContactU>();
 
         public MainForm()
         {
             InitializeComponent();
-            Initial();
+            
+            
+        }
 
+        private void DbConnectionFailed(string Errormsg)
+        {
+            MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
+            Close();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            LocalDatabase.DbConnectionFailed += DbConnectionFailed;
+            ChatApplicationNetworkManager.ManagerInitializer();
+            LabelsAdder();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
 
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                BackColor = Color.FromArgb(207, 227, 251),
                 UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
-            ChatApplicationNetworkManager.Inform += ChatApplicationNetworkManagerInform;
+            ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
 
-            SearchBox.OnTextChange += SearchBoxOnTextChanged;
-        }
-
-        private void SearchBoxOnTextChanged(object sender, EventArgs e)
-        {
-            if (Contacts.Count > 0 && SearchBox.PlaceholderText != "Search or start new chat")
-            {
-                foreach (ContactU contact in Contacts)
-                {
-                    if (SearchBox.PlaceholderText != "")
-                    {
-                        if (contact.UserName.IndexOf
-                            (SearchBox.PlaceholderText, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            contact.Visible = true;
-                        }
-                        else
-                        {
-                            contact.Visible = false;
-                        }
-                    }
-                    else
-                    {
-                        contact.Visible = true;
-                    }
-                }
-            }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
             foreach (var client in MyDetails.Clients.ToList())
             {
                 if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
@@ -90,7 +70,7 @@ namespace ChatApplication
                     if (client.ProfilePath != "")
                     {
                         SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
-                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
+                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage; 
                     }
                     MyProfile.About = client.About;
                     break;
@@ -102,15 +82,15 @@ namespace ChatApplication
         {
             string path = "";
             Image pic = null;
-            foreach (var dict in e)
+            foreach(var dict in e)
             {
                 path = dict.Key;
                 pic = dict.Value;
             }
             SideMenuBar.ProfileImage = pic;
-            foreach (var client in MyDetails.Clients.ToList())
+            foreach(var client in MyDetails.Clients.ToList())
             {
-                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                if(client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
                 {
                     client.ProfilePath = path;
                     MyDetails.SaveChanges();
@@ -118,15 +98,14 @@ namespace ChatApplication
             }
         }
 
-        private void ChatApplicationNetworkManagerInform(ContactU label)
+        private void AddNewLabelForNewUser(ContactU label)
         {
             chatContactPanel.Controls.Add(label);
-            label.Clicked += PageAdd;
+            label.Clicked += MessagePageSwitcher;
         }
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
-            MyProfile.SuspendLayout();
             Point location = PointToScreen(SideMenuBar.Location);
             location.Offset(SideMenuBar.Width + 10, SideMenuBar.Height - MyProfile.Height - 20);
             MyProfile.Location = location;
@@ -139,13 +118,11 @@ namespace ChatApplication
                 MyProfile.Visible = false;
             }
             click = !click;
-            MyProfile.ResumeLayout();
         }
 
-        private void PageAdd(object sender, EventArgs e)
+        private void MessagePageSwitcher(object sender, EventArgs e)
         {
             MessagePagePanel.Controls.Clear();
-            MessagePagePanel.SuspendLayout();
             MessagePage page = (sender as Client).MessagePage;
             page.ProfileImage = (sender as Client).ProfilePicture;
             if (page != null)
@@ -153,41 +130,31 @@ namespace ChatApplication
                 page.Dock = DockStyle.Fill;
                 MessagePagePanel.Controls.Add(page);
             }
-            MessagePagePanel.ResumeLayout();
         }
 
-        public void Initial()
+        private void LabelsAdder()
         {
-            ChatApplicationNetworkManager.StartServer();
+            
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                ContactU contact = new ContactU(a.Value)
+                ContactU con = new ContactU(a.Value)
                 {
-                    Dock = DockStyle.Top,
-                    BackColor = Color.FromArgb(240, 243, 253)
+                    Dock = DockStyle.Top
                 };
                 //ct.Add(con);
-                chatContactPanel.Controls.Add(contact);
-                contact.Clicked += PageAdd;
-                Contacts.Add(contact);
+                chatContactPanel.Controls.Add(con);
+                con.Clicked += MessagePageSwitcher;
             }
-            LocalStorage ls = new LocalStorage();
-            ChatApplicationNetworkManager.Messages = ls.Messages.ToDictionary((msg) => msg.Id);
-        }
-
-        private void OptionButtonClick(object sender, EventArgs e)
-        {
-            SideMenuBar.Visible = !SideMenuBar.Visible;
-            MyProfile.Visible = false;
+            
         }
 
         protected async override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-
+  
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress,a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

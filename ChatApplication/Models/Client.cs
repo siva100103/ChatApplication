@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApplication;
+using ChatApplication.Controller;
 using Newtonsoft.Json;
 
 namespace WindowsFormsApp3
@@ -25,12 +26,12 @@ namespace WindowsFormsApp3
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12346;
         public string ProfilePath { get; set; } = "";
-
+        public string Password { get; set; } = "";
         public bool IsConnected { get; set; }
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages = 0;
 
-        public List<ChatApplication.Message> UnSeenMessages { get; set; } = new List<ChatApplication.Message>();
+        public List<ChatApplication.Message> UnSeenMessagesList { get; set; } = new List<ChatApplication.Message>();
 
         public int UnseenMessages
         {
@@ -47,14 +48,29 @@ namespace WindowsFormsApp3
 
         public event EventHandler<bool> StatusChanged;
         public event EventHandler<int> UnseenMessageChanged;
+        public event EventHandler MessageSend;
+        public event EventHandler MessageReceive;
 
-        public Client(string ip, string Name, int Port)
+        public Client(string ip, string Name, int Port,DateTime LastSeen,string ProfilePath,string About)
         {
             IP = ip;
             this.Name = Name;
             this.Port = Port;
+            this.ProfilePath = ProfilePath;
+            this.About = About;
+            this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
+            IdentifyUnSeenMsgs();
             ConnectAsync();
+        }
+
+        private void IdentifyUnSeenMsgs()
+        {
+            UnSeenMessagesList = LocalDatabase.Messages.Values.Where(m =>
+              {
+                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && !m.Seen; 
+              }).ToList();
+            unSeenMessages = UnSeenMessagesList.Count;
         }
 
         public Client()
@@ -87,6 +103,16 @@ namespace WindowsFormsApp3
                 LastSeen = DateTime.Now;
             }
             StatusChanged?.Invoke(this, status);
+        }
+
+        public void MessageSendInvoker()
+        {
+            MessageSend?.Invoke(this,EventArgs.Empty);
+        }
+
+        public void MessageReceiveInvoker()
+        {
+            MessageReceive?.Invoke(this, EventArgs.Empty);
         }
     }
 }
