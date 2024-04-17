@@ -14,13 +14,12 @@ namespace ChatApplication.Controller
 {
     public static class LocalDatabase
     {
-        public  delegate void FailureInformer(string Errormsg);
-        public static FailureInformer DbConnectionFailed; 
 
         public static Dictionary<string, Message> Messages { get; set; } = new Dictionary<string, Message>();
+
         private static DatabaseManager Manager = new MySqlHandler();
 
-        public static bool LocalDatabaseInitializer()
+        public static bool Configure()
         {
             string xmlFilePath = @".\data.xml";
             LocalData data;
@@ -30,13 +29,13 @@ namespace ChatApplication.Controller
                 data = (LocalData)serializer.Deserialize(reader);
             }
 
-            
+
             Manager.Database = $"{data.Database}";
             Manager.HostName = $"{data.Server}";
             Manager.UserName = $"{data.Uid}";
             Manager.Password = $"{data.Password}";
 
-            using (var rem=new ServerDatabase())
+            using (var rem = new ServerDatabase())
             {
                 Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress));
                 if (me != null)
@@ -50,17 +49,12 @@ namespace ChatApplication.Controller
             }
             var DBcreation = Manager.CheckAndCreateDatabase();
 
-            var ConnectionStatus=Manager.Connect();
+            var ConnectionStatus = Manager.Connect();
 
             if (!ConnectionStatus.Result)
             {
-                DbConnectionFailed?.Invoke(ConnectionStatus.Message);
                 return false;
             }
-
-           
-
-            
             if (!Manager.TableExists("Messages"))
             {
                 ColumnDetails[] Column = new ColumnDetails[]
@@ -72,13 +66,13 @@ namespace ChatApplication.Controller
                     new ColumnDetails("Time",BaseDatatypes.DATETIME,notNull:true),
                     new ColumnDetails("Seen",BaseDatatypes.TINYINT),
                 };
-                var c=Manager.CreateTable("Messages",Column);
+                var c = Manager.CreateTable("Messages", Column);
             }
             FetchDb();
             return true;
         }
 
-        public static void FetchDb()
+        private static void FetchDb()
         {
             var a = Manager.FetchData("Messages", "");
 
@@ -94,13 +88,13 @@ namespace ChatApplication.Controller
                         Msg = a.Value["Msg"][i].ToString(),
                         Time = (DateTime)a.Value["Time"][i],
                         Seen = a.Value["Seen"][i].ToBoolean()
-                    };                  
-                    Messages.Add(m.Id,m);
+                    };
+                    Messages.Add(m.Id, m);
                 }
             }
         }
 
-        public static void InsertMessage(Message m)
+        public static void CreateMessage(Message m)
         {
             ParameterData[] data = new ParameterData[] {
                 new ParameterData("Id", m.Id),
@@ -110,8 +104,13 @@ namespace ChatApplication.Controller
                 new ParameterData("Time",m.Time),
                 new ParameterData("Seen",m.Seen.ToInt32())
             };
-            Manager.InsertData("Messages",data);
+            Manager.InsertData("Messages", data);
             Messages.Add(m.Id, m);
+        }
+
+        public static Message ReadMessage(string id)
+        {
+            return Messages[id];
         }
 
         public static void UpdateMessage(Message m)
@@ -120,10 +119,21 @@ namespace ChatApplication.Controller
             ParameterData[] data = new ParameterData[] {
                 new ParameterData("Seen",m.Seen.ToInt32())
             };
-            Manager.UpdateData("Messages",condition,data);
+            Manager.UpdateData("Messages", condition, data);
         }
 
-        
-       
+        public static void DeleteMessage(string id)
+        {
+            Manager.DeleteData("Messages", $"Id='{id}'");
+            if(Messages.ContainsKey(id)) Messages.Remove(id);
+        }
+
+        public static void DeleteMessages(IEnumerable<string> Messageid)
+        {
+            foreach(var id in Messageid)
+            {
+                if(Messages.ContainsKey(id)) Messages.Remove(id);
+            }
+        }
     }
 }

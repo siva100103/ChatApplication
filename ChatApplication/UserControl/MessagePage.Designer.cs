@@ -39,7 +39,9 @@ namespace ChatApplication
             this.NameLabel = new System.Windows.Forms.Label();
             this.ProfilePicture = new ChatApplication.CustomPictureBox();
             this.MenuButton = new ChatApplication.HoverButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
+            this.ChatPanel.SuspendLayout();
             this.HeaderPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +62,7 @@ namespace ChatApplication
             // 
             this.ChatPanel.AutoScroll = true;
             this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(241)))));
+            this.ChatPanel.Controls.Add(this.panel1);
             this.ChatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ChatPanel.Location = new System.Drawing.Point(0, 61);
             this.ChatPanel.Name = "ChatPanel";
@@ -165,6 +168,14 @@ namespace ChatApplication
             this.MenuButton.MouseLeave += new System.EventHandler(this.MenuButtonMouseLeave);
             this.MenuButton.MouseHover += new System.EventHandler(this.MenuButtonMouseHover);
             // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(13, 456);
+            this.panel1.TabIndex = 0;
+            // 
             // MessagePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +185,7 @@ namespace ChatApplication
             this.Name = "MessagePage";
             this.Size = new System.Drawing.Size(537, 558);
             this.MainPanel.ResumeLayout(false);
+            this.ChatPanel.ResumeLayout(false);
             this.HeaderPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).EndInit();
             this.ResumeLayout(false);
@@ -191,5 +203,6 @@ namespace ChatApplication
         private HoverButton MenuButton;
         private HoverMessageU MenuTip;
         private ChatSenter chatSenter;
+        private System.Windows.Forms.Panel panel1;
     }
 }

@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using ChatApplication;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace ChatApplication
 {
@@ -217,5 +218,7 @@ namespace ChatApplication
             }
             return "";
         }
+
+      
     }
 }

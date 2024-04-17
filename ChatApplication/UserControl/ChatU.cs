@@ -48,19 +48,7 @@ namespace ChatApplication
             }
         }
 
-        public int ChatUMaximumWidth
-        {
-            get
-            {
-                return chatUMaximumWidth;
-            }
-            set
-            {
-                chatUMaximumWidth = value;
-                MessageCreate();
-            }
-        }
-
+       
         public bool IsReceivedMessage
         {
             get
@@ -101,44 +89,7 @@ namespace ChatApplication
             };
         }
 
-        public GraphicsPath GetPath(Rectangle rec)
-        {
-            GraphicsPath g = new GraphicsPath();
-            g.StartFigure();
-            if (isNormal)
-            {
-                chatArcWidth = 0;
-            }
-            else
-            {
-
-            }
-            if (isReceivedMessage)
-            {
-                if (!isNormal)
-                {
-                    g.AddPolygon(new Point[] { new Point(chatArcWidth, 0), new Point(0, 0), new Point(chatArcWidth, chatArcWidth) });
-                }
-                g.AddArc(new Rectangle(chatArcWidth, rec.Y, borderRadius, borderRadius), 180, 90);
-                g.AddArc(rec.Width - borderRadius, rec.Y, borderRadius, borderRadius, 270, 90);
-                g.AddArc(rec.Width - borderRadius, rec.Height - borderRadius, borderRadius, borderRadius, 0, 90);
-                g.AddArc(rec.X + chatArcWidth, rec.Height - borderRadius, borderRadius, borderRadius, 90, 90);
-
-            }
-            else
-            {
-
-                g.AddArc(rec.X, rec.Y, borderRadius, borderRadius, 180, 90);
-                g.AddArc(new Rectangle(rec.Width - borderRadius - chatArcWidth, rec.Y, borderRadius, borderRadius), 270, 90);
-                g.AddArc(rec.Width - borderRadius - chatArcWidth, rec.Height - borderRadius, borderRadius, borderRadius, 0, 90);
-                g.AddArc(rec.X, rec.Height - borderRadius, borderRadius, borderRadius, 90, 90);
-                if (!isNormal)
-                    g.AddPolygon(new Point[] { new Point(rec.Width - chatArcWidth, 0), new Point(rec.Width, 0), new Point(rec.Width - chatArcWidth, chatArcWidth) });
-            }
-
-            g.CloseFigure();
-            return g;
-        }
+       
 
         public string StringFormatChange(string str, int width, Font font)
         {
@@ -226,6 +177,7 @@ namespace ChatApplication
             return formatedstring;
 
         }
+
         public void MessageCreate()
         {
             string str = "";
@@ -254,8 +206,25 @@ namespace ChatApplication
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var path = GetPath(ClientRectangle);
+            int CornerRadius = 10;
+            GraphicsPath path = new GraphicsPath();
+            path.StartFigure();
+            path.AddArc(new Rectangle(0, 0, CornerRadius * 2, CornerRadius * 2), 180, 90);
+            path.AddLine(CornerRadius, 0, Width - CornerRadius * 2, 0);
+            path.AddArc(new Rectangle(Width - CornerRadius * 2, 0, CornerRadius * 2, CornerRadius * 2), -90, 90);
+            path.AddLine(Width, CornerRadius * 2, Width, Height - CornerRadius * 2);
+            path.AddArc(new Rectangle(Width - CornerRadius * 2, Height - CornerRadius * 2, CornerRadius * 2, CornerRadius * 2), 0, 90);
+            path.AddLine(Width - CornerRadius * 2, Height, CornerRadius * 2, Height);
+            path.AddArc(new Rectangle(0, Height - CornerRadius * 2, CornerRadius * 2, CornerRadius * 2), 90, 90);
+            path.AddLine(0, Height - CornerRadius * 2, 0, CornerRadius * 2);
+            path.CloseFigure();
+
             this.Region = new Region(path);
+
+            using (var pen = new Pen(this.BackColor, 1))
+            {
+                e.Graphics.DrawPath(pen, path);
+            }
         }
 
 

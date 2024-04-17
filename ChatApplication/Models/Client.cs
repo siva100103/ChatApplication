@@ -83,7 +83,7 @@ namespace WindowsFormsApp3
             try
             {
                 ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.FromIPAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
-                await ChatApplicationNetworkManager.SendMessage(message, this);
+               await ChatApplicationNetworkManager.SendMessage(message, this);
                 IsConnected = true;
                 StatusChanged.Invoke(this, true);
             }

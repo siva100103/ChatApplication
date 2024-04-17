@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.MessagePagePanel = new System.Windows.Forms.Panel();
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.chatContactPanel = new System.Windows.Forms.Panel();
             this.SearchPanel = new System.Windows.Forms.Panel();
             this.ChatHeaderPanel = new System.Windows.Forms.Panel();
+            this.MessagePagePanel = new System.Windows.Forms.Panel();
             this.SearchBox = new ChatApplication.CustomSearchBox();
             this.ChatContainer = new ChatApplication.CustomPanel();
             this.ContactButton = new ChatApplication.EllipseButton();
@@ -57,15 +58,6 @@
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(934, 611);
             this.MainPanel.TabIndex = 3;
-            // 
-            // MessagePagePanel
-            // 
-            this.MessagePagePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(241)))));
-            this.MessagePagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessagePagePanel.Location = new System.Drawing.Point(395, 0);
-            this.MessagePagePanel.Name = "MessagePagePanel";
-            this.MessagePagePanel.Size = new System.Drawing.Size(539, 611);
-            this.MessagePagePanel.TabIndex = 8;
             // 
             // ChatPanel
             // 
@@ -106,6 +98,15 @@
             this.ChatHeaderPanel.Padding = new System.Windows.Forms.Padding(15);
             this.ChatHeaderPanel.Size = new System.Drawing.Size(350, 63);
             this.ChatHeaderPanel.TabIndex = 1;
+            // 
+            // MessagePagePanel
+            // 
+            this.MessagePagePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(241)))));
+            this.MessagePagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MessagePagePanel.Location = new System.Drawing.Point(395, 0);
+            this.MessagePagePanel.Name = "MessagePagePanel";
+            this.MessagePagePanel.Size = new System.Drawing.Size(539, 611);
+            this.MessagePagePanel.TabIndex = 10;
             // 
             // SearchBox
             // 
@@ -197,6 +198,7 @@
             this.SideMenuBar.Margin = new System.Windows.Forms.Padding(2);
             this.SideMenuBar.Name = "SideMenuBar";
             this.SideMenuBar.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.SideMenuBar.ProfileImage = ((System.Drawing.Image)(resources.GetObject("SideMenuBar.ProfileImage")));
             this.SideMenuBar.ProfileShow = true;
             this.SideMenuBar.Size = new System.Drawing.Size(45, 611);
             this.SideMenuBar.TabIndex = 0;
@@ -224,7 +226,6 @@
 
         #endregion
         private System.Windows.Forms.Panel MainPanel;
-        private System.Windows.Forms.Panel MessagePagePanel;
         private System.Windows.Forms.Panel ChatPanel;
         private System.Windows.Forms.Panel SearchPanel;
         private System.Windows.Forms.Panel ChatHeaderPanel;
@@ -235,5 +236,6 @@
         private EllipseButton OptionButton;
         private System.Windows.Forms.Label ChatLabel;
         private MenuControl SideMenuBar;
+        private System.Windows.Forms.Panel MessagePagePanel;
     }
 }

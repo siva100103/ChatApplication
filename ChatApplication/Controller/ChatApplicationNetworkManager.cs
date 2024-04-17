@@ -27,22 +27,22 @@ namespace ChatApplication
 
         public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
 
-        public static void ManagerInitializer()
+        public static bool ManagerInitializer()
         {
-            GetCollectionFromDb();
-            StartServer();
+            return GetCollectionFromDb() && StartServer();
         }
 
-        private static void StartServer()
+        private static bool StartServer()
         {
             Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12346);
             Listener.Start();
-            AcceptClient();          
+            AcceptClient();
+            return true;
         }
 
-        private static void GetCollectionFromDb()
+        private static bool GetCollectionFromDb()
         {
-            LocalDatabase.LocalDatabaseInitializer();
+            if(!LocalDatabase.Configure()) return false;
             using (var DbContext = new ServerDatabase())
             {
                 foreach (var c in DbContext.Clients.ToList())
@@ -57,7 +57,7 @@ namespace ChatApplication
                     }
                 }
             }
-         
+            return true;        
         }
 
         private async static void AcceptClient()
@@ -150,7 +150,7 @@ namespace ChatApplication
             }
             else
             {
-                LocalDatabase.Messages[msg.Id].IsReaderInvoker();
+                LocalDatabase.ReadMessage(msg.Id).IsReaderInvoker();
             }
         }
 
@@ -175,7 +175,7 @@ namespace ChatApplication
             }
             Client c = Clients[msg.FromIP];
             c.MessageReceiveInvoker();
-            LocalDatabase.InsertMessage(msg);
+            LocalDatabase.CreateMessage(msg);
         }
 
         public async static Task SendMessage(Message message, Client c)
@@ -185,12 +185,12 @@ namespace ChatApplication
             NetworkStream Stream = Sender.GetStream();
             string msg = JsonConvert.SerializeObject(message);
             byte[] data = Encoding.UTF8.GetBytes(msg);
-            await Stream.WriteAsync(data, 0, data.Length);
+             await Stream.WriteAsync(data, 0, data.Length);
             message.IsSendedInvoker();
             c.MessageSendInvoker();
             if (message.type != Type.Response)
             {
-                LocalDatabase.InsertMessage(message);
+                LocalDatabase.CreateMessage(message);
             }
 
         }

@@ -105,7 +105,7 @@ namespace WindowsFormsApp3
 
         private void Leaving(object sender, EventArgs e)
         {
-            BackColor = Color.White;
+            BackColor = Color.FromArgb(240, 242, 245);
         }
 
         private void Hovering(object sender, EventArgs e)
@@ -121,6 +121,28 @@ namespace WindowsFormsApp3
             TimeLB = LbValue;
         }
 
-        
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            int CornerRadius = 27;
+            GraphicsPath path = new GraphicsPath();
+            path.StartFigure();
+            path.AddArc(new Rectangle(0, 0, CornerRadius * 2, CornerRadius * 2), 180, 90);
+            path.AddLine(CornerRadius, 0, Width - CornerRadius * 2, 0);
+            path.AddArc(new Rectangle(Width - CornerRadius * 2, 0, CornerRadius * 2, CornerRadius * 2), -90, 90);
+            path.AddLine(Width, CornerRadius * 2, Width, Height - CornerRadius * 2);
+            path.AddArc(new Rectangle(Width - CornerRadius * 2, Height - CornerRadius * 2, CornerRadius * 2, CornerRadius * 2), 0, 90);
+            path.AddLine(Width - CornerRadius * 2, Height, CornerRadius * 2, Height);
+            path.AddArc(new Rectangle(0, Height - CornerRadius * 2, CornerRadius * 2, CornerRadius * 2), 90, 90);
+            path.AddLine(0, Height - CornerRadius * 2, 0, CornerRadius * 2);
+            path.CloseFigure();
+
+            this.Region = new Region(path);
+
+            using (var pen = new Pen(this.BackColor, 1))
+            {
+                e.Graphics.DrawPath(pen, path);
+            }
+        }
     }
 }

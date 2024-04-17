@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
 
+
 namespace ChatApplication
 {
     static class Program
@@ -22,17 +23,19 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = GetLocalIPAddress();
+            ChatApplicationNetworkManager.FromIPAddress = IpAddress;
             using (var db =new ServerDatabase())
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
-                {
-                    ChatApplicationNetworkManager.FromIPAddress = IpAddress;
+                {       
                     Application.Run(new LoginForm(IpAddress));
                 }
                 else
                 {
-                    ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                    Application.Run(new MainForm());
+                    if (ChatApplicationNetworkManager.ManagerInitializer())
+                        Application.Run(new MainForm());
+                    else
+                        MessageBox.Show("Invalid Credientials");
                 }
             }
         }

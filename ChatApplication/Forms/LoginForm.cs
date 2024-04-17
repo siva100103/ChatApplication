@@ -16,6 +16,7 @@ using System.Xml.Serialization;
 using ChatApplication.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ChatApplication
 {
     public partial class LoginForm : Form
@@ -30,14 +31,9 @@ namespace ChatApplication
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
             Resize += LoginFormResize;
             nextBtn.Click += NextBtnClick;
-            LocalDatabase.DbConnectionFailed += (str) =>
-            {
-                MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
-                Close();
-            };
         }
         private void NextBtnClick(object sender, EventArgs e)
         {
@@ -52,12 +48,20 @@ namespace ChatApplication
                 };
 
                 if (!File.Exists(@".\data.xml"))
-                    SerializeLocalDataToXml();                
+                    SerializeLocalDataToXml();
                 Hide();
+
+                if (!ChatApplicationNetworkManager.ManagerInitializer())
+                {
+                    MessageBox.Show("Invalid Credientials");
+                    Close();
+                    return;
+                }
 
                 MainForm mf = new MainForm();
                 mf.Show();
                 mf.FormClosed += (obj, ev) => Close();
+
                 using (var clients = new ServerDatabase())
                 {
                     clients.Clients.Add(c);

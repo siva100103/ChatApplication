@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -40,17 +41,11 @@ namespace ChatApplication
             
         }
 
-        private void DbConnectionFailed(string Errormsg)
-        {
-            MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
-            Close();
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            LocalDatabase.DbConnectionFailed += DbConnectionFailed;
-            ChatApplicationNetworkManager.ManagerInitializer();
+            //LocalDatabase.DbConnectionFailed += DbConnectionFailed;
+            //ChatApplicationNetworkManager.ManagerInitializer();
             LabelsAdder();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
 
@@ -161,5 +156,7 @@ namespace ChatApplication
                 }
             }
         }
+
+      
     }
 }
