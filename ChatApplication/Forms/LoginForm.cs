@@ -47,8 +47,6 @@ namespace ChatApplication
                     Port = 12346,
                 };
 
-                if (!File.Exists(@".\data.xml"))
-                    SerializeLocalDataToXml();
                 Hide();
 
                 if (!ChatApplicationNetworkManager.ManagerInitializer())
@@ -70,18 +68,6 @@ namespace ChatApplication
             }
         }
 
-        private void SerializeLocalDataToXml()
-        {
-            string xmlFilePath = @".\data.xml";
-
-            LocalData data = new LocalData();
-
-            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
-            using (TextWriter writer = new StreamWriter(xmlFilePath))
-            {
-                serializer.Serialize(writer, data);
-            }
-        }
 
         private void LoginFormResize(object sender, EventArgs e)
         {

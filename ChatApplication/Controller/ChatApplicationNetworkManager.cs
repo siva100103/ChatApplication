@@ -29,6 +29,7 @@ namespace ChatApplication
 
         public static bool ManagerInitializer()
         {
+            
             return GetCollectionFromDb() && StartServer();
         }
 
