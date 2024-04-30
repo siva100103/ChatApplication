@@ -20,11 +20,23 @@ namespace ChatApplication
 {
     public partial class LoginForm : Form
     {
+        private string DpPicturePath = "";
+        public event EventHandler Dp;
 
         public LoginForm(string IPAddress)
         {
             InitializeComponent();
             label1.Text = IPAddress;
+            dpPictureU.OnClickDpPicturePathGet += DpPicturePathGet;
+        }
+
+        private void DpPicturePathGet(object sender, string path)
+        {
+            Image dp = Image.FromFile(path);
+            string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+            string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+            DpPicturePath = newfilePath;
+            dp.Save(newfilePath);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -33,11 +45,6 @@ namespace ChatApplication
             
             Resize += LoginFormResize;
             nextBtn.Click += NextBtnClick;
-            LocalDatabase.DbConnectionFailed += (str) =>
-            {
-                MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
-                Close();
-            };
         }
         private void NextBtnClick(object sender, EventArgs e)
         {
@@ -46,14 +53,25 @@ namespace ChatApplication
                 Client c = new Client()
                 {
                     IP = label1.Text,
+                    ProfilePath = DpPicturePath,
                     Name = firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(),
                     LastSeen = DateTime.Now,
                     Port = 12346,
                 };
 
-                if (!File.Exists(@".\data.xml"))
-                    SerializeLocalDataToXml();                
+                               
                 Hide();
+
+                if (!ChatApplicationNetworkManager.ManagerInitializer())
+                {
+                    DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "WARNING",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (dialog == DialogResult.OK)
+                    {
+                        Close();
+                        return;
+                    }
+                }
 
                 MainForm mf = new MainForm();
                 mf.Show();
@@ -63,19 +81,7 @@ namespace ChatApplication
                     clients.Clients.Add(c);
                     clients.SaveChanges();
                 }
-            }
-        }
-
-        private void SerializeLocalDataToXml()
-        {
-            string xmlFilePath = @".\data.xml";
-
-            LocalData data = new LocalData();
-
-            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
-            using (TextWriter writer = new StreamWriter(xmlFilePath))
-            {
-                serializer.Serialize(writer, data);
+                mf.DpSetFirstTime();
             }
         }
 

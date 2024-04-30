@@ -323,6 +323,26 @@ namespace ChatApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_menu_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-menu-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_menu_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-menu-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_no_image_24 {
             get {
                 object obj = ResourceManager.GetObject("icons8-no-image-24", resourceCulture);
@@ -346,6 +366,16 @@ namespace ChatApplication.Properties {
         internal static System.Drawing.Bitmap icons8_paper_plane_50__1_ {
             get {
                 object obj = ResourceManager.GetObject("icons8-paper-plane-50 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_paper_plane_50__2_ {
+            get {
+                object obj = ResourceManager.GetObject("icons8-paper-plane-50 (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

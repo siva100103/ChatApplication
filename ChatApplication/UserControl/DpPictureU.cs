@@ -40,20 +40,24 @@ namespace ChatApplication
             dpPB.Click += DpPBClick;
         }
 
+        private void AddDpBtnClick(object sender, EventArgs e)
+        {
+            using (OpenFileDialog file = new OpenFileDialog())
+            {
+                file.Filter = "PNG Files (*.png)|*.png|JPEG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg";
+                file.Title = "Choose a Photo";
+
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    DpPicturPath = file.FileName;
+                    OnClickDpPicturePathGet?.Invoke(this, DpPicturPath);
+                }
+            }
+        }
+
         private void DpPBClick(object sender, EventArgs e)
         {
 
-        }
-
-        private void AddDpBtnClick(object sender, EventArgs e)
-        {
-            OpenFileDialog.Filter = "PNG|*.png|JPEG|*.jpeg";
-            DialogResult result = OpenFileDialog.ShowDialog(this);
-            if (result == DialogResult.OK)
-            {
-                DpPicturPath = OpenFileDialog.FileName;
-                OnClickDpPicturePathGet?.Invoke(this, DpPicturPath);
-            }
         }
 
         private void DpPictureUResize(object sender, EventArgs e)

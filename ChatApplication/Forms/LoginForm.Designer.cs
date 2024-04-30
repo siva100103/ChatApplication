@@ -99,7 +99,7 @@
             this.dpPictureU.BackColor = System.Drawing.Color.WhiteSmoke;
             this.dpPictureU.DpPicturPath = "";
             this.dpPictureU.Location = new System.Drawing.Point(212, 20);
-            this.dpPictureU.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dpPictureU.Margin = new System.Windows.Forms.Padding(2);
             this.dpPictureU.Name = "dpPictureU";
             this.dpPictureU.Size = new System.Drawing.Size(106, 92);
             this.dpPictureU.TabIndex = 9;

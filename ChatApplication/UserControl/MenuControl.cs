@@ -162,7 +162,8 @@ namespace ChatApplication
             }
             else if (obj == ChatsBtn)
             {
-                messageFormobj.MessageText = "Chats";
+                //messageFormobj.MessageText = "Chats";
+                return;
             }
             else if (obj == CallsBtn)
             {
@@ -185,7 +186,6 @@ namespace ChatApplication
             {
                 messageFormobj.Show();
                 messageFormobj.Focus();
-
             }
             //if (messageFormobj.Enabled = false)
             //{

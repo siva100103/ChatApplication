@@ -45,13 +45,12 @@
             this.addDpBtn.ForeColor = System.Drawing.Color.Wheat;
             this.addDpBtn.Image = global::ChatApplication.Properties.Resources.icons8_add_24__4_;
             this.addDpBtn.Location = new System.Drawing.Point(86, 84);
-            this.addDpBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addDpBtn.Margin = new System.Windows.Forms.Padding(2);
             this.addDpBtn.Name = "addDpBtn";
             this.addDpBtn.Size = new System.Drawing.Size(17, 20);
             this.addDpBtn.TabIndex = 1;
             this.addDpBtn.TextColor = System.Drawing.Color.Wheat;
             this.addDpBtn.UseVisualStyleBackColor = false;
-            this.addDpBtn.Click += new System.EventHandler(this.AddDpBtnClick);
             // 
             // dpPB
             // 
@@ -59,9 +58,9 @@
             this.dpPB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dpPB.Image = global::ChatApplication.Properties.Resources.user__7_;
             this.dpPB.Location = new System.Drawing.Point(0, 0);
-            this.dpPB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dpPB.Margin = new System.Windows.Forms.Padding(2);
             this.dpPB.Name = "dpPB";
-            this.dpPB.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.dpPB.Padding = new System.Windows.Forms.Padding(3);
             this.dpPB.Size = new System.Drawing.Size(104, 105);
             this.dpPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.dpPB.TabIndex = 0;
@@ -73,7 +72,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.addDpBtn);
             this.Controls.Add(this.dpPB);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DpPictureU";
             this.Size = new System.Drawing.Size(104, 105);
             ((System.ComponentModel.ISupportInitialize)(this.dpPB)).EndInit();

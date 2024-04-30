@@ -34,13 +34,14 @@
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.chatContactPanel = new System.Windows.Forms.Panel();
             this.SearchPanel = new System.Windows.Forms.Panel();
-            this.ChatHeaderPanel = new System.Windows.Forms.Panel();
             this.SearchBox = new ChatApplication.CustomSearchBox();
+            this.ChatHeaderPanel = new System.Windows.Forms.Panel();
             this.ChatContainer = new ChatApplication.CustomPanel();
-            this.ChatLabel = new System.Windows.Forms.Label();
             this.ContactButton = new ChatApplication.EllipseButton();
             this.OptionButton = new ChatApplication.EllipseButton();
+            this.ChatLabel = new System.Windows.Forms.Label();
             this.SideMenuBar = new ChatApplication.MenuControl();
+            this.BorderPanel = new ChatApplication.CustomPanel();
             this.MainPanel.SuspendLayout();
             this.ChatPanel.SuspendLayout();
             this.SearchPanel.SuspendLayout();
@@ -53,6 +54,7 @@
             this.MainPanel.Controls.Add(this.MessagePagePanel);
             this.MainPanel.Controls.Add(this.ChatPanel);
             this.MainPanel.Controls.Add(this.SideMenuBar);
+            this.MainPanel.Controls.Add(this.BorderPanel);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(0, 0);
             this.MainPanel.Name = "MainPanel";
@@ -61,11 +63,11 @@
             // 
             // MessagePagePanel
             // 
-            this.MessagePagePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(245)))), ((int)(((byte)(241)))));
+            this.MessagePagePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
             this.MessagePagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessagePagePanel.Location = new System.Drawing.Point(395, 0);
+            this.MessagePagePanel.Location = new System.Drawing.Point(405, 0);
             this.MessagePagePanel.Name = "MessagePagePanel";
-            this.MessagePagePanel.Size = new System.Drawing.Size(539, 611);
+            this.MessagePagePanel.Size = new System.Drawing.Size(529, 611);
             this.MessagePagePanel.TabIndex = 8;
             // 
             // ChatPanel
@@ -74,7 +76,7 @@
             this.ChatPanel.Controls.Add(this.SearchPanel);
             this.ChatPanel.Controls.Add(this.ChatHeaderPanel);
             this.ChatPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ChatPanel.Location = new System.Drawing.Point(45, 0);
+            this.ChatPanel.Location = new System.Drawing.Point(55, 0);
             this.ChatPanel.Name = "ChatPanel";
             this.ChatPanel.Size = new System.Drawing.Size(350, 611);
             this.ChatPanel.TabIndex = 7;
@@ -99,6 +101,20 @@
             this.SearchPanel.Size = new System.Drawing.Size(350, 54);
             this.SearchPanel.TabIndex = 3;
             // 
+            // SearchBox
+            // 
+            this.SearchBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.SearchBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(212)))), ((int)(((byte)(111)))));
+            this.SearchBox.BorderSize = 4;
+            this.SearchBox.IsSearchIconVisible = true;
+            this.SearchBox.IsUnderLine = true;
+            this.SearchBox.Location = new System.Drawing.Point(5, 5);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Padding = new System.Windows.Forms.Padding(7);
+            this.SearchBox.PlaceholderText = "Search or start new chat";
+            this.SearchBox.Size = new System.Drawing.Size(339, 43);
+            this.SearchBox.TabIndex = 0;
+            // 
             // ChatHeaderPanel
             // 
             this.ChatHeaderPanel.BackColor = System.Drawing.Color.White;
@@ -109,20 +125,6 @@
             this.ChatHeaderPanel.Padding = new System.Windows.Forms.Padding(15);
             this.ChatHeaderPanel.Size = new System.Drawing.Size(350, 63);
             this.ChatHeaderPanel.TabIndex = 1;
-            // 
-            // SearchBox
-            // 
-            this.SearchBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
-            this.SearchBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(107)))), ((int)(((byte)(169)))));
-            this.SearchBox.BorderSize = 4;
-            this.SearchBox.IsSearchIconVisible = true;
-            this.SearchBox.IsUnderLine = true;
-            this.SearchBox.Location = new System.Drawing.Point(5, 5);
-            this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Padding = new System.Windows.Forms.Padding(7);
-            this.SearchBox.PlaceholderText = "Search or start new chat";
-            this.SearchBox.Size = new System.Drawing.Size(339, 43);
-            this.SearchBox.TabIndex = 0;
             // 
             // ChatContainer
             // 
@@ -141,18 +143,6 @@
             this.ChatContainer.TabIndex = 0;
             this.ChatContainer.TopLeftRadius = 30;
             this.ChatContainer.TopRightRadius = 30;
-            // 
-            // ChatLabel
-            // 
-            this.ChatLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ChatLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChatLabel.Location = new System.Drawing.Point(0, 0);
-            this.ChatLabel.Name = "ChatLabel";
-            this.ChatLabel.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
-            this.ChatLabel.Size = new System.Drawing.Size(339, 60);
-            this.ChatLabel.TabIndex = 1;
-            this.ChatLabel.Text = "Chats";
-            this.ChatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ContactButton
             // 
@@ -187,17 +177,29 @@
             this.OptionButton.Image = global::ChatApplication.Properties.Resources.icons8_align_left_19;
             this.OptionButton.Location = new System.Drawing.Point(0, 0);
             this.OptionButton.Name = "OptionButton";
-            this.OptionButton.Size = new System.Drawing.Size(80, 60);
+            this.OptionButton.Size = new System.Drawing.Size(74, 60);
             this.OptionButton.TabIndex = 2;
             this.OptionButton.TextColor = System.Drawing.Color.White;
             this.OptionButton.UseVisualStyleBackColor = false;
             this.OptionButton.Click += new System.EventHandler(this.OptionButtonClick);
             // 
+            // ChatLabel
+            // 
+            this.ChatLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ChatLabel.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChatLabel.Location = new System.Drawing.Point(0, 0);
+            this.ChatLabel.Name = "ChatLabel";
+            this.ChatLabel.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
+            this.ChatLabel.Size = new System.Drawing.Size(339, 60);
+            this.ChatLabel.TabIndex = 1;
+            this.ChatLabel.Text = "Chats";
+            this.ChatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SideMenuBar
             // 
             this.SideMenuBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
             this.SideMenuBar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.SideMenuBar.Location = new System.Drawing.Point(0, 0);
+            this.SideMenuBar.Location = new System.Drawing.Point(10, 0);
             this.SideMenuBar.Margin = new System.Windows.Forms.Padding(2);
             this.SideMenuBar.Name = "SideMenuBar";
             this.SideMenuBar.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -206,6 +208,23 @@
             this.SideMenuBar.Size = new System.Drawing.Size(45, 611);
             this.SideMenuBar.TabIndex = 0;
             // 
+            // BorderPanel
+            // 
+            this.BorderPanel.AllBorderRadius = 10;
+            this.BorderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(212)))), ((int)(((byte)(111)))));
+            this.BorderPanel.BorderColor = System.Drawing.Color.Black;
+            this.BorderPanel.BorderMarginSize = 0;
+            this.BorderPanel.BottomLeftRadius = 10;
+            this.BorderPanel.BottomRight = 10;
+            this.BorderPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BorderPanel.Location = new System.Drawing.Point(0, 0);
+            this.BorderPanel.Name = "BorderPanel";
+            this.BorderPanel.Size = new System.Drawing.Size(10, 611);
+            this.BorderPanel.TabIndex = 9;
+            this.BorderPanel.TopLeftRadius = 10;
+            this.BorderPanel.TopRightRadius = 10;
+            this.BorderPanel.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,6 +232,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(934, 611);
             this.Controls.Add(this.MainPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "MainForm";
@@ -240,5 +260,6 @@
         private EllipseButton OptionButton;
         private System.Windows.Forms.Label ChatLabel;
         private MenuControl SideMenuBar;
+        private CustomPanel BorderPanel;
     }
 }

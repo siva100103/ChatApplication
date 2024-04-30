@@ -97,7 +97,7 @@
             // 
             this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
             this.SendButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.SendButton.Image = global::ChatApplication.Properties.Resources.icons8_paper_plane_50__1_;
+            this.SendButton.Image = global::ChatApplication.Properties.Resources.icons8_paper_plane_50__2_;
             this.SendButton.Location = new System.Drawing.Point(470, 0);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(50, 40);
@@ -110,7 +110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.panel1);
             this.Name = "ChatSenter";
             this.Size = new System.Drawing.Size(520, 40);

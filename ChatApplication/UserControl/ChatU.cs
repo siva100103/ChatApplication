@@ -13,10 +13,9 @@ using System.Windows.Forms;
 
 namespace ChatApplication
 {
-    public delegate void ChatUClickked1(object sender, int a);
-
     public partial class ChatU : UserControl
     {
+        public event EventHandler ChatUClicked;
 
         private int borderRadius = 10;
         private bool isReceivedMessage = false;
@@ -27,8 +26,6 @@ namespace ChatApplication
         private Message message;
         private int chatUMaximumWidth = 400;
         public string path { get; set; } = "";
-        public ChatUClickked1 ChatUClickked;
-
 
         public Message Message
         {
@@ -47,6 +44,7 @@ namespace ChatApplication
                 return message;
             }
         }
+        public string MessageId { get; set; } = "";
 
         public int ChatUMaximumWidth
         {
@@ -76,11 +74,18 @@ namespace ChatApplication
             }
         }
 
+        public Image MessageDeleted
+        {
+            set => MessageSendIconPB.Image = value;
+        }
 
         public ChatU(Message message)
         {
             InitializeComponent();
+            DoubleBuffered = true;
+
             Message = message;
+            MessageId = message.Id;
 
             if (message.Seen && message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
             {
@@ -97,8 +102,16 @@ namespace ChatApplication
             message.IsReaded += (obj, e) =>
             {
                 Message m = obj as Message;
-                if(m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
+                if (m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
             };
+        }
+
+        private void ChatULoad(object sender, EventArgs e)
+        {
+            messageLB.Click += ChatUClick;
+            ChatUBottomP.Click += ChatUClick;
+            timingLB.Click += ChatUClick;
+            MessageSendIconPB.Click += ChatUClick;
         }
 
         public GraphicsPath GetPath(Rectangle rec)
@@ -254,10 +267,30 @@ namespace ChatApplication
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var path = GetPath(ClientRectangle);
+            int CornerRadius = 10;
+            GraphicsPath path = new GraphicsPath();
+            path.StartFigure();
+            path.AddArc(new Rectangle(0, 0, CornerRadius * 2, CornerRadius * 2), 180, 90);
+            path.AddLine(CornerRadius, 0, Width - CornerRadius * 2, 0);
+            path.AddArc(new Rectangle(Width - CornerRadius * 2, 0, CornerRadius * 2, CornerRadius * 2), -90, 90);
+            path.AddLine(Width, CornerRadius * 2, Width, Height - CornerRadius * 2);
+            path.AddArc(new Rectangle(Width - CornerRadius * 2, Height - CornerRadius * 2, CornerRadius * 2, CornerRadius * 2), 0, 90);
+            path.AddLine(Width - CornerRadius * 2, Height, CornerRadius * 2, Height);
+            path.AddArc(new Rectangle(0, Height - CornerRadius * 2, CornerRadius * 2, CornerRadius * 2), 90, 90);
+            path.AddLine(0, Height - CornerRadius * 2, 0, CornerRadius * 2);
+            path.CloseFigure();
+
             this.Region = new Region(path);
+
+            using (var pen = new Pen(this.BackColor, 1))
+            {
+                e.Graphics.DrawPath(pen, path);
+            }
         }
 
-
+        private void ChatUClick(object sender, EventArgs e)
+        {
+            ChatUClicked?.Invoke(this, e);
+        }
     }
 }

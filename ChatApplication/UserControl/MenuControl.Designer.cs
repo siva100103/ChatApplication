@@ -75,7 +75,7 @@ namespace ChatApplication
             this.CallsBtn.BorderColor = System.Drawing.Color.Transparent;
             this.CallsBtn.BorderRadius1 = 10;
             this.CallsBtn.BorderSize1 = 0;
-            this.CallsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
+            this.CallsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(212)))), ((int)(((byte)(111)))));
             this.CallsBtn.Dock = System.Windows.Forms.DockStyle.Top;
             this.CallsBtn.EndPoint = -3;
             this.CallsBtn.FlatAppearance.BorderSize = 0;
@@ -175,7 +175,7 @@ namespace ChatApplication
             this.ChatsBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ChatsBtn.BorderRadius1 = 10;
             this.ChatsBtn.BorderSize1 = 0;
-            this.ChatsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(107)))), ((int)(((byte)(169)))));
+            this.ChatsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(212)))), ((int)(((byte)(111)))));
             this.ChatsBtn.Dock = System.Windows.Forms.DockStyle.Top;
             this.ChatsBtn.EndPoint = 24;
             this.ChatsBtn.FlatAppearance.BorderSize = 0;

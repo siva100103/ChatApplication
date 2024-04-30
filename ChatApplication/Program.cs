@@ -7,6 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
+using System.IO;
+using ChatApplication.Models;
+using System.Xml.Serialization;
 
 namespace ChatApplication
 {
@@ -22,17 +25,25 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = GetLocalIPAddress();
-            using (var db =new ServerDatabase())
+            ChatApplicationNetworkManager.FromIPAddress = IpAddress;
+
+            if (!File.Exists(@".\data.xml"))
+                SerializeLocalDataToXml();
+            using (var db = new ServerDatabase())
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
-                    ChatApplicationNetworkManager.FromIPAddress = IpAddress;
                     Application.Run(new LoginForm(IpAddress));
                 }
                 else
                 {
-                    ChatApplicationNetworkManager.FromIPAddress = IpAddress;
-                    Application.Run(new MainForm());
+                    if (ChatApplicationNetworkManager.ManagerInitializer())
+                        Application.Run(new MainForm());
+                    else
+                    {
+                        DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }
@@ -62,6 +73,17 @@ namespace ChatApplication
             return ipAddress;
         }
 
+        private static void SerializeLocalDataToXml()
+        {
+            string xmlFilePath = @".\data.xml";
 
+            LocalData data = new LocalData();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            using (TextWriter writer = new StreamWriter(xmlFilePath))
+            {
+                serializer.Serialize(writer, data);
+            }
+        }
     }
 }

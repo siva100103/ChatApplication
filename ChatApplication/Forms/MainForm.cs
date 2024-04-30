@@ -32,27 +32,21 @@ namespace ChatApplication
         private ProfilePage MyProfile;
         private ServerDatabase MyDetails = new ServerDatabase();
         private bool click = false;
+        private List<ContactU> Contacts = new List<ContactU>();
+        private Client Current;
 
         public MainForm()
         {
             InitializeComponent();
-            
-            
-        }
-
-        private void DbConnectionFailed(string Errormsg)
-        {
-            MessageBox.Show("Invalid Credientials Please check Your Credientials in Data.XMl File");
-            Close();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            LocalDatabase.DbConnectionFailed += DbConnectionFailed;
-            ChatApplicationNetworkManager.ManagerInitializer();
+            //ChatApplicationNetworkManager.ManagerInitializer();
             LabelsAdder();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
+            SearchBox.OnTextChange += SearchBoxOnTextChange;
 
             MyProfile = new ProfilePage
             {
@@ -70,10 +64,47 @@ namespace ChatApplication
                     if (client.ProfilePath != "")
                     {
                         SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
-                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage; 
+                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
                     }
                     MyProfile.About = client.About;
                     break;
+                }
+            }
+        }
+
+        public void DpSetFirstTime()
+        {
+            SuspendLayout();
+            foreach (var client in MyDetails.Clients.ToList())
+            {
+                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                {
+                    if (client.ProfilePath != "")
+                    {
+                        SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
+                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
+                    }
+                    MyProfile.About = client.About;
+                    break;
+                }
+            }
+            ResumeLayout();
+        }
+
+        private void SearchBoxOnTextChange(object sender, EventArgs e)
+        {
+            if (Contacts.Count > 0 && SearchBox.PlaceholderText != "Search or start new chat")
+            {
+                foreach (ContactU contact in Contacts)
+                {
+                    if (contact.UserName.IndexOf(SearchBox.PlaceholderText, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        contact.Visible = true;
+                    }
+                    else
+                    {
+                        contact.Visible = false;
+                    }
                 }
             }
         }
@@ -82,15 +113,15 @@ namespace ChatApplication
         {
             string path = "";
             Image pic = null;
-            foreach(var dict in e)
+            foreach (var dict in e)
             {
                 path = dict.Key;
                 pic = dict.Value;
             }
             SideMenuBar.ProfileImage = pic;
-            foreach(var client in MyDetails.Clients.ToList())
+            foreach (var client in MyDetails.Clients.ToList())
             {
-                if(client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
                 {
                     client.ProfilePath = path;
                     MyDetails.SaveChanges();
@@ -100,12 +131,16 @@ namespace ChatApplication
 
         private void AddNewLabelForNewUser(ContactU label)
         {
+            SuspendLayout();
             chatContactPanel.Controls.Add(label);
             label.Clicked += MessagePageSwitcher;
+            Contacts.Add(label);
+            ResumeLayout();
         }
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
+            MyProfile.SuspendLayout();
             Point location = PointToScreen(SideMenuBar.Location);
             location.Offset(SideMenuBar.Width + 10, SideMenuBar.Height - MyProfile.Height - 20);
             MyProfile.Location = location;
@@ -118,43 +153,65 @@ namespace ChatApplication
                 MyProfile.Visible = false;
             }
             click = !click;
+            MyProfile.ResumeLayout();
         }
 
         private void MessagePageSwitcher(object sender, EventArgs e)
         {
-            MessagePagePanel.Controls.Clear();
-            MessagePage page = (sender as Client).MessagePage;
-            page.ProfileImage = (sender as Client).ProfilePicture;
-            if (page != null)
+            MessagePagePanel.SuspendLayout();
+            Current = (sender as Client);
+            if (Current != null)
             {
-                page.Dock = DockStyle.Fill;
-                MessagePagePanel.Controls.Add(page);
+                MessagePagePanel.Controls.Clear();
+                MessagePage page = Current.MessagePage;
+                page.ProfileImage = Current.ProfilePicture;
+                if (page != null)
+                {
+                    page.Dock = DockStyle.Fill;
+                    MessagePagePanel.Controls.Add(page);
+                }
             }
+            MessagePagePanel.ResumeLayout();
         }
 
         private void LabelsAdder()
         {
-            
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 ContactU con = new ContactU(a.Value)
                 {
-                    Dock = DockStyle.Top
+                    Dock = DockStyle.Top,
                 };
-                //ct.Add(con);
                 chatContactPanel.Controls.Add(con);
+                Panel space = new Panel()
+                {
+                    Dock = DockStyle.Top,
+                    Height = 10
+                };
+                chatContactPanel.Controls.Add(space);
                 con.Clicked += MessagePageSwitcher;
+                Contacts.Add(con);
             }
-            
+
+        }
+
+        private void OptionButtonClick(object sender, EventArgs e)
+        {
+            MessagePagePanel.SuspendLayout();
+            ChatPanel.SuspendLayout();
+            SideMenuBar.Visible = !SideMenuBar.Visible;
+            BorderPanel.Visible = !SideMenuBar.Visible;
+            ChatPanel.ResumeLayout();
+            MessagePagePanel.ResumeLayout();
         }
 
         protected async override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-  
+
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress,a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
