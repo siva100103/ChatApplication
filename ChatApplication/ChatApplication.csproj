@@ -577,6 +577,10 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-log-out-32 %281%29.png" />
+    <None Include="Resources\icons8-log-out-32.png" />
+    <None Include="Resources\icons8-log-out-48 %281%29.png" />
+    <None Include="Resources\icons8-log-out-48.png" />
     <None Include="Resources\icons8-paper-plane-50 %282%29.png" />
     <None Include="Resources\icons8-menu-48.png" />
     <None Include="Resources\icons8-menu-25.png" />

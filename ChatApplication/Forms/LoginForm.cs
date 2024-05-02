@@ -36,7 +36,11 @@ namespace ChatApplication
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             DpPicturePath = newfilePath;
-            dp.Save(newfilePath);
+            using (var bmp = new Bitmap(dp))
+            {
+                bmp.Save(newfilePath);
+            }
+            //dp.Save(newfilePath);
         }
 
         protected override void OnLoad(EventArgs e)

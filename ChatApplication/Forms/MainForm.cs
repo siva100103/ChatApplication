@@ -47,6 +47,7 @@ namespace ChatApplication
             LabelsAdder();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
             SearchBox.OnTextChange += SearchBoxOnTextChange;
+            SideMenuBar.OnClickExitBtn += ExitButtonClick;
 
             MyProfile = new ProfilePage
             {
@@ -140,7 +141,7 @@ namespace ChatApplication
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
-            MyProfile.SuspendLayout();
+            //MyProfile.SuspendLayout();
             Point location = PointToScreen(SideMenuBar.Location);
             location.Offset(SideMenuBar.Width + 10, SideMenuBar.Height - MyProfile.Height - 20);
             MyProfile.Location = location;
@@ -153,7 +154,7 @@ namespace ChatApplication
                 MyProfile.Visible = false;
             }
             click = !click;
-            MyProfile.ResumeLayout();
+            //MyProfile.ResumeLayout();
         }
 
         private void MessagePageSwitcher(object sender, EventArgs e)
@@ -205,10 +206,9 @@ namespace ChatApplication
             MessagePagePanel.ResumeLayout();
         }
 
-        protected async override void OnClosed(EventArgs e)
+        private async void ExitButtonClick(object sender, EventArgs e)
         {
-            base.OnClosed(e);
-
+            Close();
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
@@ -217,6 +217,11 @@ namespace ChatApplication
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
                 }
             }
+        }
+
+        protected async override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
     }
 }

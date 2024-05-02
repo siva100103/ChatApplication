@@ -28,7 +28,7 @@ namespace ChatApplication
         );
         #endregion
 
-        public event EventHandler<Dictionary<string , Image>> ProfileChoosen;
+        public event EventHandler<Dictionary<string, Image>> ProfileChoosen;
         private Dictionary<string, Image> PathPic = new Dictionary<string, Image>();
 
         public string UserName

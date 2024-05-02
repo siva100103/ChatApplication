@@ -67,7 +67,7 @@ namespace ChatApplication
                     msg.Message.Msg = "This Message is Deleted";
                     msg.MessageCreate();
                     msg.BackColor = Color.FromArgb(208, 212, 227);
-                    msg.MessageDeleted = Properties.Resources.icons8_double_tick_15;
+                    msg.MessageDeleted = Properties.Resources.icons8_double_tick_13;
                     LocalDatabase.DeleteMessage(msg.MessageId);
                 }
 

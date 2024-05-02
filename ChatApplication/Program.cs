@@ -31,7 +31,11 @@ namespace ChatApplication
                 SerializeLocalDataToXml();
             using (var db = new ServerDatabase())
             {
-                if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
+                //if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
+                //{
+                //    Application.Run(new LoginForm(IpAddress));
+                //}
+                if(!db.ServerInitialize())
                 {
                     Application.Run(new LoginForm(IpAddress));
                 }
@@ -48,7 +52,7 @@ namespace ChatApplication
             }
         }
 
-        private static string GetLocalIPAddress()
+        public static string GetLocalIPAddress()
         {
             string ipAddress = string.Empty;
             foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())

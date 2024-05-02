@@ -15,7 +15,7 @@ namespace WindowsFormsApp3
 {
     public partial class ContactU : UserControl
     {
-        public Image img { get; set; } 
+        public Image Img { get; set; } 
         public string UserName { get; set; } = "";
         public Client Client { get; set; }
         public string TimeLB
@@ -32,9 +32,9 @@ namespace WindowsFormsApp3
             InitializeComponent();
             Client = c;
             UserName = c.Name;
-            img = c.ProfilePicture;
+            Img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
-            dpPictureBox.Image = img;
+            dpPictureBox.Image = Img;
 
                 ChatApplication.Message LastMsg = LocalDatabase.Messages.Values.LastOrDefault(m =>
                 {
@@ -71,8 +71,8 @@ namespace WindowsFormsApp3
 
             if (c.UnseenMessages > 0)
             {
-                bendingMessages1.Visible = true;
-                bendingMessages1.UnReadCount(c.UnseenMessages);
+                PendingMessages.Visible = true;
+                PendingMessages.UnReadCount(c.UnseenMessages);
             }
 
             c.MessageSend += (obj, e) => SetTimeLbValue();
@@ -81,11 +81,11 @@ namespace WindowsFormsApp3
 
         private void UpdateUnseenMessage(object sender, int n)
         {
-            if (n == 0) bendingMessages1.Visible = false;
+            if (n == 0) PendingMessages.Visible = false;
             else
             {
-                bendingMessages1.Visible = true;
-                bendingMessages1.UnReadCount(n);
+                PendingMessages.Visible = true;
+                PendingMessages.UnReadCount(n);
             }
         }
 

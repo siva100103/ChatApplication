@@ -31,17 +31,43 @@ namespace ChatApplication
         /// </summary>
         private void InitializeComponent()
         {
+            this.StarBtn = new ChatApplication.HoverButton();
             this.StatusBtn = new ChatApplication.HoverButton();
             this.CallsBtn = new ChatApplication.HoverButton();
-            this.StarBtn = new ChatApplication.HoverButton();
             this.ArchivedBtn = new ChatApplication.HoverButton();
             this.SettingBtn = new ChatApplication.HoverButton();
             this.ChatsBtn = new ChatApplication.HoverButton();
             this.ProfilePictureBox = new ChatApplication.CustomPictureBox();
+            this.ExitButton = new ChatApplication.HoverButton();
             this.DpPB = new ChatApplication.CustomPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DpPB)).BeginInit();
             this.SuspendLayout();
+            // 
+            // StarBtn
+            // 
+            this.StarBtn.BackColor = System.Drawing.Color.Transparent;
+            this.StarBtn.BackgroudColor = System.Drawing.Color.Transparent;
+            this.StarBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.StarBtn.BorderRadius1 = 10;
+            this.StarBtn.BorderSize1 = 0;
+            this.StarBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
+            this.StarBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.StarBtn.EndPoint = -3;
+            this.StarBtn.FlatAppearance.BorderSize = 0;
+            this.StarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StarBtn.ForeColor = System.Drawing.Color.White;
+            this.StarBtn.Image = global::ChatApplication.Properties.Resources.icons8_star_22;
+            this.StarBtn.IsFormUp = false;
+            this.StarBtn.IsSelected = false;
+            this.StarBtn.Location = new System.Drawing.Point(4, 295);
+            this.StarBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.StarBtn.Name = "StarBtn";
+            this.StarBtn.Size = new System.Drawing.Size(42, 40);
+            this.StarBtn.TabIndex = 5;
+            this.StarBtn.TextColor = System.Drawing.Color.White;
+            this.StarBtn.UseVisualStyleBackColor = false;
+            this.StarBtn.Visible = false;
             // 
             // StatusBtn
             // 
@@ -93,31 +119,6 @@ namespace ChatApplication
             this.CallsBtn.UseVisualStyleBackColor = false;
             this.CallsBtn.Visible = false;
             // 
-            // StarBtn
-            // 
-            this.StarBtn.BackColor = System.Drawing.Color.Transparent;
-            this.StarBtn.BackgroudColor = System.Drawing.Color.Transparent;
-            this.StarBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.StarBtn.BorderRadius1 = 10;
-            this.StarBtn.BorderSize1 = 0;
-            this.StarBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
-            this.StarBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.StarBtn.EndPoint = -3;
-            this.StarBtn.FlatAppearance.BorderSize = 0;
-            this.StarBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StarBtn.ForeColor = System.Drawing.Color.White;
-            this.StarBtn.Image = global::ChatApplication.Properties.Resources.icons8_star_22;
-            this.StarBtn.IsFormUp = false;
-            this.StarBtn.IsSelected = false;
-            this.StarBtn.Location = new System.Drawing.Point(4, 335);
-            this.StarBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.StarBtn.Name = "StarBtn";
-            this.StarBtn.Size = new System.Drawing.Size(42, 40);
-            this.StarBtn.TabIndex = 5;
-            this.StarBtn.TextColor = System.Drawing.Color.White;
-            this.StarBtn.UseVisualStyleBackColor = false;
-            this.StarBtn.Visible = false;
-            // 
             // ArchivedBtn
             // 
             this.ArchivedBtn.BackColor = System.Drawing.Color.Transparent;
@@ -134,7 +135,7 @@ namespace ChatApplication
             this.ArchivedBtn.Image = global::ChatApplication.Properties.Resources.icons8_box_22;
             this.ArchivedBtn.IsFormUp = false;
             this.ArchivedBtn.IsSelected = false;
-            this.ArchivedBtn.Location = new System.Drawing.Point(4, 375);
+            this.ArchivedBtn.Location = new System.Drawing.Point(4, 335);
             this.ArchivedBtn.Margin = new System.Windows.Forms.Padding(2);
             this.ArchivedBtn.Name = "ArchivedBtn";
             this.ArchivedBtn.Size = new System.Drawing.Size(42, 40);
@@ -159,7 +160,7 @@ namespace ChatApplication
             this.SettingBtn.Image = global::ChatApplication.Properties.Resources.icons8_setting_22;
             this.SettingBtn.IsFormUp = false;
             this.SettingBtn.IsSelected = false;
-            this.SettingBtn.Location = new System.Drawing.Point(4, 415);
+            this.SettingBtn.Location = new System.Drawing.Point(4, 375);
             this.SettingBtn.Margin = new System.Windows.Forms.Padding(2);
             this.SettingBtn.Name = "SettingBtn";
             this.SettingBtn.Size = new System.Drawing.Size(42, 40);
@@ -196,7 +197,7 @@ namespace ChatApplication
             // 
             this.ProfilePictureBox.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ProfilePictureBox.Image = global::ChatApplication.Properties.Resources.icons8_user_35;
-            this.ProfilePictureBox.Location = new System.Drawing.Point(4, 455);
+            this.ProfilePictureBox.Location = new System.Drawing.Point(4, 415);
             this.ProfilePictureBox.Name = "ProfilePictureBox";
             this.ProfilePictureBox.Size = new System.Drawing.Size(42, 40);
             this.ProfilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -205,6 +206,31 @@ namespace ChatApplication
             this.ProfilePictureBox.Click += new System.EventHandler(this.ProfilePictureBoxClick);
             this.ProfilePictureBox.MouseEnter += new System.EventHandler(this.ProfilePictureBoxMouseEnter);
             this.ProfilePictureBox.MouseLeave += new System.EventHandler(this.ProfilePictureBoxMouseLeave);
+            // 
+            // ExitButton
+            // 
+            this.ExitButton.BackColor = System.Drawing.Color.Transparent;
+            this.ExitButton.BackgroudColor = System.Drawing.Color.Transparent;
+            this.ExitButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ExitButton.BorderRadius1 = 10;
+            this.ExitButton.BorderSize1 = 0;
+            this.ExitButton.ButtonSideHoverlineColor = System.Drawing.Color.Crimson;
+            this.ExitButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ExitButton.EndPoint = 24;
+            this.ExitButton.FlatAppearance.BorderSize = 0;
+            this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExitButton.ForeColor = System.Drawing.Color.White;
+            this.ExitButton.Image = global::ChatApplication.Properties.Resources.icons8_log_out_32__2_;
+            this.ExitButton.IsFormUp = false;
+            this.ExitButton.IsSelected = true;
+            this.ExitButton.Location = new System.Drawing.Point(4, 455);
+            this.ExitButton.Margin = new System.Windows.Forms.Padding(2);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(42, 40);
+            this.ExitButton.TabIndex = 10;
+            this.ExitButton.TextColor = System.Drawing.Color.White;
+            this.ExitButton.UseVisualStyleBackColor = false;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // DpPB
             // 
@@ -221,13 +247,14 @@ namespace ChatApplication
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.Controls.Add(this.StarBtn);
             this.Controls.Add(this.StatusBtn);
             this.Controls.Add(this.CallsBtn);
-            this.Controls.Add(this.StarBtn);
             this.Controls.Add(this.ArchivedBtn);
             this.Controls.Add(this.SettingBtn);
             this.Controls.Add(this.ChatsBtn);
             this.Controls.Add(this.ProfilePictureBox);
+            this.Controls.Add(this.ExitButton);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MenuControl";
             this.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -253,5 +280,6 @@ namespace ChatApplication
        // private CustomPanel PhotoPanel;
         private HoverButton CallsBtn;
         private CustomPictureBox ProfilePictureBox;
+        private HoverButton ExitButton;
     }
 }

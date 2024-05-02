@@ -174,6 +174,8 @@ namespace ChatApplication
                     type = Type.Response
                 };
                 await SendMessage(m, Clients[m.FromIP]);
+                msg.Seen = true;
+                LocalDatabase.UpdateMessage(msg);
             }
             Client c = Clients[msg.FromIP];
             c.MessageReceiveInvoker();

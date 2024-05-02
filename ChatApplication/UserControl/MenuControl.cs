@@ -38,6 +38,7 @@ namespace ChatApplication
         public EventHandler OnClickStarBtn;
         public EventHandler OnClickArchivedBtn;
         public EventHandler OnClickSettingBtn;
+        public event EventHandler OnClickExitBtn;
         public event EventHandler OnClickProfilePicture;
 
         private HoverMessageForm messageFormobj = null;
@@ -219,6 +220,16 @@ namespace ChatApplication
         private void ProfilePictureBoxMouseLeave(object sender, EventArgs e)
         {
             ProfilePictureBox.BackColor = Color.FromArgb(240, 242, 245);
+        }
+
+        private void ExitButtonClick(object sender, EventArgs e)
+        {
+            OnClickExitBtn?.Invoke(this, e);
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
