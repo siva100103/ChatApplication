@@ -14,12 +14,14 @@ using ChatApplication;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Reflection;
+using ChatApplication.Controller;
 
 namespace ChatApplication
 {
     public partial class MessagePage : UserControl
     {
         public Client Client { get; set; }
+        public event EventHandler<List<ChatU>> StarredMessages;
 
         public Image ProfileImage
         {
@@ -31,7 +33,7 @@ namespace ChatApplication
             }
         }
         private FileSenderPage FileSharePage;
-        private ContentForm Info;
+        private ContentForm ContactInfo;
         private MenuForm MenuF;
 
         public MessagePage(Client contact)
@@ -69,7 +71,7 @@ namespace ChatApplication
             FileSharePage.FileMsgReady += FileSendMessage;
             MainPanel.Controls.Add(FileSharePage);
 
-            Info = new ContentForm()
+            ContactInfo = new ContentForm()
             {
                 Size = new Size(400, 400),
                 Visible = false,
@@ -84,11 +86,24 @@ namespace ChatApplication
             };
             MenuF.Delete += Unselected;
             MenuF.Copy += Unselected;
+            MenuF.Star += StarredMessage;
 
             foreach (var a in Messages)
             {
                 if (!a.Msg.Contains(@"\\SPARE-B11\Chat Application Profile\"))
                     AddMessage(a);
+            }
+        }
+
+        private void StarredMessage(object sender, List<ChatU> e)
+        {
+            StarredMessages?.Invoke(this, e);
+            foreach (ChatU msg in ChatApplicationNetworkManager.SelectedMessages)
+            {
+                msg.Message.Starred = true;
+                LocalDatabase.StarMessages(msg.Message);
+                CustomPanel parent = (CustomPanel)msg.Parent;
+                parent.BackColor = Color.Transparent;
             }
         }
 
@@ -180,7 +195,7 @@ namespace ChatApplication
             space.BringToFront();
             if (msg.type == Type.File)
             {
-                chatMsg.path = msg.Msg;
+                chatMsg.FilePath = msg.Msg;
                 chatMsg.MouseClick += ChatMsgMouseClick;
             }
             chatMsg.ChatUClicked += ChatMsgClicked;
@@ -209,7 +224,7 @@ namespace ChatApplication
 
         private void ChatMsgMouseClick(object sender, MouseEventArgs e)
         {
-            string path = (sender as ChatU).path;
+            string path = (sender as ChatU).FilePath;
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             //File.Open(filePath, FileMode.Open);
@@ -257,17 +272,17 @@ namespace ChatApplication
 
         private void ProfilePictureClick(object sender, EventArgs e)
         {
-            if (!Message.ClickedInfo && !Info.Visible)
+            if (!Message.ClickedInfo && !ContactInfo.Visible)
             {
-                Info.DP = ProfilePicture.Image;
-                Info.About = About();
-                Info.Visible = true;
+                ContactInfo.DP = ProfilePicture.Image;
+                ContactInfo.About = About();
+                ContactInfo.Visible = true;
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);
-                Info.Location = location;
+                ContactInfo.Location = location;
                 Message.ClickedInfo = true;
             }
-            Info.Focus();
+            ContactInfo.Focus();
         }
 
         private string About()

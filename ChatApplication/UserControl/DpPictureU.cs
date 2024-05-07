@@ -45,7 +45,7 @@ namespace ChatApplication
             using (OpenFileDialog file = new OpenFileDialog())
             {
                 file.Filter = "PNG Files (*.png)|*.png|JPEG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg";
-                file.Title = "Choose a Photo";
+                file.Title = "Choose Profile Picture";
 
                 if (file.ShowDialog() == DialogResult.OK)
                 {

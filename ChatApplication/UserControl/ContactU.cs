@@ -26,10 +26,25 @@ namespace WindowsFormsApp3
             }
         }
 
+        public Color MPBackColor
+        {
+            set
+            {
+                mainP.BackColor = value;
+            }
+            get
+            {
+                return mainP.BackColor;
+            }
+        }
+        public bool Selected { get; set; } = false;
         public event EventHandler Clicked;
+
         public ContactU(Client c)
         {
             InitializeComponent();
+            BackColor = Color.Transparent;
+
             Client = c;
             UserName = c.Name;
             Img = c.ProfilePicture;
@@ -65,7 +80,7 @@ namespace WindowsFormsApp3
             contactNameLB.MouseClick += LabelClicked;
             lastMessageLB.Click += LabelClicked;
 
-            c.StatusChanged += statusChange;
+            c.StatusChanged += StatusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
             UpdateUnseenMessage(Client,Client.UnseenMessages);
 
@@ -89,7 +104,7 @@ namespace WindowsFormsApp3
             }
         }
 
-        private void statusChange(object sender, bool e)
+        private void StatusChange(object sender, bool e)
         {
             if (e) statusIndicator1.Color = Color.FromArgb(128, 255, 128);
             else statusIndicator1.Color = Color.FromArgb(255, 128, 128);
@@ -101,17 +116,28 @@ namespace WindowsFormsApp3
             ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList,Client);
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;
+            Selected = true;
         }
 
         private void Leaving(object sender, EventArgs e)
         {
-            mainP.BackColor = Color.FromArgb(240, 242, 246);
+            if (!Selected)
+            {
+                SuspendLayout();
+                mainP.BackColor = Color.FromArgb(243,243,243);
+                ResumeLayout();
+            }
         }
 
         private void Hovering(object sender, EventArgs e)
         {
-            Cursor=Cursors.Hand;
-            mainP.BackColor = Color.FromArgb(231, 239, 253);
+            if (!Selected)
+            {
+                SuspendLayout();
+                Cursor = Cursors.Hand;
+                mainP.BackColor = Color.FromArgb(209, 209, 209);
+                ResumeLayout();
+            }
         }
 
         private void SetTimeLbValue()

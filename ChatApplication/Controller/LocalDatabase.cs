@@ -65,6 +65,7 @@ namespace ChatApplication.Controller
                     new ColumnDetails("Msg",BaseDatatypes.VARCHAR,length:1000),
                     new ColumnDetails("Time",BaseDatatypes.DATETIME,notNull:true),
                     new ColumnDetails("Seen",BaseDatatypes.TINYINT),
+                    new ColumnDetails("Starred",BaseDatatypes.TINYINT),
                 };
                 var c = Manager.CreateTable("Messages", Column);
             }
@@ -87,7 +88,8 @@ namespace ChatApplication.Controller
                         ReceiverIP = a.Value["ReceiverIP"][i].ToString(),
                         Msg = a.Value["Msg"][i].ToString(),
                         Time = (DateTime)a.Value["Time"][i],
-                        Seen = a.Value["Seen"][i].ToBoolean()
+                        Seen = a.Value["Seen"][i].ToBoolean(),
+                        Starred = a.Value["Starred"][i].ToBoolean()
                     };
                     Messages.Add(m.Id, m);
                 }
@@ -102,10 +104,21 @@ namespace ChatApplication.Controller
                 new ParameterData("ReceiverIP",m.ReceiverIP),
                 new ParameterData("Msg",m.Msg),
                 new ParameterData("Time",m.Time),
-                new ParameterData("Seen",m.Seen.ToInt32())
+                new ParameterData("Seen",m.Seen.ToInt32()),
+                new ParameterData("Starred",m.Starred.ToInt32())
             };
             Manager.InsertData("Messages", data);
             Messages.Add(m.Id, m);
+        }
+
+        public static void StarMessages(Message message)
+        {
+            string condition = $"Id = '{message.Id}'";
+            ParameterData[] data = new ParameterData[]
+            {
+                new ParameterData("Starred" , message.Starred.ToInt32())
+            };
+            Manager.UpdateData("Messages", condition, data);
         }
 
         public static void UpdateMessage(Message m)

@@ -219,7 +219,6 @@ namespace ChatApplication
 
         public static List<Message> GetMessages(string FromIp, string ToIP)
         {
-
             return LocalDatabase.Messages.Values.ToList().Where((msg) =>
            {
                return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));

@@ -47,7 +47,7 @@ namespace WindowsFormsApp3
             // 
             // mainP
             // 
-            this.mainP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(246)))));
+            this.mainP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.mainP.Controls.Add(this.contactInformationP);
             this.mainP.Controls.Add(this.timeP);
             this.mainP.Controls.Add(this.dpPictureBox);
@@ -158,7 +158,7 @@ namespace WindowsFormsApp3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(246)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.mainP);
             this.Name = "ContactU";
             this.Padding = new System.Windows.Forms.Padding(2);

@@ -41,7 +41,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.panel1.Controls.Add(this.TextArea);
             this.panel1.Controls.Add(this.FileShareIcon);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -49,19 +49,20 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(2);
             this.panel1.Size = new System.Drawing.Size(520, 40);
             this.panel1.TabIndex = 6;
             // 
             // TextArea
             // 
-            this.TextArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.TextArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.TextArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TextArea.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextArea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.TextArea.Location = new System.Drawing.Point(100, 0);
+            this.TextArea.Location = new System.Drawing.Point(102, 2);
             this.TextArea.Name = "TextArea";
-            this.TextArea.Size = new System.Drawing.Size(370, 40);
+            this.TextArea.Size = new System.Drawing.Size(366, 36);
             this.TextArea.TabIndex = 2;
             this.TextArea.Text = " Type a message";
             this.TextArea.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextAreaMouseClick);
@@ -69,12 +70,12 @@
             // 
             // FileShareIcon
             // 
-            this.FileShareIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.FileShareIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.FileShareIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.FileShareIcon.Image = global::ChatApplication.Properties.Resources.paper_clip__3_;
-            this.FileShareIcon.Location = new System.Drawing.Point(50, 0);
+            this.FileShareIcon.Location = new System.Drawing.Point(52, 2);
             this.FileShareIcon.Name = "FileShareIcon";
-            this.FileShareIcon.Size = new System.Drawing.Size(50, 40);
+            this.FileShareIcon.Size = new System.Drawing.Size(50, 36);
             this.FileShareIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.FileShareIcon.TabIndex = 1;
             this.FileShareIcon.TabStop = false;
@@ -82,12 +83,12 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBox1.Image = global::ChatApplication.Properties.Resources.icons8_happy_30;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(2, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 40);
+            this.pictureBox1.Size = new System.Drawing.Size(50, 36);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -95,12 +96,12 @@
             // 
             // SendButton
             // 
-            this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.SendButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.SendButton.Image = global::ChatApplication.Properties.Resources.icons8_paper_plane_50__2_;
-            this.SendButton.Location = new System.Drawing.Point(470, 0);
+            this.SendButton.Location = new System.Drawing.Point(468, 2);
             this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(50, 40);
+            this.SendButton.Size = new System.Drawing.Size(50, 36);
             this.SendButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SendButton.TabIndex = 3;
             this.SendButton.TabStop = false;
@@ -110,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.Controls.Add(this.panel1);
             this.Name = "ChatSenter";
             this.Size = new System.Drawing.Size(520, 40);

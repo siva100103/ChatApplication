@@ -16,6 +16,7 @@ namespace ChatApplication
     {
         public event EventHandler Delete;
         public event EventHandler Copy;
+        public event EventHandler<List<ChatU>> Star;
 
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
@@ -67,10 +68,9 @@ namespace ChatApplication
                     msg.Message.Msg = "This Message is Deleted";
                     msg.MessageCreate();
                     msg.BackColor = Color.FromArgb(208, 212, 227);
-                    msg.MessageDeleted = Properties.Resources.icons8_double_tick_13;
+                    msg.ChatMessageIcon = Properties.Resources.icons8_double_tick_13;
                     LocalDatabase.DeleteMessage(msg.MessageId);
                 }
-
                 ChatApplicationNetworkManager.SelectedMessages.Clear();
             }
             Hide();
@@ -89,6 +89,16 @@ namespace ChatApplication
                 }
 
                 Clipboard.SetText(toBeCopied);
+            }
+            Hide();
+        }
+
+        private void StarLabelClick(object sender, EventArgs e)
+        {
+            if (ChatApplicationNetworkManager.SelectedMessages.Count > 0)
+            {
+                Star?.Invoke(this, ChatApplicationNetworkManager.SelectedMessages);
+                ChatApplicationNetworkManager.SelectedMessages.Clear();
             }
             Hide();
         }

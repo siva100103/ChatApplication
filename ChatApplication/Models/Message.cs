@@ -22,6 +22,7 @@ namespace ChatApplication
         public Type type { get; set; }
 
         public bool Seen { get; set; }
+        public bool Starred { get; set; } = false;
         public static bool ClickedInfo = false;
 
         public event EventHandler IsSended;

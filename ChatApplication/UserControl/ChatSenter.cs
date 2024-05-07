@@ -41,7 +41,7 @@ namespace ChatApplication
         public ChatSenter()
         {
             InitializeComponent();
-            TextArea.BackColor = Color.FromArgb(240, 243, 253);
+            TextArea.BackColor = Color.FromArgb(243, 243, 243);
             TextArea.Font = new Font("Noto Emoji", 16);
 
             pictureBox1.MouseLeave += MouseLev1;
@@ -59,13 +59,13 @@ namespace ChatApplication
         private void MouseEnt1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;
-            p.BackColor = Color.FromArgb(215, 228, 253);
+            p.BackColor = Color.FromArgb(209, 209, 209);
 
         }
         private void MouseLev1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;
-            p.BackColor = Color.FromArgb(240, 243, 253);
+            p.BackColor = Color.FromArgb(243, 243, 243);
 
         }
 

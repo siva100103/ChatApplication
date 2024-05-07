@@ -194,10 +194,10 @@
     <Compile Include="Forms\ProfilePage.Designer.cs">
       <DependentUpon>ProfilePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuForm.cs">
+    <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MenuForm.Designer.cs">
+    <Compile Include="Forms\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\20240415072444_Initial.cs" />
@@ -206,6 +206,12 @@
     </Compile>
     <Compile Include="Migrations\ServerDatabaseModelSnapshot.cs" />
     <Compile Include="Models\LocalData.cs" />
+    <Compile Include="StarredMessages.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StarredMessages.Designer.cs">
+      <DependentUpon>StarredMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\FileSenderPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -366,8 +372,11 @@
     <EmbeddedResource Include="Forms\ProfilePage.resx">
       <DependentUpon>ProfilePage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuForm.resx">
+    <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StarredMessages.resx">
+      <DependentUpon>StarredMessages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\BendingMessages.resx">
       <DependentUpon>BendingMessages.cs</DependentUpon>
@@ -577,6 +586,15 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-star-48.png" />
+    <None Include="Resources\icons8-left-50.png" />
+    <None Include="Resources\8665040_arrow_left_icon1.png" />
+    <None Include="Resources\8665040_arrow_left_icon.png" />
+    <None Include="Resources\icons8-ellipsis-48 %281%29.png" />
+    <None Include="Resources\icons8-ellipsis-48.png" />
+    <None Include="Resources\icons8-more-481.png" />
+    <None Include="Resources\icons8-more-48 %281%29.png" />
+    <None Include="Resources\icons8-more-48.png" />
     <None Include="Resources\icons8-log-out-32 %281%29.png" />
     <None Include="Resources\icons8-log-out-32.png" />
     <None Include="Resources\icons8-log-out-48 %281%29.png" />

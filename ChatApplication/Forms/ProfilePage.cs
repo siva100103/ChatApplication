@@ -56,18 +56,16 @@ namespace ChatApplication
             InitializeComponent();
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
-            Opacity = 0.9;
+            Opacity = 0.85;
             Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 40, 40));
-
-            LostFocus += ProfilePageLostFocus;
         }
 
-        private void ProfilePageLostFocus(object sender, EventArgs e)
+        protected override void OnLostFocus(EventArgs e)
         {
+            base.OnLostFocus(e);
             if (!pfClicked)
             {
                 Visible = false;
-                Hide();
             }
         }
 

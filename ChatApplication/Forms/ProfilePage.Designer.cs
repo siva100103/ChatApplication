@@ -123,8 +123,8 @@
             // 
             // CloseButton
             // 
-            this.CloseButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.CloseButton.BackgroudColor = System.Drawing.Color.SkyBlue;
+            this.CloseButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(164)))), ((int)(((byte)(140)))));
+            this.CloseButton.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(164)))), ((int)(((byte)(140)))));
             this.CloseButton.BorderColor = System.Drawing.Color.Transparent;
             this.CloseButton.BorderRadius1 = 10;
             this.CloseButton.BorderSize1 = 0;
@@ -150,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(240)))), ((int)(((byte)(247)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(227)))), ((int)(((byte)(251)))));
             this.ClientSize = new System.Drawing.Size(800, 412);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AboutBox);

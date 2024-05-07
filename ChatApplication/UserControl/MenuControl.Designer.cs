@@ -176,7 +176,7 @@ namespace ChatApplication
             this.ChatsBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ChatsBtn.BorderRadius1 = 10;
             this.ChatsBtn.BorderSize1 = 0;
-            this.ChatsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(212)))), ((int)(((byte)(111)))));
+            this.ChatsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(211)))), ((int)(((byte)(57)))));
             this.ChatsBtn.Dock = System.Windows.Forms.DockStyle.Top;
             this.ChatsBtn.EndPoint = 24;
             this.ChatsBtn.FlatAppearance.BorderSize = 0;
@@ -199,6 +199,7 @@ namespace ChatApplication
             this.ProfilePictureBox.Image = global::ChatApplication.Properties.Resources.icons8_user_35;
             this.ProfilePictureBox.Location = new System.Drawing.Point(4, 415);
             this.ProfilePictureBox.Name = "ProfilePictureBox";
+            this.ProfilePictureBox.Padding = new System.Windows.Forms.Padding(5);
             this.ProfilePictureBox.Size = new System.Drawing.Size(42, 40);
             this.ProfilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.ProfilePictureBox.TabIndex = 9;
@@ -211,10 +212,10 @@ namespace ChatApplication
             // 
             this.ExitButton.BackColor = System.Drawing.Color.Transparent;
             this.ExitButton.BackgroudColor = System.Drawing.Color.Transparent;
-            this.ExitButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.ExitButton.BorderRadius1 = 10;
+            this.ExitButton.BorderColor = System.Drawing.Color.Transparent;
+            this.ExitButton.BorderRadius1 = 2;
             this.ExitButton.BorderSize1 = 0;
-            this.ExitButton.ButtonSideHoverlineColor = System.Drawing.Color.Crimson;
+            this.ExitButton.ButtonSideHoverlineColor = System.Drawing.Color.Red;
             this.ExitButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ExitButton.EndPoint = 24;
             this.ExitButton.FlatAppearance.BorderSize = 0;
@@ -222,15 +223,17 @@ namespace ChatApplication
             this.ExitButton.ForeColor = System.Drawing.Color.White;
             this.ExitButton.Image = global::ChatApplication.Properties.Resources.icons8_log_out_32__2_;
             this.ExitButton.IsFormUp = false;
-            this.ExitButton.IsSelected = true;
+            this.ExitButton.IsSelected = false;
             this.ExitButton.Location = new System.Drawing.Point(4, 455);
             this.ExitButton.Margin = new System.Windows.Forms.Padding(2);
             this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.ExitButton.Size = new System.Drawing.Size(42, 40);
             this.ExitButton.TabIndex = 10;
             this.ExitButton.TextColor = System.Drawing.Color.White;
             this.ExitButton.UseVisualStyleBackColor = false;
-            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            this.ExitButton.MouseLeave += new System.EventHandler(this.ExitButtonMouseLeave);
+            this.ExitButton.MouseHover += new System.EventHandler(this.ExitButtonMouseHover);
             // 
             // DpPB
             // 
@@ -259,6 +262,8 @@ namespace ChatApplication
             this.Name = "MenuControl";
             this.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Size = new System.Drawing.Size(50, 498);
+            this.Load += new System.EventHandler(this.MenuControlLoad);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MenuControlMouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DpPB)).EndInit();
             this.ResumeLayout(false);

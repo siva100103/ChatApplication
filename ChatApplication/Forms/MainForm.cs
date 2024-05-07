@@ -34,6 +34,7 @@ namespace ChatApplication
         private bool click = false;
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
+        private MessagePage CurrentlySelected;
 
         public MainForm()
         {
@@ -44,10 +45,12 @@ namespace ChatApplication
         {
             base.OnLoad(e);
             //ChatApplicationNetworkManager.ManagerInitializer();
+            StarMainPanel.Width = ChatPanel.Width;
             LabelsAdder();
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
             SearchBox.OnTextChange += SearchBoxOnTextChange;
             SideMenuBar.OnClickExitBtn += ExitButtonClick;
+            SideMenuBar.ControlClicked += SideMenuBarControlClicked;
 
             MyProfile = new ProfilePage
             {
@@ -57,6 +60,14 @@ namespace ChatApplication
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
+
+            foreach(var a in LocalDatabase.Messages.Values)
+            {
+                if(a.Starred)
+                {
+                    AddToStarredMessages(a);
+                }
+            }
 
             foreach (var client in MyDetails.Clients.ToList())
             {
@@ -69,6 +80,23 @@ namespace ChatApplication
                     }
                     MyProfile.About = client.About;
                     break;
+                }
+            }
+        }
+
+        private void SideMenuBarControlClicked(object sender, EventArgs e)
+        {
+            MyProfile.Hide();
+            click = false;
+            using (var DbContext = new ServerDatabase())
+            {
+                foreach (var c in DbContext.Clients.ToList())
+                {
+                    if (c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                    {
+                        c.About = MyProfile.About;
+                        DbContext.SaveChanges();
+                    }
                 }
             }
         }
@@ -141,30 +169,33 @@ namespace ChatApplication
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
-            //MyProfile.SuspendLayout();
-            Point location = PointToScreen(SideMenuBar.Location);
-            location.Offset(SideMenuBar.Width + 10, SideMenuBar.Height - MyProfile.Height - 20);
-            MyProfile.Location = location;
-            if (!click)
+            if (!MyProfile.Visible && !click)
             {
+                Point location = PointToScreen(SideMenuBar.Location);
+                location.Offset(SideMenuBar.Width + 10, SideMenuBar.Height - MyProfile.Height - 20);
+                MyProfile.Location = location;
                 MyProfile.Visible = true;
+                click = true;
             }
-            else
+            else if (click)
             {
                 MyProfile.Visible = false;
+                click = false;
             }
-            click = !click;
-            //MyProfile.ResumeLayout();
         }
 
         private void MessagePageSwitcher(object sender, EventArgs e)
         {
-            MessagePagePanel.SuspendLayout();
             Current = (sender as Client);
+            SelectedColorChange();
+
+            MessagePageBackPanel.SuspendLayout();
+            MessagePagePanel.SuspendLayout();
             if (Current != null)
             {
                 MessagePagePanel.Controls.Clear();
                 MessagePage page = Current.MessagePage;
+                CurrentlySelected = page;
                 page.ProfileImage = Current.ProfilePicture;
                 if (page != null)
                 {
@@ -173,6 +204,24 @@ namespace ChatApplication
                 }
             }
             MessagePagePanel.ResumeLayout();
+            MessagePageBackPanel.ResumeLayout();
+        }
+
+        private void SelectedColorChange()
+        {
+            foreach (ContactU contact in Contacts)
+            {
+                if (contact.Client.IP != Current.IP)
+                {
+                    contact.MPBackColor = Color.FromArgb(243, 243, 243);
+                    contact.Selected = false;
+                }
+                else
+                {
+                    contact.MPBackColor = Color.FromArgb(229, 227, 222);
+                    contact.Selected = true;
+                }
+            }
         }
 
         private void LabelsAdder()
@@ -191,9 +240,41 @@ namespace ChatApplication
                 };
                 chatContactPanel.Controls.Add(space);
                 con.Clicked += MessagePageSwitcher;
+                a.Value.MessagePage.StarredMessages += StarredMessagesList;
                 Contacts.Add(con);
             }
 
+        }
+
+        private void StarredMessagesList(object sender, List<ChatU> selected)
+        {
+            foreach(ChatU message in selected)
+            {
+                if (!message.Starred)
+                {
+                    AddToStarredMessages(message.Message);
+                }
+            }
+        }
+
+        private void AddToStarredMessages(Message message)
+        {
+            SuspendLayout();
+            StarredMessages chat = new StarredMessages(message)
+            {
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(247, 247, 247)
+            };
+            StarPanel.Controls.Add(chat);
+            chat.BringToFront();
+            Panel space = new Panel()
+            {
+                Dock = DockStyle.Top,
+                Height = 8
+            };
+            StarPanel.Controls.Add(space);
+            space.BringToFront();
+            ResumeLayout();
         }
 
         private void OptionButtonClick(object sender, EventArgs e)
@@ -219,9 +300,45 @@ namespace ChatApplication
             }
         }
 
-        protected async override void OnClosed(EventArgs e)
+        private void StarMessageButtonClick(object sender, EventArgs e)
         {
-            base.OnClosed(e);
+            MessagePagePanel.SuspendLayout();
+            StarMainPanel.Visible = true;
+            StarMainPanel.BringToFront();
+            ChatPanel.Visible = false;
+            MessagePagePanel.ResumeLayout();
+        }
+
+        private void MinMaxButtonClick(object sender, EventArgs e)
+        {
+            SuspendLayout();
+            if (WindowState == FormWindowState.Maximized)
+            {
+                WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+            ResumeLayout();
+        }
+
+        private void MinMaxButtonMouseHover(object sender, EventArgs e)
+        {
+            MinMaxButton.BackColor = Color.FromArgb(209, 209, 209);
+        }
+
+        private void MinMaxButtonMouseLeave(object sender, EventArgs e)
+        {
+            MinMaxButton.BackColor = Color.Transparent;
+        }
+
+        private void StarBackButtonClick(object sender, EventArgs e)
+        {
+            MessagePagePanel.SuspendLayout();
+            StarMainPanel.Visible = false;
+            ChatPanel.Visible = true;
+            MessagePagePanel.ResumeLayout();
         }
     }
 }

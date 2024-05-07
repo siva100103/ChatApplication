@@ -31,11 +31,7 @@ namespace ChatApplication
                 SerializeLocalDataToXml();
             using (var db = new ServerDatabase())
             {
-                //if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
-                //{
-                //    Application.Run(new LoginForm(IpAddress));
-                //}
-                if(!db.ServerInitialize())
+                if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
                 {
                     Application.Run(new LoginForm(IpAddress));
                 }

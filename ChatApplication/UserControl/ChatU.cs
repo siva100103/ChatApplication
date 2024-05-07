@@ -25,7 +25,8 @@ namespace ChatApplication
         private bool isViewed;
         private Message message;
         private int chatUMaximumWidth = 400;
-        public string path { get; set; } = "";
+        public string FilePath { get; set; } = "";
+        public bool Starred { get; set; } = false;
 
         public Message Message
         {
@@ -74,7 +75,7 @@ namespace ChatApplication
             }
         }
 
-        public Image MessageDeleted
+        public Image ChatMessageIcon
         {
             set => MessageSendIconPB.Image = value;
         }
