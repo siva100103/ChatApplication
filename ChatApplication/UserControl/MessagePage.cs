@@ -39,10 +39,6 @@ namespace ChatApplication
         public MessagePage(Client contact)
         {
             InitializeComponent();
-            DoubleBuffered = true;
-            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, ChatPanel, new object[] { true });
-            Dock = DockStyle.Fill;
-
             Client = contact;
             ProfilePicture.Image = contact.ProfilePicture;
             NameLabel.Text = contact.Name;
@@ -95,6 +91,14 @@ namespace ChatApplication
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            DoubleBuffered = true;
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, ChatPanel, new object[] { true });
+            typeof(ChatSenter).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, ChatPanel, new object[] { true });
+            Dock = DockStyle.Fill;
+        }
         private void StarredMessage(object sender, List<ChatU> e)
         {
             StarredMessages?.Invoke(this, e);

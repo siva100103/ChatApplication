@@ -41,7 +41,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.TextArea);
             this.panel1.Controls.Add(this.FileShareIcon);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -70,7 +70,7 @@
             // 
             // FileShareIcon
             // 
-            this.FileShareIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.FileShareIcon.BackColor = System.Drawing.Color.Transparent;
             this.FileShareIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.FileShareIcon.Image = global::ChatApplication.Properties.Resources.paper_clip__3_;
             this.FileShareIcon.Location = new System.Drawing.Point(52, 2);
@@ -83,7 +83,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.pictureBox1.Image = global::ChatApplication.Properties.Resources.icons8_happy_30;
             this.pictureBox1.Location = new System.Drawing.Point(2, 2);
@@ -96,7 +96,7 @@
             // 
             // SendButton
             // 
-            this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.SendButton.BackColor = System.Drawing.Color.Transparent;
             this.SendButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.SendButton.Image = global::ChatApplication.Properties.Resources.icons8_paper_plane_50__2_;
             this.SendButton.Location = new System.Drawing.Point(468, 2);

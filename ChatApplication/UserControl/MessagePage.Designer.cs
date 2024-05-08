@@ -81,6 +81,7 @@ namespace ChatApplication
             // chatSenter
             // 
             this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.chatSenter.ChatSenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.chatSenter.FileShareIconVisibility = false;
             this.chatSenter.Location = new System.Drawing.Point(0, 519);

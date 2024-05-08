@@ -335,7 +335,6 @@ namespace ChatApplication
 
         private async void ExitButtonClick(object sender, EventArgs e)
         {
-            Close();
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
                 Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
@@ -344,6 +343,7 @@ namespace ChatApplication
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
                 }
             }
+            Close();
         }
 
         private void StarMessageButtonClick(object sender, EventArgs e)
@@ -387,5 +387,14 @@ namespace ChatApplication
             MinMaxButton.BackColor = Color.Transparent;
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
     }
 }

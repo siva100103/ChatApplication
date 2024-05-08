@@ -199,11 +199,6 @@
     <Compile Include="Forms\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20240415072444_Initial.cs" />
-    <Compile Include="Migrations\20240415072444_Initial.designer.cs">
-      <DependentUpon>20240415072444_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\ServerDatabaseModelSnapshot.cs" />
     <Compile Include="Models\LocalData.cs" />
     <Compile Include="StarredMessages.cs">
       <SubType>UserControl</SubType>
@@ -288,7 +283,6 @@
     <Compile Include="UserControl\EllipseControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Models\Emoji.cs" />
     <Compile Include="UserControl\EmojiBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -301,7 +295,6 @@
     <Compile Include="UserControl\FilterChatsByU.Designer.cs">
       <DependentUpon>FilterChatsByU.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Group.cs" />
     <Compile Include="UserControl\GroupChatU.cs">
       <SubType>UserControl</SubType>
     </Compile>

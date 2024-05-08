@@ -37,10 +37,21 @@ namespace ChatApplication
             get { return TextArea.Text; }
             set { TextArea.Text = value; }
         }
+        
+        public Color ChatSenterBackColor
+        {
+            get { return BackColor; }
+            set
+            {
+                BackColor = value;
+                TextArea.BackColor = value;
+            }
+        }
 
         public ChatSenter()
         {
             InitializeComponent();
+            DoubleBuffered = true;
             TextArea.BackColor = Color.FromArgb(243, 243, 243);
             TextArea.Font = new Font("Noto Emoji", 16);
 
