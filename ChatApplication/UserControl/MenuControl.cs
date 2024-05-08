@@ -38,7 +38,9 @@ namespace ChatApplication
         public EventHandler OnClickStarBtn;
         public EventHandler OnClickArchivedBtn;
         public EventHandler OnClickSettingBtn;
+        public event EventHandler OnClickExitBtn;
         public event EventHandler OnClickProfilePicture;
+        public event EventHandler ControlClicked;
 
         private HoverMessageForm messageFormobj = null;
         Timer timer = new Timer();
@@ -64,7 +66,7 @@ namespace ChatApplication
             ArchivedBtn.Click += ArchivedBtnClick;
             SettingBtn.Click += SettingBtnClick;
             timer.Interval += 80;
-            timer.Tick += messageFormobjShow;
+            timer.Tick += MessageFormobjShow;
         }
 
         private void ProfilePictureBoxClick(object sender, EventArgs e)
@@ -125,10 +127,9 @@ namespace ChatApplication
                 currentObject = obj;
 
             }
-
         }
 
-        private void customPictureBox1_Click(object sender, EventArgs e)
+        private void CustomPictureBox1Click(object sender, EventArgs e)
         {
 
         }
@@ -162,7 +163,8 @@ namespace ChatApplication
             }
             else if (obj == ChatsBtn)
             {
-                messageFormobj.MessageText = "Chats";
+                //messageFormobj.MessageText = "Chats";
+                return;
             }
             else if (obj == CallsBtn)
             {
@@ -179,13 +181,12 @@ namespace ChatApplication
             messageFormobj.Opacity = 10;
 
         }
-        public void messageFormobjShow(object sender, EventArgs e)
+        public void MessageFormobjShow(object sender, EventArgs e)
         {
             if (messageFormobj.Visible == false)
             {
                 messageFormobj.Show();
                 messageFormobj.Focus();
-
             }
             //if (messageFormobj.Enabled = false)
             //{
@@ -206,9 +207,22 @@ namespace ChatApplication
             timer.Stop();
         }
 
-        private void MenuControl_Load(object sender, EventArgs e)
+        private void MenuControlLoad(object sender, EventArgs e)
         {
+            ExitButton.ButtonSideHoverlineColor = Color.Transparent;
+            ExitButton.MouseDown += ExitButtonMouseDown;
+            ExitButton.MouseUp += ExitButtonMouseUp;
+        }
 
+        private void ExitButtonMouseUp(object sender, MouseEventArgs e)
+        {
+            ExitButton.BackColor = Color.Transparent;
+            OnClickExitBtn?.Invoke(this, e);
+        }
+
+        private void ExitButtonMouseDown(object sender, MouseEventArgs e)
+        {
+            ExitButton.BackColor = Color.Red;
         }
 
         private void ProfilePictureBoxMouseEnter(object sender, EventArgs e)
@@ -218,7 +232,28 @@ namespace ChatApplication
 
         private void ProfilePictureBoxMouseLeave(object sender, EventArgs e)
         {
-            ProfilePictureBox.BackColor = Color.FromArgb(240, 242, 245);
+            ProfilePictureBox.BackColor = Color.Transparent;
+        }
+
+        private void ExitButtonMouseHover(object sender, EventArgs e)
+        {
+            ExitButton.IsFormUp = false;
+            ExitButton.ButtonSideHoverlineColor = Color.Red;
+            ExitButton.CallToLeaveSideLineEffect();
+            ExitButton.IsSelected = true;
+        }
+
+        private void ExitButtonMouseLeave(object sender, EventArgs e)
+        {
+            ExitButton.BackColor = Color.Transparent;
+            ExitButton.ButtonSideHoverlineColor = Color.Red;
+            ExitButton.CallToLeaveSideLineEffect();
+            ExitButton.IsSelected = false;
+        }
+
+        private void MenuControlMouseClick(object sender, MouseEventArgs e)
+        {
+            ControlClicked?.Invoke(this, e);
         }
     }
 }

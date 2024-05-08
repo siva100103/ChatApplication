@@ -40,10 +40,10 @@
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="DatabaseLibrary">
-      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\DatabaseLibrary.dll</HintPath>
+      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\DatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="GoLibrary">
-      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\GoLibrary.dll</HintPath>
+      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\GoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
@@ -118,7 +118,7 @@
       <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\MySqlBackup.dll</HintPath>
     </Reference>
     <Reference Include="MySQLDatabase">
-      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\MySQLDatabase.dll</HintPath>
+      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\MySQLDatabase.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -142,7 +142,7 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\Database\MySQL\System.Data.SQLite.dll</HintPath>
+      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -180,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LocalDatabase.cs" />
-    <Compile Include="Controller\RemoteDatabase.cs" />
     <Compile Include="Controller\ServerDatabase.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
@@ -194,12 +193,25 @@
     <Compile Include="Forms\ProfilePage.Designer.cs">
       <DependentUpon>ProfilePage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LocalData.cs" />
     <Compile Include="Migrations\20240415072444_Initial.cs" />
     <Compile Include="Migrations\20240415072444_Initial.designer.cs">
       <DependentUpon>20240415072444_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ServerDatabaseModelSnapshot.cs" />
     <Compile Include="Models\LocalData.cs" />
+    <Compile Include="StarredMessages.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StarredMessages.Designer.cs">
+      <DependentUpon>StarredMessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\FileSenderPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -359,6 +371,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProfilePage.resx">
       <DependentUpon>ProfilePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StarredMessages.resx">
+      <DependentUpon>StarredMessages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\BendingMessages.resx">
       <DependentUpon>BendingMessages.cs</DependentUpon>
@@ -568,6 +586,28 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-star-48.png" />
+    <None Include="Resources\icons8-left-50.png" />
+    <None Include="Resources\8665040_arrow_left_icon1.png" />
+    <None Include="Resources\8665040_arrow_left_icon.png" />
+    <None Include="Resources\icons8-ellipsis-48 %281%29.png" />
+    <None Include="Resources\icons8-ellipsis-48.png" />
+    <None Include="Resources\icons8-more-481.png" />
+    <None Include="Resources\icons8-more-48 %281%29.png" />
+    <None Include="Resources\icons8-more-48.png" />
+    <None Include="Resources\icons8-log-out-32 %281%29.png" />
+    <None Include="Resources\icons8-log-out-32.png" />
+    <None Include="Resources\icons8-log-out-48 %281%29.png" />
+    <None Include="Resources\icons8-log-out-48.png" />
+    <None Include="Resources\icons8-paper-plane-50 %282%29.png" />
+    <None Include="Resources\icons8-menu-48.png" />
+    <None Include="Resources\icons8-menu-25.png" />
+    <None Include="Resources\icons8-paper-plane-50 %281%29.png" />
+    <None Include="Resources\icons8-sent-641.png" />
+    <None Include="Resources\icons8-paper-plane-502.png" />
+    <None Include="Resources\icons8-paper-plane-501.png" />
+    <None Include="Resources\icons8-paper-plane-50.png" />
+    <None Include="Resources\icons8-sent-64.png" />
     <None Include="Resources\icons8-no-image-24.png" />
     <None Include="Resources\nopreview.jpeg" />
     <None Include="Resources\no-preview-available.png" />

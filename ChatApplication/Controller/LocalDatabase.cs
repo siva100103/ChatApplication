@@ -14,12 +14,10 @@ namespace ChatApplication.Controller
 {
     public static class LocalDatabase
     {
-
         public static Dictionary<string, Message> Messages { get; set; } = new Dictionary<string, Message>();
-
         private static DatabaseManager Manager = new MySqlHandler();
 
-        public static bool Configure()
+        public static bool LocalDatabaseInitializer()
         {
             string xmlFilePath = @".\data.xml";
             LocalData data;
@@ -28,8 +26,6 @@ namespace ChatApplication.Controller
             {
                 data = (LocalData)serializer.Deserialize(reader);
             }
-
-
             Manager.Database = $"{data.Database}";
             Manager.HostName = $"{data.Server}";
             Manager.UserName = $"{data.Uid}";
@@ -37,7 +33,7 @@ namespace ChatApplication.Controller
 
             using (var rem = new ServerDatabase())
             {
-                Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
                 if (me != null)
                 {
                     if (!me.Password.Equals(Manager.Password) || me.Password == null)
@@ -55,6 +51,7 @@ namespace ChatApplication.Controller
             {
                 return false;
             }
+
             if (!Manager.TableExists("Messages"))
             {
                 ColumnDetails[] Column = new ColumnDetails[]
@@ -65,6 +62,7 @@ namespace ChatApplication.Controller
                     new ColumnDetails("Msg",BaseDatatypes.VARCHAR,length:1000),
                     new ColumnDetails("Time",BaseDatatypes.DATETIME,notNull:true),
                     new ColumnDetails("Seen",BaseDatatypes.TINYINT),
+                    new ColumnDetails("Starred",BaseDatatypes.TINYINT),
                 };
                 var c = Manager.CreateTable("Messages", Column);
             }
@@ -72,7 +70,7 @@ namespace ChatApplication.Controller
             return true;
         }
 
-        private static void FetchDb()
+        public static void FetchDb()
         {
             var a = Manager.FetchData("Messages", "");
 
@@ -87,7 +85,8 @@ namespace ChatApplication.Controller
                         ReceiverIP = a.Value["ReceiverIP"][i].ToString(),
                         Msg = a.Value["Msg"][i].ToString(),
                         Time = (DateTime)a.Value["Time"][i],
-                        Seen = a.Value["Seen"][i].ToBoolean()
+                        Seen = a.Value["Seen"][i].ToBoolean(),
+                        Starred = a.Value["Starred"][i].ToBoolean()
                     };
                     Messages.Add(m.Id, m);
                 }
@@ -102,15 +101,11 @@ namespace ChatApplication.Controller
                 new ParameterData("ReceiverIP",m.ReceiverIP),
                 new ParameterData("Msg",m.Msg),
                 new ParameterData("Time",m.Time),
-                new ParameterData("Seen",m.Seen.ToInt32())
+                new ParameterData("Seen",m.Seen.ToInt32()),
+                new ParameterData("Starred",m.Starred.ToInt32())
             };
             Manager.InsertData("Messages", data);
             Messages.Add(m.Id, m);
-        }
-
-        public static Message ReadMessage(string id)
-        {
-            return Messages[id];
         }
 
         public static void UpdateMessage(Message m)
@@ -125,15 +120,25 @@ namespace ChatApplication.Controller
         public static void DeleteMessage(string id)
         {
             Manager.DeleteData("Messages", $"Id='{id}'");
-            if(Messages.ContainsKey(id)) Messages.Remove(id);
+            if (Messages.ContainsKey(id)) Messages.Remove(id);
         }
 
         public static void DeleteMessages(IEnumerable<string> Messageid)
         {
-            foreach(var id in Messageid)
+            foreach (var id in Messageid)
             {
-                if(Messages.ContainsKey(id)) Messages.Remove(id);
+                if (Messages.ContainsKey(id)) Messages.Remove(id);
             }
+        }
+
+        public static void StarMessages(Message message)
+        {
+            string condition = $"Id = '{message.Id}'";
+            ParameterData[] data = new ParameterData[]
+            {
+                new ParameterData("Starred" , message.Starred.ToInt32())
+            };
+            Manager.UpdateData("Messages", condition, data);
         }
     }
 }

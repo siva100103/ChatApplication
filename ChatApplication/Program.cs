@@ -25,15 +25,14 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = GetLocalIPAddress();
-            ChatApplicationNetworkManager.FromIPAddress = IpAddress;
+            ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
 
             if (!File.Exists(@".\data.xml"))
-            SerializeLocalDataToXml();
-
-            using (var db =new ServerDatabase())
+                SerializeLocalDataToXml();
+            using (var db = new ServerDatabase())
             {
                 if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
-                {       
+                {
                     Application.Run(new LoginForm(IpAddress));
                 }
                 else
@@ -41,7 +40,10 @@ namespace ChatApplication
                     if (ChatApplicationNetworkManager.ManagerInitializer())
                         Application.Run(new MainForm());
                     else
-                        MessageBox.Show("Invalid Credientials");
+                    {
+                        DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }
@@ -83,6 +85,5 @@ namespace ChatApplication
                 serializer.Serialize(writer, data);
             }
         }
-
     }
 }

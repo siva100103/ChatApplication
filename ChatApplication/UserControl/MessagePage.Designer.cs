@@ -32,6 +32,7 @@ namespace ChatApplication
         {
             this.MainPanel = new System.Windows.Forms.Panel();
             this.ChatPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.chatSenter = new ChatApplication.ChatSenter();
             this.HeaderPanel = new System.Windows.Forms.Panel();
             this.MenuTip = new ChatApplication.HoverMessageU();
@@ -39,7 +40,6 @@ namespace ChatApplication
             this.NameLabel = new System.Windows.Forms.Label();
             this.ProfilePicture = new ChatApplication.CustomPictureBox();
             this.MenuButton = new ChatApplication.HoverButton();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
             this.ChatPanel.SuspendLayout();
             this.HeaderPanel.SuspendLayout();
@@ -48,7 +48,7 @@ namespace ChatApplication
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
+            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.MainPanel.Controls.Add(this.ChatPanel);
             this.MainPanel.Controls.Add(this.chatSenter);
             this.MainPanel.Controls.Add(this.HeaderPanel);
@@ -61,26 +61,34 @@ namespace ChatApplication
             // ChatPanel
             // 
             this.ChatPanel.AutoScroll = true;
-            this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(243)))), ((int)(((byte)(241)))));
+            this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
             this.ChatPanel.Controls.Add(this.panel1);
             this.ChatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ChatPanel.Location = new System.Drawing.Point(0, 61);
             this.ChatPanel.Name = "ChatPanel";
-            this.ChatPanel.Size = new System.Drawing.Size(537, 456);
+            this.ChatPanel.Size = new System.Drawing.Size(537, 458);
             this.ChatPanel.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(10, 458);
+            this.panel1.TabIndex = 0;
             // 
             // chatSenter
             // 
-            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
-            this.chatSenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatSenter.FileShareIconVisibility = true;
-            this.chatSenter.Location = new System.Drawing.Point(0, 517);
+            this.chatSenter.FileShareIconVisibility = false;
+            this.chatSenter.Location = new System.Drawing.Point(0, 519);
             this.chatSenter.Name = "chatSenter";
             this.chatSenter.SendButtonVisibility = true;
-            this.chatSenter.Size = new System.Drawing.Size(537, 41);
+            this.chatSenter.Size = new System.Drawing.Size(537, 39);
             this.chatSenter.TabIndex = 5;
-            this.chatSenter.TextMessage = " Type a message";
+            this.chatSenter.TextMessage = " ";
             // 
             // HeaderPanel
             // 
@@ -146,15 +154,15 @@ namespace ChatApplication
             this.MenuButton.BackColor = System.Drawing.Color.Transparent;
             this.MenuButton.BackgroudColor = System.Drawing.Color.Transparent;
             this.MenuButton.BorderColor = System.Drawing.Color.Transparent;
-            this.MenuButton.BorderRadius1 = 10;
+            this.MenuButton.BorderRadius1 = 0;
             this.MenuButton.BorderSize1 = 0;
             this.MenuButton.ButtonSideHoverlineColor = System.Drawing.Color.Transparent;
             this.MenuButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MenuButton.EndPoint = -3;
+            this.MenuButton.EndPoint = 39;
             this.MenuButton.FlatAppearance.BorderSize = 0;
             this.MenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MenuButton.ForeColor = System.Drawing.Color.White;
-            this.MenuButton.Image = global::ChatApplication.Properties.Resources.icons8_three_dots_48__1_;
+            this.MenuButton.Image = global::ChatApplication.Properties.Resources.icons8_menu_48;
             this.MenuButton.IsFormUp = false;
             this.MenuButton.IsSelected = false;
             this.MenuButton.Location = new System.Drawing.Point(482, 0);
@@ -167,14 +175,6 @@ namespace ChatApplication
             this.MenuButton.Click += new System.EventHandler(this.MenuButtonClick);
             this.MenuButton.MouseLeave += new System.EventHandler(this.MenuButtonMouseLeave);
             this.MenuButton.MouseHover += new System.EventHandler(this.MenuButtonMouseHover);
-            // 
-            // panel1
-            // 
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(13, 456);
-            this.panel1.TabIndex = 0;
             // 
             // MessagePage
             // 

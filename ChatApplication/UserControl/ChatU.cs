@@ -13,10 +13,9 @@ using System.Windows.Forms;
 
 namespace ChatApplication
 {
-    public delegate void ChatUClickked1(object sender, int a);
-
     public partial class ChatU : UserControl
     {
+        public event EventHandler ChatUClicked;
 
         private int borderRadius = 10;
         private bool isReceivedMessage = false;
@@ -26,9 +25,8 @@ namespace ChatApplication
         private bool isViewed;
         private Message message;
         private int chatUMaximumWidth = 400;
-        public string path { get; set; } = "";
-        public ChatUClickked1 ChatUClickked;
-
+        public string FilePath { get; set; } = "";
+        public bool Starred { get; set; } = false;
 
         public Message Message
         {
@@ -47,8 +45,21 @@ namespace ChatApplication
                 return message;
             }
         }
+        public string MessageId { get; set; } = "";
 
-       
+        public int ChatUMaximumWidth
+        {
+            get
+            {
+                return chatUMaximumWidth;
+            }
+            set
+            {
+                chatUMaximumWidth = value;
+                MessageCreate();
+            }
+        }
+
         public bool IsReceivedMessage
         {
             get
@@ -64,13 +75,20 @@ namespace ChatApplication
             }
         }
 
+        public Image ChatMessageIcon
+        {
+            set => MessageSendIconPB.Image = value;
+        }
 
         public ChatU(Message message)
         {
             InitializeComponent();
-            Message = message;
+            DoubleBuffered = true;
 
-            if (message.Seen && message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
+            Message = message;
+            MessageId = message.Id;
+
+            if (message.Seen && message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 MessageSendIconPB.Visible = true;
                 MessageSendIconPB.Image = Properties.Resources.double_check__1_;
@@ -85,11 +103,56 @@ namespace ChatApplication
             message.IsReaded += (obj, e) =>
             {
                 Message m = obj as Message;
-                if(m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
+                if (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
             };
         }
 
-       
+        private void ChatULoad(object sender, EventArgs e)
+        {
+            messageLB.Click += ChatUClick;
+            ChatUBottomP.Click += ChatUClick;
+            timingLB.Click += ChatUClick;
+            MessageSendIconPB.Click += ChatUClick;
+        }
+
+        public GraphicsPath GetPath(Rectangle rec)
+        {
+            GraphicsPath g = new GraphicsPath();
+            g.StartFigure();
+            if (isNormal)
+            {
+                chatArcWidth = 0;
+            }
+            else
+            {
+
+            }
+            if (isReceivedMessage)
+            {
+                if (!isNormal)
+                {
+                    g.AddPolygon(new Point[] { new Point(chatArcWidth, 0), new Point(0, 0), new Point(chatArcWidth, chatArcWidth) });
+                }
+                g.AddArc(new Rectangle(chatArcWidth, rec.Y, borderRadius, borderRadius), 180, 90);
+                g.AddArc(rec.Width - borderRadius, rec.Y, borderRadius, borderRadius, 270, 90);
+                g.AddArc(rec.Width - borderRadius, rec.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                g.AddArc(rec.X + chatArcWidth, rec.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+
+            }
+            else
+            {
+
+                g.AddArc(rec.X, rec.Y, borderRadius, borderRadius, 180, 90);
+                g.AddArc(new Rectangle(rec.Width - borderRadius - chatArcWidth, rec.Y, borderRadius, borderRadius), 270, 90);
+                g.AddArc(rec.Width - borderRadius - chatArcWidth, rec.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+                g.AddArc(rec.X, rec.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+                if (!isNormal)
+                    g.AddPolygon(new Point[] { new Point(rec.Width - chatArcWidth, 0), new Point(rec.Width, 0), new Point(rec.Width - chatArcWidth, chatArcWidth) });
+            }
+
+            g.CloseFigure();
+            return g;
+        }
 
         public string StringFormatChange(string str, int width, Font font)
         {
@@ -177,7 +240,6 @@ namespace ChatApplication
             return formatedstring;
 
         }
-
         public void MessageCreate()
         {
             string str = "";
@@ -194,7 +256,7 @@ namespace ChatApplication
             this.Height = messageLB.Height + this.Padding.Top + Padding.Bottom + ChatUBottomP.Height;
             Invalidate();
 
-            if (Message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
+            if (Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 IsReceivedMessage = false;
             }
@@ -227,6 +289,9 @@ namespace ChatApplication
             }
         }
 
-
+        private void ChatUClick(object sender, EventArgs e)
+        {
+            ChatUClicked?.Invoke(this, e);
+        }
     }
 }

@@ -18,10 +18,12 @@ namespace ChatApplication
 {
     public static class ChatApplicationNetworkManager
     {
+        public static List<ChatU> SelectedMessages = new List<ChatU>();
+
         public delegate void NewUserEnter(ContactU label);
         public static event NewUserEnter Inform;
 
-        public static string FromIPAddress { get; set; }
+        public static string LocalIpAddress { get; set; }
         private static TcpListener Listener;
         public static MessagePage MessagePage = null;
 
@@ -29,13 +31,12 @@ namespace ChatApplication
 
         public static bool ManagerInitializer()
         {
-            
             return GetCollectionFromDb() && StartServer();
         }
 
         private static bool StartServer()
         {
-            Listener = new TcpListener(IPAddress.Parse(FromIPAddress), 12346);
+            Listener = new TcpListener(IPAddress.Parse(LocalIpAddress), 12346);
             Listener.Start();
             AcceptClient();
             return true;
@@ -43,14 +44,14 @@ namespace ChatApplication
 
         private static bool GetCollectionFromDb()
         {
-            if(!LocalDatabase.Configure()) return false;
+            if (!LocalDatabase.LocalDatabaseInitializer()) return false;
             using (var DbContext = new ServerDatabase())
-            {
+            { 
                 foreach (var c in DbContext.Clients.ToList())
                 {
-                    if (!c.IP.Equals(FromIPAddress))
+                    if (!c.IP.Equals(LocalIpAddress))
                     {
-                        Clients.Add(c.IP, new Client(c.IP, c.Name, c.Port,c.LastSeen,c.ProfilePath,c.About));
+                        Clients.Add(c.IP, new Client(c.IP, c.Name, c.Port, c.LastSeen, c.ProfilePath, c.About));
                         if (c.ProfilePath != "")
                         {
                             Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
@@ -58,7 +59,8 @@ namespace ChatApplication
                     }
                 }
             }
-            return true;        
+            return true;
+
         }
 
         private async static void AcceptClient()
@@ -70,24 +72,35 @@ namespace ChatApplication
         private async static void HandleClient(TcpClient client)
         {
             NetworkStream stream = client.GetStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[5024];
             int bytesRead;
 
-            if ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            try
             {
-                Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
+                if ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                {
+                    Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
 
-                if (msg.type == Type.Response)
-                {
-                    HandleResponses(msg);
+                    if (msg.type == Type.Response)
+                    {
+                        HandleResponses(msg);
+                    }
+                    else if (msg.type == Type.File)
+                    {
+                        HandleFile(msg);
+                    }
+                    else
+                    {
+                        HandleMessages(msg);
+                    }
                 }
-                else if (msg.type == Type.File)
+            }
+            catch(Exception ex)
+            {
+                if(ex.Message.Equals("Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host."))
                 {
-                    HandleFile(msg);
-                }
-                else
-                {
-                    HandleMessages(msg);
+                  IPAddress ip=  ((IPEndPoint)client.Client.RemoteEndPoint).Address;
+                  Clients[ip.ToString()].StatusChanger(false);
                 }
             }
 
@@ -114,18 +127,18 @@ namespace ChatApplication
                     Msg = "Readed",
                     type = Type.Response
                 };
-                
+
                 await SendMessage(m, Clients[m.FromIP]);
-               
+
             }
         }
 
         private static void HandleResponses(Message msg)
         {
-            if (!Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(FromIPAddress))
+            if (!Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
             {
                 Client c = new ServerDatabase().Clients.ToDictionary(c1 => c1.IP)[msg.FromIP];
-                Client client = new Client(c.IP, c.Name, c.Port,c.LastSeen,c.ProfilePath,c.About);
+                Client client = new Client(c.IP, c.Name, c.Port, c.LastSeen, c.ProfilePath, c.About);
                 Clients.Add(client.IP, client);
                 if (c.ProfilePath != "")
                 {
@@ -151,7 +164,7 @@ namespace ChatApplication
             }
             else
             {
-                LocalDatabase.ReadMessage(msg.Id).IsReaderInvoker();
+                LocalDatabase.Messages[msg.Id].IsReaderInvoker();
             }
         }
 
@@ -173,6 +186,8 @@ namespace ChatApplication
                     type = Type.Response
                 };
                 await SendMessage(m, Clients[m.FromIP]);
+                msg.Seen = true;
+                LocalDatabase.UpdateMessage(msg);
             }
             Client c = Clients[msg.FromIP];
             c.MessageReceiveInvoker();
@@ -186,14 +201,13 @@ namespace ChatApplication
             NetworkStream Stream = Sender.GetStream();
             string msg = JsonConvert.SerializeObject(message);
             byte[] data = Encoding.UTF8.GetBytes(msg);
-             await Stream.WriteAsync(data, 0, data.Length);
+            await Stream.WriteAsync(data, 0, data.Length);
             message.IsSendedInvoker();
             c.MessageSendInvoker();
             if (message.type != Type.Response)
             {
                 LocalDatabase.CreateMessage(message);
             }
-
         }
 
         public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
@@ -206,7 +220,7 @@ namespace ChatApplication
                     Msg = "Readed"
                 };
                 if (c.IsConnected) await SendMessage(m, c);
-                
+
                 m = LocalDatabase.Messages.Values.ToList().Find(m1 => msg.Id.Equals(m1.Id));
                 m.Seen = true;
                 LocalDatabase.UpdateMessage(m);
@@ -216,11 +230,10 @@ namespace ChatApplication
 
         public static List<Message> GetMessages(string FromIp, string ToIP)
         {
-            
-            return  LocalDatabase.Messages.Values.ToList().Where((msg) =>
-            {
-                return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
-            }).ToList();
+            return LocalDatabase.Messages.Values.ToList().Where((msg) =>
+           {
+               return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
+           }).ToList();
         }
     }
 }

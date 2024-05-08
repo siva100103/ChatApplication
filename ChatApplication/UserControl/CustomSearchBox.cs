@@ -13,9 +13,13 @@ namespace ChatApplication
 {
     public partial class CustomSearchBox : UserControl
     {
+        public event EventHandler OnTextChange;
+        public event EventHandler FocusLost;
+        
         private bool isUnderLine = false;
         private int borderSize = 1;
         private Color borderColor = Color.Black;
+
         public Font Font
         {
             get { return textBox.Font; }
@@ -23,10 +27,10 @@ namespace ChatApplication
         }
         public string PlaceholderText
         {
-            get { return textBox.PlaceHolderText; }
+            get { return textBox.Text; }
             set
             {
-                textBox.PlaceHolderText = value;
+                textBox.Text = value;
                 Invalidate();
             }
         }
@@ -77,6 +81,7 @@ namespace ChatApplication
 
         private void TextBoxLostFocus(object sender, EventArgs e)
         {
+            FocusLost?.Invoke(this, e);
             Invalidate();
         }
 
@@ -89,8 +94,6 @@ namespace ChatApplication
         {
             textBox.ForeColor = Color.FromArgb(97,97,97);
         }
-
-      
 
         public GraphicsPath GetPath(Rectangle rec)
         {
@@ -159,6 +162,12 @@ namespace ChatApplication
         private void SearchBoxEnter(object sender, EventArgs e)
         {
            BorderSize = 6;
+        }
+
+        private void TextBoxTextChanged(object sender, EventArgs e)
+      {
+            PlaceholderText = textBox.Text;
+            OnTextChange?.Invoke(this, EventArgs.Empty);
         }
     }
 }

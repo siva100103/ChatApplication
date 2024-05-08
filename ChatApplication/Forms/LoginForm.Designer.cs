@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.centerP = new ChatApplication.CustomPanel();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,6 +38,7 @@
             this.lastNameTB = new ChatApplication.TextBoxU();
             this.firstNameTB = new ChatApplication.TextBoxU();
             this.ellipseControl1 = new ChatApplication.EllipseControl();
+            this.BackTopColorPanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.centerP.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +47,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.centerP);
+            this.panel1.Controls.Add(this.BackTopColorPanel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
@@ -99,15 +102,15 @@
             this.dpPictureU.BackColor = System.Drawing.Color.WhiteSmoke;
             this.dpPictureU.DpPicturPath = "";
             this.dpPictureU.Location = new System.Drawing.Point(212, 20);
-            this.dpPictureU.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dpPictureU.Margin = new System.Windows.Forms.Padding(2);
             this.dpPictureU.Name = "dpPictureU";
             this.dpPictureU.Size = new System.Drawing.Size(106, 92);
             this.dpPictureU.TabIndex = 9;
             // 
             // nextBtn
             // 
-            this.nextBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
-            this.nextBtn.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
+            this.nextBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
+            this.nextBtn.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
             this.nextBtn.BorderColor = System.Drawing.Color.White;
             this.nextBtn.BorderRadius1 = 10;
             this.nextBtn.BorderSize1 = 0;
@@ -135,7 +138,7 @@
             this.lastNameTB.Padding = new System.Windows.Forms.Padding(18, 20, 6, 6);
             this.lastNameTB.PasswordChar = '\0';
             this.lastNameTB.PlaceholderLabelAtCenterColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.lastNameTB.PlaceholderLabelAtTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(125)))), ((int)(((byte)(225)))));
+            this.lastNameTB.PlaceholderLabelAtTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
             this.lastNameTB.PlaceholderText = "Lastname";
             this.lastNameTB.Size = new System.Drawing.Size(260, 54);
             this.lastNameTB.TabIndex = 6;
@@ -155,7 +158,7 @@
             this.firstNameTB.Padding = new System.Windows.Forms.Padding(18, 20, 6, 6);
             this.firstNameTB.PasswordChar = '\0';
             this.firstNameTB.PlaceholderLabelAtCenterColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.firstNameTB.PlaceholderLabelAtTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(125)))), ((int)(((byte)(225)))));
+            this.firstNameTB.PlaceholderLabelAtTopColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
             this.firstNameTB.PlaceholderText = "Firstname";
             this.firstNameTB.Size = new System.Drawing.Size(260, 54);
             this.firstNameTB.TabIndex = 5;
@@ -169,6 +172,15 @@
             this.ellipseControl1.CornerRadius = 20;
             this.ellipseControl1.TargetControl = this.dpPictureU;
             // 
+            // BackTopColorPanel
+            // 
+            this.BackTopColorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
+            this.BackTopColorPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BackTopColorPanel.Location = new System.Drawing.Point(0, 0);
+            this.BackTopColorPanel.Name = "BackTopColorPanel";
+            this.BackTopColorPanel.Size = new System.Drawing.Size(753, 122);
+            this.BackTopColorPanel.TabIndex = 8;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,6 +189,7 @@
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -197,5 +210,6 @@
         private DpPictureU dpPictureU;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel BackTopColorPanel;
     }
 }

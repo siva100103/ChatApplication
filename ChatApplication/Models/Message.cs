@@ -22,6 +22,7 @@ namespace ChatApplication
         public Type type { get; set; }
 
         public bool Seen { get; set; }
+        public bool Starred { get; set; } = false;
         public static bool ClickedInfo = false;
 
         public event EventHandler IsSended;
@@ -61,8 +62,8 @@ namespace ChatApplication
         public void IsReaderInvoker()
         {
             Seen = true;
-            //Message m = LocalDatabase.Messages.Values.ToList().Find((msg) => msg.Id == Id);
-            Message m=LocalDatabase.ReadMessage(Id);
+            Message m = LocalDatabase.Messages.Values.ToList().Find((msg) => msg.Id == Id);
+            //Message m=LocalDatabase.ReadMessage(Id);
             m.Seen = true;
             LocalDatabase.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);
@@ -74,7 +75,6 @@ namespace ChatApplication
             int randomNumber = random.Next(0, 99999);
             return $"{FromIP},{ReceiverIP},{DateTime.Now.Ticks},{randomNumber}";
         }
-
     }
 
     public enum Type

@@ -36,7 +36,7 @@ namespace WindowsFormsApp3
             this.contactNameLB = new System.Windows.Forms.Label();
             this.lastMessageLB = new System.Windows.Forms.Label();
             this.timeP = new System.Windows.Forms.Panel();
-            this.bendingMessages1 = new ChatApplication.BendingMessages();
+            this.PendingMessages = new ChatApplication.BendingMessages();
             this.timeLB = new System.Windows.Forms.Label();
             this.dpPictureBox = new ChatApplication.CustomPictureBox();
             this.mainP.SuspendLayout();
@@ -47,7 +47,7 @@ namespace WindowsFormsApp3
             // 
             // mainP
             // 
-            this.mainP.BackColor = System.Drawing.Color.Transparent;
+            this.mainP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.mainP.Controls.Add(this.contactInformationP);
             this.mainP.Controls.Add(this.timeP);
             this.mainP.Controls.Add(this.dpPictureBox);
@@ -113,7 +113,7 @@ namespace WindowsFormsApp3
             // timeP
             // 
             this.timeP.BackColor = System.Drawing.Color.Transparent;
-            this.timeP.Controls.Add(this.bendingMessages1);
+            this.timeP.Controls.Add(this.PendingMessages);
             this.timeP.Controls.Add(this.timeLB);
             this.timeP.Dock = System.Windows.Forms.DockStyle.Right;
             this.timeP.Location = new System.Drawing.Point(257, 5);
@@ -123,12 +123,13 @@ namespace WindowsFormsApp3
             this.timeP.Size = new System.Drawing.Size(64, 54);
             this.timeP.TabIndex = 4;
             // 
-            // bendingMessages1
+            // PendingMessages
             // 
-            this.bendingMessages1.Location = new System.Drawing.Point(23, 19);
-            this.bendingMessages1.Name = "bendingMessages1";
-            this.bendingMessages1.Size = new System.Drawing.Size(20, 20);
-            this.bendingMessages1.TabIndex = 4;
+            this.PendingMessages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.PendingMessages.Location = new System.Drawing.Point(22, 19);
+            this.PendingMessages.Name = "PendingMessages";
+            this.PendingMessages.Size = new System.Drawing.Size(20, 20);
+            this.PendingMessages.TabIndex = 4;
             // 
             // timeLB
             // 
@@ -137,14 +138,14 @@ namespace WindowsFormsApp3
             this.timeLB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.timeLB.Location = new System.Drawing.Point(1, 1);
             this.timeLB.Name = "timeLB";
-            this.timeLB.Size = new System.Drawing.Size(62, 13);
+            this.timeLB.Size = new System.Drawing.Size(62, 22);
             this.timeLB.TabIndex = 3;
             this.timeLB.Text = "00:00";
             this.timeLB.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // dpPictureBox
             // 
-            this.dpPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.dpPictureBox.BackColor = System.Drawing.Color.White;
             this.dpPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.dpPictureBox.Location = new System.Drawing.Point(5, 5);
             this.dpPictureBox.Name = "dpPictureBox";
@@ -157,7 +158,7 @@ namespace WindowsFormsApp3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(242)))), ((int)(((byte)(245)))));
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.mainP);
             this.Name = "ContactU";
             this.Padding = new System.Windows.Forms.Padding(2);
@@ -181,6 +182,6 @@ namespace WindowsFormsApp3
         private System.Windows.Forms.Label timeLB;
         private CustomPictureBox dpPictureBox;
         private StatusIndicator statusIndicator1;
-        private BendingMessages bendingMessages1;
+        private BendingMessages PendingMessages;
     }
 }

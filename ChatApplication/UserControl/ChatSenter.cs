@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace ChatApplication
 {
@@ -40,7 +41,7 @@ namespace ChatApplication
         public ChatSenter()
         {
             InitializeComponent();
-            TextArea.BackColor = Color.Empty;
+            TextArea.BackColor = Color.FromArgb(243, 243, 243);
             TextArea.Font = new Font("Noto Emoji", 16);
 
             pictureBox1.MouseLeave += MouseLev1;
@@ -53,18 +54,18 @@ namespace ChatApplication
 
             initialHeightOfRichtextbox = TextArea.Height;
             initialLocationRichtextbox = TextArea.Location;
-            initialSize = this.Size;
+            initialSize = Size;
         }
         private void MouseEnt1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;
-            p.BackColor = Color.FromArgb(200, 200, 200);
+            p.BackColor = Color.FromArgb(209, 209, 209);
 
         }
         private void MouseLev1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;
-            p.BackColor = Color.FromArgb(254, 254, 254);
+            p.BackColor = Color.FromArgb(243, 243, 243);
 
         }
 
@@ -86,9 +87,6 @@ namespace ChatApplication
 
             Size = initialSize;
             Location = initialLocation;
-            //   richTextBox1.Height = initialHeightOfRichtextbox;
-            //  richTextBox1.Location = initialLocationRichtextbox;
-
             flag = 0;
 
 
@@ -122,7 +120,7 @@ namespace ChatApplication
             // Measure the width of the text
             int textWidth = TextRenderer.MeasureText(TextArea.Text, TextArea.Font).Width;
 
-            if (textWidth >= TextArea.Width && flag == 0)//&& flag!=1)
+            if (textWidth >= TextArea.Width && flag == 0)
             {
 
                 this.Height += initialHeightOfRichtextbox;
@@ -136,10 +134,9 @@ namespace ChatApplication
 
             else if (textWidth <= TextArea.Width && TextArea.Height > initialHeightOfRichtextbox && flag2 == 1)
             {
-                this.Height = initialHeightOfRichtextbox;
-                this.Location = new Point(this.Location.X, this.Location.Y + initialHeightOfRichtextbox);
-                TextArea.Location = new Point(TextArea.Location.X, TextArea.Location.Y + initialHeightOfRichtextbox);//(int)((float)richTextBox1.Height/1.5));
-                                                                                                                     //  richTextBox1.Height /= 2;
+                Height = initialHeightOfRichtextbox;
+                Location = new Point(Location.X, Location.Y + initialHeightOfRichtextbox);
+                TextArea.Location = new Point(TextArea.Location.X, TextArea.Location.Y + initialHeightOfRichtextbox);
                 flag = 0;
             }
         }

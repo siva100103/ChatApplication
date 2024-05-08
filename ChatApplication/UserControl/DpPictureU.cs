@@ -14,8 +14,9 @@ namespace ChatApplication
     {
         private string dpPicturePath = "";
         private OpenFileDialog OpenFileDialog = new OpenFileDialog();
-        public EventHandler<string> OnClickDpPicturePathGet;
-       public string DpPicturPath
+        public event EventHandler<string> OnClickDpPicturePathGet;
+
+        public string DpPicturPath
         {
             get
             {
@@ -28,7 +29,7 @@ namespace ChatApplication
                     dpPicturePath = value;
                     dpPB.Image = Image.FromFile(dpPicturePath);
                 }
-               
+
             }
         }
         public DpPictureU()
@@ -39,20 +40,24 @@ namespace ChatApplication
             dpPB.Click += DpPBClick;
         }
 
-        private void DpPBClick(object sender, EventArgs e)
-        {
-           
-        }
-
         private void AddDpBtnClick(object sender, EventArgs e)
         {
-            OpenFileDialog.Filter = "PNG|*.png|JPEG|*.jpeg";
-           DialogResult result= OpenFileDialog.ShowDialog(this);
-            if (result == DialogResult.OK)
+            using (OpenFileDialog file = new OpenFileDialog())
             {
-                DpPicturPath = OpenFileDialog.FileName;
-                OnClickDpPicturePathGet?.Invoke(this,DpPicturPath);
+                file.Filter = "PNG Files (*.png)|*.png|JPEG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg";
+                file.Title = "Choose Profile Picture";
+
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    DpPicturPath = file.FileName;
+                    OnClickDpPicturePathGet?.Invoke(this, DpPicturPath);
+                }
             }
+        }
+
+        private void DpPBClick(object sender, EventArgs e)
+        {
+
         }
 
         private void DpPictureUResize(object sender, EventArgs e)

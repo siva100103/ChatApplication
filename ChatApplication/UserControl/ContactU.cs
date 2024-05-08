@@ -15,7 +15,7 @@ namespace WindowsFormsApp3
 {
     public partial class ContactU : UserControl
     {
-        public Image img { get; set; } 
+        public Image Img { get; set; } 
         public string UserName { get; set; } = "";
         public Client Client { get; set; }
         public string TimeLB
@@ -26,19 +26,34 @@ namespace WindowsFormsApp3
             }
         }
 
+        public Color MPBackColor
+        {
+            set
+            {
+                mainP.BackColor = value;
+            }
+            get
+            {
+                return mainP.BackColor;
+            }
+        }
+        public bool Selected { get; set; } = false;
         public event EventHandler Clicked;
+
         public ContactU(Client c)
         {
             InitializeComponent();
+            BackColor = Color.Transparent;
+
             Client = c;
             UserName = c.Name;
-            img = c.ProfilePicture;
+            Img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
-            dpPictureBox.Image = img;
+            dpPictureBox.Image = Img;
 
                 ChatApplication.Message LastMsg = LocalDatabase.Messages.Values.LastOrDefault(m =>
                 {
-                    return (m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                    return (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
                 });
 
             if (LastMsg != null)
@@ -65,14 +80,14 @@ namespace WindowsFormsApp3
             contactNameLB.MouseClick += LabelClicked;
             lastMessageLB.Click += LabelClicked;
 
-            c.StatusChanged += statusChange;
+            c.StatusChanged += StatusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
             UpdateUnseenMessage(Client,Client.UnseenMessages);
 
             if (c.UnseenMessages > 0)
             {
-                bendingMessages1.Visible = true;
-                bendingMessages1.UnReadCount(c.UnseenMessages);
+                PendingMessages.Visible = true;
+                PendingMessages.UnReadCount(c.UnseenMessages);
             }
 
             c.MessageSend += (obj, e) => SetTimeLbValue();
@@ -81,15 +96,15 @@ namespace WindowsFormsApp3
 
         private void UpdateUnseenMessage(object sender, int n)
         {
-            if (n == 0) bendingMessages1.Visible = false;
+            if (n == 0) PendingMessages.Visible = false;
             else
             {
-                bendingMessages1.Visible = true;
-                bendingMessages1.UnReadCount(n);
+                PendingMessages.Visible = true;
+                PendingMessages.UnReadCount(n);
             }
         }
 
-        private void statusChange(object sender, bool e)
+        private void StatusChange(object sender, bool e)
         {
             if (e) statusIndicator1.Color = Color.FromArgb(128, 255, 128);
             else statusIndicator1.Color = Color.FromArgb(255, 128, 128);
@@ -101,17 +116,28 @@ namespace WindowsFormsApp3
             ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList,Client);
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;
+            Selected = true;
         }
 
         private void Leaving(object sender, EventArgs e)
         {
-            BackColor = Color.FromArgb(240, 242, 245);
+            if (!Selected)
+            {
+                SuspendLayout();
+                mainP.BackColor = Color.FromArgb(243,243,243);
+                ResumeLayout();
+            }
         }
 
         private void Hovering(object sender, EventArgs e)
         {
-            Cursor=Cursors.Hand;
-            BackColor = Color.LightGray;
+            if (!Selected)
+            {
+                SuspendLayout();
+                Cursor = Cursors.Hand;
+                mainP.BackColor = Color.FromArgb(209, 209, 209);
+                ResumeLayout();
+            }
         }
 
         private void SetTimeLbValue()

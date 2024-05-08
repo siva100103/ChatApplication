@@ -60,7 +60,7 @@ namespace ChatApplication
             this.ChatUBottomP.Margin = new System.Windows.Forms.Padding(2);
             this.ChatUBottomP.MinimumSize = new System.Drawing.Size(0, 12);
             this.ChatUBottomP.Name = "ChatUBottomP";
-            this.ChatUBottomP.Padding = new System.Windows.Forms.Padding(0, 1, 11, 2);
+            this.ChatUBottomP.Padding = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.ChatUBottomP.Size = new System.Drawing.Size(115, 15);
             this.ChatUBottomP.TabIndex = 1;
             // 
@@ -70,7 +70,7 @@ namespace ChatApplication
             this.timingLB.Dock = System.Windows.Forms.DockStyle.Right;
             this.timingLB.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timingLB.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.timingLB.Location = new System.Drawing.Point(59, 1);
+            this.timingLB.Location = new System.Drawing.Point(67, 1);
             this.timingLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.timingLB.Name = "timingLB";
             this.timingLB.Padding = new System.Windows.Forms.Padding(0, 0, 2, 3);
@@ -83,10 +83,9 @@ namespace ChatApplication
             // 
             this.MessageSendIconPB.Dock = System.Windows.Forms.DockStyle.Right;
             this.MessageSendIconPB.Image = global::ChatApplication.Properties.Resources.icons8_done_14__1_;
-            this.MessageSendIconPB.Location = new System.Drawing.Point(88, 1);
-            this.MessageSendIconPB.Margin = new System.Windows.Forms.Padding(2);
+            this.MessageSendIconPB.Location = new System.Drawing.Point(96, 1);
+            this.MessageSendIconPB.Margin = new System.Windows.Forms.Padding(1);
             this.MessageSendIconPB.Name = "MessageSendIconPB";
-            this.MessageSendIconPB.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.MessageSendIconPB.Size = new System.Drawing.Size(16, 12);
             this.MessageSendIconPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.MessageSendIconPB.TabIndex = 1;
@@ -106,6 +105,8 @@ namespace ChatApplication
             this.Name = "ChatU";
             this.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
             this.Size = new System.Drawing.Size(125, 47);
+            this.Load += new System.EventHandler(this.ChatULoad);
+            this.Click += new System.EventHandler(this.ChatUClick);
             this.ChatUBottomP.ResumeLayout(false);
             this.ChatUBottomP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MessageSendIconPB)).EndInit();
