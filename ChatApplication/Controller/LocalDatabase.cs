@@ -33,7 +33,7 @@ namespace ChatApplication.Controller
 
             using (var rem = new ServerDatabase())
             {
-                Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                Client me = rem.Clients.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
                 if (me != null)
                 {
                     if (!me.Password.Equals(Manager.Password) || me.Password == null)
@@ -108,16 +108,6 @@ namespace ChatApplication.Controller
             Messages.Add(m.Id, m);
         }
 
-        public static void StarMessages(Message message)
-        {
-            string condition = $"Id = '{message.Id}'";
-            ParameterData[] data = new ParameterData[]
-            {
-                new ParameterData("Starred" , message.Starred.ToInt32())
-            };
-            Manager.UpdateData("Messages", condition, data);
-        }
-
         public static void UpdateMessage(Message m)
         {
             string condition = $"Id='{m.Id}'";
@@ -139,6 +129,16 @@ namespace ChatApplication.Controller
             {
                 if (Messages.ContainsKey(id)) Messages.Remove(id);
             }
+        }
+
+        public static void StarMessages(Message message)
+        {
+            string condition = $"Id = '{message.Id}'";
+            ParameterData[] data = new ParameterData[]
+            {
+                new ParameterData("Starred" , message.Starred.ToInt32())
+            };
+            Manager.UpdateData("Messages", condition, data);
         }
     }
 }

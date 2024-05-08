@@ -57,7 +57,7 @@ namespace ChatApplication
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-            List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.FromIPAddress, contact.IP);
+            List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
             Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
 
             FileSharePage = new FileSenderPage
@@ -134,7 +134,7 @@ namespace ChatApplication
 
         private async void SendMessage(object sender, string message)
         {
-            Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, message, DateTime.Now, Type.Message);
+            Message msg = new Message(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, message, DateTime.Now, Type.Message);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
         }
@@ -144,7 +144,7 @@ namespace ChatApplication
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(message) + Path.GetExtension(message));
             Message msg = new
-                Message(ChatApplicationNetworkManager.FromIPAddress, Client.IP, filePath,
+                Message(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, filePath,
                 DateTime.Now, Type.File);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
@@ -176,7 +176,7 @@ namespace ChatApplication
             };
             chatPanel.Controls.Add(chatMsg);
 
-            if (msg.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
+            if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 chatMsg.Dock = DockStyle.Right;
                 chatMsg.BackColor = Color.FromArgb(210, 254, 214);

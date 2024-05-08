@@ -87,7 +87,7 @@ namespace ChatApplication
             Message = message;
             MessageId = message.Id;
 
-            if (message.Seen && message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
+            if (message.Seen && message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 MessageSendIconPB.Visible = true;
                 MessageSendIconPB.Image = Properties.Resources.double_check__1_;
@@ -102,7 +102,7 @@ namespace ChatApplication
             message.IsReaded += (obj, e) =>
             {
                 Message m = obj as Message;
-                if (m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
+                if (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
             };
         }
 
@@ -255,7 +255,7 @@ namespace ChatApplication
             this.Height = messageLB.Height + this.Padding.Top + Padding.Bottom + ChatUBottomP.Height;
             Invalidate();
 
-            if (Message.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress))
+            if (Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 IsReceivedMessage = false;
             }

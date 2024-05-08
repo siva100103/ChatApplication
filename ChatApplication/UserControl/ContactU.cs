@@ -53,7 +53,7 @@ namespace WindowsFormsApp3
 
                 ChatApplication.Message LastMsg = LocalDatabase.Messages.Values.LastOrDefault(m =>
                 {
-                    return (m.FromIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress));
+                    return (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
                 });
 
             if (LastMsg != null)

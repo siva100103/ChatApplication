@@ -68,7 +68,7 @@ namespace WindowsFormsApp3
         {
             UnSeenMessagesList = LocalDatabase.Messages.Values.Where(m =>
               {
-                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.FromIPAddress) && !m.Seen; 
+                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
               }).ToList();
             unSeenMessages = UnSeenMessagesList.Count;
         }
@@ -82,8 +82,8 @@ namespace WindowsFormsApp3
         {
             try
             {
-                ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.FromIPAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
-                await ChatApplicationNetworkManager.SendMessage(message, this);
+                ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
+               await ChatApplicationNetworkManager.SendMessage(message, this);
                 IsConnected = true;
                 StatusChanged.Invoke(this, true);
             }

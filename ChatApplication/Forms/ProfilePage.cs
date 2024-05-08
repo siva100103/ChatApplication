@@ -114,7 +114,7 @@ namespace ChatApplication
             {
                 foreach (var c in DbContext.Clients.ToList())
                 {
-                    if (c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                    if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
                     {
                         c.About = AboutBox.Text;
                         DbContext.SaveChanges();

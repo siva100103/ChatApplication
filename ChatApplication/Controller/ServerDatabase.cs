@@ -25,10 +25,10 @@ namespace ChatApplication.Controller
         //    if (ConnectionStatus)
         //    {
         //        var data = ServerManager.FetchColumn("Clients", "IP", "").Value;
-        //        string locaIp = Program.GetLocalIPAddress();
+        //        string locaIp = ChatApplicationNetworkManager.LocalIpAddress;
         //        foreach (var ip in data)
         //        {
-        //            if(ip.ToString().Equals(locaIp))
+        //            if (ip.ToString().Equals(locaIp))
         //            {
         //                return true;
         //            }

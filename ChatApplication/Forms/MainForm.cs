@@ -64,7 +64,7 @@ namespace ChatApplication
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))?.Name,
+                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))?.Name,
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
@@ -84,7 +84,7 @@ namespace ChatApplication
             #region Clients Details
             foreach (var client in MyDetails.Clients.ToList())
             {
-                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                if (client.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
                 {
                     if (client.ProfilePath != "")
                     {
@@ -129,7 +129,7 @@ namespace ChatApplication
             {
                 foreach (var c in DbContext.Clients.ToList())
                 {
-                    if (c.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                    if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
                     {
                         c.About = MyProfile.About;
                         DbContext.SaveChanges();
@@ -143,7 +143,7 @@ namespace ChatApplication
             SuspendLayout();
             foreach (var client in MyDetails.Clients.ToList())
             {
-                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                if (client.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
                 {
                     if (client.ProfilePath != "")
                     {
@@ -187,7 +187,7 @@ namespace ChatApplication
             SideMenuBar.ProfileImage = pic;
             foreach (var client in MyDetails.Clients.ToList())
             {
-                if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
+                if (client.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
                 {
                     client.ProfilePath = path;
                     MyDetails.SaveChanges();
@@ -337,7 +337,7 @@ namespace ChatApplication
         {
             foreach (var a in ChatApplicationNetworkManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.FromIPAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Message msg = new Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

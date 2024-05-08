@@ -25,7 +25,7 @@ namespace ChatApplication
             Application.SetCompatibleTextRenderingDefault(false);
 
             string IpAddress = GetLocalIPAddress();
-            ChatApplicationNetworkManager.FromIPAddress = IpAddress;
+            ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
 
             if (!File.Exists(@".\data.xml"))
                 SerializeLocalDataToXml();
@@ -48,7 +48,7 @@ namespace ChatApplication
             }
         }
 
-        public static string GetLocalIPAddress()
+        private static string GetLocalIPAddress()
         {
             string ipAddress = string.Empty;
             foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
