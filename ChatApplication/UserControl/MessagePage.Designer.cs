@@ -48,7 +48,7 @@ namespace ChatApplication
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.MainPanel.BackColor = System.Drawing.Color.Transparent;
             this.MainPanel.Controls.Add(this.ChatPanel);
             this.MainPanel.Controls.Add(this.chatSenter);
             this.MainPanel.Controls.Add(this.HeaderPanel);
@@ -61,7 +61,7 @@ namespace ChatApplication
             // ChatPanel
             // 
             this.ChatPanel.AutoScroll = true;
-            this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
+            this.ChatPanel.BackColor = System.Drawing.Color.Transparent;
             this.ChatPanel.Controls.Add(this.panel1);
             this.ChatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ChatPanel.Location = new System.Drawing.Point(0, 61);
@@ -93,7 +93,7 @@ namespace ChatApplication
             // 
             // HeaderPanel
             // 
-            this.HeaderPanel.BackColor = System.Drawing.Color.Transparent;
+            this.HeaderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.HeaderPanel.Controls.Add(this.MenuTip);
             this.HeaderPanel.Controls.Add(this.LastSeeLabel);
             this.HeaderPanel.Controls.Add(this.NameLabel);
@@ -181,7 +181,7 @@ namespace ChatApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
             this.Controls.Add(this.MainPanel);
             this.Name = "MessagePage";
             this.Size = new System.Drawing.Size(537, 558);
