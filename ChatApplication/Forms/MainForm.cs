@@ -35,6 +35,9 @@ namespace ChatApplication
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
         private MessagePage CurrentlySelected;
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
 
         public MainForm()
         {
@@ -52,6 +55,11 @@ namespace ChatApplication
             SideMenuBar.OnClickExitBtn += ExitButtonClick;
             SideMenuBar.ControlClicked += SideMenuBarControlClicked;
 
+            SideMenuBar.MouseDown += MainMouseDown;
+            SideMenuBar.MouseMove += MainMouseMove;
+            SideMenuBar.MouseUp += MainMouseUp;
+
+            #region MyProfile
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
@@ -60,15 +68,20 @@ namespace ChatApplication
             };
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
+            ChatPanel.Controls.Add(StarMainPanel);
+            #endregion
 
-            foreach(var a in LocalDatabase.Messages.Values)
+            #region Starred Messages
+            foreach (var a in LocalDatabase.Messages.Values)
             {
-                if(a.Starred)
+                if (a.Starred)
                 {
                     AddToStarredMessages(a);
                 }
             }
+            #endregion
 
+            #region Clients Details
             foreach (var client in MyDetails.Clients.ToList())
             {
                 if (client.IP.Equals(ChatApplicationNetworkManager.FromIPAddress.ToString()))
@@ -82,7 +95,31 @@ namespace ChatApplication
                     break;
                 }
             }
+            #endregion
         }
+
+        #region Form Dragging
+        private void MainMouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = Location;
+        }
+
+        private void MainMouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void MainMouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        } 
+        #endregion
 
         private void SideMenuBarControlClicked(object sender, EventArgs e)
         {
@@ -248,9 +285,9 @@ namespace ChatApplication
 
         private void StarredMessagesList(object sender, List<ChatU> selected)
         {
-            foreach(ChatU message in selected)
+            foreach (ChatU message in selected)
             {
-                if (!message.Starred)
+                if (!message.Message.Starred)
                 {
                     AddToStarredMessages(message.Message);
                 }
@@ -265,16 +302,25 @@ namespace ChatApplication
                 Dock = DockStyle.Top,
                 BackColor = Color.FromArgb(247, 247, 247)
             };
+            chat.Disposed += StarDisposed;
             StarPanel.Controls.Add(chat);
             chat.BringToFront();
             Panel space = new Panel()
             {
+                Name = chat.Message.Id.ToString(),
                 Dock = DockStyle.Top,
                 Height = 8
             };
             StarPanel.Controls.Add(space);
             space.BringToFront();
             ResumeLayout();
+        }
+
+        private void StarDisposed(object sender, EventArgs e)
+        {
+            int index = StarPanel.Controls.IndexOf((Control)sender as StarredMessages);
+            StarPanel.Controls.RemoveByKey((sender as StarredMessages).Message.Id.ToString());
+            StarPanel.Controls.Remove((Control)sender);
         }
 
         private void OptionButtonClick(object sender, EventArgs e)
@@ -304,8 +350,16 @@ namespace ChatApplication
         {
             MessagePagePanel.SuspendLayout();
             StarMainPanel.Visible = true;
-            StarMainPanel.BringToFront();
-            ChatPanel.Visible = false;
+            StarMainPanel.SendToBack();
+            //ChatPanel.Visible = false;
+            MessagePagePanel.ResumeLayout();
+        }
+
+        private void StarBackButtonClick(object sender, EventArgs e)
+        {
+            MessagePagePanel.SuspendLayout();
+            StarMainPanel.Visible = false;
+            //ChatPanel.Visible = true;
             MessagePagePanel.ResumeLayout();
         }
 
@@ -333,12 +387,5 @@ namespace ChatApplication
             MinMaxButton.BackColor = Color.Transparent;
         }
 
-        private void StarBackButtonClick(object sender, EventArgs e)
-        {
-            MessagePagePanel.SuspendLayout();
-            StarMainPanel.Visible = false;
-            ChatPanel.Visible = true;
-            MessagePagePanel.ResumeLayout();
-        }
     }
 }

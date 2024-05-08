@@ -26,7 +26,6 @@ namespace ChatApplication
         private Message message;
         private int chatUMaximumWidth = 400;
         public string FilePath { get; set; } = "";
-        public bool Starred { get; set; } = false;
 
         public Message Message
         {

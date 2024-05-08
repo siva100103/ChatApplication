@@ -180,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\LocalDatabase.cs" />
-    <Compile Include="Controller\RemoteDatabase.cs" />
     <Compile Include="Controller\ServerDatabase.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>

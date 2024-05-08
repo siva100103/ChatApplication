@@ -14,9 +14,6 @@ namespace ChatApplication.Controller
 {
     public static class LocalDatabase
     {
-        public delegate void FailureInformer(string Errormsg);
-        public static FailureInformer DbConnectionFailed;
-
         public static Dictionary<string, Message> Messages { get; set; } = new Dictionary<string, Message>();
         private static DatabaseManager Manager = new MySqlHandler();
 
