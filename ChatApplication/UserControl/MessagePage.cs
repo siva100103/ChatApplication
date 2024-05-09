@@ -57,7 +57,7 @@ namespace ChatApplication
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-            List<Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
+            List<MessageModel> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
             Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
 
             FileSharePage = new FileSenderPage
@@ -134,7 +134,7 @@ namespace ChatApplication
 
         private async void SendMessage(object sender, string message)
         {
-            Message msg = new Message(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, message, DateTime.Now, Type.Message);
+            MessageModel msg = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, message, DateTime.Now, Type.Message);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
         }
@@ -143,8 +143,8 @@ namespace ChatApplication
         {
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(message) + Path.GetExtension(message));
-            Message msg = new
-                Message(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, filePath,
+            MessageModel msg = new
+                MessageModel(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, filePath,
                 DateTime.Now, Type.File);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
@@ -159,7 +159,7 @@ namespace ChatApplication
             FileSharePage.FileName = filePath;
         }
 
-        public void AddMessage(Message msg)
+        public void AddMessage(MessageModel msg)
         {
             HeaderPanel.SuspendLayout();
             ChatPanel.SuspendLayout();
@@ -276,7 +276,7 @@ namespace ChatApplication
 
         private void ProfilePictureClick(object sender, EventArgs e)
         {
-            if (!Message.ClickedInfo && !ContactInfo.Visible)
+            if (!MessageModel.ClickedInfo && !ContactInfo.Visible)
             {
                 ContactInfo.DP = ProfilePicture.Image;
                 ContactInfo.About = About();
@@ -284,7 +284,7 @@ namespace ChatApplication
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);
                 ContactInfo.Location = location;
-                Message.ClickedInfo = true;
+                MessageModel.ClickedInfo = true;
             }
             ContactInfo.Focus();
         }

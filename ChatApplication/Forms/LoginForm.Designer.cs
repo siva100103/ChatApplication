@@ -38,7 +38,6 @@
             this.lastNameTB = new ChatApplication.TextBoxU();
             this.firstNameTB = new ChatApplication.TextBoxU();
             this.BackTopColorPanel = new System.Windows.Forms.Panel();
-            this.ellipseControl1 = new ChatApplication.EllipseControl();
             this.panel1.SuspendLayout();
             this.centerP.SuspendLayout();
             this.SuspendLayout();
@@ -175,11 +174,7 @@
             this.BackTopColorPanel.Name = "BackTopColorPanel";
             this.BackTopColorPanel.Size = new System.Drawing.Size(753, 130);
             this.BackTopColorPanel.TabIndex = 8;
-            // 
-            // ellipseControl1
-            // 
-            this.ellipseControl1.CornerRadius = 20;
-            this.ellipseControl1.TargetControl = this.dpPictureU;
+            this.BackTopColorPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.BackTopColorPanelPaint);
             // 
             // LoginForm
             // 
@@ -206,7 +201,6 @@
         private CustomPanel centerP;
         private EllipseButton nextBtn;
         private TextBoxU lastNameTB;
-        private EllipseControl ellipseControl1;
         private DpPictureU dpPictureU;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

@@ -68,11 +68,11 @@ namespace ChatApplication
         {
             if (Visible)
             {
-                Message.ClickedInfo = true;
+                MessageModel.ClickedInfo = true;
                 Focus();
             }
             Visible = false;
-            Message.ClickedInfo = false;
+            MessageModel.ClickedInfo = false;
         }
 
         private void ContactMouseEnter(object sender, EventArgs e)

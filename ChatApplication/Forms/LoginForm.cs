@@ -42,7 +42,6 @@ namespace ChatApplication
             }
             //dp.Save(newfilePath);
         }
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -54,17 +53,9 @@ namespace ChatApplication
         {
             if (firstNameTB.TextBoxtext.Trim() != "" && lastNameTB.TextBoxtext.Trim() != "")
             {
-                Client c = new Client()
-                {
-                    IP = label1.Text,
-                    ProfilePath = DpPicturePath,
-                    Name = firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(),
-                    LastSeen = DateTime.Now,
-                    Port = 12346,
-                };
-
+                Client c = new Client(label1.Text, firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(),
+                    12346, DateTime.Now, DpPicturePath, "");
                 DbManager.AddClient(c);
-                               
                 Hide();
 
                 if (!ChatApplicationNetworkManager.ManagerInitializer())
@@ -84,7 +75,6 @@ namespace ChatApplication
 
             }
         }
-
         private void LoginFormResize(object sender, EventArgs e)
         {
             centerP.Location = new Point(Width / 2 - centerP.Width / 2, Height / 2 - centerP.Height / 2);
@@ -94,6 +84,13 @@ namespace ChatApplication
             dpPictureU.Location = new Point(centerP.Width / 2 - dpPictureU.Width / 2, dpPictureU.Location.Y);
             nextBtn.Location = new Point(centerP.Width / 2 - nextBtn.Width / 2, nextBtn.Location.Y);
             centerP.BringToFront();
+        }
+
+        private int temp = 5;
+        private void BackTopColorPanelPaint(object sender, PaintEventArgs e)
+        {
+            //Graphics g = e.Graphics;
+            //g.FillRectangle()
         }
     }
 }

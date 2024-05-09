@@ -27,7 +27,7 @@ namespace ChatApplication
             string IpAddress = GetLocalIPAddress();
             ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
             DbManager.ServerDbConfig();
-
+            Application.Run(new LoginForm(IpAddress));
             if (!File.Exists(@".\data.xml"))
                 SerializeLocalDataToXml();
 
@@ -37,8 +37,8 @@ namespace ChatApplication
             }
             else
             {
-                if (ChatApplicationNetworkManager.ManagerInitializer())
-                    Application.Run(new MainForm());
+                if (ChatApplicationNetworkManager.ManagerInitializer()) ;
+                    //Application.Run(new MainForm());
                 else
                 {
                     DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "",

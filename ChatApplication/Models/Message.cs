@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ChatApplication
 {
-    public class Message
+    public class MessageModel
     {
         public String Id { get; set; }
         public string FromIP { get; set; }
@@ -29,7 +29,7 @@ namespace ChatApplication
         public event EventHandler IsReaded;
 
         [JsonConstructor]
-        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time,Type type)
+        public MessageModel(string FromIP, string ReceiverIP, String Msg, DateTime Time,Type type)
         {
             Id = UniqueIdGenerator();
             this.FromIP = FromIP;
@@ -40,11 +40,11 @@ namespace ChatApplication
         }
 
 
-        public Message()
+        public MessageModel()
         {
 
         }
-        public Message(Message m)
+        public MessageModel(MessageModel m)
         {
             Id = m.Id;
             FromIP = m.FromIP;
@@ -62,7 +62,7 @@ namespace ChatApplication
         public void IsReaderInvoker()
         {
             Seen = true;
-            Message m = DbManager.Messages.Values.ToList().Find((msg) => msg.Id == Id);
+            MessageModel m = DbManager.Messages.Values.ToList().Find((msg) => msg.Id == Id);
             //Message m=LocalDatabase.ReadMessage(Id);
             m.Seen = true;
             DbManager.UpdateMessage(m);

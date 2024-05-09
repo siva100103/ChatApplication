@@ -34,6 +34,9 @@ namespace ChatApplication
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
         private MessagePage CurrentlySelected;
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
 
         public MainForm()
         {
@@ -84,31 +87,44 @@ namespace ChatApplication
             SearchBox.OnTextChange += SearchBoxOnTextChange;
             SideMenuBar.OnClickExitBtn += ExitButtonClick;
             SideMenuBar.ControlClicked += SideMenuBarControlClicked;
+            SideMenuBar.MouseDown += MainMouseDown;
+            SideMenuBar.MouseMove += MainMouseMove;
+            SideMenuBar.MouseUp += MainMouseUp;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
         }
 
+        #region Form Dragging
+        private void MainMouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = Location;
+        }
+
+        private void MainMouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void MainMouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        }
+        #endregion
         private void SideMenuBarControlClicked(object sender, EventArgs e)
         {
             MyProfile.Hide();
             click = false;
-            //using (var DbContext = new ServerDatabase())
-            //{
-            //    foreach (var c in DbContext.Clients.ToList())
-            //    {
-            //        if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-            //        {
-            //            c.About = MyProfile.About;
-            //            DbContext.SaveChanges();
-            //        }
-            //    }
-            //}
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             me.About = MyProfile.Text;
             DbManager.UpdateClient(me);
 
         }
-
-
+        
         private void SearchBoxOnTextChange(object sender, EventArgs e)
         {
             if (Contacts.Count > 0 && SearchBox.PlaceholderText != "Search or start new chat")
@@ -211,7 +227,6 @@ namespace ChatApplication
 
         private void LabelsAdder()
         {
-            
             foreach (var a in DbManager.Clients)
             {
                 if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
@@ -237,14 +252,14 @@ namespace ChatApplication
         {
             foreach (ChatU message in selected)
             {
-                if (!message.Starred)
+                if (!message.Message.Starred)
                 {
                     AddToStarredMessages(message.Message);
                 }
             }
         }
 
-        private void AddToStarredMessages(Message message)
+        private void AddToStarredMessages(MessageModel message)
         {
             SuspendLayout();
             StarredMessages chat = new StarredMessages(message)
@@ -278,7 +293,7 @@ namespace ChatApplication
         {
             foreach (var a in DbManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
+                MessageModel msg = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
@@ -326,6 +341,16 @@ namespace ChatApplication
             StarMainPanel.Visible = false;
             ChatPanel.Visible = true;
             MessagePagePanel.ResumeLayout();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
     }
 }

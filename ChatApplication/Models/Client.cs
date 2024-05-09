@@ -18,7 +18,6 @@ namespace WindowsFormsApp3
 {
     public class Client
     {
-
         public string IP { get; set; }
         public string Name { get; set; } = "";
         public string About { get; set; } = "";
@@ -31,7 +30,7 @@ namespace WindowsFormsApp3
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages = 0;
 
-        public List<ChatApplication.Message> UnSeenMessagesList { get; set; } = new List<ChatApplication.Message>();
+        public List<ChatApplication.MessageModel> UnSeenMessagesList { get; set; } = new List<ChatApplication.MessageModel>();
 
         public int UnseenMessages
         {
@@ -65,28 +64,23 @@ namespace WindowsFormsApp3
             this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
             IdentifyUnSeenMsgs();
-            ConnectAsync();
+            //ConnectAsync();
         }
 
         private void IdentifyUnSeenMsgs()
         {
             UnSeenMessagesList = DbManager.Messages.Values.Where(m =>
               {
-                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
+                  return m.FromIP.Equals(IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
               }).ToList();
             unSeenMessages = UnSeenMessagesList.Count;
-        }
-
-        public Client()
-        {
-
         }
 
         public async void ConnectAsync()
         {
             try
             {
-                ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
+                ChatApplication.MessageModel message = new ChatApplication.MessageModel(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
                await ChatApplicationNetworkManager.SendMessage(message, this);
                 IsConnected = true;
                 StatusChanged.Invoke(this, true);

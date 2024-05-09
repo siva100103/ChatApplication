@@ -15,7 +15,7 @@ namespace ChatApplication.Controller
 {
     public static class DbManager
     {
-        public static Dictionary<string, Message> Messages { get; set; } = new Dictionary<string, Message>();
+        public static Dictionary<string, MessageModel> Messages { get; set; } = new Dictionary<string, MessageModel>();
         public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
 
         private static DatabaseManager LocalDbManager = new MySqlHandler();
@@ -64,49 +64,23 @@ namespace ChatApplication.Controller
             };
             ServerDbManager.InsertData("Clients", pd);
             Clients.Add(c.IP, c);
-
-            //string connectionString = "server=192.168.3.155;user=root;database=chatapplicationserver;password=;";
-            //using (MySqlConnection connection = new MySqlConnection(connectionString))
-            //{
-            //    connection.Open();
-            //    string condition = "IP = @IP";
-            //    string query = "UPDATE Clients SET ProfilePath = @FilePath WHERE " + condition;
-            //    MySqlCommand command = new MySqlCommand(query, connection);
-            //    command.Parameters.AddWithValue("@FilePath", path);
-            //    command.Parameters.AddWithValue("@IP", c.IP);
-            //    command.ExecuteNonQuery();
-            //}
-
         }
 
         public static void UpdateClient(Client c)
         {
             string path = $@"{c.ProfilePath}";
-
+            path = path.Replace('\\', '~');
             ParameterData[] pd = new ParameterData[]
             {
                new ParameterData("Name",c.Name),
                new ParameterData("Port",c.Port),
                new ParameterData("LastSeen",c.LastSeen),
-               new ParameterData("ProfilePath",$@"{c.ProfilePath}"),
+               new ParameterData("ProfilePath",path),
                new ParameterData("Password",c.Password),
                new ParameterData("UnseenMessages",c.UnseenMessages)
             };
             ServerDbManager.UpdateData("Clients", $"IP='{c.IP}'", pd);
-
-            string connectionString = "server=192.168.3.147;user=root;database=chatapplicationserver;password=;";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                string condition = "IP = @IP";
-                string query = "UPDATE Clients SET ProfilePath = @FilePath WHERE " + condition;
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@FilePath", path);
-                command.Parameters.AddWithValue("@IP", c.IP);
-                command.ExecuteNonQuery();
-            }
         }
-
 
         public static bool LocalDbConfig()
         {
@@ -175,7 +149,7 @@ namespace ChatApplication.Controller
             {
                 for (int i = 0; i < a.Value["Id"].Count; i++)
                 {
-                    Message m = new Message()
+                    MessageModel m = new MessageModel()
                     {
                         Id = a.Value["Id"][i].ToString(),
                         FromIP = a.Value["FromIP"][i].ToString(),
@@ -190,7 +164,7 @@ namespace ChatApplication.Controller
             }
         }
 
-        public static void CreateMessage(Message m)
+        public static void CreateMessage(MessageModel m)
         {
             ParameterData[] data = new ParameterData[] {
                 new ParameterData("Id", m.Id),
@@ -205,7 +179,7 @@ namespace ChatApplication.Controller
             Messages.Add(m.Id, m);
         }
 
-        public static void UpdateMessage(Message m)
+        public static void UpdateMessage(MessageModel m)
         {
             string condition = $"Id='{m.Id}'";
             ParameterData[] data = new ParameterData[] {
@@ -233,7 +207,7 @@ namespace ChatApplication.Controller
             }
         }
 
-        public static void StarMessages(Message message)
+        public static void StarMessages(MessageModel message)
         {
             string condition = $"Id = '{message.Id}'";
             ParameterData[] data = new ParameterData[]

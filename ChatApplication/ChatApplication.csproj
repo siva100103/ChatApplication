@@ -180,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\DbManager.cs" />
-    <Compile Include="Controller\ServerDatabase.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,10 +200,10 @@
     </Compile>
     <Compile Include="LocalData.cs" />
     <Compile Include="Models\LocalData.cs" />
-    <Compile Include="StarredMessages.cs">
+    <Compile Include="UserControl\StarredMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StarredMessages.Designer.cs">
+    <Compile Include="UserControl\StarredMessages.Designer.cs">
       <DependentUpon>StarredMessages.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControl\FileSenderPage.cs">
@@ -362,7 +361,7 @@
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StarredMessages.resx">
+    <EmbeddedResource Include="UserControl\StarredMessages.resx">
       <DependentUpon>StarredMessages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\BendingMessages.resx">
