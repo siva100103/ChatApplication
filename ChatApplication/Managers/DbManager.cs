@@ -69,14 +69,15 @@ namespace ChatApplication.Managers
         public static void UpdateClient(Client c)
         {
             string path = $@"{c.ProfilePath}";
-            path = path.Replace('~', '\\');
+            path = path.Replace('\\', '~');
             ParameterData[] pd = new ParameterData[]
             {
                new ParameterData("Name",c.Name),
                new ParameterData("Port",c.Port),
                new ParameterData("LastSeen",c.LastSeen),
-               new ParameterData("ProfilePath",$@"{c.ProfilePath}"),
+               new ParameterData("ProfilePath",path),
                new ParameterData("Password",c.Password),
+               new ParameterData("About",c.About),
                new ParameterData("UnseenMessages",c.UnseenMessages)
             };
             ServerDbManager.UpdateData("Clients", $"IP='{c.IP}'", pd);

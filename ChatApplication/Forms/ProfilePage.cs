@@ -32,7 +32,7 @@ namespace ChatApplication.Forms
 
         public event EventHandler<Dictionary<string, Image>> ProfileChoosen;
         private Dictionary<string, Image> PathPic = new Dictionary<string, Image>();
-
+        private string ProfilePath = "";
         public string UserName
         {
             get { return NameLabel.Text; }
@@ -95,11 +95,12 @@ namespace ChatApplication.Forms
                     string newfilePath = $@"{Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName))}";
                     //File.Copy(file.FileName, newfilePath, true);
                     ProfilePicture.Image.Save(newfilePath);
-
+                    ProfilePath = newfilePath;
                     PathPic.Add(newfilePath, ProfilePicture.Image);
                     ProfileChoosen?.Invoke(this, PathPic);
                     PathPic.Clear();
-                    
+                    UpdateInfo();
+                    SendIndicationForProfileUpdate();
                 }
             }
         }
@@ -113,9 +114,28 @@ namespace ChatApplication.Forms
         {
             Hide();
             Visible = false;
-            Client me = DbManager.Clients.Values.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
+            UpdateInfo();
+            SendIndicationForProfileUpdate();
+        }
+
+        private void UpdateInfo()
+        {
+            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             me.About = AboutBox.Text;
+            if(!ProfilePath.Equals("") && !ProfilePath.Equals(me.ProfilePath)) me.ProfilePath = ProfilePath;
             DbManager.UpdateClient(me);
+        }
+
+        private void SendIndicationForProfileUpdate()
+        {
+            foreach (var a in DbManager.Clients)
+            {
+                if (!a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && a.Value.IsConnected)
+                {
+                    Models.Message m = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "", DateTime.Now, MessageType.ProfileUpdated);
+                    Task t=ChatApplicationNetworkManager.SendMessage(m, a.Value);
+                }
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ namespace ChatApplication.Forms
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                UserName=DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
+                UserName = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
             };
 
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
@@ -64,7 +64,7 @@ namespace ChatApplication.Forms
                 SideMenuBar.ProfileImage = me.ProfilePicture;
                 MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
             }
-            MyProfile.About = me.About; 
+            MyProfile.About = me.About;
             #endregion
 
 
@@ -86,27 +86,23 @@ namespace ChatApplication.Forms
             SideMenuBar.OnClickExitBtn += ExitButtonClick;
             SideMenuBar.ControlClicked += SideMenuBarControlClicked;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
+            ChatApplicationNetworkManager.ProfileUpdateInformer += ChatApplicationNetworkManager_ProfileUpdateInformer;
+        }
+
+        private void ChatApplicationNetworkManager_ProfileUpdateInformer(Client c)
+        {
+            ContactU cu = Contacts.Find((cu1)=>cu1.Client==c);
+            cu.UpdateDetais(c.ProfilePicture);
+            c.MessagePage.ContactInfo.UpdateDetails(c);
         }
 
         private void SideMenuBarControlClicked(object sender, EventArgs e)
         {
             MyProfile.Hide();
             click = false;
-            //using (var DbContext = new ServerDatabase())
-            //{
-            //    foreach (var c in DbContext.Clients.ToList())
-            //    {
-            //        if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-            //        {
-            //            c.About = MyProfile.About;
-            //            DbContext.SaveChanges();
-            //        }
-            //    }
-            //}
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             me.About = MyProfile.Text;
             DbManager.UpdateClient(me);
-
         }
 
 
@@ -138,7 +134,7 @@ namespace ChatApplication.Forms
                 pic = dict.Value;
             }
             SideMenuBar.ProfileImage = pic;
-    
+
             Client client = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             client.ProfilePath = $@"{path}";
             DbManager.UpdateClient(client);
@@ -212,7 +208,7 @@ namespace ChatApplication.Forms
 
         private void LabelsAdder()
         {
-            
+
             foreach (var a in DbManager.Clients)
             {
                 if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
@@ -282,7 +278,16 @@ namespace ChatApplication.Forms
                 Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
                 if (a.Value.IsConnected)
                 {
-                    await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
+
+                    try
+                    {
+                        await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        
+                    }
                 }
             }
             Close();

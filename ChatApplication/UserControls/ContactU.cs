@@ -147,6 +147,11 @@ namespace ChatApplication.UserControls
             TimeLB = LbValue;
         }
 
+        public void UpdateDetais(Image i)
+        {
+            dpPictureBox.Image = i;
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

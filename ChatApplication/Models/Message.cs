@@ -73,6 +73,6 @@ namespace ChatApplication.Models
 
     public enum MessageType
     {
-        Message, Response, File
+        Message, Response, File,ProfileUpdated
     }
 }

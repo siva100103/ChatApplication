@@ -24,6 +24,9 @@ namespace ChatApplication.Managers
         public delegate void NewUserEnter(ContactU label);
         public static event NewUserEnter Inform;
 
+        public delegate void ProfileUpdation(Client c);
+        public static event ProfileUpdation ProfileUpdateInformer;
+
         public static string LocalIpAddress { get; set; }
         private static TcpListener Listener;
         public static MessagePage MessagePage = null;
@@ -48,7 +51,6 @@ namespace ChatApplication.Managers
             }
             return true;
         }
-
         
         private static bool StartServer()
         {
@@ -57,7 +59,6 @@ namespace ChatApplication.Managers
             AcceptClient();
             return true;
         }
-
 
         private async static void AcceptClient()
         {
@@ -85,9 +86,13 @@ namespace ChatApplication.Managers
                     {
                         HandleFile(msg);
                     }
-                    else
+                    else if(msg.type==MessageType.Message)
                     {
                         HandleMessages(msg);
+                    }
+                    else
+                    {
+                        HandleUpdation(msg);
                     }
                 }
             }
@@ -101,6 +106,16 @@ namespace ChatApplication.Managers
             }
 
             AcceptClient();
+        }
+
+        private static void HandleUpdation(Message msg)
+        {
+            Client current = DbManager.Clients[msg.FromIP];
+            Client Updated = DbManager.GetClientAtInstance(msg.FromIP);
+            current.About = Updated.About;
+            current.ProfilePath = Updated.ProfilePath;
+            current.ProfilePicture = Image.FromFile(current.ProfilePath);
+            ProfileUpdateInformer?.Invoke(current);
         }
 
         private async static void HandleFile(Message msg)
@@ -228,6 +243,8 @@ namespace ChatApplication.Managers
                return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
            }).ToList();
         }
+
+       
     }
 }
 
