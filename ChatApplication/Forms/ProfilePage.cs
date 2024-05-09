@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
 using ChatApplication.Controller;
+using WindowsFormsApp3;
 
 namespace ChatApplication
 {
@@ -90,13 +91,14 @@ namespace ChatApplication
                     ProfilePicture.Image = Image.FromFile(file.FileName);
 
                     string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
-                    string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName));
+                    string newfilePath = $@"{Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName))}";
                     //File.Copy(file.FileName, newfilePath, true);
                     ProfilePicture.Image.Save(newfilePath);
 
                     PathPic.Add(newfilePath, ProfilePicture.Image);
                     ProfileChoosen?.Invoke(this, PathPic);
                     PathPic.Clear();
+                    
                 }
             }
         }
@@ -110,17 +112,20 @@ namespace ChatApplication
         {
             Hide();
             Visible = false;
-            using (var DbContext = new ServerDatabase())
-            {
-                foreach (var c in DbContext.Clients.ToList())
-                {
-                    if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-                    {
-                        c.About = AboutBox.Text;
-                        DbContext.SaveChanges();
-                    }
-                }
-            }
+            //using (var DbContext = new ServerDatabase())
+            //{
+            //    foreach (var c in DbContext.Clients.ToList())
+            //    {
+            //        if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
+            //        {
+            //            c.About = AboutBox.Text;
+            //            DbContext.SaveChanges();
+            //        }
+            //    }
+            //}
+            Client me = DbManager.Clients.Values.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
+            me.About = AboutBox.Text;
+            DbManager.UpdateClient(me);
         }
     }
 }

@@ -63,6 +63,7 @@ namespace ChatApplication
                     Port = 12346,
                 };
 
+                DbManager.AddClient(c);
                                
                 Hide();
 
@@ -80,12 +81,7 @@ namespace ChatApplication
                 MainForm mf = new MainForm();
                 mf.Show();
                 mf.FormClosed += (obj, ev) => Close();
-                using (var clients = new ServerDatabase())
-                {
-                    clients.Clients.Add(c);
-                    clients.SaveChanges();
-                }
-                mf.DpSetFirstTime();
+
             }
         }
 

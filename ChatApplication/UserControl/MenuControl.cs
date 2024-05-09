@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatApplication.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -57,8 +58,20 @@ namespace ChatApplication
                 buttonArray[i].MouseLeave += HoverMessageLeave;
                 buttonArray[i].Click += ButtonClick;
             }
+            //if(!DesignMode)
+            //{
+            //    Image img = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].ProfilePicture;
+            //    if (img != null) ProfilePictureBox.Image = img;
+            //}
+
             //messageFormobj.Visible = true;
             //messageFormobj.Enabled = false;
+
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             ChatsBtn.Click += ChatsBtnClick;
             CallsBtn.Click += CallsBtnClick;
             StatusBtn.Click += StatusBtnClick;
@@ -67,8 +80,8 @@ namespace ChatApplication
             SettingBtn.Click += SettingBtnClick;
             timer.Interval += 80;
             timer.Tick += MessageFormobjShow;
+           
         }
-
         private void ProfilePictureBoxClick(object sender, EventArgs e)
         {
             OnClickProfilePicture?.Invoke(this, EventArgs.Empty);

@@ -101,7 +101,7 @@ namespace ChatApplication
             foreach (ChatU msg in ChatApplicationNetworkManager.SelectedMessages)
             {
                 msg.Message.Starred = true;
-                LocalDatabase.StarMessages(msg.Message);
+                DbManager.StarMessages(msg.Message);
                 CustomPanel parent = (CustomPanel)msg.Parent;
                 parent.BackColor = Color.Transparent;
             }
@@ -287,7 +287,7 @@ namespace ChatApplication
 
         private string About()
         {
-            foreach (var client in ChatApplicationNetworkManager.Clients)
+            foreach (var client in DbManager.Clients)
             {
                 if (client.Key.Equals(Client.IP))
                 {

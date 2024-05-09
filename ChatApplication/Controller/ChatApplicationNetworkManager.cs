@@ -27,11 +27,20 @@ namespace ChatApplication
         private static TcpListener Listener;
         public static MessagePage MessagePage = null;
 
-        public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
 
         public static bool ManagerInitializer()
         {
-            return GetCollectionFromDb() && StartServer();
+            return DbManager.LocalDbConfig() && StartServer() && UpdatePreviousMessageFromDb();
+        }
+
+        private static bool UpdatePreviousMessageFromDb()
+        {
+           foreach(var a in DbManager.Clients)
+            {
+                a.Value.MessagePage = new MessagePage(a.Value);
+
+            }
+            return true;
         }
 
         private static bool StartServer()
@@ -42,26 +51,6 @@ namespace ChatApplication
             return true;
         }
 
-        private static bool GetCollectionFromDb()
-        {
-            if (!LocalDatabase.LocalDatabaseInitializer()) return false;
-            using (var DbContext = new ServerDatabase())
-            { 
-                foreach (var c in DbContext.Clients.ToList())
-                {
-                    if (!c.IP.Equals(LocalIpAddress))
-                    {
-                        Clients.Add(c.IP, new Client(c.IP, c.Name, c.Port, c.LastSeen, c.ProfilePath, c.About));
-                        if (c.ProfilePath != "")
-                        {
-                            Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
-                        }
-                    }
-                }
-            }
-            return true;
-
-        }
 
         private async static void AcceptClient()
         {
@@ -100,7 +89,7 @@ namespace ChatApplication
                 if(ex.Message.Equals("Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host."))
                 {
                   IPAddress ip=  ((IPEndPoint)client.Client.RemoteEndPoint).Address;
-                  Clients[ip.ToString()].StatusChanger(false);
+                  DbManager.Clients[ip.ToString()].StatusChanger(false);
                 }
             }
 
@@ -109,7 +98,7 @@ namespace ChatApplication
 
         private async static void HandleFile(Message msg)
         {
-            Client clt = Clients[msg.FromIP];
+            Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessagesList.Add(msg);
             string path = msg.Msg;
@@ -128,22 +117,22 @@ namespace ChatApplication
                     type = Type.Response
                 };
 
-                await SendMessage(m, Clients[m.FromIP]);
+                await SendMessage(m, DbManager.Clients[m.FromIP]);
 
             }
         }
 
         private static void HandleResponses(Message msg)
         {
-            if (!Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
+            if (!DbManager.Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
             {
-                Client c = new ServerDatabase().Clients.ToDictionary(c1 => c1.IP)[msg.FromIP];
+                Client c = DbManager.Clients[msg.FromIP];
                 Client client = new Client(c.IP, c.Name, c.Port, c.LastSeen, c.ProfilePath, c.About);
-                Clients.Add(client.IP, client);
-                if (c.ProfilePath != "")
-                {
-                    Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
-                }
+                DbManager.Clients.Add(client.IP, client);
+                //if (c.ProfilePath != "")
+                //{
+                //    DbManager.Clients[c.IP].ProfilePicture = Image.FromFile(c.ProfilePath);
+                //}
                 ContactU label = new ContactU(client)
                 {
                     Dock = System.Windows.Forms.DockStyle.Top,
@@ -154,23 +143,23 @@ namespace ChatApplication
 
             if (msg.Msg.Equals("Close"))
             {
-                Client clt = Clients[msg.FromIP];
+                Client clt = DbManager.Clients[msg.FromIP];
                 clt.StatusChanger(false);
             }
             else if (msg.Msg.Equals("Open"))
             {
-                Client clt = Clients[msg.FromIP];
+                Client clt = DbManager.Clients[msg.FromIP];
                 clt.StatusChanger(true);
             }
             else
             {
-                LocalDatabase.Messages[msg.Id].IsReaderInvoker();
+                DbManager.Messages[msg.Id].IsReaderInvoker();
             }
         }
 
         private async static void HandleMessages(Message msg)
         {
-            Client clt = Clients[msg.FromIP];
+            Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessagesList.Add(msg);
             if (MessagePage != clt.MessagePage)
@@ -185,13 +174,13 @@ namespace ChatApplication
                     Msg = "Readed",
                     type = Type.Response
                 };
-                await SendMessage(m, Clients[m.FromIP]);
+                await SendMessage(m, DbManager.Clients[m.FromIP]);
                 msg.Seen = true;
-                LocalDatabase.UpdateMessage(msg);
+                DbManager.UpdateMessage(msg);
             }
-            Client c = Clients[msg.FromIP];
+            Client c = DbManager.Clients[msg.FromIP];
             c.MessageReceiveInvoker();
-            LocalDatabase.CreateMessage(msg);
+            DbManager.CreateMessage(msg);
         }
 
         public async static Task SendMessage(Message message, Client c)
@@ -206,7 +195,7 @@ namespace ChatApplication
             c.MessageSendInvoker();
             if (message.type != Type.Response)
             {
-                LocalDatabase.CreateMessage(message);
+                DbManager.CreateMessage(message);
             }
         }
 
@@ -221,16 +210,16 @@ namespace ChatApplication
                 };
                 if (c.IsConnected) await SendMessage(m, c);
 
-                m = LocalDatabase.Messages.Values.ToList().Find(m1 => msg.Id.Equals(m1.Id));
+                m = DbManager.Messages.Values.ToList().Find(m1 => msg.Id.Equals(m1.Id));
                 m.Seen = true;
-                LocalDatabase.UpdateMessage(m);
+                DbManager.UpdateMessage(m);
             }
             c.UnSeenMessagesList.Clear();
         }
 
         public static List<Message> GetMessages(string FromIp, string ToIP)
         {
-            return LocalDatabase.Messages.Values.ToList().Where((msg) =>
+            return DbManager.Messages.Values.ToList().Where((msg) =>
            {
                return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
            }).ToList();
