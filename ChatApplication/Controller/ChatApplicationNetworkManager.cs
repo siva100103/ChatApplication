@@ -13,12 +13,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WindowsFormsApp3;
+using System.Windows.Forms;
 
 namespace ChatApplication
 {
     public static class ChatApplicationNetworkManager
     {
         public static List<ChatU> SelectedMessages = new List<ChatU>();
+        public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
 
         public delegate void NewUserEnter(ContactU label);
         public static event NewUserEnter Inform;
@@ -26,8 +28,6 @@ namespace ChatApplication
         public static string LocalIpAddress { get; set; }
         private static TcpListener Listener;
         public static MessagePage MessagePage = null;
-
-        public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
 
         public static bool ManagerInitializer()
         {
@@ -60,7 +60,6 @@ namespace ChatApplication
                 }
             }
             return true;
-
         }
 
         private async static void AcceptClient()

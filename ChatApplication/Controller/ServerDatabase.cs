@@ -41,7 +41,7 @@ namespace ChatApplication.Controller
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL("Server=192.168.3.147;Port=3306;Database=chatApplicationServer;Uid=root;Pwd=;");
+            optionsBuilder.UseMySQL("Server=192.168.3.155;Port=3306;Database=chatApplicationServer;Uid=root;Pwd=;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

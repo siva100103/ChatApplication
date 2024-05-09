@@ -220,7 +220,7 @@ namespace ChatApplication
             this.ExitButton.EndPoint = 24;
             this.ExitButton.FlatAppearance.BorderSize = 0;
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExitButton.ForeColor = System.Drawing.Color.White;
+            this.ExitButton.ForeColor = System.Drawing.Color.Transparent;
             this.ExitButton.Image = global::ChatApplication.Properties.Resources.icons8_log_out_32__2_;
             this.ExitButton.IsFormUp = false;
             this.ExitButton.IsSelected = false;
@@ -230,7 +230,7 @@ namespace ChatApplication
             this.ExitButton.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
             this.ExitButton.Size = new System.Drawing.Size(42, 40);
             this.ExitButton.TabIndex = 10;
-            this.ExitButton.TextColor = System.Drawing.Color.White;
+            this.ExitButton.TextColor = System.Drawing.Color.Transparent;
             this.ExitButton.UseVisualStyleBackColor = false;
             this.ExitButton.MouseLeave += new System.EventHandler(this.ExitButtonMouseLeave);
             this.ExitButton.MouseHover += new System.EventHandler(this.ExitButtonMouseHover);

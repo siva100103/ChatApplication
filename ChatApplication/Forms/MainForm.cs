@@ -1,4 +1,5 @@
 ﻿using ChatApplication.Controller;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -96,6 +97,12 @@ namespace ChatApplication
                 }
             }
             #endregion
+
+            ChatApplicationNetworkManager.cntrl.Add(SideMenuBar);
+            ChatApplicationNetworkManager.cntrl.Add(SearchBox);
+            ChatApplicationNetworkManager.cntrl.Add(ChatLabel);
+            ChatApplicationNetworkManager.cntrl.Add(ChatContainer);
+            ChatApplicationNetworkManager.cntrl.Add(MessagePageTopPanel);
         }
 
         #region Form Dragging
