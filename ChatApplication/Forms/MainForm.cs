@@ -1,4 +1,5 @@
-﻿using ChatApplication.Controller;
+﻿using ChatApplication.Managers;
+using ChatApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +12,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp3;
-
-namespace ChatApplication
+using ChatApplication;
+using ChatApplication.UserControls;
+namespace ChatApplication.Forms
 {
     public partial class MainForm : Form
     {
@@ -34,9 +35,6 @@ namespace ChatApplication
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
         private MessagePage CurrentlySelected;
-        private bool dragging = false;
-        private Point dragCursorPoint;
-        private Point dragFormPoint;
 
         public MainForm()
         {
@@ -55,7 +53,7 @@ namespace ChatApplication
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                UserName=DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
+                UserName = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
             };
 
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
@@ -66,7 +64,7 @@ namespace ChatApplication
                 SideMenuBar.ProfileImage = me.ProfilePicture;
                 MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
             }
-            MyProfile.About = me.About; 
+            MyProfile.About = me.About;
             #endregion
 
 
@@ -87,34 +85,17 @@ namespace ChatApplication
             SearchBox.OnTextChange += SearchBoxOnTextChange;
             SideMenuBar.OnClickExitBtn += ExitButtonClick;
             SideMenuBar.ControlClicked += SideMenuBarControlClicked;
-            SideMenuBar.MouseDown += MainMouseDown;
-            SideMenuBar.MouseMove += MainMouseMove;
-            SideMenuBar.MouseUp += MainMouseUp;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
+            ChatApplicationNetworkManager.ProfileUpdateInformer += ChatApplicationNetworkManager_ProfileUpdateInformer;
         }
 
-        #region Form Dragging
-        private void MainMouseDown(object sender, MouseEventArgs e)
+        private void ChatApplicationNetworkManager_ProfileUpdateInformer(Client c)
         {
-            dragging = true;
-            dragCursorPoint = Cursor.Position;
-            dragFormPoint = Location;
+            ContactU cu = Contacts.Find((cu1)=>cu1.Client==c);
+            cu.UpdateDetais(c.ProfilePicture);
+            c.MessagePage.ContactInfo.UpdateDetails(c);
         }
 
-        private void MainMouseMove(object sender, MouseEventArgs e)
-        {
-            if (dragging)
-            {
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-                Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-        }
-
-        private void MainMouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-        }
-        #endregion
         private void SideMenuBarControlClicked(object sender, EventArgs e)
         {
             MyProfile.Hide();
@@ -122,9 +103,9 @@ namespace ChatApplication
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             me.About = MyProfile.Text;
             DbManager.UpdateClient(me);
-
         }
-        
+
+
         private void SearchBoxOnTextChange(object sender, EventArgs e)
         {
             if (Contacts.Count > 0 && SearchBox.PlaceholderText != "Search or start new chat")
@@ -153,7 +134,7 @@ namespace ChatApplication
                 pic = dict.Value;
             }
             SideMenuBar.ProfileImage = pic;
-    
+
             Client client = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             client.ProfilePath = $@"{path}";
             DbManager.UpdateClient(client);
@@ -227,6 +208,7 @@ namespace ChatApplication
 
         private void LabelsAdder()
         {
+
             foreach (var a in DbManager.Clients)
             {
                 if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
@@ -252,14 +234,14 @@ namespace ChatApplication
         {
             foreach (ChatU message in selected)
             {
-                if (!message.Message.Starred)
+                if (!message.Starred)
                 {
                     AddToStarredMessages(message.Message);
                 }
             }
         }
 
-        private void AddToStarredMessages(MessageModel message)
+        private void AddToStarredMessages(Models.Message message)
         {
             SuspendLayout();
             StarredMessages chat = new StarredMessages(message)
@@ -293,10 +275,19 @@ namespace ChatApplication
         {
             foreach (var a in DbManager.Clients)
             {
-                MessageModel msg = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
                 if (a.Value.IsConnected)
                 {
-                    await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
+
+                    try
+                    {
+                        await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        
+                    }
                 }
             }
             Close();
@@ -341,16 +332,6 @@ namespace ChatApplication
             StarMainPanel.Visible = false;
             ChatPanel.Visible = true;
             MessagePagePanel.ResumeLayout();
-        }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
         }
     }
 }

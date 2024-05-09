@@ -1,4 +1,4 @@
-﻿using ChatApplication.Controller;
+﻿using ChatApplication.Managers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +10,7 @@ using System.Net.NetworkInformation;
 using System.IO;
 using ChatApplication.Models;
 using System.Xml.Serialization;
+using ChatApplication.Forms;
 
 namespace ChatApplication
 {

@@ -1,4 +1,6 @@
-﻿namespace ChatApplication
+﻿using ChatApplication.UserControls;
+
+namespace ChatApplication.Forms
 {
     partial class ProfilePage
     {
@@ -31,11 +33,11 @@
             this.TopPanel = new System.Windows.Forms.Panel();
             this.NameLabel = new System.Windows.Forms.Label();
             this.GuideToChangeProfile = new System.Windows.Forms.Label();
-            this.ProfilePicture = new ChatApplication.CustomPictureBox();
+            this.ProfilePicture = new CustomPictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.AboutBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CloseButton = new ChatApplication.HoverButton();
+            this.CloseButton = new HoverButton();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
             this.panel1.SuspendLayout();
@@ -100,8 +102,8 @@
             // 
             // AboutBox
             // 
-            this.AboutBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.AboutBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutBox.BackColor = System.Drawing.SystemColors.Window;
             this.AboutBox.BorderStyle = System.Windows.Forms.BorderStyle.None;

@@ -179,7 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\DbManager.cs" />
+    <Compile Include="Managers\DbManager.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,104 +198,103 @@
     <Compile Include="Forms\MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalData.cs" />
     <Compile Include="Models\LocalData.cs" />
-    <Compile Include="UserControl\StarredMessages.cs">
+    <Compile Include="UserControls\StarredMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\StarredMessages.Designer.cs">
+    <Compile Include="UserControls\StarredMessages.Designer.cs">
       <DependentUpon>StarredMessages.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\FileSenderPage.cs">
+    <Compile Include="UserControls\FileSenderPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\FileSenderPage.Designer.cs">
+    <Compile Include="UserControls\FileSenderPage.Designer.cs">
       <DependentUpon>FileSenderPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\BendingMessages.cs">
+    <Compile Include="UserControls\BendingMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\BendingMessages.Designer.cs">
+    <Compile Include="UserControls\BendingMessages.Designer.cs">
       <DependentUpon>BendingMessages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\ChatApplicationNetworkManager.cs" />
-    <Compile Include="UserControl\ChatPageTitleU.cs">
+    <Compile Include="Managers\ChatApplicationNetworkManager.cs" />
+    <Compile Include="UserControls\ChatPageTitleU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ChatPageTitleU.Designer.cs">
+    <Compile Include="UserControls\ChatPageTitleU.Designer.cs">
       <DependentUpon>ChatPageTitleU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\ChatSenter.cs">
+    <Compile Include="UserControls\ChatSenter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ChatSenter.Designer.cs">
+    <Compile Include="UserControls\ChatSenter.Designer.cs">
       <DependentUpon>ChatSenter.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\ChatU.cs">
+    <Compile Include="UserControls\ChatU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ChatU.designer.cs">
+    <Compile Include="UserControls\ChatU.designer.cs">
       <DependentUpon>ChatU.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
-    <Compile Include="UserControl\ContactListU.cs">
+    <Compile Include="UserControls\ContactListU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ContactListU.Designer.cs">
+    <Compile Include="UserControls\ContactListU.Designer.cs">
       <DependentUpon>ContactListU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\ContactSimpleU.cs">
+    <Compile Include="UserControls\ContactSimpleU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ContactSimpleU.Designer.cs">
+    <Compile Include="UserControls\ContactSimpleU.Designer.cs">
       <DependentUpon>ContactSimpleU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\ContactU.cs">
+    <Compile Include="UserControls\ContactU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\ContactU.designer.cs">
+    <Compile Include="UserControls\ContactU.designer.cs">
       <DependentUpon>ContactU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\CustomPanel.cs">
+    <Compile Include="UserControls\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControl\CustomPictureBox.cs">
+    <Compile Include="UserControls\CustomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControl\CustomSearchBox.cs">
+    <Compile Include="UserControls\CustomSearchBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\CustomSearchBox.designer.cs">
+    <Compile Include="UserControls\CustomSearchBox.designer.cs">
       <DependentUpon>CustomSearchBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\CustomTooltip.cs">
+    <Compile Include="UserControls\CustomTooltip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControl\DpPictureU.cs">
+    <Compile Include="UserControls\DpPictureU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\DpPictureU.Designer.cs">
+    <Compile Include="UserControls\DpPictureU.Designer.cs">
       <DependentUpon>DpPictureU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\EllipseButton.cs">
+    <Compile Include="UserControls\EllipseButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControl\EllipseControl.cs">
+    <Compile Include="UserControls\EllipseControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControl\FilterChatsByU.cs">
+    <Compile Include="UserControls\FilterChatsByU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\FilterChatsByU.Designer.cs">
+    <Compile Include="UserControls\FilterChatsByU.Designer.cs">
       <DependentUpon>FilterChatsByU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\GroupChatU.cs">
+    <Compile Include="UserControls\GroupChatU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\GroupChatU.Designer.cs">
+    <Compile Include="UserControls\GroupChatU.Designer.cs">
       <DependentUpon>GroupChatU.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\HoverButton.cs">
+    <Compile Include="UserControls\HoverButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\HoverMessageForm.cs">
@@ -304,10 +303,10 @@
     <Compile Include="Forms\HoverMessageForm.designer.cs">
       <DependentUpon>HoverMessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\HoverMessageU.cs">
+    <Compile Include="UserControls\HoverMessageU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\HoverMessageU.Designer.cs">
+    <Compile Include="UserControls\HoverMessageU.Designer.cs">
       <DependentUpon>HoverMessageU.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\LoginForm.cs">
@@ -322,34 +321,34 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\MenuControl.cs">
+    <Compile Include="UserControls\MenuControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\MenuControl.designer.cs">
+    <Compile Include="UserControls\MenuControl.designer.cs">
       <DependentUpon>MenuControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Message.cs" />
-    <Compile Include="UserControl\MessagePage.cs">
+    <Compile Include="UserControls\MessagePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\MessagePage.Designer.cs">
+    <Compile Include="UserControls\MessagePage.Designer.cs">
       <DependentUpon>MessagePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\PlaceHolderTextBox.cs">
+    <Compile Include="UserControls\PlaceHolderTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControl\StatusIndicator.cs">
+    <Compile Include="UserControls\StatusIndicator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\StatusIndicator.Designer.cs">
+    <Compile Include="UserControls\StatusIndicator.Designer.cs">
       <DependentUpon>StatusIndicator.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\TextBox.cs">
+    <Compile Include="UserControls\TextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\TextBox.Designer.cs">
+    <Compile Include="UserControls\TextBox.Designer.cs">
       <DependentUpon>TextBox.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\ContentForm.resx">
@@ -361,49 +360,49 @@
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\StarredMessages.resx">
+    <EmbeddedResource Include="UserControls\StarredMessages.resx">
       <DependentUpon>StarredMessages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\BendingMessages.resx">
+    <EmbeddedResource Include="UserControls\BendingMessages.resx">
       <DependentUpon>BendingMessages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ChatPageTitleU.resx">
+    <EmbeddedResource Include="UserControls\ChatPageTitleU.resx">
       <DependentUpon>ChatPageTitleU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ChatSenter.resx">
+    <EmbeddedResource Include="UserControls\ChatSenter.resx">
       <DependentUpon>ChatSenter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ChatU.resx">
+    <EmbeddedResource Include="UserControls\ChatU.resx">
       <DependentUpon>ChatU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ContactListU.resx">
+    <EmbeddedResource Include="UserControls\ContactListU.resx">
       <DependentUpon>ContactListU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ContactSimpleU.resx">
+    <EmbeddedResource Include="UserControls\ContactSimpleU.resx">
       <DependentUpon>ContactSimpleU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\ContactU.resx">
+    <EmbeddedResource Include="UserControls\ContactU.resx">
       <DependentUpon>ContactU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\CustomSearchBox.resx">
+    <EmbeddedResource Include="UserControls\CustomSearchBox.resx">
       <DependentUpon>CustomSearchBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\DpPictureU.resx">
+    <EmbeddedResource Include="UserControls\DpPictureU.resx">
       <DependentUpon>DpPictureU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\FileSenderPage.resx">
+    <EmbeddedResource Include="UserControls\FileSenderPage.resx">
       <DependentUpon>FileSenderPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\FilterChatsByU.resx">
+    <EmbeddedResource Include="UserControls\FilterChatsByU.resx">
       <DependentUpon>FilterChatsByU.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\GroupChatU.resx">
+    <EmbeddedResource Include="UserControls\GroupChatU.resx">
       <DependentUpon>GroupChatU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HoverMessageForm.resx">
       <DependentUpon>HoverMessageForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\HoverMessageU.resx">
+    <EmbeddedResource Include="UserControls\HoverMessageU.resx">
       <DependentUpon>HoverMessageU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoginForm.resx">
@@ -412,10 +411,10 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\MenuControl.resx">
+    <EmbeddedResource Include="UserControls\MenuControl.resx">
       <DependentUpon>MenuControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\MessagePage.resx">
+    <EmbeddedResource Include="UserControls\MessagePage.resx">
       <DependentUpon>MessagePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -428,10 +427,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControl\StatusIndicator.resx">
+    <EmbeddedResource Include="UserControls\StatusIndicator.resx">
       <DependentUpon>StatusIndicator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\TextBox.resx">
+    <EmbeddedResource Include="UserControls\TextBox.resx">
       <DependentUpon>TextBox.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="bin\Debug\ChatApplication.exe.config" />

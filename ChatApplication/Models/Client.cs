@@ -11,13 +11,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApplication;
-using ChatApplication.Controller;
+using ChatApplication.Managers;
+using ChatApplication.UserControls;
 using Newtonsoft.Json;
 
-namespace WindowsFormsApp3
+namespace ChatApplication.Models
 {
     public class Client
     {
+
         public string IP { get; set; }
         public string Name { get; set; } = "";
         public string About { get; set; } = "";
@@ -30,7 +32,7 @@ namespace WindowsFormsApp3
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages = 0;
 
-        public List<ChatApplication.MessageModel> UnSeenMessagesList { get; set; } = new List<ChatApplication.MessageModel>();
+        public List<Message> UnSeenMessagesList { get; set; } = new List<Message>();
 
         public int UnseenMessages
         {
@@ -64,14 +66,13 @@ namespace WindowsFormsApp3
             this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
             IdentifyUnSeenMsgs();
-            //ConnectAsync();
         }
 
         private void IdentifyUnSeenMsgs()
         {
             UnSeenMessagesList = DbManager.Messages.Values.Where(m =>
               {
-                  return m.FromIP.Equals(IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
+                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
               }).ToList();
             unSeenMessages = UnSeenMessagesList.Count;
         }
@@ -80,12 +81,12 @@ namespace WindowsFormsApp3
         {
             try
             {
-                ChatApplication.MessageModel message = new ChatApplication.MessageModel(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
+                Message message = new Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, MessageType.Response);
                await ChatApplicationNetworkManager.SendMessage(message, this);
                 IsConnected = true;
                 StatusChanged.Invoke(this, true);
             }
-            catch (SocketException ex)
+            catch (Exception ex)
             {
                 IsConnected = false;
                 StatusChanged?.Invoke(this, false);

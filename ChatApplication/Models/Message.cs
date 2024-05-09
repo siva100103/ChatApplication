@@ -1,16 +1,11 @@
-﻿using ChatApplication.Controller;
+﻿using ChatApplication.Managers;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ChatApplication
+namespace ChatApplication.Models
 {
-    public class MessageModel
+    public class Message
     {
         public String Id { get; set; }
         public string FromIP { get; set; }
@@ -19,7 +14,7 @@ namespace ChatApplication
         public DateTime Time { get; set; }
 
         [NotMapped]
-        public Type type { get; set; }
+        public MessageType type { get; set; }
 
         public bool Seen { get; set; }
         public bool Starred { get; set; } = false;
@@ -29,7 +24,7 @@ namespace ChatApplication
         public event EventHandler IsReaded;
 
         [JsonConstructor]
-        public MessageModel(string FromIP, string ReceiverIP, String Msg, DateTime Time,Type type)
+        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time,MessageType type)
         {
             Id = UniqueIdGenerator();
             this.FromIP = FromIP;
@@ -40,11 +35,11 @@ namespace ChatApplication
         }
 
 
-        public MessageModel()
+        public Message()
         {
 
         }
-        public MessageModel(MessageModel m)
+        public Message(Message m)
         {
             Id = m.Id;
             FromIP = m.FromIP;
@@ -59,11 +54,10 @@ namespace ChatApplication
             IsSended?.Invoke(this, EventArgs.Empty);
         }
 
-        public void IsReaderInvoker()
+        public void IsReadedInvoker()
         {
             Seen = true;
-            MessageModel m = DbManager.Messages.Values.ToList().Find((msg) => msg.Id == Id);
-            //Message m=LocalDatabase.ReadMessage(Id);
+            Message m = DbManager.Messages[Id];
             m.Seen = true;
             DbManager.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);
@@ -77,8 +71,8 @@ namespace ChatApplication
         }
     }
 
-    public enum Type
+    public enum MessageType
     {
-        Message, Response, File
+        Message, Response, File,ProfileUpdated
     }
 }

@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using ChatApplication.Models;
+using ChatApplication.UserControls;
 
-namespace ChatApplication
+namespace ChatApplication.Forms
 {
     public partial class ContentForm : Form
     {
@@ -68,11 +70,11 @@ namespace ChatApplication
         {
             if (Visible)
             {
-                MessageModel.ClickedInfo = true;
+                Models.Message.ClickedInfo = true;
                 Focus();
             }
             Visible = false;
-            MessageModel.ClickedInfo = false;
+            Models.Message.ClickedInfo = false;
         }
 
         private void ContactMouseEnter(object sender, EventArgs e)
@@ -100,16 +102,6 @@ namespace ChatApplication
         private void ContactMouseUp(object sender, MouseEventArgs e)
         {
             ContactLabel.BackColor = Color.FromArgb(159, 192, 218);
-        }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
         }
     }
 }

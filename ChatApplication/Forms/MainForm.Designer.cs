@@ -1,4 +1,6 @@
-﻿namespace ChatApplication
+﻿using ChatApplication.UserControls;
+
+namespace ChatApplication.Forms
 {
     partial class MainForm
     {
@@ -32,24 +34,24 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MessagePageBackPanel = new System.Windows.Forms.Panel();
             this.MessagePagePanel = new System.Windows.Forms.Panel();
-            this.MessagePageTopPanel = new ChatApplication.CustomPanel();
+            this.MessagePageTopPanel = new ChatApplication.UserControls.CustomPanel();
             this.MinMaxButton = new System.Windows.Forms.PictureBox();
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.chatContactPanel = new System.Windows.Forms.Panel();
             this.SearchPanel = new System.Windows.Forms.Panel();
-            this.SearchBox = new ChatApplication.CustomSearchBox();
+            this.SearchBox = new ChatApplication.UserControls.CustomSearchBox();
             this.ChatHeaderPanel = new System.Windows.Forms.Panel();
-            this.ChatContainer = new ChatApplication.CustomPanel();
-            this.StarMessageButton = new ChatApplication.EllipseButton();
-            this.OptionButton = new ChatApplication.EllipseButton();
+            this.ChatContainer = new ChatApplication.UserControls.CustomPanel();
+            this.StarMessageButton = new ChatApplication.UserControls.EllipseButton();
+            this.OptionButton = new ChatApplication.UserControls.EllipseButton();
             this.ChatLabel = new System.Windows.Forms.Label();
             this.StarMainPanel = new System.Windows.Forms.Panel();
             this.StarPanel = new System.Windows.Forms.Panel();
             this.StarMessageTopPanel = new System.Windows.Forms.Panel();
             this.StarLabel = new System.Windows.Forms.Label();
-            this.StarBackButton = new ChatApplication.EllipseButton();
-            this.SideMenuBar = new ChatApplication.MenuControl();
-            this.BorderPanel = new ChatApplication.CustomPanel();
+            this.StarBackButton = new ChatApplication.UserControls.EllipseButton();
+            this.SideMenuBar = new ChatApplication.UserControls.MenuControl();
+            this.BorderPanel = new ChatApplication.UserControls.CustomPanel();
             this.MainPanel.SuspendLayout();
             this.MessagePageBackPanel.SuspendLayout();
             this.MessagePageTopPanel.SuspendLayout();
@@ -113,7 +115,6 @@
             // 
             // MinMaxButton
             // 
-            this.MinMaxButton.BackColor = System.Drawing.Color.Transparent;
             this.MinMaxButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.MinMaxButton.Image = global::ChatApplication.Properties.Resources.icons8_ellipsis_48__1_;
             this.MinMaxButton.Location = new System.Drawing.Point(448, 0);
@@ -143,7 +144,7 @@
             this.chatContactPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chatContactPanel.Location = new System.Drawing.Point(0, 117);
             this.chatContactPanel.Name = "chatContactPanel";
-            this.chatContactPanel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.chatContactPanel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.chatContactPanel.Size = new System.Drawing.Size(350, 487);
             this.chatContactPanel.TabIndex = 4;
             // 
@@ -169,7 +170,6 @@
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Padding = new System.Windows.Forms.Padding(7);
             this.SearchBox.PlaceholderText = "Search or start new chat";
-            this.SearchBox.SearchBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
             this.SearchBox.Size = new System.Drawing.Size(339, 43);
             this.SearchBox.TabIndex = 0;
             // 

@@ -1,4 +1,6 @@
-﻿namespace ChatApplication
+﻿using ChatApplication.UserControls;
+
+namespace ChatApplication.Forms
 {
     partial class ContentForm
     {
@@ -31,7 +33,7 @@
             this.NameLabel = new System.Windows.Forms.Label();
             this.ContactLabel = new System.Windows.Forms.Label();
             this.AboutLabel = new System.Windows.Forms.Label();
-            this.ProfilePicture = new ChatApplication.CustomPictureBox();
+            this.ProfilePicture = new ChatApplication.UserControls.CustomPictureBox();
             this.AboutBox = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
             this.SuspendLayout();
