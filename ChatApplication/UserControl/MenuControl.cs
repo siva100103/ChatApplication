@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp3;
 
 namespace ChatApplication
 {
@@ -58,11 +59,7 @@ namespace ChatApplication
                 buttonArray[i].MouseLeave += HoverMessageLeave;
                 buttonArray[i].Click += ButtonClick;
             }
-            //if(!DesignMode)
-            //{
-            //    Image img = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].ProfilePicture;
-            //    if (img != null) ProfilePictureBox.Image = img;
-            //}
+          
 
             //messageFormobj.Visible = true;
             //messageFormobj.Enabled = false;
@@ -80,7 +77,17 @@ namespace ChatApplication
             SettingBtn.Click += SettingBtnClick;
             timer.Interval += 80;
             timer.Tick += MessageFormobjShow;
-           
+            if (!DesignMode)
+            {
+                SetDpPicture();
+            }
+
+        }
+
+        private void SetDpPicture()
+        {
+            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            ProfilePictureBox.Image = me.ProfilePicture;
         }
         private void ProfilePictureBoxClick(object sender, EventArgs e)
         {

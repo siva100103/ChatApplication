@@ -41,7 +41,8 @@ namespace ChatApplication.Controller
             {
                 for (int i = 0; i < data.Value["IP"].Count; i++)
                 {
-                    Client clt = new Client(data.Value["IP"][i].ToString(), data.Value["Name"][i].ToString(), (int)data.Value["Port"][i], DateTime.Parse(data.Value["LastSeen"][i].ToString()), data.Value["ProfilePath"][i].ToString(), data.Value["About"][i].ToString());
+                    string path = data.Value["ProfilePath"][i].ToString().Replace('~', '\\');
+                    Client clt = new Client(data.Value["IP"][i].ToString(), data.Value["Name"][i].ToString(), (int)data.Value["Port"][i], DateTime.Parse(data.Value["LastSeen"][i].ToString()), path, data.Value["About"][i].ToString());
                     Clients.Add(clt.IP, clt);
                 }
             }
@@ -50,6 +51,7 @@ namespace ChatApplication.Controller
         public static void AddClient(Client c)
         {
             string path = $@"{c.ProfilePath}";
+            path = path.Replace('\\', '~');
             ParameterData[] pd = new ParameterData[]
             {
                new ParameterData("IP",c.IP),
@@ -61,19 +63,19 @@ namespace ChatApplication.Controller
                new ParameterData("UnseenMessages",c.UnseenMessages)
             };
             ServerDbManager.InsertData("Clients", pd);
-            Clients.Add(c.IP,c);
+            Clients.Add(c.IP, c);
 
-            string connectionString = "server=192.168.3.147;user=root;database=chatapplicationserver;password=;";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                string condition = "IP = @IP";
-                string query = "UPDATE Clients SET ProfilePath = @FilePath WHERE " + condition;
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@FilePath", path);
-                command.Parameters.AddWithValue("@IP", c.IP);
-                command.ExecuteNonQuery();
-            }
+            //string connectionString = "server=192.168.3.155;user=root;database=chatapplicationserver;password=;";
+            //using (MySqlConnection connection = new MySqlConnection(connectionString))
+            //{
+            //    connection.Open();
+            //    string condition = "IP = @IP";
+            //    string query = "UPDATE Clients SET ProfilePath = @FilePath WHERE " + condition;
+            //    MySqlCommand command = new MySqlCommand(query, connection);
+            //    command.Parameters.AddWithValue("@FilePath", path);
+            //    command.Parameters.AddWithValue("@IP", c.IP);
+            //    command.ExecuteNonQuery();
+            //}
 
         }
 
@@ -241,6 +243,6 @@ namespace ChatApplication.Controller
             LocalDbManager.UpdateData("Messages", condition, data);
         }
 
-       
+
     }
 }
