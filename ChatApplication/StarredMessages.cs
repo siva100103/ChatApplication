@@ -77,7 +77,7 @@ namespace ChatApplication
             else if(e.Button == MouseButtons.Right)
             {
                 Message.Starred = false;
-                LocalDatabase.StarMessages(Message);
+                DbManager.StarMessages(Message);
                 Dispose();
             }
         }

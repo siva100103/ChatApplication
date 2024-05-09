@@ -69,7 +69,7 @@ namespace ChatApplication
                     msg.MessageCreate();
                     msg.BackColor = Color.FromArgb(208, 212, 227);
                     msg.ChatMessageIcon = Properties.Resources.icons8_double_tick_13;
-                    LocalDatabase.DeleteMessage(msg.MessageId);
+                    DbManager.DeleteMessage(msg.MessageId);
                 }
                 ChatApplicationNetworkManager.SelectedMessages.Clear();
             }

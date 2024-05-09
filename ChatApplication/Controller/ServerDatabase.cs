@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp3;
 
+
 namespace ChatApplication.Controller
 {
     public class ServerDatabase : DbContext
     {
         public DbSet<Client> Clients { get; set; }
-        public static DatabaseManager ServerManager = new MySqlHandler();
+        public static DatabaseLibrary.DatabaseManager ServerManager = new MySqlHandler();
 
         //public bool ServerInitialize()
         //{
@@ -51,8 +52,7 @@ namespace ChatApplication.Controller
 
             modelBuilder.Entity<Client>().Ignore(c => c.IsConnected);
             modelBuilder.Entity<Client>().Ignore(c => c.MessagePage);
-            modelBuilder.Entity<Client>().Ignore(c => c.ProfilePicture);
-            base.OnModelCreating(modelBuilder);
+              base.OnModelCreating(modelBuilder);
         }
     }
 }

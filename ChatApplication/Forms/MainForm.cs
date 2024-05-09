@@ -1,5 +1,4 @@
 ﻿using ChatApplication.Controller;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,14 +30,10 @@ namespace ChatApplication
         );
         #endregion
         private ProfilePage MyProfile;
-        private ServerDatabase MyDetails = new ServerDatabase();
         private bool click = false;
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
         private MessagePage CurrentlySelected;
-        private bool dragging = false;
-        private Point dragCursorPoint;
-        private Point dragFormPoint;
 
         public MainForm()
         {
@@ -48,121 +43,71 @@ namespace ChatApplication
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            //ChatApplicationNetworkManager.ManagerInitializer();
             StarMainPanel.Width = ChatPanel.Width;
             LabelsAdder();
-            SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-            SearchBox.OnTextChange += SearchBoxOnTextChange;
-            SideMenuBar.OnClickExitBtn += ExitButtonClick;
-            SideMenuBar.ControlClicked += SideMenuBarControlClicked;
+            EventSubscriber();
 
-            SideMenuBar.MouseDown += MainMouseDown;
-            SideMenuBar.MouseMove += MainMouseMove;
-            SideMenuBar.MouseUp += MainMouseUp;
-
-            #region MyProfile
+            #region My Profile
             MyProfile = new ProfilePage
             {
                 Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
-                UserName = MyDetails.Clients.ToList().Find(c => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))?.Name,
+                UserName=DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
             };
+
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
-            ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
-            ChatPanel.Controls.Add(StarMainPanel);
+
+            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            if (me.ProfilePath != "")
+            {
+                SideMenuBar.ProfileImage = me.ProfilePicture;
+                MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
+            }
+            MyProfile.About = me.About; 
             #endregion
 
-            #region Starred Messages
-            foreach (var a in LocalDatabase.Messages.Values)
+
+            //star message added to list
+            foreach (var a in DbManager.Messages.Values)
             {
                 if (a.Starred)
                 {
                     AddToStarredMessages(a);
                 }
             }
-            #endregion
 
-            #region Clients Details
-            foreach (var client in MyDetails.Clients.ToList())
-            {
-                if (client.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-                {
-                    if (client.ProfilePath != "")
-                    {
-                        SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
-                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
-                    }
-                    MyProfile.About = client.About;
-                    break;
-                }
-            }
-            #endregion
-
-            ChatApplicationNetworkManager.cntrl.Add(SideMenuBar);
-            ChatApplicationNetworkManager.cntrl.Add(SearchBox);
-            ChatApplicationNetworkManager.cntrl.Add(ChatLabel);
-            ChatApplicationNetworkManager.cntrl.Add(ChatContainer);
-            ChatApplicationNetworkManager.cntrl.Add(MessagePageTopPanel);
         }
 
-        #region Form Dragging
-        private void MainMouseDown(object sender, MouseEventArgs e)
+        private void EventSubscriber()
         {
-            dragging = true;
-            dragCursorPoint = Cursor.Position;
-            dragFormPoint = Location;
+            SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
+            SearchBox.OnTextChange += SearchBoxOnTextChange;
+            SideMenuBar.OnClickExitBtn += ExitButtonClick;
+            SideMenuBar.ControlClicked += SideMenuBarControlClicked;
+            ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
         }
-
-        private void MainMouseMove(object sender, MouseEventArgs e)
-        {
-            if (dragging)
-            {
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-                Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-        }
-
-        private void MainMouseUp(object sender, MouseEventArgs e)
-        {
-            dragging = false;
-        } 
-        #endregion
 
         private void SideMenuBarControlClicked(object sender, EventArgs e)
         {
             MyProfile.Hide();
             click = false;
-            using (var DbContext = new ServerDatabase())
-            {
-                foreach (var c in DbContext.Clients.ToList())
-                {
-                    if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-                    {
-                        c.About = MyProfile.About;
-                        DbContext.SaveChanges();
-                    }
-                }
-            }
+            //using (var DbContext = new ServerDatabase())
+            //{
+            //    foreach (var c in DbContext.Clients.ToList())
+            //    {
+            //        if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
+            //        {
+            //            c.About = MyProfile.About;
+            //            DbContext.SaveChanges();
+            //        }
+            //    }
+            //}
+            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            me.About = MyProfile.Text;
+            DbManager.UpdateClient(me);
+
         }
 
-        public void DpSetFirstTime()
-        {
-            SuspendLayout();
-            foreach (var client in MyDetails.Clients.ToList())
-            {
-                if (client.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-                {
-                    if (client.ProfilePath != "")
-                    {
-                        SideMenuBar.ProfileImage = Image.FromFile(client.ProfilePath);
-                        MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
-                    }
-                    MyProfile.About = client.About;
-                    break;
-                }
-            }
-            ResumeLayout();
-        }
 
         private void SearchBoxOnTextChange(object sender, EventArgs e)
         {
@@ -192,14 +137,10 @@ namespace ChatApplication
                 pic = dict.Value;
             }
             SideMenuBar.ProfileImage = pic;
-            foreach (var client in MyDetails.Clients.ToList())
-            {
-                if (client.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-                {
-                    client.ProfilePath = path;
-                    MyDetails.SaveChanges();
-                }
-            }
+    
+            Client client = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            client.ProfilePath = $@"{path}";
+            DbManager.UpdateClient(client);
         }
 
         private void AddNewLabelForNewUser(ContactU label)
@@ -270,8 +211,10 @@ namespace ChatApplication
 
         private void LabelsAdder()
         {
-            foreach (var a in ChatApplicationNetworkManager.Clients)
+            
+            foreach (var a in DbManager.Clients)
             {
+                if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
                 ContactU con = new ContactU(a.Value)
                 {
                     Dock = DockStyle.Top,
@@ -294,7 +237,7 @@ namespace ChatApplication
         {
             foreach (ChatU message in selected)
             {
-                if (!message.Message.Starred)
+                if (!message.Starred)
                 {
                     AddToStarredMessages(message.Message);
                 }
@@ -309,25 +252,16 @@ namespace ChatApplication
                 Dock = DockStyle.Top,
                 BackColor = Color.FromArgb(247, 247, 247)
             };
-            chat.Disposed += StarDisposed;
             StarPanel.Controls.Add(chat);
             chat.BringToFront();
             Panel space = new Panel()
             {
-                Name = chat.Message.Id.ToString(),
                 Dock = DockStyle.Top,
                 Height = 8
             };
             StarPanel.Controls.Add(space);
             space.BringToFront();
             ResumeLayout();
-        }
-
-        private void StarDisposed(object sender, EventArgs e)
-        {
-            int index = StarPanel.Controls.IndexOf((Control)sender as StarredMessages);
-            StarPanel.Controls.RemoveByKey((sender as StarredMessages).Message.Id.ToString());
-            StarPanel.Controls.Remove((Control)sender);
         }
 
         private void OptionButtonClick(object sender, EventArgs e)
@@ -342,7 +276,7 @@ namespace ChatApplication
 
         private async void ExitButtonClick(object sender, EventArgs e)
         {
-            foreach (var a in ChatApplicationNetworkManager.Clients)
+            foreach (var a in DbManager.Clients)
             {
                 Message msg = new Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
                 if (a.Value.IsConnected)
@@ -357,16 +291,8 @@ namespace ChatApplication
         {
             MessagePagePanel.SuspendLayout();
             StarMainPanel.Visible = true;
-            StarMainPanel.SendToBack();
-            //ChatPanel.Visible = false;
-            MessagePagePanel.ResumeLayout();
-        }
-
-        private void StarBackButtonClick(object sender, EventArgs e)
-        {
-            MessagePagePanel.SuspendLayout();
-            StarMainPanel.Visible = false;
-            //ChatPanel.Visible = true;
+            StarMainPanel.BringToFront();
+            ChatPanel.Visible = false;
             MessagePagePanel.ResumeLayout();
         }
 
@@ -394,14 +320,12 @@ namespace ChatApplication
             MinMaxButton.BackColor = Color.Transparent;
         }
 
-        protected override CreateParams CreateParams
+        private void StarBackButtonClick(object sender, EventArgs e)
         {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
+            MessagePagePanel.SuspendLayout();
+            StarMainPanel.Visible = false;
+            ChatPanel.Visible = true;
+            MessagePagePanel.ResumeLayout();
         }
     }
 }

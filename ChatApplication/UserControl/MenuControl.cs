@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatApplication.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp3;
 
 namespace ChatApplication
 {
@@ -30,6 +32,8 @@ namespace ChatApplication
         }
 
         private HoverButton currentObject;
+        private Color HoverColor = Color.FromArgb(234, 234, 234);
+
         public EventHandler OnClickChatsBtn;
         public EventHandler OnClickCallsBtn;
         public EventHandler OnClickStatusBtn;
@@ -55,6 +59,16 @@ namespace ChatApplication
                 buttonArray[i].MouseLeave += HoverMessageLeave;
                 buttonArray[i].Click += ButtonClick;
             }
+          
+
+            //messageFormobj.Visible = true;
+            //messageFormobj.Enabled = false;
+
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             ChatsBtn.Click += ChatsBtnClick;
             CallsBtn.Click += CallsBtnClick;
             StatusBtn.Click += StatusBtnClick;
@@ -63,8 +77,18 @@ namespace ChatApplication
             SettingBtn.Click += SettingBtnClick;
             timer.Interval += 80;
             timer.Tick += MessageFormobjShow;
+            if (!DesignMode)
+            {
+                SetDpPicture();
+            }
+
         }
 
+        private void SetDpPicture()
+        {
+            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            ProfilePictureBox.Image = me.ProfilePicture;
+        }
         private void ProfilePictureBoxClick(object sender, EventArgs e)
         {
             OnClickProfilePicture?.Invoke(this, EventArgs.Empty);
@@ -130,6 +154,11 @@ namespace ChatApplication
 
         }
 
+        private void DPPanelHover(object sender, EventArgs e)
+        {
+            ProfilePictureBox.BackColor = HoverColor;
+        }
+
         private void DPPanelLeave(object sender, EventArgs e)
         {
             ProfilePictureBox.BackColor = Color.Transparent;
@@ -179,6 +208,12 @@ namespace ChatApplication
                 messageFormobj.Show();
                 messageFormobj.Focus();
             }
+            //if (messageFormobj.Enabled = false)
+            //{
+            //    messageFormobj.Enabled = true;
+
+            //}
+            //messageFormobj.BringToFront();
             messageFormobj.Opacity += 10;
             if (messageFormobj.Opacity >= 100)
             {
@@ -222,13 +257,10 @@ namespace ChatApplication
 
         private void ExitButtonMouseHover(object sender, EventArgs e)
         {
-            SuspendLayout();
-            ExitButton.BackColor = Color.Transparent;
             ExitButton.IsFormUp = false;
             ExitButton.ButtonSideHoverlineColor = Color.Red;
             ExitButton.CallToLeaveSideLineEffect();
             ExitButton.IsSelected = true;
-            ResumeLayout();
         }
 
         private void ExitButtonMouseLeave(object sender, EventArgs e)

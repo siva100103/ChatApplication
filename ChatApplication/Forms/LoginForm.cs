@@ -63,6 +63,7 @@ namespace ChatApplication
                     Port = 12346,
                 };
 
+                DbManager.AddClient(c);
                                
                 Hide();
 
@@ -77,15 +78,10 @@ namespace ChatApplication
                     }
                 }
 
-                MainForm mainForm = new MainForm();
-                mainForm.Show();
-                mainForm.FormClosed += (obj, ev) => Close();
-                using (var clients = new ServerDatabase())
-                {
-                    clients.Clients.Add(c);
-                    clients.SaveChanges();
-                }
-                mainForm.DpSetFirstTime();
+                MainForm mf = new MainForm();
+                mf.Show();
+                mf.FormClosed += (obj, ev) => Close();
+
             }
         }
 
@@ -98,16 +94,6 @@ namespace ChatApplication
             dpPictureU.Location = new Point(centerP.Width / 2 - dpPictureU.Width / 2, dpPictureU.Location.Y);
             nextBtn.Location = new Point(centerP.Width / 2 - nextBtn.Width / 2, nextBtn.Location.Y);
             centerP.BringToFront();
-        }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
         }
     }
 }

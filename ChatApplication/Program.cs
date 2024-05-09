@@ -26,26 +26,26 @@ namespace ChatApplication
 
             string IpAddress = GetLocalIPAddress();
             ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
+            DbManager.ServerDbConfig();
 
             if (!File.Exists(@".\data.xml"))
                 SerializeLocalDataToXml();
-            using (var db = new ServerDatabase())
+
+            if (!DbManager.Clients.ContainsKey(IpAddress))
             {
-                if (!db.Clients.ToDictionary(c => c.IP).ContainsKey(IpAddress))
-                {
-                    Application.Run(new LoginForm(IpAddress));
-                }
+                Application.Run(new LoginForm(IpAddress));
+            }
+            else
+            {
+                if (ChatApplicationNetworkManager.ManagerInitializer())
+                    Application.Run(new MainForm());
                 else
                 {
-                    if (ChatApplicationNetworkManager.ManagerInitializer())
-                        Application.Run(new MainForm());
-                    else
-                    {
-                        DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+
         }
 
         private static string GetLocalIPAddress()

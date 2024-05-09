@@ -25,7 +25,7 @@ namespace WindowsFormsApp3
         public Image ProfilePicture { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12346;
-        public string ProfilePath { get; set; } = "";
+        public string ProfilePath { get; set; } 
         public string Password { get; set; } = "";
         public bool IsConnected { get; set; }
         public MessagePage MessagePage { get; set; }
@@ -57,6 +57,10 @@ namespace WindowsFormsApp3
             this.Name = Name;
             this.Port = Port;
             this.ProfilePath = ProfilePath;
+            if (ProfilePath != "")
+            {
+                ProfilePicture = Image.FromFile(ProfilePath);
+            }
             this.About = About;
             this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
@@ -66,7 +70,7 @@ namespace WindowsFormsApp3
 
         private void IdentifyUnSeenMsgs()
         {
-            UnSeenMessagesList = LocalDatabase.Messages.Values.Where(m =>
+            UnSeenMessagesList = DbManager.Messages.Values.Where(m =>
               {
                   return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
               }).ToList();
