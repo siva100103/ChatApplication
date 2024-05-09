@@ -1,4 +1,6 @@
-﻿namespace ChatApplication
+﻿using ChatApplication.UserControls;
+
+namespace ChatApplication.Forms
 {
     partial class LoginForm
     {
@@ -30,14 +32,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.centerP = new ChatApplication.CustomPanel();
+            this.centerP = new CustomPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dpPictureU = new ChatApplication.DpPictureU();
-            this.nextBtn = new ChatApplication.EllipseButton();
-            this.lastNameTB = new ChatApplication.TextBoxU();
-            this.firstNameTB = new ChatApplication.TextBoxU();
-            this.ellipseControl1 = new ChatApplication.EllipseControl();
+            this.dpPictureU = new DpPictureU();
+            this.nextBtn = new EllipseButton();
+            this.lastNameTB = new TextBoxU();
+            this.firstNameTB = new TextBoxU();
+            this.ellipseControl1 = new EllipseControl();
             this.BackTopColorPanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.centerP.SuspendLayout();

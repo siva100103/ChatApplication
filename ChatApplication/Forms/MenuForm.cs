@@ -1,4 +1,4 @@
-﻿using ChatApplication.Controller;
+﻿using ChatApplication.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,8 +9,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ChatApplication;
+using ChatApplication.UserControls;
 
-namespace ChatApplication
+namespace ChatApplication.Forms
 {
     public partial class MenuForm : Form
     {

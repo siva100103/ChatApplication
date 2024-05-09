@@ -11,10 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApplication;
-using ChatApplication.Controller;
+using ChatApplication.Managers;
+using ChatApplication.UserControls;
 using Newtonsoft.Json;
 
-namespace WindowsFormsApp3
+namespace ChatApplication.Models
 {
     public class Client
     {
@@ -31,7 +32,7 @@ namespace WindowsFormsApp3
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages = 0;
 
-        public List<ChatApplication.Message> UnSeenMessagesList { get; set; } = new List<ChatApplication.Message>();
+        public List<Message> UnSeenMessagesList { get; set; } = new List<Message>();
 
         public int UnseenMessages
         {
@@ -65,7 +66,6 @@ namespace WindowsFormsApp3
             this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
             IdentifyUnSeenMsgs();
-            ConnectAsync();
         }
 
         private void IdentifyUnSeenMsgs()
@@ -77,21 +77,16 @@ namespace WindowsFormsApp3
             unSeenMessages = UnSeenMessagesList.Count;
         }
 
-        public Client()
-        {
-
-        }
-
         public async void ConnectAsync()
         {
             try
             {
-                ChatApplication.Message message = new ChatApplication.Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, ChatApplication.Type.Response);
+                Message message = new Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, MessageType.Response);
                await ChatApplicationNetworkManager.SendMessage(message, this);
                 IsConnected = true;
                 StatusChanged.Invoke(this, true);
             }
-            catch (SocketException ex)
+            catch (Exception ex)
             {
                 IsConnected = false;
                 StatusChanged?.Invoke(this, false);

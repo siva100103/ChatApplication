@@ -1,14 +1,9 @@
-﻿using ChatApplication.Controller;
+﻿using ChatApplication.Managers;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ChatApplication
+namespace ChatApplication.Models
 {
     public class Message
     {
@@ -19,7 +14,7 @@ namespace ChatApplication
         public DateTime Time { get; set; }
 
         [NotMapped]
-        public Type type { get; set; }
+        public MessageType type { get; set; }
 
         public bool Seen { get; set; }
         public bool Starred { get; set; } = false;
@@ -29,7 +24,7 @@ namespace ChatApplication
         public event EventHandler IsReaded;
 
         [JsonConstructor]
-        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time,Type type)
+        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time,MessageType type)
         {
             Id = UniqueIdGenerator();
             this.FromIP = FromIP;
@@ -59,11 +54,10 @@ namespace ChatApplication
             IsSended?.Invoke(this, EventArgs.Empty);
         }
 
-        public void IsReaderInvoker()
+        public void IsReadedInvoker()
         {
             Seen = true;
-            Message m = DbManager.Messages.Values.ToList().Find((msg) => msg.Id == Id);
-            //Message m=LocalDatabase.ReadMessage(Id);
+            Message m = DbManager.Messages[Id];
             m.Seen = true;
             DbManager.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);
@@ -77,7 +71,7 @@ namespace ChatApplication
         }
     }
 
-    public enum Type
+    public enum MessageType
     {
         Message, Response, File
     }

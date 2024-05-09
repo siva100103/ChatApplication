@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO;
-using ChatApplication.Controller;
-using WindowsFormsApp3;
-
-namespace ChatApplication
+using ChatApplication.Managers;
+using ChatApplication.Models;
+using ChatApplication;
+using ChatApplication.UserControls;
+namespace ChatApplication.Forms
 {
     public partial class ProfilePage : Form
     {
@@ -112,17 +113,6 @@ namespace ChatApplication
         {
             Hide();
             Visible = false;
-            //using (var DbContext = new ServerDatabase())
-            //{
-            //    foreach (var c in DbContext.Clients.ToList())
-            //    {
-            //        if (c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress.ToString()))
-            //        {
-            //            c.About = AboutBox.Text;
-            //            DbContext.SaveChanges();
-            //        }
-            //    }
-            //}
             Client me = DbManager.Clients.Values.ToList().Find((c) => c.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
             me.About = AboutBox.Text;
             DbManager.UpdateClient(me);

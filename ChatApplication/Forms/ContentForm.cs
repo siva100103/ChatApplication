@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using ChatApplication.Models;
+using ChatApplication.UserControls;
 
-namespace ChatApplication
+namespace ChatApplication.Forms
 {
     public partial class ContentForm : Form
     {
@@ -68,11 +70,11 @@ namespace ChatApplication
         {
             if (Visible)
             {
-                Message.ClickedInfo = true;
+                Models.Message.ClickedInfo = true;
                 Focus();
             }
             Visible = false;
-            Message.ClickedInfo = false;
+            Models.Message.ClickedInfo = false;
         }
 
         private void ContactMouseEnter(object sender, EventArgs e)

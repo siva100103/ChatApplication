@@ -1,4 +1,4 @@
-﻿namespace ChatApplication
+﻿namespace ChatApplication.Forms
 {
     partial class MenuForm
     {

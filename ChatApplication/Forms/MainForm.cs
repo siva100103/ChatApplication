@@ -1,4 +1,5 @@
-﻿using ChatApplication.Controller;
+﻿using ChatApplication.Managers;
+using ChatApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +12,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp3;
-
-namespace ChatApplication
+using ChatApplication;
+using ChatApplication.UserControls;
+namespace ChatApplication.Forms
 {
     public partial class MainForm : Form
     {
@@ -244,7 +245,7 @@ namespace ChatApplication
             }
         }
 
-        private void AddToStarredMessages(Message message)
+        private void AddToStarredMessages(Models.Message message)
         {
             SuspendLayout();
             StarredMessages chat = new StarredMessages(message)
@@ -278,7 +279,7 @@ namespace ChatApplication
         {
             foreach (var a in DbManager.Clients)
             {
-                Message msg = new Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, Type.Response);
+                Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);

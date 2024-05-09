@@ -9,14 +9,15 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsFormsApp3;
-using ChatApplication.Controller;
+using ChatApplication.Managers;
 using System.IO;
 using System.Xml.Serialization;
 using ChatApplication.Models;
 using Microsoft.EntityFrameworkCore;
+using ChatApplication;
+using ChatApplication.UserControls;
 
-namespace ChatApplication
+namespace ChatApplication.Forms
 {
     public partial class LoginForm : Form
     {
@@ -54,15 +55,8 @@ namespace ChatApplication
         {
             if (firstNameTB.TextBoxtext.Trim() != "" && lastNameTB.TextBoxtext.Trim() != "")
             {
-                Client c = new Client()
-                {
-                    IP = label1.Text,
-                    ProfilePath = DpPicturePath,
-                    Name = firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(),
-                    LastSeen = DateTime.Now,
-                    Port = 12346,
-                };
-
+                Client c = new Client(label1.Text, firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(), 12346, DateTime.Now, DpPicturePath, "");
+               
                 DbManager.AddClient(c);
                                
                 Hide();

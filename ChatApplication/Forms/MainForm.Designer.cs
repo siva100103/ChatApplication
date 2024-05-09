@@ -1,4 +1,6 @@
-﻿namespace ChatApplication
+﻿using ChatApplication.UserControls;
+
+namespace ChatApplication.Forms
 {
     partial class MainForm
     {
@@ -32,24 +34,24 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MessagePageBackPanel = new System.Windows.Forms.Panel();
             this.MessagePagePanel = new System.Windows.Forms.Panel();
-            this.MessagePageTopPanel = new ChatApplication.CustomPanel();
+            this.MessagePageTopPanel = new ChatApplication.UserControls.CustomPanel();
             this.MinMaxButton = new System.Windows.Forms.PictureBox();
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.chatContactPanel = new System.Windows.Forms.Panel();
             this.SearchPanel = new System.Windows.Forms.Panel();
-            this.SearchBox = new ChatApplication.CustomSearchBox();
+            this.SearchBox = new ChatApplication.UserControls.CustomSearchBox();
             this.ChatHeaderPanel = new System.Windows.Forms.Panel();
-            this.ChatContainer = new ChatApplication.CustomPanel();
-            this.StarMessageButton = new ChatApplication.EllipseButton();
-            this.OptionButton = new ChatApplication.EllipseButton();
+            this.ChatContainer = new ChatApplication.UserControls.CustomPanel();
+            this.StarMessageButton = new ChatApplication.UserControls.EllipseButton();
+            this.OptionButton = new ChatApplication.UserControls.EllipseButton();
             this.ChatLabel = new System.Windows.Forms.Label();
             this.StarMainPanel = new System.Windows.Forms.Panel();
             this.StarPanel = new System.Windows.Forms.Panel();
             this.StarMessageTopPanel = new System.Windows.Forms.Panel();
             this.StarLabel = new System.Windows.Forms.Label();
-            this.StarBackButton = new ChatApplication.EllipseButton();
-            this.SideMenuBar = new ChatApplication.MenuControl();
-            this.BorderPanel = new ChatApplication.CustomPanel();
+            this.StarBackButton = new ChatApplication.UserControls.EllipseButton();
+            this.SideMenuBar = new ChatApplication.UserControls.MenuControl();
+            this.BorderPanel = new ChatApplication.UserControls.CustomPanel();
             this.MainPanel.SuspendLayout();
             this.MessagePageBackPanel.SuspendLayout();
             this.MessagePageTopPanel.SuspendLayout();
