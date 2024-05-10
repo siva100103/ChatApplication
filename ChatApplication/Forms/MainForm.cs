@@ -320,7 +320,9 @@ namespace ChatApplication.Forms
 
         private void StarMessageButtonClick(object sender, EventArgs e)
         {
+            StarMainPanel.Dock = DockStyle.Fill;
             MessagePagePanel.SuspendLayout();
+            MessagePagePanel.Visible = false;
             StarMainPanel.Visible = true;
             StarMainPanel.BringToFront();
             ChatPanel.Visible = false;
@@ -354,6 +356,7 @@ namespace ChatApplication.Forms
         private void StarBackButtonClick(object sender, EventArgs e)
         {
             MessagePagePanel.SuspendLayout();
+            MessagePagePanel.Visible = true;
             StarMainPanel.Visible = false;
             ChatPanel.Visible = true;
             MessagePagePanel.ResumeLayout();
