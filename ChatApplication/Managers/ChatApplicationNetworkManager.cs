@@ -42,6 +42,7 @@ namespace ChatApplication.Managers
            foreach(var a in DbManager.Clients)
             {
                 a.Value.MessagePage = new MessagePage(a.Value);
+                a.Value.IdentifyUnSeenMsgs();
             }
             return true;
         }
@@ -176,7 +177,7 @@ namespace ChatApplication.Managers
         {
             Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
-            clt.UnSeenMessagesList.Add(msg);
+            //clt.UnSeenMessagesList.Add(msg);
             if (MessagePage != clt.MessagePage)
             {
                 clt.UnseenMessages += 1;

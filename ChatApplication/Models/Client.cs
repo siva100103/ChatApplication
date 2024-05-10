@@ -28,7 +28,7 @@ namespace ChatApplication.Models
         public int Port { get; set; } = 12346;
         public string ProfilePath { get; set; }
         public string Password { get; set; } = "";
-        public bool IsConnected { get; set; }
+        public bool IsConnected { get; set; } = true;
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages = 0;
 
@@ -65,10 +65,10 @@ namespace ChatApplication.Models
             this.About = About;
             this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
-            IdentifyUnSeenMsgs();
+            //IdentifyUnSeenMsgs();
         }
 
-        private void IdentifyUnSeenMsgs()
+        public void IdentifyUnSeenMsgs()
         {
             UnSeenMessagesList = DbManager.Messages.Values.Where(m =>
               {

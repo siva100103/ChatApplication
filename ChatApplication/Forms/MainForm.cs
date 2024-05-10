@@ -47,6 +47,7 @@ namespace ChatApplication.Forms
             base.OnLoad(e);
             StarMainPanel.Width = ChatPanel.Width;
 
+
             //Adding Contact Labels...
             LabelsAdder();
 

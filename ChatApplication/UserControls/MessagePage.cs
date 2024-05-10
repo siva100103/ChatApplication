@@ -56,9 +56,8 @@ namespace ChatApplication.UserControls
             //NameLabel.Click += ProfilePictureClick;
             DoubleBuffered = true;
 
-            if (!Client.IsConnected)
-                LastSeeLabel.Text = $"Last Seen On {(Client.LastSeen.Date.Equals(DateTime.Today) ? "Today at " + Client.LastSeen.ToLocalTime().ToString("HH:mm") : Client.LastSeen.Date.ToString("yyyy-MM-dd") + " at " + Client.LastSeen.ToLocalTime().ToString("HH:mm"))}";
-            else LastSeeLabel.Text = "Online";
+            LastSeeLabel.Text = $"Last Seen On {(Client.LastSeen.Date.Equals(DateTime.Today) ? "Today at " + Client.LastSeen.ToLocalTime().ToString("HH:mm") : Client.LastSeen.Date.ToString("yyyy-MM-dd") + " at " + Client.LastSeen.ToLocalTime().ToString("HH:mm"))}";
+
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
