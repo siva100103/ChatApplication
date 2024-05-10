@@ -28,7 +28,6 @@ namespace ChatApplication
             string IpAddress = GetLocalIPAddress();
             ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
             DbManager.ServerDbConfig();
-
             if (!File.Exists(@".\data.xml"))
                 SerializeLocalDataToXml();
 
@@ -38,7 +37,7 @@ namespace ChatApplication
             }
             else
             {
-                if (ChatApplicationNetworkManager.ManagerInitializer())
+                if (ChatApplicationNetworkManager.ManagerInitializer()) 
                     Application.Run(new MainForm());
                 else
                 {

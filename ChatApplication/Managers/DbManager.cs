@@ -177,7 +177,10 @@ namespace ChatApplication.Managers
                         Seen = a.Value["Seen"][i].ToBoolean(),
                         Starred = a.Value["Starred"][i].ToBoolean()
                     };
-                    Messages.Add(m.Id, m);
+                    if (!Messages.ContainsKey(m.Id))
+                    {
+                        Messages.Add(m.Id, m); 
+                    }
                 }
             }
         }

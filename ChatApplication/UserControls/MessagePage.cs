@@ -52,11 +52,11 @@ namespace ChatApplication.UserControls
             chatSenter.FileChoosen += FileShare;
             contact.StatusChanged += StatusChange;
             chatSenter.TextMessage = "Type a message";
-            chatSenter.Visible = contact.IsConnected;
+            //chatSenter.Visible = contact.IsConnected;
             //NameLabel.Click += ProfilePictureClick;
             DoubleBuffered = true;
 
-            LastSeeLabel.Text = $"Last Seen On {(Client.LastSeen.Date.Equals(DateTime.Today) ? "Today at " + Client.LastSeen.ToLocalTime().ToString("HH:mm") : Client.LastSeen.Date.ToString("yyyy-MM-dd") + " at " + Client.LastSeen.ToLocalTime().ToString("HH:mm"))}";
+            LastSeeLabel.Text = $"Last Seen On {(Client.LastSeen.Date.Equals(DateTime.Now.Date) ? "Today at " + Client.LastSeen.ToShortTimeString(): Client.LastSeen.Date.ToString("yyyy-MM-dd") + " at " + Client.LastSeen.ToShortTimeString())}";
 
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);

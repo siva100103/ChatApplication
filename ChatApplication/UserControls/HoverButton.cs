@@ -57,7 +57,11 @@ namespace ChatApplication.UserControls
             };
 
         }
-
+        protected override void OnMouseHover(EventArgs e)
+        {
+            base.OnMouseHover(e);
+            BackColor = Color.Transparent;
+        }
         private void ButtonResize(object sender, EventArgs e)
         {
             if (isSelected)
@@ -173,7 +177,6 @@ namespace ChatApplication.UserControls
 
             }
         }
-
 
         private GraphicsPath GetFigurePath()
         {

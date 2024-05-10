@@ -52,6 +52,18 @@ namespace ChatApplication.UserControls
                 Invalidate();
             }
         }
+
+        public Color SearchBackColor
+        {
+            get { return BackColor; }
+            set
+            {
+                BackColor = value;
+                textBox.BackColor = value;
+                Invalidate();
+            }
+        }
+
         public int BorderSize
         {
             get { return borderSize; }
@@ -74,6 +86,8 @@ namespace ChatApplication.UserControls
         public CustomSearchBox()
         {
             InitializeComponent();
+            DoubleBuffered = true;
+
             Load += CustomSearchBoxLoad;
             textBox.GotFocus += TextBoxGotFocus;
             textBox.LostFocus +=TextBoxLostFocus;

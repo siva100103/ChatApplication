@@ -46,7 +46,10 @@ namespace ChatApplication.Forms
         {
             base.OnLoad(e);
             StarMainPanel.Width = ChatPanel.Width;
-
+            MainPanel.Visible = false;
+            SideMenuBar.Visible = false;
+            //
+            LoadingScreenLoad();
 
             //Adding Contact Labels...
             LabelsAdder();
@@ -69,6 +72,22 @@ namespace ChatApplication.Forms
                 }
             }
         }
+
+        private void LoadingScreenLoad()
+        {
+            LoadingScreen Loading = new LoadingScreen
+            {
+                Dock = DockStyle.Fill
+            };
+            Controls.Add(Loading);
+            Loading.Disposed += (sender,e)=>
+            {
+                MainPanel.Visible = true;
+                SideMenuBar.Visible = true;
+            };
+        }
+
+       
 
         private void LabelsAdder()
         {
@@ -156,6 +175,7 @@ namespace ChatApplication.Forms
                 await ChatApplicationNetworkManager.SendMessage(message, clt);
                 if (clt.IsConnected)
                     clt.StatusChanger(true);
+                else clt.StatusChanger(false);
             }
         } 
         #endregion
@@ -342,6 +362,12 @@ namespace ChatApplication.Forms
         protected async override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
+
+            //Updating Last Seen...
+            Client clt = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            clt.LastSeen = DateTime.Now;
+            DbManager.UpdateClient(clt);
+
             //Sending Close Message...
             foreach (var a in DbManager.Clients)
             {
@@ -351,6 +377,7 @@ namespace ChatApplication.Forms
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
                 }
             }
+            
         }
     }
 }

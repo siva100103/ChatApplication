@@ -169,7 +169,7 @@ namespace ChatApplication.UserControls
             path.AddLine(0, Height - CornerRadius * 2, 0, CornerRadius * 2);
             path.CloseFigure();
 
-            this.Region = new Region(path);
+            Region = new Region(path);
 
             using (var pen = new Pen(this.BackColor, 1))
             {

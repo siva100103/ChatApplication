@@ -199,6 +199,12 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\LocalData.cs" />
+    <Compile Include="UserControls\LoadingScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\LoadingScreen.Designer.cs">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\StarredMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -347,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\LoadingScreen.resx">
+      <DependentUpon>LoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\StarredMessages.resx">
       <DependentUpon>StarredMessages.cs</DependentUpon>
@@ -550,6 +559,9 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-wechat-48.png" />
+    <None Include="Resources\icons8-wechat-48.ico" />
+    <None Include="Resources\Image1.bmp" />
     <None Include="Resources\icons8-star-48.png" />
     <None Include="Resources\icons8-left-50.png" />
     <None Include="Resources\8665040_arrow_left_icon1.png" />
