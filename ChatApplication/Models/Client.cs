@@ -77,13 +77,13 @@ namespace ChatApplication.Models
             unSeenMessages = UnSeenMessagesList.Count;
         }
 
-        public async void ConnectAsync()
-        {
-            Message message = new Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, MessageType.Response);
-            await ChatApplicationNetworkManager.SendMessage(message, this);
-            if (IsConnected)
-            StatusChanged?.Invoke(this,true);
-        }
+        //public async void ConnectAsync()
+        //{
+        //    Message message = new Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, MessageType.Response);
+        //    await ChatApplicationNetworkManager.SendMessage(message, this);
+        //    if (IsConnected)
+        //    StatusChanged?.Invoke(this,true);
+        //}
 
         public void StatusChanger(bool status)
         {

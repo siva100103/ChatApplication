@@ -34,7 +34,7 @@ namespace ChatApplication.Managers
 
         public static bool ManagerInitializer()
         {
-            return DbManager.LocalDbConfig() && StartServer() && UpdatePreviousMessageFromDb();
+            return DbManager.LocalDbConfig() && StartListener() && UpdatePreviousMessageFromDb();
         }
 
         private static bool UpdatePreviousMessageFromDb()
@@ -46,7 +46,7 @@ namespace ChatApplication.Managers
             return true;
         }
         
-        private static bool StartServer()
+        private static bool StartListener()
         {
             Listener = new TcpListener(IPAddress.Parse(LocalIpAddress), 12346);
             Listener.Start();
@@ -54,6 +54,7 @@ namespace ChatApplication.Managers
             return true;
         }
 
+        #region Receiving Datas From Client
         private async static void AcceptClient()
         {
             TcpClient client = await Listener.AcceptTcpClientAsync();
@@ -80,7 +81,7 @@ namespace ChatApplication.Managers
                     {
                         HandleFile(msg);
                     }
-                    else if(msg.type==MessageType.Message)
+                    else if (msg.type == MessageType.Message)
                     {
                         HandleMessages(msg);
                     }
@@ -90,12 +91,12 @@ namespace ChatApplication.Managers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if(ex.Message.Equals("Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host."))
+                if (ex.Message.Equals("Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host."))
                 {
-                  IPAddress ip=  ((IPEndPoint)client.Client.RemoteEndPoint).Address;
-                  DbManager.Clients[ip.ToString()].StatusChanger(false);
+                    IPAddress ip = ((IPEndPoint)client.Client.RemoteEndPoint).Address;
+                    DbManager.Clients[ip.ToString()].StatusChanger(false);
                     DbManager.Clients[ip.ToString()].IsConnected = false;
                 }
             }
@@ -143,9 +144,9 @@ namespace ChatApplication.Managers
         {
             if (!DbManager.Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
             {
-                
+
                 Client client = DbManager.GetClientAtInstance(msg.FromIP);
-                DbManager.Clients.Add(client.IP,client);
+                DbManager.Clients.Add(client.IP, client);
                 client.MessagePage = new MessagePage(client);
                 ContactU label = new ContactU(client)
                 {
@@ -196,7 +197,9 @@ namespace ChatApplication.Managers
             c.MessageReceiveInvoker();
             DbManager.CreateMessage(msg);
         }
+        #endregion
 
+        #region SendData to another Ip
         public async static Task SendMessage(Message message, Client c)
         {
             try
@@ -209,7 +212,7 @@ namespace ChatApplication.Managers
                 await Stream.WriteAsync(data, 0, data.Length);
                 message.IsSendedInvoker();
                 c.MessageSendInvoker();
-                if (message.type==MessageType.Message)
+                if (message.type == MessageType.Message)
                 {
                     DbManager.CreateMessage(message);
                 }
@@ -236,7 +239,8 @@ namespace ChatApplication.Managers
                 DbManager.UpdateMessage(m);
             }
             c.UnSeenMessagesList.Clear();
-        }
+        } 
+        #endregion
 
         public static List<Message> GetMessages(string FromIp, string ToIP)
         {

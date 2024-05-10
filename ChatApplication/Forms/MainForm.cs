@@ -41,14 +41,24 @@ namespace ChatApplication.Forms
             InitializeComponent();
         }
 
+        #region Functions Perform While Opening
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             StarMainPanel.Width = ChatPanel.Width;
+
+            //Adding Contact Labels...
             LabelsAdder();
+
+            //Subscribing Events..
             EventSubscriber();
+
+            //Setting UsersProfile Details..
             ProfileSetter();
-          
+
+            //Sending OpenMessages To All the Users...
+            SendOpenMessage();
+
             //star message added to list
             foreach (var a in DbManager.Messages.Values)
             {
@@ -57,8 +67,62 @@ namespace ChatApplication.Forms
                     AddToStarredMessages(a);
                 }
             }
+        }
 
-            SendOpenMessage();
+        private void LabelsAdder()
+        {
+
+            foreach (var a in DbManager.Clients)
+            {
+                if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
+                ContactU con = new ContactU(a.Value)
+                {
+                    Dock = DockStyle.Top,
+                };
+                chatContactPanel.Controls.Add(con);
+                Panel space = new Panel()
+                {
+                    Dock = DockStyle.Top,
+                    Height = 10
+                };
+                chatContactPanel.Controls.Add(space);
+                con.Clicked += MessagePageSwitcher;
+                a.Value.MessagePage.StarredMessages += StarredMessagesList;
+                Contacts.Add(con);
+            }
+
+        }
+
+        private void AddToStarredMessages(Models.Message message)
+        {
+            SuspendLayout();
+            StarredMessages chat = new StarredMessages(message)
+            {
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(247, 247, 247)
+            };
+            StarPanel.Controls.Add(chat);
+            chat.BringToFront();
+            Panel space = new Panel()
+            {
+                Dock = DockStyle.Top,
+                Height = 8
+            };
+            StarPanel.Controls.Add(space);
+            space.BringToFront();
+            ResumeLayout();
+        }
+
+        private void EventSubscriber()
+        {
+            SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
+            SearchBox.OnTextChange += SearchBoxOnTextChange;
+
+            SideMenuBar.OnClickExitBtn += (sender, ev) => Close();
+
+            SideMenuBar.ControlClicked += SideMenuBarControlClicked;
+            ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
+            ChatApplicationNetworkManager.ProfileUpdateInformer += ChatApplicationNetworkManager_ProfileUpdateInformer;
         }
 
         private void ProfileSetter()
@@ -85,29 +149,20 @@ namespace ChatApplication.Forms
 
         private async void SendOpenMessage()
         {
-            foreach(var clt in DbManager.Clients.Values)
+            foreach (var clt in DbManager.Clients.Values)
             {
                 Models.Message message = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, clt.IP, "Open", DateTime.Now, MessageType.Response);
                 await ChatApplicationNetworkManager.SendMessage(message, clt);
                 if (clt.IsConnected)
                     clt.StatusChanger(true);
             }
-        }
+        } 
+        #endregion
 
-        private void EventSubscriber()
-        {
-            SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
-            SearchBox.OnTextChange += SearchBoxOnTextChange;
 
-            SideMenuBar.OnClickExitBtn += (sender,ev)=> Close();
-
-            SideMenuBar.ControlClicked += SideMenuBarControlClicked;
-            ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
-            ChatApplicationNetworkManager.ProfileUpdateInformer += ChatApplicationNetworkManager_ProfileUpdateInformer;
-        }
 
         private void ChatApplicationNetworkManager_ProfileUpdateInformer(Client c)
-        {
+       {
             ContactU cu = Contacts.Find((cu1)=>cu1.Client==c);
             cu.UpdateDetais();
         }
@@ -120,7 +175,6 @@ namespace ChatApplication.Forms
             me.About = MyProfile.Text;
             DbManager.UpdateClient(me);
         }
-
 
         private void SearchBoxOnTextChange(object sender, EventArgs e)
         {
@@ -221,31 +275,7 @@ namespace ChatApplication.Forms
                 }
             }
         }
-
-        private void LabelsAdder()
-        {
-
-            foreach (var a in DbManager.Clients)
-            {
-                if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
-                ContactU con = new ContactU(a.Value)
-                {
-                    Dock = DockStyle.Top,
-                };
-                chatContactPanel.Controls.Add(con);
-                Panel space = new Panel()
-                {
-                    Dock = DockStyle.Top,
-                    Height = 10
-                };
-                chatContactPanel.Controls.Add(space);
-                con.Clicked += MessagePageSwitcher;
-                a.Value.MessagePage.StarredMessages += StarredMessagesList;
-                Contacts.Add(con);
-            }
-
-        }
-
+        
         private void StarredMessagesList(object sender, List<ChatU> selected)
         {
             foreach (ChatU message in selected)
@@ -257,26 +287,6 @@ namespace ChatApplication.Forms
             }
         }
 
-        private void AddToStarredMessages(Models.Message message)
-        {
-            SuspendLayout();
-            StarredMessages chat = new StarredMessages(message)
-            {
-                Dock = DockStyle.Top,
-                BackColor = Color.FromArgb(247, 247, 247)
-            };
-            StarPanel.Controls.Add(chat);
-            chat.BringToFront();
-            Panel space = new Panel()
-            {
-                Dock = DockStyle.Top,
-                Height = 8
-            };
-            StarPanel.Controls.Add(space);
-            space.BringToFront();
-            ResumeLayout();
-        }
-
         private void OptionButtonClick(object sender, EventArgs e)
         {
             MessagePagePanel.SuspendLayout();
@@ -285,21 +295,6 @@ namespace ChatApplication.Forms
             BorderPanel.Visible = !SideMenuBar.Visible;
             ChatPanel.ResumeLayout();
             MessagePagePanel.ResumeLayout();
-        }
-
-   
-
-        protected async override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            foreach (var a in DbManager.Clients)
-            {
-                Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
-                if (a.Value.IsConnected)
-                {
-                    await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
-                }
-            }
         }
 
         private void StarMessageButtonClick(object sender, EventArgs e)
@@ -341,6 +336,20 @@ namespace ChatApplication.Forms
             StarMainPanel.Visible = false;
             ChatPanel.Visible = true;
             MessagePagePanel.ResumeLayout();
+        }
+
+        protected async override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            //Sending Close Message...
+            foreach (var a in DbManager.Clients)
+            {
+                Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
+                if (a.Value.IsConnected)
+                {
+                    await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
+                }
+            }
         }
     }
 }

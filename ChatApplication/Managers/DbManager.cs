@@ -20,6 +20,7 @@ namespace ChatApplication.Managers
         private static DatabaseManager LocalDbManager = new MySqlHandler();
         private static DatabaseManager ServerDbManager = new MySqlHandler();
 
+        #region ServerDatabase Operations
         public static bool ServerDbConfig()
         {
             ServerDbManager.Database = "chatApplicationServer";
@@ -86,7 +87,7 @@ namespace ChatApplication.Managers
 
         public static Client GetClientAtInstance(string Ip)
         {
-            var data=ServerDbManager.FetchData("Clients",$"IP='{Ip}'");
+            var data = ServerDbManager.FetchData("Clients", $"IP='{Ip}'");
             int i = 0;
             if (data.Value != null)
             {
@@ -96,7 +97,9 @@ namespace ChatApplication.Managers
             }
             return null;
         }
+        #endregion
 
+        #region LocalDatabase Operations
         public static bool LocalDbConfig()
         {
             #region LocalDb
@@ -230,7 +233,8 @@ namespace ChatApplication.Managers
                 new ParameterData("Starred" , message.Starred.ToInt32())
             };
             LocalDbManager.UpdateData("Messages", condition, data);
-        }
+        } 
+        #endregion
 
 
     }
