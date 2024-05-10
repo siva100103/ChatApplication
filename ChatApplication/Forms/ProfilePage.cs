@@ -137,6 +137,8 @@ namespace ChatApplication.Forms
                     Task t = ChatApplicationNetworkManager.SendMessage(m, a.Value);
                 }
             }
+            
         }
+        
     }
 }

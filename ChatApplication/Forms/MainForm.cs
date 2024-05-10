@@ -155,6 +155,7 @@ namespace ChatApplication.Forms
                 UserName = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
             };
 
+            MyProfile.Deactivate += (sender, e) => MyProfile.Hide();
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
 
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
@@ -242,6 +243,7 @@ namespace ChatApplication.Forms
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
+            
             if (!MyProfile.Visible && !click)
             {
                 Point location = PointToScreen(SideMenuBar.Location);
@@ -381,6 +383,16 @@ namespace ChatApplication.Forms
                 }
             }
             
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
         }
     }
 }
