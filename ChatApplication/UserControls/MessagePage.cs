@@ -34,7 +34,7 @@ namespace ChatApplication.UserControls
             }
         }
         private FileSenderPage FileSharePage;
-        private ContentForm ContactInfo;
+        public ContentForm ContactInfo;
         private MenuForm MenuF;
 
         public MessagePage(Client contact)
@@ -276,7 +276,7 @@ namespace ChatApplication.UserControls
             if (!Models.Message.ClickedInfo && !ContactInfo.Visible)
             {
                 ContactInfo.DP = ProfilePicture.Image;
-                ContactInfo.About = About();
+                ContactInfo.About = DbManager.Clients[Client.IP].About;
                 ContactInfo.Visible = true;
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);
@@ -286,16 +286,6 @@ namespace ChatApplication.UserControls
             ContactInfo.Focus();
         }
 
-        private string About()
-        {
-            foreach (var client in DbManager.Clients)
-            {
-                if (client.Key.Equals(Client.IP))
-                {
-                    return client.Value.About;
-                }
-            }
-            return "";
-        }
+
     }
 }

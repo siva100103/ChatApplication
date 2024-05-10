@@ -47,7 +47,22 @@ namespace ChatApplication.Forms
             StarMainPanel.Width = ChatPanel.Width;
             LabelsAdder();
             EventSubscriber();
+            ProfileSetter();
+          
+            //star message added to list
+            foreach (var a in DbManager.Messages.Values)
+            {
+                if (a.Starred)
+                {
+                    AddToStarredMessages(a);
+                }
+            }
 
+            SendOpenMessage();
+        }
+
+        private void ProfileSetter()
+        {
             #region My Profile
             MyProfile = new ProfilePage
             {
@@ -66,24 +81,26 @@ namespace ChatApplication.Forms
             }
             MyProfile.About = me.About;
             #endregion
+        }
 
-
-            //star message added to list
-            foreach (var a in DbManager.Messages.Values)
+        private async void SendOpenMessage()
+        {
+            foreach(var clt in DbManager.Clients.Values)
             {
-                if (a.Starred)
-                {
-                    AddToStarredMessages(a);
-                }
+                Models.Message message = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, clt.IP, "Open", DateTime.Now, MessageType.Response);
+                await ChatApplicationNetworkManager.SendMessage(message, clt);
+                if (clt.IsConnected)
+                    clt.StatusChanger(true);
             }
-
         }
 
         private void EventSubscriber()
         {
             SideMenuBar.OnClickProfilePicture += OnProfileInfoClick;
             SearchBox.OnTextChange += SearchBoxOnTextChange;
-            SideMenuBar.OnClickExitBtn += ExitButtonClick;
+
+            SideMenuBar.OnClickExitBtn += (sender,ev)=> Close();
+
             SideMenuBar.ControlClicked += SideMenuBarControlClicked;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
             ChatApplicationNetworkManager.ProfileUpdateInformer += ChatApplicationNetworkManager_ProfileUpdateInformer;
@@ -92,8 +109,7 @@ namespace ChatApplication.Forms
         private void ChatApplicationNetworkManager_ProfileUpdateInformer(Client c)
         {
             ContactU cu = Contacts.Find((cu1)=>cu1.Client==c);
-            cu.UpdateDetais(c.ProfilePicture);
-            c.MessagePage.ContactInfo.UpdateDetails(c);
+            cu.UpdateDetais();
         }
 
         private void SideMenuBarControlClicked(object sender, EventArgs e)
@@ -271,26 +287,19 @@ namespace ChatApplication.Forms
             MessagePagePanel.ResumeLayout();
         }
 
-        private async void ExitButtonClick(object sender, EventArgs e)
+   
+
+        protected async override void OnClosed(EventArgs e)
         {
+            base.OnClosed(e);
             foreach (var a in DbManager.Clients)
             {
                 Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
                 if (a.Value.IsConnected)
                 {
-
-                    try
-                    {
-                        await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
-                    }
-                    catch (Exception ex)
-                    {
-
-                        
-                    }
+                    await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
                 }
             }
-            Close();
         }
 
         private void StarMessageButtonClick(object sender, EventArgs e)

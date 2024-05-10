@@ -122,7 +122,7 @@ namespace ChatApplication.Forms
         {
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             me.About = AboutBox.Text;
-            if(!ProfilePath.Equals("") && !ProfilePath.Equals(me.ProfilePath)) me.ProfilePath = ProfilePath;
+            if (!ProfilePath.Equals("") && !ProfilePath.Equals(me.ProfilePath)) me.ProfilePath = ProfilePath;
             DbManager.UpdateClient(me);
         }
 
@@ -133,7 +133,7 @@ namespace ChatApplication.Forms
                 if (!a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && a.Value.IsConnected)
                 {
                     Models.Message m = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "", DateTime.Now, MessageType.ProfileUpdated);
-                    Task t=ChatApplicationNetworkManager.SendMessage(m, a.Value);
+                    Task t = ChatApplicationNetworkManager.SendMessage(m, a.Value);
                 }
             }
         }

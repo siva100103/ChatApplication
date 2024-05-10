@@ -103,5 +103,11 @@ namespace ChatApplication.Forms
         {
             ContactLabel.BackColor = Color.FromArgb(159, 192, 218);
         }
+
+        public void UpdateDetails(Client c)
+        {
+            ProfilePicture.Image = c.ProfilePicture;
+            AboutBox.Text = c.About;
+        }
     }
 }

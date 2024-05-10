@@ -34,13 +34,7 @@ namespace ChatApplication.Managers
 
         public static bool ManagerInitializer()
         {
-            return DbManager.LocalDbConfig() && StartServer() && UpdatePreviousMessageFromDb() && TryConnectingWithMembers();
-        }
-
-        private static bool TryConnectingWithMembers()
-        {
-            DbManager.Clients.Values.ToList().ForEach( (c) => c.ConnectAsync());
-            return true;
+            return DbManager.LocalDbConfig() && StartServer() && UpdatePreviousMessageFromDb();
         }
 
         private static bool UpdatePreviousMessageFromDb()
@@ -102,6 +96,7 @@ namespace ChatApplication.Managers
                 {
                   IPAddress ip=  ((IPEndPoint)client.Client.RemoteEndPoint).Address;
                   DbManager.Clients[ip.ToString()].StatusChanger(false);
+                    DbManager.Clients[ip.ToString()].IsConnected = false;
                 }
             }
 
@@ -204,17 +199,24 @@ namespace ChatApplication.Managers
 
         public async static Task SendMessage(Message message, Client c)
         {
-            TcpClient Sender = new TcpClient();
-            await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
-            NetworkStream Stream = Sender.GetStream();
-            string msg = JsonConvert.SerializeObject(message);
-            byte[] data = Encoding.UTF8.GetBytes(msg);
-            await Stream.WriteAsync(data, 0, data.Length);
-            message.IsSendedInvoker();
-            c.MessageSendInvoker();
-            if (message.type != MessageType.Response)
+            try
             {
-                DbManager.CreateMessage(message);
+                TcpClient Sender = new TcpClient();
+                await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
+                NetworkStream Stream = Sender.GetStream();
+                string msg = JsonConvert.SerializeObject(message);
+                byte[] data = Encoding.UTF8.GetBytes(msg);
+                await Stream.WriteAsync(data, 0, data.Length);
+                message.IsSendedInvoker();
+                c.MessageSendInvoker();
+                if (message.type==MessageType.Message)
+                {
+                    DbManager.CreateMessage(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                c.StatusChanger(false);
             }
         }
 

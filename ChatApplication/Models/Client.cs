@@ -26,7 +26,7 @@ namespace ChatApplication.Models
         public Image ProfilePicture { get; set; } = ChatApplication.Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12346;
-        public string ProfilePath { get; set; } 
+        public string ProfilePath { get; set; }
         public string Password { get; set; } = "";
         public bool IsConnected { get; set; }
         public MessagePage MessagePage { get; set; }
@@ -52,7 +52,7 @@ namespace ChatApplication.Models
         public event EventHandler MessageSend;
         public event EventHandler MessageReceive;
 
-        public Client(string ip, string Name, int Port,DateTime LastSeen,string ProfilePath,string About)
+        public Client(string ip, string Name, int Port, DateTime LastSeen, string ProfilePath, string About)
         {
             IP = ip;
             this.Name = Name;
@@ -72,26 +72,17 @@ namespace ChatApplication.Models
         {
             UnSeenMessagesList = DbManager.Messages.Values.Where(m =>
               {
-                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen; 
+                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen;
               }).ToList();
             unSeenMessages = UnSeenMessagesList.Count;
         }
 
         public async void ConnectAsync()
         {
-            try
-            {
-                Message message = new Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, MessageType.Response);
-               await ChatApplicationNetworkManager.SendMessage(message, this);
-                IsConnected = true;
-                StatusChanged.Invoke(this, true);
-            }
-            catch (Exception ex)
-            {
-                IsConnected = false;
-                StatusChanged?.Invoke(this, false);
-                Console.WriteLine(ex.Message);
-            }
+            Message message = new Message(ChatApplicationNetworkManager.LocalIpAddress, IP, "Open", DateTime.Now, MessageType.Response);
+            await ChatApplicationNetworkManager.SendMessage(message, this);
+            if (IsConnected)
+            StatusChanged?.Invoke(this,true);
         }
 
         public void StatusChanger(bool status)
@@ -106,7 +97,7 @@ namespace ChatApplication.Models
 
         public void MessageSendInvoker()
         {
-            MessageSend?.Invoke(this,EventArgs.Empty);
+            MessageSend?.Invoke(this, EventArgs.Empty);
         }
 
         public void MessageReceiveInvoker()

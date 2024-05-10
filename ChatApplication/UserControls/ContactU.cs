@@ -147,9 +147,10 @@ namespace ChatApplication.UserControls
             TimeLB = LbValue;
         }
 
-        public void UpdateDetais(Image i)
+        public void UpdateDetais()
         {
-            dpPictureBox.Image = i;
+            dpPictureBox.Image = Client.ProfilePicture;
+            Client.MessagePage.ContactInfo.UpdateDetails(Client);
         }
 
         protected override void OnPaint(PaintEventArgs e)

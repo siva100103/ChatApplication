@@ -59,6 +59,7 @@ namespace ChatApplication.Managers
                new ParameterData("LastSeen",c.LastSeen),
                new ParameterData("ProfilePath",@path),
                new ParameterData("Password",c.Password),
+               new ParameterData("About",c.About),
                new ParameterData("UnseenMessages",c.UnseenMessages)
             };
             ServerDbManager.InsertData("Clients", pd);
