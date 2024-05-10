@@ -31,73 +31,77 @@ namespace ChatApplication.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.centerP = new CustomPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dpPictureU = new DpPictureU();
-            this.nextBtn = new EllipseButton();
-            this.lastNameTB = new TextBoxU();
-            this.firstNameTB = new TextBoxU();
-            this.ellipseControl1 = new EllipseControl();
-            this.BackTopColorPanel = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.MainPanel = new System.Windows.Forms.Panel();
+            this.centerP = new ChatApplication.UserControls.CustomPanel();
+            this.IPLabelIndicator = new System.Windows.Forms.Label();
+            this.IPLabel = new System.Windows.Forms.Label();
+            this.dpPictureU = new ChatApplication.UserControls.DpPictureU();
+            this.SignUpButton = new ChatApplication.UserControls.EllipseButton();
+            this.lastNameTB = new ChatApplication.UserControls.TextBoxU();
+            this.firstNameTB = new ChatApplication.UserControls.TextBoxU();
+            this.TopPanel = new System.Windows.Forms.Panel();
+            this.ellipseControl1 = new ChatApplication.UserControls.EllipseControl();
+            this.LoadingPanel = new System.Windows.Forms.Panel();
+            this.MainPanel.SuspendLayout();
             this.centerP.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // MainPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel1.Controls.Add(this.centerP);
-            this.panel1.Controls.Add(this.BackTopColorPanel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(753, 525);
-            this.panel1.TabIndex = 1;
+            this.MainPanel.BackColor = System.Drawing.Color.Gainsboro;
+            this.MainPanel.Controls.Add(this.centerP);
+            this.MainPanel.Controls.Add(this.TopPanel);
+            this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPanel.Location = new System.Drawing.Point(0, 0);
+            this.MainPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.Size = new System.Drawing.Size(753, 498);
+            this.MainPanel.TabIndex = 1;
             // 
             // centerP
             // 
             this.centerP.AllBorderRadius = 25;
+            this.centerP.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.centerP.BackColor = System.Drawing.Color.White;
             this.centerP.BorderColor = System.Drawing.Color.Transparent;
             this.centerP.BorderMarginSize = 1;
             this.centerP.BottomLeftRadius = 25;
             this.centerP.BottomRight = 25;
-            this.centerP.Controls.Add(this.label2);
-            this.centerP.Controls.Add(this.label1);
+            this.centerP.Controls.Add(this.IPLabelIndicator);
+            this.centerP.Controls.Add(this.IPLabel);
             this.centerP.Controls.Add(this.dpPictureU);
-            this.centerP.Controls.Add(this.nextBtn);
+            this.centerP.Controls.Add(this.SignUpButton);
             this.centerP.Controls.Add(this.lastNameTB);
             this.centerP.Controls.Add(this.firstNameTB);
             this.centerP.Location = new System.Drawing.Point(96, 53);
             this.centerP.Margin = new System.Windows.Forms.Padding(2);
             this.centerP.Name = "centerP";
-            this.centerP.Size = new System.Drawing.Size(560, 438);
+            this.centerP.Size = new System.Drawing.Size(567, 399);
             this.centerP.TabIndex = 7;
             this.centerP.TopLeftRadius = 25;
             this.centerP.TopRightRadius = 25;
             // 
-            // label2
+            // IPLabelIndicator
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(144, 292);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 27);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "IpAddress:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.IPLabelIndicator.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IPLabelIndicator.Location = new System.Drawing.Point(144, 292);
+            this.IPLabelIndicator.Name = "IPLabelIndicator";
+            this.IPLabelIndicator.Size = new System.Drawing.Size(100, 27);
+            this.IPLabelIndicator.TabIndex = 12;
+            this.IPLabelIndicator.Text = "IpAddress:";
+            this.IPLabelIndicator.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // IPLabel
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(263, 292);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 27);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "label1";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.IPLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IPLabel.Location = new System.Drawing.Point(263, 292);
+            this.IPLabel.Name = "IPLabel";
+            this.IPLabel.Size = new System.Drawing.Size(100, 27);
+            this.IPLabel.TabIndex = 11;
+            this.IPLabel.Text = "label1";
+            this.IPLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dpPictureU
             // 
@@ -109,25 +113,25 @@ namespace ChatApplication.Forms
             this.dpPictureU.Size = new System.Drawing.Size(106, 92);
             this.dpPictureU.TabIndex = 9;
             // 
-            // nextBtn
+            // SignUpButton
             // 
-            this.nextBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
-            this.nextBtn.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
-            this.nextBtn.BorderColor = System.Drawing.Color.White;
-            this.nextBtn.BorderRadius1 = 10;
-            this.nextBtn.BorderSize1 = 0;
-            this.nextBtn.FlatAppearance.BorderSize = 0;
-            this.nextBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nextBtn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nextBtn.ForeColor = System.Drawing.Color.White;
-            this.nextBtn.Location = new System.Drawing.Point(212, 342);
-            this.nextBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(119, 42);
-            this.nextBtn.TabIndex = 8;
-            this.nextBtn.Text = "Sign Up";
-            this.nextBtn.TextColor = System.Drawing.Color.White;
-            this.nextBtn.UseVisualStyleBackColor = false;
+            this.SignUpButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
+            this.SignUpButton.BackgroudColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
+            this.SignUpButton.BorderColor = System.Drawing.Color.White;
+            this.SignUpButton.BorderRadius1 = 10;
+            this.SignUpButton.BorderSize1 = 0;
+            this.SignUpButton.FlatAppearance.BorderSize = 0;
+            this.SignUpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SignUpButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SignUpButton.ForeColor = System.Drawing.Color.White;
+            this.SignUpButton.Location = new System.Drawing.Point(212, 342);
+            this.SignUpButton.Margin = new System.Windows.Forms.Padding(2);
+            this.SignUpButton.Name = "SignUpButton";
+            this.SignUpButton.Size = new System.Drawing.Size(119, 42);
+            this.SignUpButton.TabIndex = 8;
+            this.SignUpButton.Text = "Sign Up";
+            this.SignUpButton.TextColor = System.Drawing.Color.White;
+            this.SignUpButton.UseVisualStyleBackColor = false;
             // 
             // lastNameTB
             // 
@@ -169,49 +173,62 @@ namespace ChatApplication.Forms
             this.firstNameTB.TextBoxtext = "";
             this.firstNameTB.UseSystemPasswordChar = false;
             // 
+            // TopPanel
+            // 
+            this.TopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
+            this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TopPanel.Location = new System.Drawing.Point(0, 0);
+            this.TopPanel.Name = "TopPanel";
+            this.TopPanel.Size = new System.Drawing.Size(753, 122);
+            this.TopPanel.TabIndex = 8;
+            this.TopPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TopPanelPaint);
+            // 
             // ellipseControl1
             // 
             this.ellipseControl1.CornerRadius = 20;
             this.ellipseControl1.TargetControl = this.dpPictureU;
             // 
-            // BackTopColorPanel
+            // LoadingPanel
             // 
-            this.BackTopColorPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(211)))), ((int)(((byte)(95)))));
-            this.BackTopColorPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BackTopColorPanel.Location = new System.Drawing.Point(0, 0);
-            this.BackTopColorPanel.Name = "BackTopColorPanel";
-            this.BackTopColorPanel.Size = new System.Drawing.Size(753, 122);
-            this.BackTopColorPanel.TabIndex = 8;
+            this.LoadingPanel.BackColor = System.Drawing.Color.Transparent;
+            this.LoadingPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.LoadingPanel.Location = new System.Drawing.Point(0, 498);
+            this.LoadingPanel.Name = "LoadingPanel";
+            this.LoadingPanel.Size = new System.Drawing.Size(753, 27);
+            this.LoadingPanel.TabIndex = 10;
+            this.LoadingPanel.Visible = false;
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 525);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.MainPanel);
+            this.Controls.Add(this.LoadingPanel);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
-            this.panel1.ResumeLayout(false);
+            this.MainPanel.ResumeLayout(false);
             this.centerP.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel MainPanel;
         private TextBoxU firstNameTB;
         private CustomPanel centerP;
-        private EllipseButton nextBtn;
+        private EllipseButton SignUpButton;
         private TextBoxU lastNameTB;
         private EllipseControl ellipseControl1;
         private DpPictureU dpPictureU;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel BackTopColorPanel;
+        private System.Windows.Forms.Label IPLabel;
+        private System.Windows.Forms.Label IPLabelIndicator;
+        private System.Windows.Forms.Panel TopPanel;
+        private System.Windows.Forms.Panel LoadingPanel;
     }
 }

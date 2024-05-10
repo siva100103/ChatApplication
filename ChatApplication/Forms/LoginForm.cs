@@ -16,18 +16,39 @@ using ChatApplication.Models;
 using Microsoft.EntityFrameworkCore;
 using ChatApplication;
 using ChatApplication.UserControls;
+using System.Reflection;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace ChatApplication.Forms
 {
     public partial class LoginForm : Form
     {
+        #region Curve Dll
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,     // x-coordinate of upper-left corner
+            int nTopRect,      // y-coordinate of upper-left corner
+            int nRightRect,    // x-coordinate of lower-right corner
+            int nBottomRect,   // y-coordinate of lower-right corner
+            int nWidthEllipse, // height of ellipse
+            int nHeightEllipse // width of ellipse
+        );
+        #endregion
         private string DpPicturePath = "";
         public event EventHandler Dp;
+        private Timer TimerOne;
+        private Timer TimerTwo;
+        private int TopPanelWidth = 0;
+        private int TopPanelX = 0;
+        private int LoadingPercent = 0;
+        private MainForm mf;
 
         public LoginForm(string IPAddress)
         {
             InitializeComponent();
-            label1.Text = IPAddress;
+            IPLabel.Text = IPAddress;
             dpPictureU.OnClickDpPicturePathGet += DpPicturePathGet;
         }
 
@@ -37,9 +58,15 @@ namespace ChatApplication.Forms
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             DpPicturePath = newfilePath;
-            using (var bmp = new Bitmap(dp))
+            try
             {
-                bmp.Save(newfilePath);
+                using (var bmp = new Bitmap(dp))
+                {
+                    bmp.Save(newfilePath);
+                }
+            }
+            catch
+            {
             }
             //dp.Save(newfilePath);
         }
@@ -47,20 +74,45 @@ namespace ChatApplication.Forms
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+            DoubleBuffered = true;
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, TopPanel, new object[] { true });
+            typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, LoadingPanel, new object[] { true });
+            typeof(TextBoxU).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, firstNameTB, new object[] { true });
+            typeof(TextBoxU).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, lastNameTB, new object[] { true });
+
             Resize += LoginFormResize;
-            nextBtn.Click += NextBtnClick;
+            SignUpButton.Click += SignUpButtonClick;
+            TimerOne = new Timer
+            {
+                Interval = 30
+            };
+            TimerOne.Tick += PaintTick;
+            TimerOne.Start();
         }
-        private void NextBtnClick(object sender, EventArgs e)
+
+        private void PaintTick(object sender, EventArgs e)
+        {
+            if (TopPanelWidth >= Width + Width/2)
+            {
+                TopPanelWidth = TopPanelX = 0;
+            }
+            if (TopPanelWidth >= ((Width * 85) / 100))
+            {
+                TopPanelX += ((TopPanelWidth * 2) / 100);
+            }
+            TopPanelWidth += 10;
+            TopPanel.Invalidate();
+        }
+
+        private void SignUpButtonClick(object sender, EventArgs e)
         {
             if (firstNameTB.TextBoxtext.Trim() != "" && lastNameTB.TextBoxtext.Trim() != "")
             {
-                Client c = new Client(label1.Text, firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(), 12346, DateTime.Now, DpPicturePath, "");
-               
-                DbManager.AddClient(c);
-                               
-                Hide();
+                TimerOne.Stop();
 
+                #region Client Creation
+                Client c = new Client(IPLabel.Text, firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(), 12346, DateTime.Now, DpPicturePath, "");
+                DbManager.AddClient(c);
                 if (!ChatApplicationNetworkManager.ManagerInitializer())
                 {
                     DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "WARNING",
@@ -72,11 +124,71 @@ namespace ChatApplication.Forms
                     }
                 }
 
-                MainForm mf = new MainForm();
-                mf.Show();
+                mf = new MainForm();
                 mf.FormClosed += (obj, ev) => Close();
+                #endregion
 
+                LoadingScreenInitialize();
             }
+        }
+
+        private void LoadingScreenInitialize()
+        {
+            MainPanel.Hide();
+            FormBorderStyle = FormBorderStyle.None;
+            Size = new Size(770, 380);
+            Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 40, 40));
+            BackColor = Color.FromArgb(42, 40, 60);
+            Opacity = 0.92;
+            CenterToScreen();
+
+            PictureBox icon = new PictureBox
+            {
+                Image = Properties.Resources.icons8_wechat_481,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Location = new Point(1,5)
+            };
+            Controls.Add(icon);
+
+            LoadingPanel.Visible = true;
+            LoadingPanel.Paint += LoadingPanelPaint;
+            TimerTwo = new Timer
+            {
+                Interval = 3,
+            };
+            TimerTwo.Tick += TimerTwoTick;
+            TimerTwo.Start();
+        }
+
+        private void TimerTwoTick(object sender, EventArgs e)
+        {
+            if(LoadingPercent >= Width)
+            {
+                TimerTwo.Stop();
+                Hide();
+                mf?.Show();
+            }
+            LoadingPercent += 5;
+            LoadingPanel.Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
+            Font font = new Font("Microsoft Tai Le", 20, FontStyle.Regular);
+            Brush brush = new SolidBrush(Color.White);
+            e.Graphics.DrawString("Loading...", font, brush, new PointF(Width / 2.3f, Height / 2));
+        }
+
+        private void LoadingPanelPaint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
+            Brush brush = new SolidBrush(Color.FromArgb(66, 209, 149));
+            g.FillRectangle(brush, new Rectangle(0, 0, LoadingPercent, LoadingPanel.Height));
         }
 
         private void LoginFormResize(object sender, EventArgs e)
@@ -86,8 +198,25 @@ namespace ChatApplication.Forms
             lastNameTB.Location = new Point(centerP.Width / 2 - lastNameTB.Width / 2, lastNameTB.Location.Y);
             //ipAddressLB.Location = new Point(centerP.Width / 2 - ipAddressLB.Width / 2, ipAddressLB.Location.Y);
             dpPictureU.Location = new Point(centerP.Width / 2 - dpPictureU.Width / 2, dpPictureU.Location.Y);
-            nextBtn.Location = new Point(centerP.Width / 2 - nextBtn.Width / 2, nextBtn.Location.Y);
+            SignUpButton.Location = new Point(centerP.Width / 2 - SignUpButton.Width / 2, SignUpButton.Location.Y);
             centerP.BringToFront();
+        }
+
+        private void TopPanelPaint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Brush brush = new SolidBrush(Color.FromArgb(150, 31, 177, 65));
+            g.FillRectangle(brush, new Rectangle(TopPanelX, 0, TopPanelWidth, TopPanel.Height));
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
     }
 }

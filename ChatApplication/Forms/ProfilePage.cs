@@ -33,6 +33,8 @@ namespace ChatApplication.Forms
         public event EventHandler<Dictionary<string, Image>> ProfileChoosen;
         private Dictionary<string, Image> PathPic = new Dictionary<string, Image>();
         private string ProfilePath = "";
+        private bool pfClicked = false;
+
         public string UserName
         {
             get { return NameLabel.Text; }
@@ -77,7 +79,6 @@ namespace ChatApplication.Forms
             base.OnResize(e);
         }
 
-        private bool pfClicked = false;
         private void ProfilePictureClick(object sender, EventArgs e)
         {
             pfClicked = true;

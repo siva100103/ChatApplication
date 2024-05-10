@@ -204,17 +204,24 @@ namespace ChatApplication.Managers
 
         public async static Task SendMessage(Message message, Client c)
         {
-            TcpClient Sender = new TcpClient();
-            await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
-            NetworkStream Stream = Sender.GetStream();
-            string msg = JsonConvert.SerializeObject(message);
-            byte[] data = Encoding.UTF8.GetBytes(msg);
-            await Stream.WriteAsync(data, 0, data.Length);
-            message.IsSendedInvoker();
-            c.MessageSendInvoker();
-            if (message.type != MessageType.Response)
+            try
             {
-                DbManager.CreateMessage(message);
+                TcpClient Sender = new TcpClient();
+                await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
+                NetworkStream Stream = Sender.GetStream();
+                string msg = JsonConvert.SerializeObject(message);
+                byte[] data = Encoding.UTF8.GetBytes(msg);
+                await Stream.WriteAsync(data, 0, data.Length);
+                message.IsSendedInvoker();
+                c.MessageSendInvoker();
+                if (message.type != MessageType.Response && message.type != MessageType.ProfileUpdated)
+                {
+                    DbManager.CreateMessage(message);
+                }
+            }
+            catch
+            {
+                DbManager.Clients[c.IP].StatusChanger(false);
             }
         }
 

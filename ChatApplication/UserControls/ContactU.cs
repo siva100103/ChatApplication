@@ -147,9 +147,11 @@ namespace ChatApplication.UserControls
             TimeLB = LbValue;
         }
 
-        public void UpdateDetais(Image i)
+        public void UpdateDetais()
         {
-            dpPictureBox.Image = i;
+            dpPictureBox.Image = Client.ProfilePicture;
+            Client.MessagePage.ContactInfo.UpdateDetails(Client);
+            
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -168,7 +170,7 @@ namespace ChatApplication.UserControls
             path.AddLine(0, Height - CornerRadius * 2, 0, CornerRadius * 2);
             path.CloseFigure();
 
-            this.Region = new Region(path);
+            Region = new Region(path);
 
             using (var pen = new Pen(this.BackColor, 1))
             {

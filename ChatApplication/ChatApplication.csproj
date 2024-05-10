@@ -237,18 +237,6 @@
       <DependentUpon>ChatU.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs" />
-    <Compile Include="UserControls\ContactListU.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ContactListU.Designer.cs">
-      <DependentUpon>ContactListU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ContactSimpleU.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ContactSimpleU.Designer.cs">
-      <DependentUpon>ContactSimpleU.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ContactU.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -374,12 +362,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ChatU.resx">
       <DependentUpon>ChatU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ContactListU.resx">
-      <DependentUpon>ContactListU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ContactSimpleU.resx">
-      <DependentUpon>ContactSimpleU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ContactU.resx">
       <DependentUpon>ContactU.cs</DependentUpon>
@@ -568,6 +550,9 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-wechat-48.png" />
+    <None Include="Resources\icons8-wechat-48.ico" />
+    <None Include="Resources\Image1.bmp" />
     <None Include="Resources\icons8-star-48.png" />
     <None Include="Resources\icons8-left-50.png" />
     <None Include="Resources\8665040_arrow_left_icon1.png" />

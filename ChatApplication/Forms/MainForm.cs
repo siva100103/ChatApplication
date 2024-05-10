@@ -91,9 +91,9 @@ namespace ChatApplication.Forms
 
         private void ChatApplicationNetworkManager_ProfileUpdateInformer(Client c)
         {
-            ContactU cu = Contacts.Find((cu1)=>cu1.Client==c);
-            cu.UpdateDetais(c.ProfilePicture);
-            c.MessagePage.ContactInfo.UpdateDetails(c);
+            ContactU contact = Contacts.Find((cu1)=>cu1.Client==c);
+            contact.UpdateDetais();
+            //c.MessagePage.ContactInfo.UpdateDetails(c);
         }
 
         private void SideMenuBarControlClicked(object sender, EventArgs e)
@@ -296,9 +296,19 @@ namespace ChatApplication.Forms
         private void StarMessageButtonClick(object sender, EventArgs e)
         {
             MessagePagePanel.SuspendLayout();
+            MessagePagePanel.Visible = false;
             StarMainPanel.Visible = true;
             StarMainPanel.BringToFront();
             ChatPanel.Visible = false;
+            MessagePagePanel.ResumeLayout();
+        }
+
+        private void StarBackButtonClick(object sender, EventArgs e)
+        {
+            MessagePagePanel.SuspendLayout();
+            MessagePagePanel.Visible = true;
+            StarMainPanel.Visible = false;
+            ChatPanel.Visible = true;
             MessagePagePanel.ResumeLayout();
         }
 
@@ -326,12 +336,14 @@ namespace ChatApplication.Forms
             MinMaxButton.BackColor = Color.Transparent;
         }
 
-        private void StarBackButtonClick(object sender, EventArgs e)
+        protected override CreateParams CreateParams
         {
-            MessagePagePanel.SuspendLayout();
-            StarMainPanel.Visible = false;
-            ChatPanel.Visible = true;
-            MessagePagePanel.ResumeLayout();
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
         }
     }
 }

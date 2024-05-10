@@ -78,6 +78,7 @@ namespace ChatApplication.Forms
             // 
             // MessagePageBackPanel
             // 
+            this.MessagePageBackPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
             this.MessagePageBackPanel.Controls.Add(this.MessagePagePanel);
             this.MessagePageBackPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MessagePageBackPanel.Location = new System.Drawing.Point(350, 17);
@@ -170,6 +171,7 @@ namespace ChatApplication.Forms
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Padding = new System.Windows.Forms.Padding(7);
             this.SearchBox.PlaceholderText = "Search or start new chat";
+            this.SearchBox.SearchBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
             this.SearchBox.Size = new System.Drawing.Size(339, 43);
             this.SearchBox.TabIndex = 0;
             // 
