@@ -15,10 +15,10 @@ namespace ChatApplication.UserControls
     public partial class StarredMessages : UserControl
     {
         private int chatArcWidth = 10;
-        private Models.Message message;
+        private MessageModel message;
         private int chatUMaximumWidth = 400;
 
-        public Models.Message Message
+        public MessageModel Message
         {
             set
             {
@@ -34,7 +34,7 @@ namespace ChatApplication.UserControls
             }
         }
 
-        public StarredMessages(Models.Message msg)
+        public StarredMessages(Models.MessageModel msg)
         {
             InitializeComponent();
             Message = msg;
@@ -43,6 +43,14 @@ namespace ChatApplication.UserControls
         private void StarredMessagesLoad(object sender, EventArgs e)
         {
             MessageCreate();
+            EventSubscribers();
+
+            FromName.Text = (Message.FromIP == ChatApplicationNetworkManager.LocalIpAddress)? "You" :
+                DbManager.Clients[Message.FromIP].Name;
+        }
+
+        private void EventSubscribers()
+        {
             MouseClick += OnMouseClick;
             messageLB.MouseClick += OnMouseClick;
             ChatUBottomP.MouseClick += OnMouseClick;

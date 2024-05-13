@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.MainPanel = new System.Windows.Forms.Panel();
             this.TextArea = new System.Windows.Forms.RichTextBox();
             this.FileShareIcon = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SendButton = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
+            this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FileShareIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SendButton)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // MainPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.panel1.Controls.Add(this.TextArea);
-            this.panel1.Controls.Add(this.FileShareIcon);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.SendButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(2);
-            this.panel1.Size = new System.Drawing.Size(520, 40);
-            this.panel1.TabIndex = 6;
+            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.MainPanel.Controls.Add(this.TextArea);
+            this.MainPanel.Controls.Add(this.FileShareIcon);
+            this.MainPanel.Controls.Add(this.pictureBox1);
+            this.MainPanel.Controls.Add(this.SendButton);
+            this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPanel.Location = new System.Drawing.Point(0, 0);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.Padding = new System.Windows.Forms.Padding(2);
+            this.MainPanel.Size = new System.Drawing.Size(520, 40);
+            this.MainPanel.TabIndex = 6;
             // 
             // TextArea
             // 
@@ -112,10 +112,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.MainPanel);
             this.Name = "ChatSenter";
             this.Size = new System.Drawing.Size(520, 40);
-            this.panel1.ResumeLayout(false);
+            this.MainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FileShareIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SendButton)).EndInit();
@@ -125,7 +125,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.RichTextBox TextArea;
         private System.Windows.Forms.PictureBox FileShareIcon;
         private System.Windows.Forms.PictureBox pictureBox1;

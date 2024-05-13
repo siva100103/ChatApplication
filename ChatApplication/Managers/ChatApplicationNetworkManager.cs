@@ -72,7 +72,7 @@ namespace ChatApplication.Managers
             {
                 if ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    Message msg = JsonConvert.DeserializeObject<Message>(Encoding.UTF8.GetString(buffer));
+                    MessageModel msg = JsonConvert.DeserializeObject<MessageModel>(Encoding.UTF8.GetString(buffer));
 
                     if (msg.type == MessageType.Response)
                     {
@@ -105,7 +105,7 @@ namespace ChatApplication.Managers
             AcceptClient();
         }
 
-        private static void HandleUpdation(Message msg)
+        private static void HandleUpdation(MessageModel msg)
         {
             Client current = DbManager.Clients[msg.FromIP];
             Client Updated = DbManager.GetClientAtInstance(msg.FromIP);
@@ -115,7 +115,7 @@ namespace ChatApplication.Managers
             ProfileUpdateInformer?.Invoke(current);
         }
 
-        private async static void HandleFile(Message msg)
+        private async static void HandleFile(MessageModel msg)
         {
             Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
@@ -130,7 +130,7 @@ namespace ChatApplication.Managers
             }
             else
             {
-                Message m = new Message(msg)
+                MessageModel m = new MessageModel(msg)
                 {
                     Msg = "Readed",
                     type = MessageType.Response
@@ -141,7 +141,7 @@ namespace ChatApplication.Managers
             }
         }
 
-        private static void HandleResponses(Message msg)
+        private static void HandleResponses(MessageModel msg)
         {
             if (!DbManager.Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
             {
@@ -173,7 +173,7 @@ namespace ChatApplication.Managers
             }
         }
 
-        private async static void HandleMessages(Message msg)
+        private async static void HandleMessages(MessageModel msg)
         {
             Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
@@ -185,7 +185,7 @@ namespace ChatApplication.Managers
             }
             else
             {
-                Message m = new Message(msg)
+                MessageModel m = new MessageModel(msg)
                 {
                     Msg = "Readed",
                     type = MessageType.Response
@@ -201,7 +201,7 @@ namespace ChatApplication.Managers
         #endregion
 
         #region SendData to another Ip
-        public async static Task SendMessage(Message message, Client c)
+        public async static Task SendMessage(MessageModel message, Client c)
         {
             try
             {
@@ -224,11 +224,11 @@ namespace ChatApplication.Managers
             }
         }
 
-        public static async void SendResponseForReadedMessage(List<Message> Readedmessages, Client c)
+        public static async void SendResponseForReadedMessage(List<MessageModel> Readedmessages, Client c)
         {
             foreach (var msg in Readedmessages)
             {
-                Message m = new Message(msg)
+                MessageModel m = new MessageModel(msg)
                 {
                     type = MessageType.Response,
                     Msg = "Readed"
@@ -243,7 +243,7 @@ namespace ChatApplication.Managers
         } 
         #endregion
 
-        public static List<Message> GetMessages(string FromIp, string ToIP)
+        public static List<MessageModel> GetMessages(string FromIp, string ToIP)
         {
             return DbManager.Messages.Values.ToList().Where((msg) =>
            {

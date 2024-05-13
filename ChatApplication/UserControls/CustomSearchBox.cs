@@ -15,10 +15,11 @@ namespace ChatApplication.UserControls
     {
         public event EventHandler OnTextChange;
         public event EventHandler FocusLost;
-        
+
         private bool isUnderLine = false;
         private int borderSize = 1;
         private Color borderColor = Color.Black;
+        private Color defaultBorderColor = Color.Gray;
 
         public Font Font
         {
@@ -52,6 +53,25 @@ namespace ChatApplication.UserControls
                 Invalidate();
             }
         }
+        public Color DefaultBorderColor
+        {
+            get { return defaultBorderColor; }
+            set
+            {
+                defaultBorderColor = value;
+                Invalidate();
+            }
+        }
+        public Color PlaceHolderColor
+        {
+            get { return textBox.PlaceHolderColor; }
+            set
+            {
+                textBox.PlaceHolderColor = value;
+                textBox.ForeColor = value;
+                Invalidate();
+            }
+        }
 
         public Color SearchBackColor
         {
@@ -60,7 +80,7 @@ namespace ChatApplication.UserControls
             {
                 BackColor = value;
                 textBox.BackColor = value;
-                Invalidate();
+                TextBoxPanel.BackColor = value;
             }
         }
 
@@ -75,13 +95,16 @@ namespace ChatApplication.UserControls
                 Invalidate();
             }
         }
-        public bool IsSearchIconVisible{
-          get{
-               return  searchIconPB.Visible;
-          }
-          set{
+        public bool IsSearchIconVisible
+        {
+            get
+            {
+                return searchIconPB.Visible;
+            }
+            set
+            {
                 searchIconPB.Visible = value;
-          }
+            }
         }
         public CustomSearchBox()
         {
@@ -90,23 +113,25 @@ namespace ChatApplication.UserControls
 
             Load += CustomSearchBoxLoad;
             textBox.GotFocus += TextBoxGotFocus;
-            textBox.LostFocus +=TextBoxLostFocus;
+            textBox.LostFocus += TextBoxLostFocus;
         }
 
         private void TextBoxLostFocus(object sender, EventArgs e)
         {
             FocusLost?.Invoke(this, e);
+            textBox.ForeColor = PlaceHolderColor;
             Invalidate();
         }
 
         private void TextBoxGotFocus(object sender, EventArgs e)
         {
+            textBox.ForeColor = PlaceHolderColor;
             Invalidate();
         }
 
         private void CustomSearchBoxLoad(object sender, EventArgs e)
         {
-            textBox.ForeColor = Color.FromArgb(97,97,97);
+            textBox.ForeColor = PlaceHolderColor;
         }
 
         public GraphicsPath GetPath(Rectangle rec)
@@ -125,13 +150,12 @@ namespace ChatApplication.UserControls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-    
-                base.DoubleBuffered = true;
-                base.OnPaint(e);
-                GraphicsPath path = GetPath(ClientRectangle);
-                this.Region = new Region(path);
-                var eg = e.Graphics;
-                eg.SmoothingMode = SmoothingMode.AntiAlias;
+            base.DoubleBuffered = true;
+            base.OnPaint(e);
+            GraphicsPath path = GetPath(ClientRectangle);
+            this.Region = new Region(path);
+            var eg = e.Graphics;
+            eg.SmoothingMode = SmoothingMode.AntiAlias;
             //  using (SolidBrush brush = new SolidBrush(BackColor))
             // {
             //eg.FillPath(brush, path);
@@ -154,33 +178,35 @@ namespace ChatApplication.UserControls
                     }
                 }
             }
-            else{
+            else
+            {
                 if (isUnderLine == false)
                 {
 
-                    using (Pen Drawpen = new Pen(Color.Gray, BorderSize))
+                    using (Pen Drawpen = new Pen(DefaultBorderColor, BorderSize))
                     {
                         eg.DrawPath(Drawpen, path);
                     }
                 }
                 else
                 {
-                    using (Pen Drawpen = new Pen(Color.Gray, BorderSize))
+                    using (Pen Drawpen = new Pen(DefaultBorderColor, BorderSize))
                     {
                         eg.DrawLine(Drawpen, new Point(1, Height - BorderSize), new Point(Width - 1, Height - BorderSize));
                     }
                 }
-            }    
+            }
         }
 
         private void SearchBoxEnter(object sender, EventArgs e)
         {
-           BorderSize = 6;
+            BorderSize = 6;
         }
 
         private void TextBoxTextChanged(object sender, EventArgs e)
-      {
+        {
             PlaceholderText = textBox.Text;
+            textBox.ForeColor = PlaceHolderColor;
             OnTextChange?.Invoke(this, EventArgs.Empty);
         }
     }

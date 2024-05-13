@@ -13,6 +13,7 @@ namespace ChatApplication.UserControls
     public partial class HoverMessageU : UserControl
     {
         private string message = "Message";
+
         public string MessageText
         {
             get => message;
@@ -20,16 +21,17 @@ namespace ChatApplication.UserControls
             {
                 message = value;
                 MessageLB.Text = message;
-                this.Size = new Size(MessageLB.Width + 6, MessageLB.Height + 10);
+                Size = new Size(MessageLB.Width + 6, MessageLB.Height + 10);
                 Padding = new Padding(3, 3, 3, 3);
             }
         }
+
         public HoverMessageU()
         {
             InitializeComponent();
         }
 
-        private void HoverMessageU_Load(object sender, EventArgs e)
+        private void HoverMessageULoad(object sender, EventArgs e)
         {
 
         }

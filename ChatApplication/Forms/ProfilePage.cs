@@ -133,12 +133,16 @@ namespace ChatApplication.Forms
             {
                 if (!a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && a.Value.IsConnected)
                 {
-                    Models.Message m = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "", DateTime.Now, MessageType.ProfileUpdated);
+                    Models.MessageModel m = new Models.MessageModel(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "", DateTime.Now, MessageType.ProfileUpdated);
                     Task t = ChatApplicationNetworkManager.SendMessage(m, a.Value);
                 }
             }
             
         }
-        
+
+        private void CloseButtonMouseLeave(object sender, EventArgs e)
+        {
+            CloseButton.BackColor = Color.FromArgb(1, 164, 140);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace ChatApplication.UserControls
 {
     public partial class ContactU : UserControl
     {
-        public Image Img { get; set; } 
+        public Image Img { get; set; }
         public string UserName { get; set; } = "";
         public Client Client { get; set; }
         public string TimeLB
@@ -37,21 +37,32 @@ namespace ChatApplication.UserControls
                 return mainP.BackColor;
             }
         }
+
+        public Color TextColor
+        {
+            get { return contactInformationP.ForeColor; }
+            set
+            {
+                contactInformationP.ForeColor = value;
+                timeLB.ForeColor = value;
+            }
+        }
+
         public bool Selected { get; set; } = false;
         public event EventHandler Clicked;
 
         public ContactU(Client c)
         {
             InitializeComponent();
-            BackColor = Color.Transparent;
 
+            BackColor = Color.Transparent;
             Client = c;
             UserName = c.Name;
             Img = c.ProfilePicture;
             contactNameLB.Text = c.Name;
             dpPictureBox.Image = Img;
 
-            ChatApplication.Models.Message LastMsg = DbManager.Messages.Values.LastOrDefault(m =>
+            MessageModel LastMsg = DbManager.Messages.Values.LastOrDefault(m =>
                 {
                     return (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
                 });
@@ -61,8 +72,8 @@ namespace ChatApplication.UserControls
                 string LastMsgTime = LastMsg.Time.Hour + ":" + LastMsg.Time.Minute;
                 TimeLB = LastMsgTime;
             }
-           
-            contactInformationP.MouseEnter+= Hovering;
+
+            contactInformationP.MouseEnter += Hovering;
             timeP.MouseEnter += Hovering;
             dpPictureBox.MouseEnter += Hovering;
             contactNameLB.MouseEnter += Hovering;
@@ -82,7 +93,7 @@ namespace ChatApplication.UserControls
 
             c.StatusChanged += StatusChange;
             c.UnseenMessageChanged += UpdateUnseenMessage;
-            UpdateUnseenMessage(Client,Client.UnseenMessages);
+            UpdateUnseenMessage(Client, Client.UnseenMessages);
 
             if (c.UnseenMessages > 0)
             {
@@ -112,8 +123,8 @@ namespace ChatApplication.UserControls
 
         private void LabelClicked(object sender, EventArgs e)
         {
-            Clicked?.Invoke(Client,e);
-            ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList,Client);
+            Clicked?.Invoke(Client, e);
+            ChatApplicationNetworkManager.SendResponseForReadedMessage(Client.UnSeenMessagesList, Client);
             ChatApplicationNetworkManager.MessagePage = Client.MessagePage;
             Client.UnseenMessages = 0;
             Selected = true;
@@ -124,7 +135,7 @@ namespace ChatApplication.UserControls
             if (!Selected)
             {
                 SuspendLayout();
-                mainP.BackColor = Color.FromArgb(243,243,243);
+                mainP.BackColor = Color.FromArgb(255, MPBackColor.R, MPBackColor.G,MPBackColor.B);
                 ResumeLayout();
             }
         }
@@ -135,7 +146,7 @@ namespace ChatApplication.UserControls
             {
                 SuspendLayout();
                 Cursor = Cursors.Hand;
-                mainP.BackColor = Color.FromArgb(209, 209, 209);
+                mainP.BackColor = Color.FromArgb(128, MPBackColor.R, MPBackColor.G, MPBackColor.B);
                 ResumeLayout();
             }
         }

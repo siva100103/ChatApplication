@@ -33,6 +33,37 @@ namespace ChatApplication.UserControls
                 ProfilePicture.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
+
+        public Color OuterColor
+        {
+            get { return BackColor; }
+            set
+            {
+                HeaderPanel.BackColor = value;
+                chatSenter.SenderColor = value;
+                NameLabel.ForeColor = ChatTheme.TextColor;
+                LastSeeLabel.ForeColor = ChatTheme.TextColor;
+                MenuTip.ForeColor = ChatTheme.TextColor;
+                if(ChatTheme.Current)
+                {
+                    MenuButton.Image = Properties.Resources.icons8_menu_vertical_50;
+                }
+                else
+                {
+                    MenuButton.Image = Properties.Resources.icons8_menu_vertical_50__1_;
+                }
+            }
+        }
+
+        public Color InnerColor
+        {
+            get { return ChatPanel.BackColor; }
+            set
+            {
+                ChatPanel.BackColor = value;
+            }
+        }
+
         private FileSenderPage FileSharePage;
         public ContentForm ContactInfo;
         private MenuForm MenuF;
@@ -52,16 +83,14 @@ namespace ChatApplication.UserControls
             chatSenter.FileChoosen += FileShare;
             contact.StatusChanged += StatusChange;
             chatSenter.TextMessage = "Type a message";
-            //chatSenter.Visible = contact.IsConnected;
-            //NameLabel.Click += ProfilePictureClick;
             DoubleBuffered = true;
 
-            LastSeeLabel.Text = $"Last Seen On {(Client.LastSeen.Date.Equals(DateTime.Now.Date) ? "Today at " + Client.LastSeen.ToShortTimeString(): Client.LastSeen.Date.ToString("yyyy-MM-dd") + " at " + Client.LastSeen.ToShortTimeString())}";
+            LastSeeLabel.Text = $"Last Seen On {(Client.LastSeen.Date.Equals(DateTime.Now.Date) ? "Today at " + Client.LastSeen.ToShortTimeString() : Client.LastSeen.Date.ToString("yyyy-MM-dd") + " at " + Client.LastSeen.ToShortTimeString())}";
 
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-            List<Models.Message> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
+            List<MessageModel> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
             Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
 
             FileSharePage = new FileSenderPage
@@ -109,7 +138,7 @@ namespace ChatApplication.UserControls
 
         private void Unselected(object sender, EventArgs e)
         {
-            foreach(ChatU msg in ChatApplicationNetworkManager.SelectedMessages)
+            foreach (ChatU msg in ChatApplicationNetworkManager.SelectedMessages)
             {
                 CustomPanel parent = (CustomPanel)msg.Parent;
                 parent.BackColor = Color.Transparent;
@@ -118,7 +147,7 @@ namespace ChatApplication.UserControls
 
         public MessagePage()
         {
-            
+
         }
 
         private void StatusChange(object sender, bool status)
@@ -130,7 +159,7 @@ namespace ChatApplication.UserControls
 
         private async void SendMessage(object sender, string message)
         {
-            Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, message, DateTime.Now, MessageType.Message);
+            MessageModel msg = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, message, DateTime.Now, MessageType.Message);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
         }
@@ -139,8 +168,8 @@ namespace ChatApplication.UserControls
         {
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(message) + Path.GetExtension(message));
-            Models.Message msg = new
-                Models.Message(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, filePath,
+            MessageModel msg = new
+                MessageModel(ChatApplicationNetworkManager.LocalIpAddress, Client.IP, filePath,
                 DateTime.Now, MessageType.File);
             AddMessage(msg);
             await ChatApplicationNetworkManager.SendMessage(msg, Client);
@@ -155,7 +184,7 @@ namespace ChatApplication.UserControls
             FileSharePage.FileName = filePath;
         }
 
-        public void AddMessage(Models.Message msg)
+        public void AddMessage(MessageModel msg)
         {
             HeaderPanel.SuspendLayout();
             ChatPanel.SuspendLayout();
@@ -207,7 +236,7 @@ namespace ChatApplication.UserControls
         private void ChatMsgClicked(object sender, EventArgs e)
         {
             CustomPanel parent = (CustomPanel)(sender as ChatU).Parent;
-            if ((sender as ChatU).Message.Msg != "This Message is Deleted") 
+            if ((sender as ChatU).Message.Msg != "This Message is Deleted")
             {
                 if (parent.BackColor == Color.Transparent)
                 {
@@ -218,7 +247,7 @@ namespace ChatApplication.UserControls
                 {
                     parent.BackColor = Color.Transparent;
                     ChatApplicationNetworkManager.SelectedMessages.Remove((sender as ChatU));
-                } 
+                }
             }
         }
 
@@ -262,7 +291,7 @@ namespace ChatApplication.UserControls
                 MenuF.Visible = true;
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(NameLabel.Width - MenuButton.Width / 2, HeaderPanel.Height + 10);
-                MenuF.Location = location; 
+                MenuF.Location = location;
             }
             else
             {
@@ -272,7 +301,7 @@ namespace ChatApplication.UserControls
 
         private void ProfilePictureClick(object sender, EventArgs e)
         {
-            if (!Models.Message.ClickedInfo && !ContactInfo.Visible)
+            if (!MessageModel.ClickedInfo && !ContactInfo.Visible)
             {
                 ContactInfo.DP = ProfilePicture.Image;
                 ContactInfo.About = DbManager.Clients[Client.IP].About;
@@ -280,11 +309,9 @@ namespace ChatApplication.UserControls
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);
                 ContactInfo.Location = location;
-                Models.Message.ClickedInfo = true;
+                MessageModel.ClickedInfo = true;
             }
             ContactInfo.Focus();
         }
-
-
     }
 }

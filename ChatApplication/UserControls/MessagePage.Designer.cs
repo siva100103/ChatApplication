@@ -32,12 +32,12 @@ namespace ChatApplication.UserControls
         {
             this.MainPanel = new System.Windows.Forms.Panel();
             this.ChatPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.chatSenter = new ChatApplication.UserControls.ChatSenter();
+            this.LeftSpacePanel = new System.Windows.Forms.Panel();
             this.HeaderPanel = new System.Windows.Forms.Panel();
-            this.MenuTip = new ChatApplication.UserControls.HoverMessageU();
+            this.MenuTip = new System.Windows.Forms.Label();
             this.LastSeeLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
+            this.chatSenter = new ChatApplication.UserControls.ChatSenter();
             this.ProfilePicture = new ChatApplication.UserControls.CustomPictureBox();
             this.MenuButton = new ChatApplication.UserControls.HoverButton();
             this.MainPanel.SuspendLayout();
@@ -48,7 +48,7 @@ namespace ChatApplication.UserControls
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.MainPanel.BackColor = System.Drawing.Color.Transparent;
             this.MainPanel.Controls.Add(this.ChatPanel);
             this.MainPanel.Controls.Add(this.chatSenter);
             this.MainPanel.Controls.Add(this.HeaderPanel);
@@ -62,39 +62,25 @@ namespace ChatApplication.UserControls
             // 
             this.ChatPanel.AutoScroll = true;
             this.ChatPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
-            this.ChatPanel.Controls.Add(this.panel1);
+            this.ChatPanel.Controls.Add(this.LeftSpacePanel);
             this.ChatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ChatPanel.Location = new System.Drawing.Point(0, 61);
             this.ChatPanel.Name = "ChatPanel";
             this.ChatPanel.Size = new System.Drawing.Size(537, 458);
             this.ChatPanel.TabIndex = 3;
             // 
-            // panel1
+            // LeftSpacePanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(10, 458);
-            this.panel1.TabIndex = 0;
-            // 
-            // chatSenter
-            // 
-            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.chatSenter.ChatSenterBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatSenter.FileShareIconVisibility = false;
-            this.chatSenter.Location = new System.Drawing.Point(0, 519);
-            this.chatSenter.Name = "chatSenter";
-            this.chatSenter.SendButtonVisibility = true;
-            this.chatSenter.Size = new System.Drawing.Size(537, 39);
-            this.chatSenter.TabIndex = 5;
-            this.chatSenter.TextMessage = " ";
-            this.chatSenter.Visible = false;
+            this.LeftSpacePanel.BackColor = System.Drawing.Color.Transparent;
+            this.LeftSpacePanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LeftSpacePanel.Location = new System.Drawing.Point(0, 0);
+            this.LeftSpacePanel.Name = "LeftSpacePanel";
+            this.LeftSpacePanel.Size = new System.Drawing.Size(10, 458);
+            this.LeftSpacePanel.TabIndex = 0;
             // 
             // HeaderPanel
             // 
-            this.HeaderPanel.BackColor = System.Drawing.Color.Transparent;
+            this.HeaderPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.HeaderPanel.Controls.Add(this.MenuTip);
             this.HeaderPanel.Controls.Add(this.LastSeeLabel);
             this.HeaderPanel.Controls.Add(this.NameLabel);
@@ -109,13 +95,12 @@ namespace ChatApplication.UserControls
             // MenuTip
             // 
             this.MenuTip.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MenuTip.Location = new System.Drawing.Point(430, 0);
-            this.MenuTip.Margin = new System.Windows.Forms.Padding(2);
-            this.MenuTip.MessageText = "Menu";
+            this.MenuTip.Location = new System.Drawing.Point(427, 0);
             this.MenuTip.Name = "MenuTip";
-            this.MenuTip.Padding = new System.Windows.Forms.Padding(2, 10, 2, 2);
-            this.MenuTip.Size = new System.Drawing.Size(52, 42);
-            this.MenuTip.TabIndex = 0;
+            this.MenuTip.Size = new System.Drawing.Size(55, 42);
+            this.MenuTip.TabIndex = 10;
+            this.MenuTip.Text = "Menu";
+            this.MenuTip.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.MenuTip.Visible = false;
             // 
             // LastSeeLabel
@@ -132,12 +117,27 @@ namespace ChatApplication.UserControls
             this.NameLabel.BackColor = System.Drawing.Color.Transparent;
             this.NameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.NameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameLabel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.NameLabel.Location = new System.Drawing.Point(69, 0);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(413, 61);
             this.NameLabel.TabIndex = 2;
             this.NameLabel.Text = "label1";
             this.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chatSenter
+            // 
+            this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.chatSenter.FileShareIconVisibility = false;
+            this.chatSenter.Location = new System.Drawing.Point(0, 519);
+            this.chatSenter.Name = "chatSenter";
+            this.chatSenter.SendButtonVisibility = true;
+            this.chatSenter.SenderColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.chatSenter.Size = new System.Drawing.Size(537, 39);
+            this.chatSenter.TabIndex = 5;
+            this.chatSenter.TextMessage = " ";
+            this.chatSenter.Visible = false;
             // 
             // ProfilePicture
             // 
@@ -164,7 +164,7 @@ namespace ChatApplication.UserControls
             this.MenuButton.FlatAppearance.BorderSize = 0;
             this.MenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MenuButton.ForeColor = System.Drawing.Color.White;
-            this.MenuButton.Image = global::ChatApplication.Properties.Resources.icons8_menu_48;
+            this.MenuButton.Image = global::ChatApplication.Properties.Resources.icons8_menu_vertical_50__1_;
             this.MenuButton.IsFormUp = false;
             this.MenuButton.IsSelected = false;
             this.MenuButton.Location = new System.Drawing.Point(482, 0);
@@ -182,7 +182,7 @@ namespace ChatApplication.UserControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.Controls.Add(this.MainPanel);
             this.Name = "MessagePage";
             this.Size = new System.Drawing.Size(537, 558);
@@ -203,8 +203,8 @@ namespace ChatApplication.UserControls
         private System.Windows.Forms.Panel ChatPanel;
         private System.Windows.Forms.Label LastSeeLabel;
         private HoverButton MenuButton;
-        private HoverMessageU MenuTip;
         private ChatSenter chatSenter;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel LeftSpacePanel;
+        private System.Windows.Forms.Label MenuTip;
     }
 }

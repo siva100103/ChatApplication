@@ -32,7 +32,7 @@ namespace ChatApplication.Models
         public MessagePage MessagePage { get; set; }
         private int unSeenMessages = 0;
 
-        public List<Message> UnSeenMessagesList { get; set; } = new List<Message>();
+        public List<MessageModel> UnSeenMessagesList { get; set; } = new List<MessageModel>();
 
         public int UnseenMessages
         {

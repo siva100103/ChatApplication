@@ -33,11 +33,11 @@ namespace ChatApplication.Forms
             this.TopPanel = new System.Windows.Forms.Panel();
             this.NameLabel = new System.Windows.Forms.Label();
             this.GuideToChangeProfile = new System.Windows.Forms.Label();
-            this.ProfilePicture = new CustomPictureBox();
+            this.ProfilePicture = new ChatApplication.UserControls.CustomPictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.AboutBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.CloseButton = new HoverButton();
+            this.CloseButton = new ChatApplication.UserControls.HoverButton();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
             this.panel1.SuspendLayout();
@@ -50,7 +50,7 @@ namespace ChatApplication.Forms
             this.TopPanel.Controls.Add(this.GuideToChangeProfile);
             this.TopPanel.Controls.Add(this.ProfilePicture);
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TopPanel.Location = new System.Drawing.Point(0, 29);
+            this.TopPanel.Location = new System.Drawing.Point(0, 34);
             this.TopPanel.Name = "TopPanel";
             this.TopPanel.Size = new System.Drawing.Size(800, 276);
             this.TopPanel.TabIndex = 0;
@@ -89,12 +89,13 @@ namespace ChatApplication.Forms
             this.ProfilePicture.TabIndex = 2;
             this.ProfilePicture.TabStop = false;
             this.ProfilePicture.Click += new System.EventHandler(this.ProfilePictureClick);
+            this.ProfilePicture.MouseLeave += new System.EventHandler(this.CloseButtonMouseLeave);
             // 
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Mongolian Baiti", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 305);
+            this.label1.Location = new System.Drawing.Point(0, 310);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(800, 28);
             this.label1.TabIndex = 4;
@@ -102,8 +103,8 @@ namespace ChatApplication.Forms
             // 
             // AboutBox
             // 
-            this.AboutBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.AboutBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutBox.BackColor = System.Drawing.SystemColors.Window;
             this.AboutBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -120,7 +121,7 @@ namespace ChatApplication.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 29);
+            this.panel1.Size = new System.Drawing.Size(800, 34);
             this.panel1.TabIndex = 6;
             // 
             // CloseButton
@@ -134,6 +135,8 @@ namespace ChatApplication.Forms
             this.CloseButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.CloseButton.EndPoint = -3;
             this.CloseButton.FlatAppearance.BorderSize = 0;
+            this.CloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(224)))), ((int)(((byte)(168)))));
+            this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(209)))), ((int)(((byte)(149)))));
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseButton.ForeColor = System.Drawing.Color.White;
             this.CloseButton.Image = global::ChatApplication.Properties.Resources.icons8_close_24;
@@ -142,11 +145,12 @@ namespace ChatApplication.Forms
             this.CloseButton.Location = new System.Drawing.Point(756, 0);
             this.CloseButton.Margin = new System.Windows.Forms.Padding(2);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(44, 29);
+            this.CloseButton.Size = new System.Drawing.Size(44, 34);
             this.CloseButton.TabIndex = 10;
             this.CloseButton.TextColor = System.Drawing.Color.White;
             this.CloseButton.UseVisualStyleBackColor = false;
             this.CloseButton.Click += new System.EventHandler(this.CloseButtonClick);
+            this.CloseButton.MouseLeave += new System.EventHandler(this.CloseButtonMouseLeave);
             // 
             // ProfilePage
             // 

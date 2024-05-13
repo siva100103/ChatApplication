@@ -30,6 +30,8 @@
         {
             this.messageLB = new System.Windows.Forms.Label();
             this.ChatUBottomP = new System.Windows.Forms.Panel();
+            this.FromName = new System.Windows.Forms.Label();
+            this.FromLabel = new System.Windows.Forms.Label();
             this.StarIcon = new System.Windows.Forms.PictureBox();
             this.ChatUBottomP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StarIcon)).BeginInit();
@@ -51,6 +53,8 @@
             // ChatUBottomP
             // 
             this.ChatUBottomP.BackColor = System.Drawing.Color.Transparent;
+            this.ChatUBottomP.Controls.Add(this.FromName);
+            this.ChatUBottomP.Controls.Add(this.FromLabel);
             this.ChatUBottomP.Controls.Add(this.StarIcon);
             this.ChatUBottomP.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ChatUBottomP.Location = new System.Drawing.Point(10, 41);
@@ -60,6 +64,28 @@
             this.ChatUBottomP.Padding = new System.Windows.Forms.Padding(0, 1, 3, 2);
             this.ChatUBottomP.Size = new System.Drawing.Size(184, 14);
             this.ChatUBottomP.TabIndex = 2;
+            // 
+            // FromName
+            // 
+            this.FromName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FromName.Font = new System.Drawing.Font("Microsoft YaHei", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FromName.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.FromName.Location = new System.Drawing.Point(49, 1);
+            this.FromName.Name = "FromName";
+            this.FromName.Size = new System.Drawing.Size(96, 11);
+            this.FromName.TabIndex = 3;
+            this.FromName.Text = "name";
+            // 
+            // FromLabel
+            // 
+            this.FromLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.FromLabel.Font = new System.Drawing.Font("Microsoft YaHei", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FromLabel.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.FromLabel.Location = new System.Drawing.Point(0, 1);
+            this.FromLabel.Name = "FromLabel";
+            this.FromLabel.Size = new System.Drawing.Size(49, 11);
+            this.FromLabel.TabIndex = 2;
+            this.FromLabel.Text = "From  :-";
             // 
             // StarIcon
             // 
@@ -95,5 +121,7 @@
         private System.Windows.Forms.Label messageLB;
         private System.Windows.Forms.Panel ChatUBottomP;
         private System.Windows.Forms.PictureBox StarIcon;
+        private System.Windows.Forms.Label FromLabel;
+        private System.Windows.Forms.Label FromName;
     }
 }

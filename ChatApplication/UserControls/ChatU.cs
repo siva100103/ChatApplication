@@ -24,12 +24,12 @@ namespace ChatApplication.UserControls
         private int chatArcWidth = 10;
         private bool isNormal;
         private bool isViewed;
-        private Models.Message message;
+        private Models.MessageModel message;
         private int chatUMaximumWidth = 400;
         public string FilePath { get; set; } = "";
         public bool Starred { get; set; } = false;
 
-        public Models.Message Message
+        public Models.MessageModel Message
         {
             set
             {
@@ -81,7 +81,7 @@ namespace ChatApplication.UserControls
             set => MessageSendIconPB.Image = value;
         }
 
-        public ChatU(Models.Message message)
+        public ChatU(Models.MessageModel message)
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -103,7 +103,7 @@ namespace ChatApplication.UserControls
 
             message.IsReaded += (obj, e) =>
             {
-                Models.Message m = obj as Models.Message;
+                Models.MessageModel m = obj as Models.MessageModel;
                 if (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) MessageSendIconPB.Image = Properties.Resources.double_check__1_;
             };
         }

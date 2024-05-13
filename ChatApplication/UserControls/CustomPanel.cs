@@ -144,17 +144,18 @@ namespace ChatApplication.UserControls
         {
             base.DoubleBuffered = true;
             base.OnPaint(e);
+            var g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.CompositingQuality = CompositingQuality.HighQuality;
             GraphicsPath path = GetPath(ClientRectangle);
             this.Region = new Region(path);
-            var eg = e.Graphics;
-            eg.SmoothingMode = SmoothingMode.AntiAlias;
             //  using (SolidBrush brush = new SolidBrush(BackColor))
             // {
             //eg.FillPath(brush, path);
             // }
             using (Pen Drawpen = new Pen(borderColor, BorderMarginSize))
             {
-                eg.DrawPath(Drawpen, path);
+                g.DrawPath(Drawpen, path);
             }
 
             //this.Region = new Region(path);

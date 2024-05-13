@@ -138,7 +138,7 @@ namespace ChatApplication.UserControls
             this.timeLB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.timeLB.Location = new System.Drawing.Point(1, 1);
             this.timeLB.Name = "timeLB";
-            this.timeLB.Size = new System.Drawing.Size(62, 22);
+            this.timeLB.Size = new System.Drawing.Size(62, 15);
             this.timeLB.TabIndex = 3;
             this.timeLB.Text = "00:00";
             this.timeLB.TextAlign = System.Drawing.ContentAlignment.TopCenter;

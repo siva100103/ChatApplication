@@ -38,13 +38,14 @@ namespace ChatApplication.UserControls
             set { TextArea.Text = value; }
         }
         
-        public Color ChatSenterBackColor
+        public Color SenderColor
         {
             get { return BackColor; }
             set
             {
                 BackColor = value;
                 TextArea.BackColor = value;
+                SendButton.BackColor = value;
             }
         }
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChatApplication.Models
 {
-    public class Message
+    public class MessageModel
     {
         public String Id { get; set; }
         public string FromIP { get; set; }
@@ -24,7 +24,7 @@ namespace ChatApplication.Models
         public event EventHandler IsReaded;
 
         [JsonConstructor]
-        public Message(string FromIP, string ReceiverIP, String Msg, DateTime Time,MessageType type)
+        public MessageModel(string FromIP, string ReceiverIP, String Msg, DateTime Time,MessageType type)
         {
             Id = UniqueIdGenerator();
             this.FromIP = FromIP;
@@ -35,11 +35,11 @@ namespace ChatApplication.Models
         }
 
 
-        public Message()
+        public MessageModel()
         {
 
         }
-        public Message(Message m)
+        public MessageModel(MessageModel m)
         {
             Id = m.Id;
             FromIP = m.FromIP;
@@ -57,7 +57,7 @@ namespace ChatApplication.Models
         public void IsReadedInvoker()
         {
             Seen = true;
-            Message m = DbManager.Messages[Id];
+            MessageModel m = DbManager.Messages[Id];
             m.Seen = true;
             DbManager.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);

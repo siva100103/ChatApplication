@@ -29,7 +29,7 @@ namespace ChatApplication.UserControls
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             Rectangle r = new Rectangle(0, 0, Width - 1, Height - 1);
-            Brush b = new SolidBrush(Color.FromArgb(0, 212, 111));
+            Brush b = new SolidBrush(Color.FromArgb(66, 209, 149));
             g.FillEllipse(b, r);
 
             Brush brush = new SolidBrush(Color.FromArgb(255, 254, 246));

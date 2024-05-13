@@ -32,15 +32,15 @@ namespace ChatApplication.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.StarBtn = new HoverButton();
-            this.StatusBtn = new HoverButton();
-            this.CallsBtn = new HoverButton();
-            this.ArchivedBtn = new HoverButton();
-            this.SettingBtn = new HoverButton();
-            this.ChatsBtn = new HoverButton();
-            this.ProfilePictureBox = new CustomPictureBox();
-            this.ExitButton = new HoverButton();
-            this.DpPB = new CustomPictureBox();
+            this.StarBtn = new ChatApplication.UserControls.HoverButton();
+            this.StatusBtn = new ChatApplication.UserControls.HoverButton();
+            this.CallsBtn = new ChatApplication.UserControls.HoverButton();
+            this.ArchivedBtn = new ChatApplication.UserControls.HoverButton();
+            this.SettingBtn = new ChatApplication.UserControls.HoverButton();
+            this.ChatsBtn = new ChatApplication.UserControls.HoverButton();
+            this.ProfilePictureBox = new ChatApplication.UserControls.CustomPictureBox();
+            this.ExitButton = new ChatApplication.UserControls.HoverButton();
+            this.DpPB = new ChatApplication.UserControls.CustomPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DpPB)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +52,7 @@ namespace ChatApplication.UserControls
             this.StarBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.StarBtn.BorderRadius1 = 10;
             this.StarBtn.BorderSize1 = 0;
-            this.StarBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
+            this.StarBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(209)))), ((int)(((byte)(149)))));
             this.StarBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.StarBtn.EndPoint = -3;
             this.StarBtn.FlatAppearance.BorderSize = 0;
@@ -152,7 +152,7 @@ namespace ChatApplication.UserControls
             this.SettingBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.SettingBtn.BorderRadius1 = 10;
             this.SettingBtn.BorderSize1 = 0;
-            this.SettingBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
+            this.SettingBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(211)))), ((int)(((byte)(57)))));
             this.SettingBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.SettingBtn.EndPoint = -3;
             this.SettingBtn.FlatAppearance.BorderSize = 0;
@@ -177,7 +177,7 @@ namespace ChatApplication.UserControls
             this.ChatsBtn.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.ChatsBtn.BorderRadius1 = 10;
             this.ChatsBtn.BorderSize1 = 0;
-            this.ChatsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(211)))), ((int)(((byte)(57)))));
+            this.ChatsBtn.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(209)))), ((int)(((byte)(149)))));
             this.ChatsBtn.Dock = System.Windows.Forms.DockStyle.Top;
             this.ChatsBtn.EndPoint = 24;
             this.ChatsBtn.FlatAppearance.BorderSize = 0;
@@ -216,10 +216,12 @@ namespace ChatApplication.UserControls
             this.ExitButton.BorderColor = System.Drawing.Color.Transparent;
             this.ExitButton.BorderRadius1 = 2;
             this.ExitButton.BorderSize1 = 0;
-            this.ExitButton.ButtonSideHoverlineColor = System.Drawing.Color.Red;
+            this.ExitButton.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(58)))), ((int)(((byte)(39)))));
             this.ExitButton.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ExitButton.EndPoint = 24;
             this.ExitButton.FlatAppearance.BorderSize = 0;
+            this.ExitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(58)))), ((int)(((byte)(39)))));
+            this.ExitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.ForeColor = System.Drawing.Color.White;
             this.ExitButton.Image = global::ChatApplication.Properties.Resources.icons8_log_out_32__2_;

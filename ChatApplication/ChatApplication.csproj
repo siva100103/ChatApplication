@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatTheme.cs" />
     <Compile Include="Managers\DbManager.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
@@ -312,8 +313,9 @@
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Forms\.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserControls\MenuControl.cs">
       <SubType>UserControl</SubType>
@@ -321,7 +323,7 @@
     <Compile Include="UserControls\MenuControl.designer.cs">
       <DependentUpon>MenuControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageModel.cs" />
     <Compile Include="UserControls\MessagePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -559,6 +561,11 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-menu-vertical-50 %281%29.png" />
+    <None Include="Resources\icons8-menu-vertical-50.png" />
+    <None Include="Resources\icons8-menu-vertical-100.png" />
+    <None Include="Resources\icons8-menu-80.png" />
+    <None Include="Resources\icons8-menu-16.png" />
     <None Include="Resources\icons8-wechat-48.png" />
     <None Include="Resources\icons8-wechat-48.ico" />
     <None Include="Resources\Image1.bmp" />

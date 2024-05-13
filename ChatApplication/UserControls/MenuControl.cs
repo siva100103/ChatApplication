@@ -22,6 +22,7 @@ namespace ChatApplication.UserControls
             get { return ProfilePictureBox.Visible; }
             set { ProfilePictureBox.Visible = value; }
         }
+
         public Image ProfileImage
         {
             get { return ProfilePictureBox.Image; }
@@ -29,6 +30,20 @@ namespace ChatApplication.UserControls
             {
                 ProfilePictureBox.Image = value;
                 ProfilePictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+
+        public Color HoverSideColor
+        {
+            get { return ChatsBtn.ButtonSideHoverlineColor; }
+            set
+            {
+                ChatsBtn.ButtonSideHoverlineColor = value;
+                ChatsBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(200, BackColor.R+10,BackColor.G+10,BackColor.B+10);
+                ChatsBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R+10,BackColor.G+10,BackColor.B+10);
+                ExitButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(128, Color.Red);
+                ExitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R+10,BackColor.G+10,BackColor.B+10);
+                
             }
         }
 
@@ -248,7 +263,7 @@ namespace ChatApplication.UserControls
 
         private void ProfilePictureBoxMouseEnter(object sender, EventArgs e)
         {
-            ProfilePictureBox.BackColor = Color.FromArgb(218, 223, 235);
+            ProfilePictureBox.BackColor = ChatsBtn.FlatAppearance.MouseOverBackColor;
         }
 
         private void ProfilePictureBoxMouseLeave(object sender, EventArgs e)

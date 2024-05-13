@@ -14,7 +14,7 @@ namespace ChatApplication.Managers
 {
     public static class DbManager
     {
-        public static Dictionary<string, Message> Messages { get; set; } = new Dictionary<string, Message>();
+        public static Dictionary<string, MessageModel> Messages { get; set; } = new Dictionary<string, MessageModel>();
         public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
 
         private static DatabaseManager LocalDbManager = new MySqlHandler();
@@ -167,7 +167,7 @@ namespace ChatApplication.Managers
             {
                 for (int i = 0; i < a.Value["Id"].Count; i++)
                 {
-                    Message m = new Message()
+                    MessageModel m = new MessageModel()
                     {
                         Id = a.Value["Id"][i].ToString(),
                         FromIP = a.Value["FromIP"][i].ToString(),
@@ -185,7 +185,7 @@ namespace ChatApplication.Managers
             }
         }
 
-        public static void CreateMessage(Message m)
+        public static void CreateMessage(MessageModel m)
         {
             ParameterData[] data = new ParameterData[] {
                 new ParameterData("Id", m.Id),
@@ -200,7 +200,7 @@ namespace ChatApplication.Managers
             Messages.Add(m.Id, m);
         }
 
-        public static void UpdateMessage(Message m)
+        public static void UpdateMessage(MessageModel m)
         {
             string condition = $"Id='{m.Id}'";
             ParameterData[] data = new ParameterData[] {
@@ -228,7 +228,7 @@ namespace ChatApplication.Managers
             }
         }
 
-        public static void StarMessages(Message message)
+        public static void StarMessages(MessageModel message)
         {
             string condition = $"Id = '{message.Id}'";
             ParameterData[] data = new ParameterData[]

@@ -70,11 +70,11 @@ namespace ChatApplication.Forms
         {
             if (Visible)
             {
-                Models.Message.ClickedInfo = true;
+                Models.MessageModel.ClickedInfo = true;
                 Focus();
             }
             Visible = false;
-            Models.Message.ClickedInfo = false;
+            Models.MessageModel.ClickedInfo = false;
         }
 
         private void ContactMouseEnter(object sender, EventArgs e)

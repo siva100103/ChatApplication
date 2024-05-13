@@ -87,12 +87,13 @@ namespace ChatApplication.Forms
                 string toBeCopied = "";
                 foreach (ChatU msg in ChatApplicationNetworkManager.SelectedMessages)
                 {
-                    toBeCopied += msg.Message.Msg;
+                    toBeCopied += msg.Message.Msg + " ";
                 }
 
                 Clipboard.SetText(toBeCopied);
             }
             Hide();
+            ChatApplicationNetworkManager.SelectedMessages.Clear();
         }
 
         private void StarLabelClick(object sender, EventArgs e)

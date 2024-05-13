@@ -60,10 +60,11 @@ namespace ChatApplication.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.MessageLB);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HoverMessageU";
-            this.Size = new System.Drawing.Size(127, 34);
-            this.Load += new System.EventHandler(this.HoverMessageU_Load);
+            this.Size = new System.Drawing.Size(67, 30);
+            this.Load += new System.EventHandler(this.HoverMessageULoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 

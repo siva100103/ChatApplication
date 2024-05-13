@@ -35,6 +35,8 @@ namespace ChatApplication.Forms
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
         private MessagePage CurrentlySelected;
+        private int StarMessageCount = 1;
+        private bool theme = false;
 
         public MainForm()
         {
@@ -45,6 +47,11 @@ namespace ChatApplication.Forms
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            //Setting Color Scheme
+            ChatTheme.SetTheme(theme);
+            HoverColorControl();
+
             StarMainPanel.Width = ChatPanel.Width;
             MainPanel.Visible = false;
             SideMenuBar.Visible = false;
@@ -80,14 +87,12 @@ namespace ChatApplication.Forms
                 Dock = DockStyle.Fill
             };
             Controls.Add(Loading);
-            Loading.Disposed += (sender,e)=>
+            Loading.Disposed += (sender, e) =>
             {
                 MainPanel.Visible = true;
                 SideMenuBar.Visible = true;
             };
         }
-
-       
 
         private void LabelsAdder()
         {
@@ -113,24 +118,36 @@ namespace ChatApplication.Forms
 
         }
 
-        private void AddToStarredMessages(Models.Message message)
+        private void AddToStarredMessages(MessageModel message)
         {
             SuspendLayout();
             StarredMessages chat = new StarredMessages(message)
             {
                 Dock = DockStyle.Top,
+                Name = StarMessageCount.ToString(),
                 BackColor = Color.FromArgb(247, 247, 247)
             };
             StarPanel.Controls.Add(chat);
             chat.BringToFront();
+            chat.Disposed += ChatDisposed;
+
             Panel space = new Panel()
             {
                 Dock = DockStyle.Top,
+                Name = (int.Parse(chat.Name) + 1).ToString(),
                 Height = 8
             };
             StarPanel.Controls.Add(space);
             space.BringToFront();
+            StarMessageCount += 2;
             ResumeLayout();
+        }
+
+        private void ChatDisposed(object sender, EventArgs e)
+        {
+            int id = int.Parse((sender as StarredMessages).Name);
+
+            StarPanel.Controls.RemoveByKey((id + 1).ToString());
         }
 
         private void EventSubscriber()
@@ -142,15 +159,14 @@ namespace ChatApplication.Forms
 
             SideMenuBar.ControlClicked += SideMenuBarControlClicked;
             ChatApplicationNetworkManager.Inform += AddNewLabelForNewUser;
-            ChatApplicationNetworkManager.ProfileUpdateInformer += ChatApplicationNetworkManager_ProfileUpdateInformer;
+            ChatApplicationNetworkManager.ProfileUpdateInformer += ProfileUpdater;
         }
 
         private void ProfileSetter()
         {
-            #region My Profile
             MyProfile = new ProfilePage
             {
-                Size = new Size((Width * 74) / 100, (Height * 62) / 100),
+                Size = new Size((Width * 74) / 100, (Height * 64) / 100),
                 StartPosition = FormStartPosition.Manual,
                 UserName = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
             };
@@ -165,27 +181,24 @@ namespace ChatApplication.Forms
                 MyProfile.ProfilePhoto = SideMenuBar.ProfileImage;
             }
             MyProfile.About = me.About;
-            #endregion
         }
 
         private async void SendOpenMessage()
         {
             foreach (var clt in DbManager.Clients.Values)
             {
-                Models.Message message = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, clt.IP, "Open", DateTime.Now, MessageType.Response);
+                MessageModel message = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, clt.IP, "Open", DateTime.Now, MessageType.Response);
                 await ChatApplicationNetworkManager.SendMessage(message, clt);
                 if (clt.IsConnected)
                     clt.StatusChanger(true);
                 else clt.StatusChanger(false);
             }
-        } 
+        }
         #endregion
 
-
-
-        private void ChatApplicationNetworkManager_ProfileUpdateInformer(Client c)
-       {
-            ContactU cu = Contacts.Find((cu1)=>cu1.Client==c);
+        private void ProfileUpdater(Client c)
+        {
+            ContactU cu = Contacts.Find((cu1) => cu1.Client == c);
             cu.UpdateDetais();
         }
 
@@ -194,7 +207,7 @@ namespace ChatApplication.Forms
             MyProfile.Hide();
             click = false;
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
-            me.About = MyProfile.Text;
+            me.About = MyProfile.About;
             DbManager.UpdateClient(me);
         }
 
@@ -243,7 +256,7 @@ namespace ChatApplication.Forms
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
-            
+
             if (!MyProfile.Visible && !click)
             {
                 Point location = PointToScreen(SideMenuBar.Location);
@@ -288,22 +301,22 @@ namespace ChatApplication.Forms
             {
                 if (contact.Client.IP != Current.IP)
                 {
-                    contact.MPBackColor = Color.FromArgb(243, 243, 243);
+                    contact.MPBackColor = ChatTheme.ContactsColor;
                     contact.Selected = false;
                 }
                 else
                 {
-                    contact.MPBackColor = Color.FromArgb(229, 227, 222);
+                    contact.MPBackColor = ChatTheme.CurrentlySelectedColor;
                     contact.Selected = true;
                 }
             }
         }
-        
+
         private void StarredMessagesList(object sender, List<ChatU> selected)
         {
             foreach (ChatU message in selected)
             {
-                if (!message.Starred)
+                if (!message.Message.Starred)
                 {
                     AddToStarredMessages(message.Message);
                 }
@@ -376,13 +389,13 @@ namespace ChatApplication.Forms
             //Sending Close Message...
             foreach (var a in DbManager.Clients)
             {
-                Models.Message msg = new Models.Message(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
+                MessageModel msg = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
                 if (a.Value.IsConnected)
                 {
                     await ChatApplicationNetworkManager.SendMessage(msg, a.Value);
                 }
             }
-            
+
         }
 
         protected override CreateParams CreateParams
@@ -393,6 +406,67 @@ namespace ChatApplication.Forms
                 cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
                 return cp;
             }
+        }
+
+        private void HoverColorControl()
+        {
+            SuspendLayout();
+            OptionButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, ChatTheme.ContactsColor);
+            OptionButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(180, ChatTheme.ContactsColor);
+            StarMessageButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, ChatTheme.ContactsColor);
+            StarMessageButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(180, ChatTheme.ContactsColor);
+            StarBackButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(50, ChatTheme.BorderColor);
+            StarBackButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(200, ChatTheme.BorderColor);
+
+            SideMenuBar.HoverSideColor = ChatTheme.BorderColor;
+            ResumeLayout();
+        }
+
+        private void ChatLabelClick(object sender, EventArgs e)
+        {
+            ChatTheme.SetTheme(!theme);
+            theme = !theme;
+
+            SuspendLayout();
+            //OuterLayer
+            SideMenuBar.BackColor = ChatTheme.OuterLayerColor;
+            MessagePageTopPanel.BackColor = ChatTheme.OuterLayerColor;
+
+            //InnerLayer
+            ChatContainer.BackColor = ChatTheme.InnerLayerColor;
+            SearchBox.SearchBackColor = ChatTheme.InnerLayerColor;
+            ChatLabel.ForeColor = ChatTheme.TextColor;
+            SearchBox.PlaceHolderColor = ChatTheme.TextColor;
+            SearchBox.DefaultBorderColor = theme ? Color.FromArgb(30, 30, 30) : Color.Gray;
+            SearchBox.BorderColor = ChatTheme.BorderColor;
+            ChatPanel.BackColor = ChatTheme.ContactBackgroundColor;
+            BackColor = ChatTheme.ContactBackgroundColor;
+            MessagePagePanel.BackColor = ChatTheme.MessagePageColor;
+
+            //Hover Buttons
+            HoverColorControl();
+
+            //BorderColor
+            BorderPanel.BackColor = ChatTheme.BorderColor;
+            StarMessageTopPanel.BackColor = Color.FromArgb(128, ChatTheme.BorderColor);
+
+            //Contact List
+            foreach (ContactU contact in Contacts)
+            {
+                contact.TextColor = ChatTheme.TextColor;
+                contact.Client.MessagePage.OuterColor = ChatTheme.ContactsColor;
+                contact.Client.MessagePage.InnerColor = ChatTheme.MessagePageColor;
+                if (Current != null && contact.Client.IP == Current.IP)
+                {
+                    contact.MPBackColor = ChatTheme.CurrentlySelectedColor;
+                }
+                else
+                {
+                    contact.MPBackColor = ChatTheme.ContactsColor;
+
+                }
+            }
+            ResumeLayout();
         }
     }
 }

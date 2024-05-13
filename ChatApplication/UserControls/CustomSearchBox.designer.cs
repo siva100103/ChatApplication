@@ -28,23 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox = new PlaceHolderTextBox();
+            this.TextBoxPanel = new System.Windows.Forms.Panel();
             this.searchIconPB = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
+            this.textBox = new ChatApplication.UserControls.PlaceHolderTextBox();
+            this.TextBoxPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchIconPB)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // TextBoxPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
-            this.panel1.Controls.Add(this.textBox);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(49, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(2, 4, 2, 2);
-            this.panel1.Size = new System.Drawing.Size(257, 35);
-            this.panel1.TabIndex = 2;
+            this.TextBoxPanel.BackColor = System.Drawing.Color.Transparent;
+            this.TextBoxPanel.Controls.Add(this.textBox);
+            this.TextBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextBoxPanel.Location = new System.Drawing.Point(49, 4);
+            this.TextBoxPanel.Name = "TextBoxPanel";
+            this.TextBoxPanel.Padding = new System.Windows.Forms.Padding(2, 4, 2, 2);
+            this.TextBoxPanel.Size = new System.Drawing.Size(257, 35);
+            this.TextBoxPanel.TabIndex = 2;
+            // 
+            // searchIconPB
+            // 
+            this.searchIconPB.Dock = System.Windows.Forms.DockStyle.Left;
+            this.searchIconPB.Image = global::ChatApplication.Properties.Resources.icons8_search_19;
+            this.searchIconPB.Location = new System.Drawing.Point(4, 4);
+            this.searchIconPB.Name = "searchIconPB";
+            this.searchIconPB.Size = new System.Drawing.Size(45, 35);
+            this.searchIconPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.searchIconPB.TabIndex = 0;
+            this.searchIconPB.TabStop = false;
             // 
             // textBox
             // 
@@ -64,27 +75,16 @@
             this.textBox.Text = "Search or start new chat";
             this.textBox.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
-            // searchIconPB
-            // 
-            this.searchIconPB.Dock = System.Windows.Forms.DockStyle.Left;
-            this.searchIconPB.Image = global::ChatApplication.Properties.Resources.icons8_search_19;
-            this.searchIconPB.Location = new System.Drawing.Point(4, 4);
-            this.searchIconPB.Name = "searchIconPB";
-            this.searchIconPB.Size = new System.Drawing.Size(45, 35);
-            this.searchIconPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.searchIconPB.TabIndex = 0;
-            this.searchIconPB.TabStop = false;
-            // 
             // CustomSearchBox
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.TextBoxPanel);
             this.Controls.Add(this.searchIconPB);
             this.Name = "CustomSearchBox";
             this.Padding = new System.Windows.Forms.Padding(4);
             this.Size = new System.Drawing.Size(310, 43);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.TextBoxPanel.ResumeLayout(false);
+            this.TextBoxPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchIconPB)).EndInit();
             this.ResumeLayout(false);
 
@@ -96,6 +96,6 @@
 
         private System.Windows.Forms.PictureBox searchIconPB;
         private PlaceHolderTextBox textBox;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel TextBoxPanel;
     }
 }

@@ -15,7 +15,7 @@ namespace ChatApplication.UserControls
 {
     public class HoverButton : EllipseButton
     {
-        private Color buttonSideHoverlineColor = ColorTranslator.FromHtml("#1B8755");
+        private Color buttonSideHoverlineColor = Color.FromArgb(9, 211, 57);
         private bool isFormUp;
         private bool isSelected;
         private int startPoint = -3;
@@ -44,24 +44,27 @@ namespace ChatApplication.UserControls
 
         public int EndPoint { get => endPoint; set => endPoint = value; }
         public bool IsFormUp { get => isFormUp; set => isFormUp = value; }
-        public Color ButtonSideHoverlineColor { get => buttonSideHoverlineColor; set => buttonSideHoverlineColor = value; }
+        public Color ButtonSideHoverlineColor
+        {
+            get => buttonSideHoverlineColor;
+
+            set
+            {
+                buttonSideHoverlineColor = value;
+                Invalidate();
+            }
+        }
 
         public HoverButton()
         {
 
             MouseClick += SideLineEffectMouseClick;
             Resize += ButtonResize;
-            timer = new System.Windows.Forms.Timer
-            {
-                Interval = 5
-            };
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 5;
 
         }
-        protected override void OnMouseHover(EventArgs e)
-        {
-            base.OnMouseHover(e);
-            BackColor = Color.Transparent;
-        }
+
         private void ButtonResize(object sender, EventArgs e)
         {
             if (isSelected)
@@ -87,6 +90,8 @@ namespace ChatApplication.UserControls
         }
         private void SideLineEffectMouseClick(object sender, MouseEventArgs e)
         {
+
+
             timer.Interval = 1;
             if (!isSelected)
             {
@@ -104,6 +109,7 @@ namespace ChatApplication.UserControls
                 }
                 timer.Start();
             }
+
         }
 
         private void SideLineEffectCome(object sender, EventArgs e)
@@ -112,7 +118,7 @@ namespace ChatApplication.UserControls
             {
                 if (endPoint < (((Height / 4) - 2) * 3))
                 {
-                    endPoint = endPoint + 2;
+                    endPoint = endPoint + Height / 10;
                     Invalidate();
                 }
                 else
@@ -127,7 +133,7 @@ namespace ChatApplication.UserControls
             {
                 if (startPoint > (Height / 4 + 2))
                 {
-                    startPoint = startPoint - 2;
+                    startPoint = startPoint - Height / 10;
                     Invalidate();
                 }
                 else
@@ -146,7 +152,7 @@ namespace ChatApplication.UserControls
             {
                 if (startPoint > -3)
                 {
-                    startPoint = startPoint - 2;
+                    startPoint = startPoint - Height / 10;
                     Invalidate();
                 }
                 else
@@ -163,7 +169,7 @@ namespace ChatApplication.UserControls
             {
                 if (endPoint < Height)
                 {
-                    endPoint = endPoint + 2;
+                    endPoint = endPoint + Height / 10;
                     Invalidate();
                 }
                 else
@@ -177,6 +183,7 @@ namespace ChatApplication.UserControls
 
             }
         }
+
 
         private GraphicsPath GetFigurePath()
         {
@@ -207,8 +214,21 @@ namespace ChatApplication.UserControls
             {
                 e.FillPath(brush, path);
             }
+
         }
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // HoverButton
+            // 
+            this.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BackgroudColor = System.Drawing.Color.CornflowerBlue;
+            this.FlatAppearance.BorderSize = 0;
+            this.ResumeLayout(false);
+
+        }
     }
 }
 
