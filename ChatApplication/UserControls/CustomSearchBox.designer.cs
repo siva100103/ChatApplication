@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.TextBoxPanel = new System.Windows.Forms.Panel();
-            this.searchIconPB = new System.Windows.Forms.PictureBox();
             this.textBox = new ChatApplication.UserControls.PlaceHolderTextBox();
+            this.SearchIcon = new System.Windows.Forms.PictureBox();
             this.TextBoxPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.searchIconPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SearchIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // TextBoxPanel
@@ -45,17 +45,6 @@
             this.TextBoxPanel.Padding = new System.Windows.Forms.Padding(2, 4, 2, 2);
             this.TextBoxPanel.Size = new System.Drawing.Size(257, 35);
             this.TextBoxPanel.TabIndex = 2;
-            // 
-            // searchIconPB
-            // 
-            this.searchIconPB.Dock = System.Windows.Forms.DockStyle.Left;
-            this.searchIconPB.Image = global::ChatApplication.Properties.Resources.icons8_search_19;
-            this.searchIconPB.Location = new System.Drawing.Point(4, 4);
-            this.searchIconPB.Name = "searchIconPB";
-            this.searchIconPB.Size = new System.Drawing.Size(45, 35);
-            this.searchIconPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.searchIconPB.TabIndex = 0;
-            this.searchIconPB.TabStop = false;
             // 
             // textBox
             // 
@@ -75,17 +64,28 @@
             this.textBox.Text = "Search or start new chat";
             this.textBox.TextChanged += new System.EventHandler(this.TextBoxTextChanged);
             // 
+            // SearchIcon
+            // 
+            this.SearchIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.SearchIcon.Image = global::ChatApplication.Properties.Resources.icons8_search_19;
+            this.SearchIcon.Location = new System.Drawing.Point(4, 4);
+            this.SearchIcon.Name = "SearchIcon";
+            this.SearchIcon.Size = new System.Drawing.Size(45, 35);
+            this.SearchIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.SearchIcon.TabIndex = 0;
+            this.SearchIcon.TabStop = false;
+            // 
             // CustomSearchBox
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
             this.Controls.Add(this.TextBoxPanel);
-            this.Controls.Add(this.searchIconPB);
+            this.Controls.Add(this.SearchIcon);
             this.Name = "CustomSearchBox";
             this.Padding = new System.Windows.Forms.Padding(4);
             this.Size = new System.Drawing.Size(310, 43);
             this.TextBoxPanel.ResumeLayout(false);
             this.TextBoxPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.searchIconPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SearchIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -94,7 +94,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox searchIconPB;
+        private System.Windows.Forms.PictureBox SearchIcon;
         private PlaceHolderTextBox textBox;
         private System.Windows.Forms.Panel TextBoxPanel;
     }

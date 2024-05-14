@@ -517,9 +517,6 @@
     <None Include="Resources\Screenshot 2024-01-27 130201.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-align-left-19.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-contact-28 %281%29.png" />
   </ItemGroup>
   <ItemGroup>
@@ -561,6 +558,17 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-search-19 white.png" />
+    <None Include="Resources\icons8-macos-close-22.png" />
+    <None Include="Resources\icons8-macos-close-22 white.png" />
+    <None Include="Resources\icons8-chat white-22.png" />
+    <None Include="Resources\chat dark icon.jpeg" />
+    <None Include="Resources\WhatsApp Image 2024-05-14 at 10.13.13 AM %281%29.jpeg" />
+    <None Include="Resources\icons8-star-22White.png" />
+    <None Include="Resources\icons8-align-left-19 Black.png" />
+    <None Include="Resources\icons8-align-left-19.png" />
+    <None Include="Resources\icons8-align-left-192.png" />
+    <None Include="Resources\icons8-align-left-48.png" />
     <None Include="Resources\icons8-menu-vertical-50 %281%29.png" />
     <None Include="Resources\icons8-menu-vertical-50.png" />
     <None Include="Resources\icons8-menu-vertical-100.png" />

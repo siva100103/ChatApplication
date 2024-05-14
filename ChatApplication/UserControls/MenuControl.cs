@@ -33,6 +33,24 @@ namespace ChatApplication.UserControls
             }
         }
 
+        public Image ChatSymbol
+        {
+            get { return ChatsBtn.Image; }
+            set
+            {
+                ChatsBtn.Image = value;
+            }
+        }
+
+        public Image ExitSymbol
+        {
+            get { return ExitButton.Image; }
+            set
+            {
+                ExitButton.Image = value;
+            }
+        }
+
         public Color HoverSideColor
         {
             get { return ChatsBtn.ButtonSideHoverlineColor; }

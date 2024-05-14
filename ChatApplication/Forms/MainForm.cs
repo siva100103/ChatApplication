@@ -50,7 +50,7 @@ namespace ChatApplication.Forms
 
             //Setting Color Scheme
             ChatTheme.SetTheme(theme);
-            HoverColorControl();
+            ControlsColorOnThemeChange();
 
             StarMainPanel.Width = ChatPanel.Width;
             MainPanel.Visible = false;
@@ -166,7 +166,7 @@ namespace ChatApplication.Forms
         {
             MyProfile = new ProfilePage
             {
-                Size = new Size((Width * 74) / 100, (Height * 64) / 100),
+                Size = new Size((Width * 74) / 100, (Height * 62) / 100),
                 StartPosition = FormStartPosition.Manual,
                 UserName = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress].Name,
             };
@@ -323,7 +323,7 @@ namespace ChatApplication.Forms
             }
         }
 
-        private void OptionButtonClick(object sender, EventArgs e)
+        private void LeftAlignButtonClick(object sender, EventArgs e)
         {
             MessagePagePanel.SuspendLayout();
             ChatPanel.SuspendLayout();
@@ -408,18 +408,24 @@ namespace ChatApplication.Forms
             }
         }
 
-        private void HoverColorControl()
+        private void ControlsColorOnThemeChange()
         {
-            SuspendLayout();
-            OptionButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, ChatTheme.ContactsColor);
-            OptionButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(180, ChatTheme.ContactsColor);
+            MainPanel.SuspendLayout();
+            LeftAlignButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, ChatTheme.ContactsColor);
+            LeftAlignButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(180, ChatTheme.ContactsColor);
             StarMessageButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, ChatTheme.ContactsColor);
             StarMessageButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(180, ChatTheme.ContactsColor);
             StarBackButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(50, ChatTheme.BorderColor);
             StarBackButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(200, ChatTheme.BorderColor);
-
             SideMenuBar.HoverSideColor = ChatTheme.BorderColor;
-            ResumeLayout();
+
+            LeftAlignButton.Image = ChatTheme.LeftAlign;
+            StarMessageButton.Image = ChatTheme.StarMessage;
+            SideMenuBar.ChatSymbol = ChatTheme.ChatIcon;
+            SideMenuBar.ExitSymbol = ChatTheme.ExitIcon;
+            SearchBox.SearchSymbol = ChatTheme.SearchIcon;
+
+            MainPanel.ResumeLayout();
         }
 
         private void ChatLabelClick(object sender, EventArgs e)
@@ -444,7 +450,7 @@ namespace ChatApplication.Forms
             MessagePagePanel.BackColor = ChatTheme.MessagePageColor;
 
             //Hover Buttons
-            HoverColorControl();
+            ControlsColorOnThemeChange();
 
             //BorderColor
             BorderPanel.BackColor = ChatTheme.BorderColor;
@@ -456,6 +462,7 @@ namespace ChatApplication.Forms
                 contact.TextColor = ChatTheme.TextColor;
                 contact.Client.MessagePage.OuterColor = ChatTheme.ContactsColor;
                 contact.Client.MessagePage.InnerColor = ChatTheme.MessagePageColor;
+                contact.Client.MessagePage.MessageThemeSet();
                 if (Current != null && contact.Client.IP == Current.IP)
                 {
                     contact.MPBackColor = ChatTheme.CurrentlySelectedColor;

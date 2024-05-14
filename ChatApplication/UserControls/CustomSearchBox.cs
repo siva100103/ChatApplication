@@ -21,6 +21,15 @@ namespace ChatApplication.UserControls
         private Color borderColor = Color.Black;
         private Color defaultBorderColor = Color.Gray;
 
+        public Image SearchSymbol
+        {
+            get { return SearchIcon.Image; }
+            set
+            {
+                SearchIcon.Image = value;
+            }
+        }
+
         public Font Font
         {
             get { return textBox.Font; }
@@ -99,11 +108,11 @@ namespace ChatApplication.UserControls
         {
             get
             {
-                return searchIconPB.Visible;
+                return SearchIcon.Visible;
             }
             set
             {
-                searchIconPB.Visible = value;
+                SearchIcon.Visible = value;
             }
         }
         public CustomSearchBox()

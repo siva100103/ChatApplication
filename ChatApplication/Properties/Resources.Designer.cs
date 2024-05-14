@@ -123,6 +123,16 @@ namespace ChatApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap chat_dark_icon {
+            get {
+                object obj = ResourceManager.GetObject("chat dark icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap double_check__1_ {
             get {
                 object obj = ResourceManager.GetObject("double_check__1_", resourceCulture);
@@ -193,6 +203,26 @@ namespace ChatApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_align_left_19_Black {
+            get {
+                object obj = ResourceManager.GetObject("icons8-align-left-19 Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_align_left_48 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-align-left-48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_box_22 {
             get {
                 object obj = ResourceManager.GetObject("icons8_box_22", resourceCulture);
@@ -206,6 +236,16 @@ namespace ChatApplication.Properties {
         internal static System.Drawing.Bitmap icons8_chat_22 {
             get {
                 object obj = ResourceManager.GetObject("icons8_chat_22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_chat_white_22 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-chat white-22", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -423,6 +463,26 @@ namespace ChatApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_macos_close_22 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-macos-close-22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_macos_close_22_white {
+            get {
+                object obj = ResourceManager.GetObject("icons8-macos-close-22 white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_menu_16 {
             get {
                 object obj = ResourceManager.GetObject("icons8-menu-16", resourceCulture);
@@ -613,6 +673,16 @@ namespace ChatApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_search_19_white {
+            get {
+                object obj = ResourceManager.GetObject("icons8-search-19 white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_sent_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-sent-64", resourceCulture);
@@ -646,6 +716,16 @@ namespace ChatApplication.Properties {
         internal static System.Drawing.Bitmap icons8_star_22 {
             get {
                 object obj = ResourceManager.GetObject("icons8_star_22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_star_22White {
+            get {
+                object obj = ResourceManager.GetObject("icons8-star-22White", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -846,6 +926,16 @@ namespace ChatApplication.Properties {
         internal static System.Drawing.Bitmap user__7_ {
             get {
                 object obj = ResourceManager.GetObject("user (7)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WhatsApp_Image_2024_05_14_at_10_13_13_AM__1_ {
+            get {
+                object obj = ResourceManager.GetObject("WhatsApp Image 2024-05-14 at 10.13.13 AM (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

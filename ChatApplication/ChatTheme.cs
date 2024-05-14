@@ -19,6 +19,14 @@ namespace ChatApplication
         public static Color CurrentlySelectedColor;
         public static Color BorderColor;
         public static Color TextColor;
+        public static Color SentColor;
+        public static Color ReceivedColor;
+
+        public static Image LeftAlign;
+        public static Image StarMessage;
+        public static Image ChatIcon;
+        public static Image ExitIcon;
+        public static Image SearchIcon;
 
         public static void SetTheme(bool dark)
         {
@@ -33,6 +41,14 @@ namespace ChatApplication
                 BorderColor = Color.FromArgb(211, 137, 242);
                 TextColor = Color.WhiteSmoke;
                 CurrentlySelectedColor = Color.FromArgb(97, 97, 97);
+                SentColor = Color.FromArgb(211, 167, 242);
+                ReceivedColor = Color.WhiteSmoke;
+
+                LeftAlign = Properties.Resources.icons8_align_left_19;
+                StarMessage = Properties.Resources.icons8_star_22White;
+                ChatIcon = Properties.Resources.icons8_chat_white_22;
+                ExitIcon = Properties.Resources.icons8_macos_close_22_white;
+                SearchIcon = Properties.Resources.icons8_search_19_white;
             }
             else
             {
@@ -44,6 +60,14 @@ namespace ChatApplication
                 BorderColor = Color.FromArgb(66, 209, 149);
                 TextColor = Color.Black;
                 CurrentlySelectedColor = Color.FromArgb(229, 227, 222);
+                SentColor = Color.FromArgb(210, 254, 214);
+                ReceivedColor = Color.White;
+
+                LeftAlign = Properties.Resources.icons8_align_left_19_Black;
+                StarMessage = Properties.Resources.icons8_star_22;
+                ChatIcon = Properties.Resources.icons8_chat_22;
+                ExitIcon = Properties.Resources.icons8_macos_close_22;
+                SearchIcon = Properties.Resources.icons8_search_19;
             }
         }
     }

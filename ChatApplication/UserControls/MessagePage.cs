@@ -23,6 +23,7 @@ namespace ChatApplication.UserControls
     {
         public Client Client { get; set; }
         public event EventHandler<List<ChatU>> StarredMessages;
+        private List<ChatU> Messages = new List<ChatU>();
 
         public Image ProfileImage
         {
@@ -74,6 +75,7 @@ namespace ChatApplication.UserControls
             DoubleBuffered = true;
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, ChatPanel, new object[] { true });
             Dock = DockStyle.Fill;
+            ChatTheme.SetTheme(false);
 
             Client = contact;
             ProfilePicture.Image = contact.ProfilePicture;
@@ -184,6 +186,21 @@ namespace ChatApplication.UserControls
             FileSharePage.FileName = filePath;
         }
 
+        public void MessageThemeSet()
+        {
+            foreach(ChatU chat in Messages)
+            {
+                if (chat.Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
+                {
+                    chat.BackColor = ChatTheme.SentColor;
+                }
+                else
+                {
+                    chat.BackColor = ChatTheme.ReceivedColor;
+                }
+            }
+        }
+
         public void AddMessage(MessageModel msg)
         {
             HeaderPanel.SuspendLayout();
@@ -204,12 +221,12 @@ namespace ChatApplication.UserControls
             if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 chatMsg.Dock = DockStyle.Right;
-                chatMsg.BackColor = Color.FromArgb(210, 254, 214);
+                chatMsg.BackColor = ChatTheme.SentColor;
             }
             else
             {
                 chatMsg.Dock = DockStyle.Left;
-                chatMsg.BackColor = Color.White;
+                chatMsg.BackColor = ChatTheme.ReceivedColor;
             }
             Panel space = new Panel()
             {
@@ -217,7 +234,7 @@ namespace ChatApplication.UserControls
                 BackColor = Color.Transparent,
                 Height = 15
             };
-
+            Messages.Add(chatMsg);
             ChatPanel.Controls.Add(chatPanel);
             ChatPanel.Controls.Add(space);
             chatPanel.BringToFront();

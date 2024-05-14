@@ -43,7 +43,7 @@ namespace ChatApplication.Forms
             this.ChatHeaderPanel = new System.Windows.Forms.Panel();
             this.ChatContainer = new ChatApplication.UserControls.CustomPanel();
             this.StarMessageButton = new ChatApplication.UserControls.EllipseButton();
-            this.OptionButton = new ChatApplication.UserControls.EllipseButton();
+            this.LeftAlignButton = new ChatApplication.UserControls.EllipseButton();
             this.ChatLabel = new System.Windows.Forms.Label();
             this.StarMainPanel = new System.Windows.Forms.Panel();
             this.StarPanel = new System.Windows.Forms.Panel();
@@ -197,7 +197,7 @@ namespace ChatApplication.Forms
             this.ChatContainer.BottomLeftRadius = 30;
             this.ChatContainer.BottomRight = 30;
             this.ChatContainer.Controls.Add(this.StarMessageButton);
-            this.ChatContainer.Controls.Add(this.OptionButton);
+            this.ChatContainer.Controls.Add(this.LeftAlignButton);
             this.ChatContainer.Controls.Add(this.ChatLabel);
             this.ChatContainer.Location = new System.Drawing.Point(4, 2);
             this.ChatContainer.Name = "ChatContainer";
@@ -226,25 +226,25 @@ namespace ChatApplication.Forms
             this.StarMessageButton.UseVisualStyleBackColor = false;
             this.StarMessageButton.Click += new System.EventHandler(this.StarMessageButtonClick);
             // 
-            // OptionButton
+            // LeftAlignButton
             // 
-            this.OptionButton.BackColor = System.Drawing.Color.Transparent;
-            this.OptionButton.BackgroudColor = System.Drawing.Color.Transparent;
-            this.OptionButton.BorderColor = System.Drawing.Color.Transparent;
-            this.OptionButton.BorderRadius1 = 30;
-            this.OptionButton.BorderSize1 = 0;
-            this.OptionButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.OptionButton.FlatAppearance.BorderSize = 0;
-            this.OptionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OptionButton.ForeColor = System.Drawing.Color.White;
-            this.OptionButton.Image = global::ChatApplication.Properties.Resources.icons8_align_left_19;
-            this.OptionButton.Location = new System.Drawing.Point(0, 0);
-            this.OptionButton.Name = "OptionButton";
-            this.OptionButton.Size = new System.Drawing.Size(74, 60);
-            this.OptionButton.TabIndex = 2;
-            this.OptionButton.TextColor = System.Drawing.Color.White;
-            this.OptionButton.UseVisualStyleBackColor = false;
-            this.OptionButton.Click += new System.EventHandler(this.OptionButtonClick);
+            this.LeftAlignButton.BackColor = System.Drawing.Color.Transparent;
+            this.LeftAlignButton.BackgroudColor = System.Drawing.Color.Transparent;
+            this.LeftAlignButton.BorderColor = System.Drawing.Color.Transparent;
+            this.LeftAlignButton.BorderRadius1 = 30;
+            this.LeftAlignButton.BorderSize1 = 0;
+            this.LeftAlignButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LeftAlignButton.FlatAppearance.BorderSize = 0;
+            this.LeftAlignButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LeftAlignButton.ForeColor = System.Drawing.Color.White;
+            this.LeftAlignButton.Image = global::ChatApplication.Properties.Resources.icons8_align_left_19_Black;
+            this.LeftAlignButton.Location = new System.Drawing.Point(0, 0);
+            this.LeftAlignButton.Name = "LeftAlignButton";
+            this.LeftAlignButton.Size = new System.Drawing.Size(74, 60);
+            this.LeftAlignButton.TabIndex = 2;
+            this.LeftAlignButton.TextColor = System.Drawing.Color.White;
+            this.LeftAlignButton.UseVisualStyleBackColor = false;
+            this.LeftAlignButton.Click += new System.EventHandler(this.LeftAlignButtonClick);
             // 
             // ChatLabel
             // 
@@ -401,7 +401,7 @@ namespace ChatApplication.Forms
         private System.Windows.Forms.Panel chatContactPanel;
         private CustomPanel ChatContainer;
         private EllipseButton StarMessageButton;
-        private EllipseButton OptionButton;
+        private EllipseButton LeftAlignButton;
         private System.Windows.Forms.Label ChatLabel;
         private MenuControl SideMenuBar;
         private CustomPanel BorderPanel;

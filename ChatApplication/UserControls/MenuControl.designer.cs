@@ -224,7 +224,7 @@ namespace ChatApplication.UserControls
             this.ExitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ExitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExitButton.ForeColor = System.Drawing.Color.White;
-            this.ExitButton.Image = global::ChatApplication.Properties.Resources.icons8_log_out_32__2_;
+            this.ExitButton.Image = global::ChatApplication.Properties.Resources.icons8_macos_close_22;
             this.ExitButton.IsFormUp = false;
             this.ExitButton.IsSelected = false;
             this.ExitButton.Location = new System.Drawing.Point(4, 455);
