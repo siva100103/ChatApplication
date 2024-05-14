@@ -179,7 +179,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatTheme.cs" />
+    <Compile Include="Forms\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChatTheme.cs" />
     <Compile Include="Managers\DbManager.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
@@ -200,6 +206,12 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\LocalData.cs" />
+    <Compile Include="UserControls\LazyLoadingPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\LazyLoadingPanel.Designer.cs">
+      <DependentUpon>LazyLoadingPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LoadingScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -225,12 +237,6 @@
       <DependentUpon>BendingMessages.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\ChatApplicationNetworkManager.cs" />
-    <Compile Include="UserControls\ChatPageTitleU.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ChatPageTitleU.Designer.cs">
-      <DependentUpon>ChatPageTitleU.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ChatSenter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -356,6 +362,9 @@
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\LazyLoadingPanel.resx">
+      <DependentUpon>LazyLoadingPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LoadingScreen.resx">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -364,9 +373,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\BendingMessages.resx">
       <DependentUpon>BendingMessages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ChatPageTitleU.resx">
-      <DependentUpon>ChatPageTitleU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ChatSenter.resx">
       <DependentUpon>ChatSenter.cs</DependentUpon>

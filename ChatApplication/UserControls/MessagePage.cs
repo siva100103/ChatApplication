@@ -334,5 +334,7 @@ namespace ChatApplication.UserControls
             }
             ContactInfo.Focus();
         }
+
+        
     }
 }

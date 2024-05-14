@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChatApplication.Forms;
+using ChatApplication.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -120,6 +122,8 @@ namespace ChatApplication.UserControls
             DoubleBuffered = true;
             Resize += Method;
         }
+
+       
 
         public void Method(object sender, EventArgs obj)
         {

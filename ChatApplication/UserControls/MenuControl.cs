@@ -118,6 +118,8 @@ namespace ChatApplication.UserControls
 
         }
 
+
+
         private void SetDpPicture()
         {
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];

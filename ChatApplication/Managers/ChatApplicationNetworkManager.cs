@@ -217,6 +217,7 @@ namespace ChatApplication.Managers
                 {
                     DbManager.CreateMessage(message);
                 }
+                c.StatusChanger(true);
             }
             catch (Exception ex)
             {

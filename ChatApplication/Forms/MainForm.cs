@@ -35,9 +35,11 @@ namespace ChatApplication.Forms
         private List<ContactU> Contacts = new List<ContactU>();
         private Client Current;
         private MessagePage CurrentlySelected;
+        private LoadingScreen Loading; 
         private int StarMessageCount = 1;
         private int theme = 0;
 
+        public static event EventHandler LoadUpFinished;
         public MainForm()
         {
             InitializeComponent();
@@ -55,6 +57,10 @@ namespace ChatApplication.Forms
             StarMainPanel.Width = ChatPanel.Width;
             MainPanel.Visible = false;
             SideMenuBar.Visible = false;
+
+            //Sending OpenMessages To All the Users...
+            SendOpenMessage();
+
             //
             LoadingScreenLoad();
 
@@ -67,8 +73,7 @@ namespace ChatApplication.Forms
             //Setting UsersProfile Details..
             ProfileSetter();
 
-            //Sending OpenMessages To All the Users...
-            SendOpenMessage();
+           
 
             //star message added to list
             foreach (var a in DbManager.Messages.Values)
@@ -82,7 +87,7 @@ namespace ChatApplication.Forms
 
         private void LoadingScreenLoad()
         {
-            LoadingScreen Loading = new LoadingScreen
+            Loading = new LoadingScreen
             {
                 Dock = DockStyle.Fill
             };
@@ -94,6 +99,7 @@ namespace ChatApplication.Forms
             };
         }
 
+       
         private void LabelsAdder()
         {
 
@@ -183,15 +189,12 @@ namespace ChatApplication.Forms
             MyProfile.About = me.About;
         }
 
-        private async void SendOpenMessage()
+        private void SendOpenMessage()
         {
             foreach (var clt in DbManager.Clients.Values)
             {
                 MessageModel message = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, clt.IP, "Open", DateTime.Now, MessageType.Response);
-                await ChatApplicationNetworkManager.SendMessage(message, clt);
-                if (clt.IsConnected)
-                    clt.StatusChanger(true);
-                else clt.StatusChanger(false);
+                Task t= ChatApplicationNetworkManager.SendMessage(message, clt);
             }
         }
         #endregion
@@ -398,16 +401,18 @@ namespace ChatApplication.Forms
 
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
+        //protected override CreateParams CreateParams
+        //{
+        //    get
+        //    {
+        //        CreateParams cp = base.CreateParams;
+        //        cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+        //        return cp;
+        //    }
+        //}
 
+
+        #region ThemeChangeHandler
         private void ControlsColorOnThemeChange()
         {
             MainPanel.SuspendLayout();
@@ -430,7 +435,7 @@ namespace ChatApplication.Forms
 
         private void ChatLabelClick(object sender, EventArgs e)
         {
-            theme = (theme==0)?1:0;
+            theme = (theme == 0) ? 1 : 0;
             ChatTheme.SetTheme(theme);
 
             SuspendLayout();
@@ -443,7 +448,7 @@ namespace ChatApplication.Forms
             SearchBox.SearchBackColor = ChatTheme.InnerLayerColor;
             ChatLabel.ForeColor = ChatTheme.TextColor;
             SearchBox.PlaceHolderColor = ChatTheme.TextColor;
-            SearchBox.DefaultBorderColor = theme==1 ? Color.FromArgb(30, 30, 30) : Color.Gray;
+            SearchBox.DefaultBorderColor = theme == 1 ? Color.FromArgb(30, 30, 30) : Color.Gray;
             SearchBox.BorderColor = ChatTheme.BorderColor;
             ChatPanel.BackColor = ChatTheme.ContactBackgroundColor;
             BackColor = ChatTheme.ContactBackgroundColor;
@@ -474,6 +479,7 @@ namespace ChatApplication.Forms
                 }
             }
             ResumeLayout();
-        }
+        } 
+        #endregion
     }
 }

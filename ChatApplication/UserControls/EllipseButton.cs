@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
+using ChatApplication.Forms;
+using ChatApplication.Models;
 
 namespace ChatApplication.UserControls
 {
@@ -84,6 +86,8 @@ namespace ChatApplication.UserControls
             this.ForeColor = Color.White;
             this.Resize += new EventHandler(Button_Resize);
         }
+
+        
 
         private void Button_Resize(object sender, EventArgs e)
         {

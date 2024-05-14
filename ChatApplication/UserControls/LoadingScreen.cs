@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Reflection;
+using ChatApplication.Forms;
 
 namespace ChatApplication.UserControls
 {
@@ -21,6 +22,7 @@ namespace ChatApplication.UserControls
         {
             InitializeComponent();
             DoubleBuffered = true;
+            MainForm.LoadUpFinished +=(sender,ev)=> Dispose();
         }
 
         private void LoadingScreenLoad(object sender, EventArgs e)
@@ -72,5 +74,7 @@ namespace ChatApplication.UserControls
             LoadingPercent += 5;
             LoadingPanel.Invalidate();
         }
+
+        
     }
 }
