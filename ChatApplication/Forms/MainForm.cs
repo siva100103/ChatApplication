@@ -36,7 +36,7 @@ namespace ChatApplication.Forms
         private Client Current;
         private MessagePage CurrentlySelected;
         private int StarMessageCount = 1;
-        private bool theme = false;
+        private int theme = 0;
 
         public MainForm()
         {
@@ -430,8 +430,8 @@ namespace ChatApplication.Forms
 
         private void ChatLabelClick(object sender, EventArgs e)
         {
-            ChatTheme.SetTheme(!theme);
-            theme = !theme;
+            theme = (theme==0)?1:0;
+            ChatTheme.SetTheme(theme);
 
             SuspendLayout();
             //OuterLayer
@@ -443,7 +443,7 @@ namespace ChatApplication.Forms
             SearchBox.SearchBackColor = ChatTheme.InnerLayerColor;
             ChatLabel.ForeColor = ChatTheme.TextColor;
             SearchBox.PlaceHolderColor = ChatTheme.TextColor;
-            SearchBox.DefaultBorderColor = theme ? Color.FromArgb(30, 30, 30) : Color.Gray;
+            SearchBox.DefaultBorderColor = theme==1 ? Color.FromArgb(30, 30, 30) : Color.Gray;
             SearchBox.BorderColor = ChatTheme.BorderColor;
             ChatPanel.BackColor = ChatTheme.ContactBackgroundColor;
             BackColor = ChatTheme.ContactBackgroundColor;

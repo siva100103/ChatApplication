@@ -47,7 +47,7 @@ namespace ChatApplication.UserControls
                 NameLabel.ForeColor = ChatTheme.TextColor;
                 LastSeeLabel.ForeColor = ChatTheme.TextColor;
                 MenuTip.ForeColor = ChatTheme.TextColor;
-                if (ChatTheme.Current)
+                if (ChatTheme.Current == 1)
                 {
                     MenuButton.Image = Properties.Resources.icons8_menu_vertical_50;
                     chatSenter.SendSymbol = Properties.Resources.icons8_paper_plane_50__1_;
@@ -79,7 +79,7 @@ namespace ChatApplication.UserControls
             DoubleBuffered = true;
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.NonPublic | BindingFlags.Instance, null, ChatPanel, new object[] { true });
             Dock = DockStyle.Fill;
-            ChatTheme.SetTheme(false);
+            ChatTheme.SetTheme(0);
 
             Client = contact;
             ProfilePicture.Image = contact.ProfilePicture;

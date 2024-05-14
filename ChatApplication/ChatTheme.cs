@@ -9,7 +9,7 @@ namespace ChatApplication
 {
     public static class ChatTheme
     {
-        public static bool Current = false;
+        public static int Current = 0;
 
         public static Color OuterLayerColor;
         public static Color InnerLayerColor;
@@ -28,10 +28,10 @@ namespace ChatApplication
         public static Image ExitIcon;
         public static Image SearchIcon;
 
-        public static void SetTheme(bool dark)
+        public static void SetTheme(int theme)
         {
-            Current = dark;
-            if (dark)
+            Current = theme;
+            if (theme == 1)
             {
                 OuterLayerColor = Color.FromArgb(97, 97, 97);
                 InnerLayerColor = Color.FromArgb(97, 97, 97);
@@ -50,7 +50,7 @@ namespace ChatApplication
                 ExitIcon = Properties.Resources.icons8_macos_close_22_white;
                 SearchIcon = Properties.Resources.icons8_search_19_white;
             }
-            else
+            else if(theme == 0)
             {
                 OuterLayerColor = Color.FromArgb(229, 227, 222);
                 InnerLayerColor = Color.FromArgb(229, 227, 222);
