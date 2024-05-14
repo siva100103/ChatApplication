@@ -42,16 +42,20 @@ namespace ChatApplication.UserControls
             {
                 HeaderPanel.BackColor = value;
                 chatSenter.SenderColor = value;
+                chatSenter.OnThemeChange();
+
                 NameLabel.ForeColor = ChatTheme.TextColor;
                 LastSeeLabel.ForeColor = ChatTheme.TextColor;
                 MenuTip.ForeColor = ChatTheme.TextColor;
-                if(ChatTheme.Current)
+                if (ChatTheme.Current)
                 {
                     MenuButton.Image = Properties.Resources.icons8_menu_vertical_50;
+                    chatSenter.SendSymbol = Properties.Resources.icons8_paper_plane_50__1_;
                 }
                 else
                 {
                     MenuButton.Image = Properties.Resources.icons8_menu_vertical_50__1_;
+                    chatSenter.SendSymbol = Properties.Resources.icons8_paper_plane_50__2_;
                 }
             }
         }
@@ -188,7 +192,7 @@ namespace ChatApplication.UserControls
 
         public void MessageThemeSet()
         {
-            foreach(ChatU chat in Messages)
+            foreach (ChatU chat in Messages)
             {
                 if (chat.Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
                 {

@@ -27,17 +27,28 @@ namespace ChatApplication.UserControls
             get { return FileShareIcon.Visible; }
             set { FileShareIcon.Visible = value; }
         }
+
         public bool SendButtonVisibility
         {
             get { return SendButton.Visible; }
             set { SendButton.Visible = value; }
         }
+
+        public Image SendSymbol
+        {
+            get { return SendButton.Image; }
+            set
+            {
+                SendButton.Image = value;
+            }
+        }
+
         public string TextMessage
         {
             get { return TextArea.Text; }
             set { TextArea.Text = value; }
         }
-        
+
         public Color SenderColor
         {
             get { return BackColor; }
@@ -55,6 +66,8 @@ namespace ChatApplication.UserControls
             DoubleBuffered = true;
             TextArea.BackColor = Color.FromArgb(243, 243, 243);
             TextArea.Font = new Font("Noto Emoji", 16);
+            TextArea.GotFocus += TextAreaGotFocus;
+            TextArea.LostFocus += TextAreaLostFocus;
 
             pictureBox1.MouseLeave += MouseLev1;
             FileShareIcon.MouseLeave += MouseLev1;
@@ -68,6 +81,22 @@ namespace ChatApplication.UserControls
             initialLocationRichtextbox = TextArea.Location;
             initialSize = Size;
         }
+
+        private void TextAreaLostFocus(object sender, EventArgs e)
+        {
+            TextArea.Text = "Type a message";
+        }
+
+        private void TextAreaGotFocus(object sender, EventArgs e)
+        {
+            TextArea.Text = "";
+        }
+
+        public void OnThemeChange()
+        {
+            TextArea.ForeColor = ChatTheme.TextColor;
+        }
+
         private void MouseEnt1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;

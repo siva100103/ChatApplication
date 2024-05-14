@@ -41,7 +41,7 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.MainPanel.BackColor = System.Drawing.Color.Transparent;
             this.MainPanel.Controls.Add(this.TextArea);
             this.MainPanel.Controls.Add(this.FileShareIcon);
             this.MainPanel.Controls.Add(this.pictureBox1);
