@@ -21,6 +21,7 @@ namespace ChatApplication
         public static Color TextColor;
         public static Color SentColor;
         public static Color ReceivedColor;
+        public static Color ThemeColor;
 
         public static Image LeftAlign;
         public static Image StarMessage;
@@ -36,12 +37,13 @@ namespace ChatApplication
                 OuterLayerColor = Color.FromArgb(97, 97, 97);
                 InnerLayerColor = Color.FromArgb(97, 97, 97);
                 ContactsColor = Color.FromArgb(30, 30, 30);
-                ContactBackgroundColor = Color.FromArgb(48, 55, 78);
+                ContactBackgroundColor = Color.FromArgb(48, 55, 60);
                 MessagePageColor = Color.FromArgb(107, 104, 102);
                 BorderColor = Color.FromArgb(211, 137, 242);
                 TextColor = Color.WhiteSmoke;
                 CurrentlySelectedColor = Color.FromArgb(97, 97, 97);
                 SentColor = Color.FromArgb(211, 167, 242);
+                ThemeColor = Color.FromArgb(95, 101, 118);
                 ReceivedColor = Color.WhiteSmoke;
 
                 LeftAlign = Properties.Resources.icons8_align_left_19;
@@ -61,6 +63,7 @@ namespace ChatApplication
                 TextColor = Color.Black;
                 CurrentlySelectedColor = Color.FromArgb(229, 227, 222);
                 SentColor = Color.FromArgb(210, 254, 214);
+                ThemeColor = Color.FromArgb(249, 249, 249);
                 ReceivedColor = Color.White;
 
                 LeftAlign = Properties.Resources.icons8_align_left_19_Black;

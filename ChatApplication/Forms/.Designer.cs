@@ -141,6 +141,7 @@ namespace ChatApplication.Forms
             // 
             // chatContactPanel
             // 
+            this.chatContactPanel.AutoScroll = true;
             this.chatContactPanel.BackColor = System.Drawing.Color.Transparent;
             this.chatContactPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chatContactPanel.Location = new System.Drawing.Point(0, 117);
@@ -174,6 +175,7 @@ namespace ChatApplication.Forms
             this.SearchBox.PlaceHolderColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
             this.SearchBox.PlaceholderText = "Search or start new chat";
             this.SearchBox.SearchBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
+            this.SearchBox.SearchSymbol = ((System.Drawing.Image)(resources.GetObject("SearchBox.SearchSymbol")));
             this.SearchBox.Size = new System.Drawing.Size(339, 43);
             this.SearchBox.TabIndex = 1;
             // 
@@ -257,7 +259,6 @@ namespace ChatApplication.Forms
             this.ChatLabel.TabIndex = 1;
             this.ChatLabel.Text = "Chats";
             this.ChatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ChatLabel.Click += new System.EventHandler(this.ChatLabelClick);
             // 
             // StarMainPanel
             // 
@@ -334,7 +335,9 @@ namespace ChatApplication.Forms
             // SideMenuBar
             // 
             this.SideMenuBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
+            this.SideMenuBar.ChatSymbol = ((System.Drawing.Image)(resources.GetObject("SideMenuBar.ChatSymbol")));
             this.SideMenuBar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.SideMenuBar.ExitSymbol = ((System.Drawing.Image)(resources.GetObject("SideMenuBar.ExitSymbol")));
             this.SideMenuBar.HoverSideColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(209)))), ((int)(((byte)(149)))));
             this.SideMenuBar.Location = new System.Drawing.Point(10, 0);
             this.SideMenuBar.Margin = new System.Windows.Forms.Padding(2);

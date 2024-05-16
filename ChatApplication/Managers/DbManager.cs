@@ -24,7 +24,7 @@ namespace ChatApplication.Managers
         public static bool ServerDbConfig()
         {
             ServerDbManager.Database = "chatApplicationServer";
-            ServerDbManager.HostName = "192.168.3.155";
+            ServerDbManager.HostName = "192.168.3.52";
             ServerDbManager.UserName = "root";
             ServerDbManager.Password = "";
 

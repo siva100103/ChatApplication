@@ -19,11 +19,10 @@ namespace ChatApplication.Models
 {
     public class Client
     {
-
         public string IP { get; set; }
         public string Name { get; set; } = "";
         public string About { get; set; } = "";
-        public Image ProfilePicture { get; set; } = ChatApplication.Properties.Resources.user__2_;
+        public Image ProfilePicture { get; set; } = Properties.Resources.user__2_;
         public DateTime LastSeen { get; set; }
         public int Port { get; set; } = 12346;
         public string ProfilePath { get; set; }

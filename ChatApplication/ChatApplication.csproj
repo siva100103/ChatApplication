@@ -187,12 +187,6 @@
     <Compile Include="Forms\ContentForm.Designer.cs">
       <DependentUpon>ContentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ProfilePage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ProfilePage.Designer.cs">
-      <DependentUpon>ProfilePage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +199,12 @@
     </Compile>
     <Compile Include="UserControls\LoadingScreen.Designer.cs">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MyProfilePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MyProfilePage.Designer.cs">
+      <DependentUpon>MyProfilePage.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\StarredMessages.cs">
       <SubType>UserControl</SubType>
@@ -350,14 +350,14 @@
     <EmbeddedResource Include="Forms\ContentForm.resx">
       <DependentUpon>ContentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProfilePage.resx">
-      <DependentUpon>ProfilePage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LoadingScreen.resx">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MyProfilePage.resx">
+      <DependentUpon>MyProfilePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\StarredMessages.resx">
       <DependentUpon>StarredMessages.cs</DependentUpon>
@@ -558,6 +558,13 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-cloudy-night-30.png" />
+    <None Include="Resources\icons8-partly-cloudy-day-30.png" />
+    <None Include="Resources\icons8-do-not-disturb-ios-30.png" />
+    <None Include="Resources\icons8-light-mode-30.png" />
+    <None Include="Resources\Dark theme.png" />
+    <None Include="Resources\Dark theme icon.png" />
+    <None Include="Resources\Light theme Icon.jpg" />
     <None Include="Resources\icons8-search-19 white.png" />
     <None Include="Resources\icons8-macos-close-22.png" />
     <None Include="Resources\icons8-macos-close-22 white.png" />

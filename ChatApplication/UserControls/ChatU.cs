@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ChatApplication.Models;
+using System.Reflection;
 
 namespace ChatApplication.UserControls
 {
@@ -46,6 +47,7 @@ namespace ChatApplication.UserControls
                 return message;
             }
         }
+
         public string MessageId { get; set; } = "";
 
         public int ChatUMaximumWidth
@@ -81,7 +83,7 @@ namespace ChatApplication.UserControls
             set => MessageSendIconPB.Image = value;
         }
 
-        public ChatU(Models.MessageModel message)
+        public ChatU(MessageModel message)
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -114,6 +116,13 @@ namespace ChatApplication.UserControls
             ChatUBottomP.Click += ChatUClick;
             timingLB.Click += ChatUClick;
             MessageSendIconPB.Click += ChatUClick;
+
+            foreach (Control control in Controls)
+            {
+                typeof(Control).InvokeMember("DoubleBuffered",
+                    BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                    null, control, new object[] { true });
+            }
         }
 
         public GraphicsPath GetPath(Rectangle rec)

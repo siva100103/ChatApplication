@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Reflection;
 
 namespace ChatApplication.UserControls
 {
@@ -80,6 +81,13 @@ namespace ChatApplication.UserControls
             initialHeightOfRichtextbox = TextArea.Height;
             initialLocationRichtextbox = TextArea.Location;
             initialSize = Size;
+
+            foreach (Control control in Controls)
+            {
+                typeof(Control).InvokeMember("DoubleBuffered",
+                    BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                    null, control, new object[] { true });
+            }
         }
 
         private void TextAreaLostFocus(object sender, EventArgs e)
@@ -100,14 +108,13 @@ namespace ChatApplication.UserControls
         private void MouseEnt1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;
-            p.BackColor = Color.FromArgb(209, 209, 209);
+            p.BackColor = ChatTheme.OuterLayerColor;
 
         }
         private void MouseLev1(object o, EventArgs e)
         {
             PictureBox p = (PictureBox)o;
-            p.BackColor = Color.FromArgb(243, 243, 243);
-
+            p.BackColor = ChatTheme.ContactsColor;
         }
 
         private void TextAreaMouseClick(object sender, MouseEventArgs e)

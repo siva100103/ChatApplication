@@ -47,6 +47,9 @@ namespace ChatApplication.UserControls
                 NameLabel.ForeColor = ChatTheme.TextColor;
                 LastSeeLabel.ForeColor = ChatTheme.TextColor;
                 MenuTip.ForeColor = ChatTheme.TextColor;
+                MenuButton.FlatAppearance.MouseOverBackColor = ChatTheme.OuterLayerColor;
+                MenuButton.FlatAppearance.MouseDownBackColor = ChatTheme.ContactBackgroundColor;
+
                 if (ChatTheme.Current == 1)
                 {
                     MenuButton.Image = Properties.Resources.icons8_menu_vertical_50;
@@ -194,13 +197,16 @@ namespace ChatApplication.UserControls
         {
             foreach (ChatU chat in Messages)
             {
-                if (chat.Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
+                if (chat.Message.Msg != "This Message is Deleted")
                 {
-                    chat.BackColor = ChatTheme.SentColor;
-                }
-                else
-                {
-                    chat.BackColor = ChatTheme.ReceivedColor;
+                    if (chat.Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
+                    {
+                        chat.BackColor = ChatTheme.SentColor;
+                    }
+                    else
+                    {
+                        chat.BackColor = ChatTheme.ReceivedColor;
+                    } 
                 }
             }
         }
