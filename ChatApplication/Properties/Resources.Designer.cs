@@ -243,6 +243,26 @@ namespace ChatApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_archive_22 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-archive-22", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_archive_22_white {
+            get {
+                object obj = ResourceManager.GetObject("icons8-archive-22 white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_box_22 {
             get {
                 object obj = ResourceManager.GetObject("icons8_box_22", resourceCulture);
@@ -827,16 +847,6 @@ namespace ChatApplication.Properties {
             get {
                 object obj = ResourceManager.GetObject("icons8-user-35", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon icons8_wechat_48 {
-            get {
-                object obj = ResourceManager.GetObject("icons8_wechat_48", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
             }
         }
         

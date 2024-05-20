@@ -26,6 +26,7 @@ namespace ChatApplication
         public static Image LeftAlign;
         public static Image StarMessage;
         public static Image ChatIcon;
+        public static Image ArchieveIcon;
         public static Image ExitIcon;
         public static Image SearchIcon;
 
@@ -51,6 +52,7 @@ namespace ChatApplication
                 ChatIcon = Properties.Resources.icons8_chat_white_22;
                 ExitIcon = Properties.Resources.icons8_macos_close_22_white;
                 SearchIcon = Properties.Resources.icons8_search_19_white;
+                ArchieveIcon = Properties.Resources.icons8_archive_22_white;
             }
             else if(theme == 0)
             {
@@ -71,6 +73,7 @@ namespace ChatApplication
                 ChatIcon = Properties.Resources.icons8_chat_22;
                 ExitIcon = Properties.Resources.icons8_macos_close_22;
                 SearchIcon = Properties.Resources.icons8_search_19;
+                ArchieveIcon = Properties.Resources.icons8_archive_22;
             }
         }
     }

@@ -32,6 +32,7 @@ namespace ChatApplication.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.ArchieveButton = new ChatApplication.UserControls.HoverButton();
             this.StarBtn = new ChatApplication.UserControls.HoverButton();
             this.StatusBtn = new ChatApplication.UserControls.HoverButton();
             this.CallsBtn = new ChatApplication.UserControls.HoverButton();
@@ -44,6 +45,30 @@ namespace ChatApplication.UserControls
             ((System.ComponentModel.ISupportInitialize)(this.ProfilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DpPB)).BeginInit();
             this.SuspendLayout();
+            // 
+            // ArchieveButton
+            // 
+            this.ArchieveButton.BackColor = System.Drawing.Color.Transparent;
+            this.ArchieveButton.BackgroudColor = System.Drawing.Color.Transparent;
+            this.ArchieveButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.ArchieveButton.BorderRadius1 = 10;
+            this.ArchieveButton.BorderSize1 = 0;
+            this.ArchieveButton.ButtonSideHoverlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(135)))), ((int)(((byte)(85)))));
+            this.ArchieveButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ArchieveButton.EndPoint = -3;
+            this.ArchieveButton.FlatAppearance.BorderSize = 0;
+            this.ArchieveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArchieveButton.ForeColor = System.Drawing.Color.White;
+            this.ArchieveButton.Image = global::ChatApplication.Properties.Resources.icons8_archive_22_white;
+            this.ArchieveButton.IsFormUp = false;
+            this.ArchieveButton.IsSelected = false;
+            this.ArchieveButton.Location = new System.Drawing.Point(4, 123);
+            this.ArchieveButton.Margin = new System.Windows.Forms.Padding(2);
+            this.ArchieveButton.Name = "ArchieveButton";
+            this.ArchieveButton.Size = new System.Drawing.Size(42, 40);
+            this.ArchieveButton.TabIndex = 11;
+            this.ArchieveButton.TextColor = System.Drawing.Color.White;
+            this.ArchieveButton.UseVisualStyleBackColor = false;
             // 
             // StarBtn
             // 
@@ -253,6 +278,7 @@ namespace ChatApplication.UserControls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.Controls.Add(this.ArchieveButton);
             this.Controls.Add(this.StarBtn);
             this.Controls.Add(this.StatusBtn);
             this.Controls.Add(this.CallsBtn);
@@ -289,5 +315,6 @@ namespace ChatApplication.UserControls
         private HoverButton CallsBtn;
         private CustomPictureBox ProfilePictureBox;
         private HoverButton ExitButton;
+        private HoverButton ArchieveButton;
     }
 }

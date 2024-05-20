@@ -31,6 +31,7 @@
             this.DeleteLabel = new System.Windows.Forms.Label();
             this.CopyLabel = new System.Windows.Forms.Label();
             this.StarLabel = new System.Windows.Forms.Label();
+            this.ArchiveLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // DeleteLabel
@@ -83,12 +84,30 @@
             this.StarLabel.MouseEnter += new System.EventHandler(this.MenuFormMouseEnter);
             this.StarLabel.MouseLeave += new System.EventHandler(this.MenuFormMouseLeave);
             // 
+            // ArchiveLabel
+            // 
+            this.ArchiveLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ArchiveLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ArchiveLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArchiveLabel.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ArchiveLabel.Location = new System.Drawing.Point(0, 90);
+            this.ArchiveLabel.Name = "ArchiveLabel";
+            this.ArchiveLabel.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
+            this.ArchiveLabel.Size = new System.Drawing.Size(125, 30);
+            this.ArchiveLabel.TabIndex = 6;
+            this.ArchiveLabel.Text = "Archive    🗂️";
+            this.ArchiveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ArchiveLabel.Click += new System.EventHandler(this.ArchiveLabelClick);
+            this.ArchiveLabel.MouseEnter += new System.EventHandler(this.MenuFormMouseEnter);
+            this.ArchiveLabel.MouseLeave += new System.EventHandler(this.MenuFormMouseLeave);
+            // 
             // MenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(230)))), ((int)(((byte)(243)))));
-            this.ClientSize = new System.Drawing.Size(125, 106);
+            this.ClientSize = new System.Drawing.Size(125, 134);
+            this.Controls.Add(this.ArchiveLabel);
             this.Controls.Add(this.StarLabel);
             this.Controls.Add(this.CopyLabel);
             this.Controls.Add(this.DeleteLabel);
@@ -106,5 +125,6 @@
         private System.Windows.Forms.Label DeleteLabel;
         private System.Windows.Forms.Label CopyLabel;
         private System.Windows.Forms.Label StarLabel;
+        private System.Windows.Forms.Label ArchiveLabel;
     }
 }

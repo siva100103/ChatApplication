@@ -51,14 +51,29 @@ namespace ChatApplication.UserControls
             }
         }
 
+        public Image ArchiveSymbol
+        {
+            get { return ArchieveButton.Image; }
+            set
+            {
+                ArchieveButton.Image = value;
+            }
+        }
+
         public Color HoverSideColor
         {
             get { return ChatsBtn.ButtonSideHoverlineColor; }
             set
             {
                 ChatsBtn.ButtonSideHoverlineColor = value;
+                ArchieveButton.ButtonSideHoverlineColor = value;
+
                 ChatsBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(200, BackColor.R+10,BackColor.G+10,BackColor.B+10);
                 ChatsBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R+10,BackColor.G+10,BackColor.B+10);
+
+                ArchieveButton.FlatAppearance.MouseDownBackColor = ChatsBtn.FlatAppearance.MouseDownBackColor;
+                ArchieveButton.FlatAppearance.MouseOverBackColor = ChatsBtn.FlatAppearance.MouseOverBackColor;
+
                 ExitButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(128, Color.Red);
                 ExitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R+10,BackColor.G+10,BackColor.B+10);
                 
@@ -77,6 +92,7 @@ namespace ChatApplication.UserControls
         public event EventHandler OnClickExitBtn;
         public event EventHandler OnClickProfilePicture;
         public event EventHandler ControlClicked;
+        public event EventHandler OnArciveButtonClick;
 
         private HoverMessageForm messageFormobj = null;
         Timer timer = new Timer();
@@ -84,7 +100,7 @@ namespace ChatApplication.UserControls
         public MenuControl()
         {
             InitializeComponent();
-            buttonArray = new List<HoverButton> { ChatsBtn, CallsBtn, StatusBtn, StarBtn, ArchivedBtn, SettingBtn };
+            buttonArray = new List<HoverButton> { ChatsBtn, CallsBtn, StatusBtn, StarBtn, ArchivedBtn, SettingBtn,ArchieveButton };
             messageFormobj = new HoverMessageForm();
             currentObject = ChatsBtn;
             for (int i = 0; i < buttonArray.Count; i++)
@@ -109,6 +125,8 @@ namespace ChatApplication.UserControls
             StarBtn.Click += StarBtnClick;
             ArchivedBtn.Click += ArchivedBtnClick;
             SettingBtn.Click += SettingBtnClick;
+            ArchieveButton.Click += ArchieveButtonClick;
+
             timer.Interval += 80;
             timer.Tick += MessageFormobjShow;
             if (!DesignMode)
@@ -118,11 +136,18 @@ namespace ChatApplication.UserControls
 
         }
 
+
         private void SetDpPicture()
         {
             Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
             ProfilePictureBox.Image = me.ProfilePicture;
         }
+
+        private void ArchieveButtonClick(object sender, EventArgs e)
+        {
+            OnArciveButtonClick?.Invoke(this, e);
+        }
+        
         private void ProfilePictureBoxClick(object sender, EventArgs e)
         {
             OnClickProfilePicture?.Invoke(this, EventArgs.Empty);
@@ -218,6 +243,10 @@ namespace ChatApplication.UserControls
             else if (obj == ChatsBtn)
             {
                 //messageFormobj.MessageText = "Chats";
+                return;
+            }
+            else if(obj == ArchieveButton)
+            {
                 return;
             }
             else if (obj == CallsBtn)

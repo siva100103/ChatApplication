@@ -179,7 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatTheme.cs" />
+    <Compile Include="Models\ChatTheme.cs" />
     <Compile Include="Managers\DbManager.cs" />
     <Compile Include="Forms\ContentForm.cs">
       <SubType>Form</SubType>
@@ -558,6 +558,9 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-archive-22 white.png" />
+    <None Include="Resources\icons8-archive-22.png" />
+    <None Include="Resources\icons8-wechat-481.png" />
     <None Include="Resources\icons8-cloudy-night-30.png" />
     <None Include="Resources\icons8-partly-cloudy-day-30.png" />
     <None Include="Resources\icons8-do-not-disturb-ios-30.png" />

@@ -125,12 +125,19 @@ namespace ChatApplication.UserControls
             MenuF.Delete += Unselected;
             MenuF.Copy += Unselected;
             MenuF.Star += StarredMessage;
+            MenuF.Archive += ArchiveChat;
 
             foreach (var a in Messages)
             {
                 if (!a.Msg.Contains(@"\\SPARE-B11\Chat Application Profile\"))
                     AddMessage(a);
             }
+        }
+
+        private void ArchiveChat(object sender, EventArgs e)
+        {
+            LocalData data = new LocalData();
+            data.Archieved.Add(Client.IP);
         }
 
         private void StarredMessage(object sender, List<ChatU> e)
@@ -206,7 +213,7 @@ namespace ChatApplication.UserControls
                     else
                     {
                         chat.BackColor = ChatTheme.ReceivedColor;
-                    } 
+                    }
                 }
             }
         }

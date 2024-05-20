@@ -34,6 +34,7 @@ namespace ChatApplication.Forms
             this.MainPanel = new System.Windows.Forms.Panel();
             this.MessagePageBackPanel = new System.Windows.Forms.Panel();
             this.MessagePagePanel = new System.Windows.Forms.Panel();
+            this.AppIcon = new System.Windows.Forms.PictureBox();
             this.MessagePageTopPanel = new ChatApplication.UserControls.CustomPanel();
             this.MinMaxButton = new System.Windows.Forms.PictureBox();
             this.ChatPanel = new System.Windows.Forms.Panel();
@@ -54,6 +55,8 @@ namespace ChatApplication.Forms
             this.BorderPanel = new ChatApplication.UserControls.CustomPanel();
             this.MainPanel.SuspendLayout();
             this.MessagePageBackPanel.SuspendLayout();
+            this.MessagePagePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AppIcon)).BeginInit();
             this.MessagePageTopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MinMaxButton)).BeginInit();
             this.ChatPanel.SuspendLayout();
@@ -90,11 +93,26 @@ namespace ChatApplication.Forms
             // MessagePagePanel
             // 
             this.MessagePagePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(234)))), ((int)(((byte)(227)))));
+            this.MessagePagePanel.Controls.Add(this.AppIcon);
             this.MessagePagePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MessagePagePanel.Location = new System.Drawing.Point(0, 7);
             this.MessagePagePanel.Name = "MessagePagePanel";
             this.MessagePagePanel.Size = new System.Drawing.Size(508, 587);
             this.MessagePagePanel.TabIndex = 18;
+            // 
+            // AppIcon
+            // 
+            this.AppIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AppIcon.BackColor = System.Drawing.Color.Transparent;
+            this.AppIcon.Image = global::ChatApplication.Properties.Resources.icons8_wechat_481;
+            this.AppIcon.Location = new System.Drawing.Point(151, 159);
+            this.AppIcon.Name = "AppIcon";
+            this.AppIcon.Size = new System.Drawing.Size(218, 202);
+            this.AppIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.AppIcon.TabIndex = 0;
+            this.AppIcon.TabStop = false;
             // 
             // MessagePageTopPanel
             // 
@@ -384,6 +402,8 @@ namespace ChatApplication.Forms
             this.Text = "MainForm";
             this.MainPanel.ResumeLayout(false);
             this.MessagePageBackPanel.ResumeLayout(false);
+            this.MessagePagePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AppIcon)).EndInit();
             this.MessagePageTopPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MinMaxButton)).EndInit();
             this.ChatPanel.ResumeLayout(false);
@@ -418,5 +438,6 @@ namespace ChatApplication.Forms
         private EllipseButton StarBackButton;
         private System.Windows.Forms.Panel StarPanel;
         private CustomSearchBox SearchBox;
+        private System.Windows.Forms.PictureBox AppIcon;
     }
 }

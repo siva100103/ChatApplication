@@ -18,8 +18,10 @@ namespace ChatApplication.Forms
     {
         public event EventHandler Delete;
         public event EventHandler Copy;
+        public event EventHandler Archive;
         public event EventHandler<List<ChatU>> Star;
 
+        #region Curve Dll
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn
         (
@@ -29,10 +31,13 @@ namespace ChatApplication.Forms
             int nBottomRect,   // y-coordinate of lower-right corner
             int nWidthEllipse, // width of ellipse
             int nHeightEllipse // height of ellipse
-        );
+        ); 
+        #endregion
+
         public MenuForm()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
 
         private void MenuFormLoad(object sender, EventArgs e)
@@ -106,14 +111,9 @@ namespace ChatApplication.Forms
             Hide();
         }
 
-        protected override CreateParams CreateParams
+        private void ArchiveLabelClick(object sender, EventArgs e)
         {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
+            Archive?.Invoke(this, e);
         }
     }
 }

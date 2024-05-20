@@ -53,7 +53,7 @@ namespace ChatApplication.Forms
 
             //Setting Color Scheme
             ChatTheme.SetTheme(theme);
-            ControlsColorOnThemeChange();
+            ControlsOnThemeChange();
 
             StarMainPanel.Dock = DockStyle.Fill;
             MainPanel.Visible = false;
@@ -275,6 +275,7 @@ namespace ChatApplication.Forms
 
             if (!profileClicked)
             {
+                MyProfile.Refresh();
                 MyProfile.Visible = true;
                 chatContactPanel.Visible = false;
                 SearchPanel.Visible = false;
@@ -283,8 +284,6 @@ namespace ChatApplication.Forms
             }
             else
             {
-                ChatPanel.Controls.Remove(MyProfile);
-                MyProfile.Dispose();
                 chatContactPanel.Visible = true;
                 SearchPanel.Visible = true;
                 ChatHeaderPanel.Visible = true;
@@ -295,7 +294,7 @@ namespace ChatApplication.Forms
         private void MyThemeChanged(object sender, int e)
         {
             ChatTheme.SetTheme(e);
-            ControlsColorOnThemeChange();
+            ControlsOnThemeChange();
 
             theme = (theme == 0) ? 1 : 0;
 
@@ -316,7 +315,7 @@ namespace ChatApplication.Forms
             MessagePagePanel.BackColor = ChatTheme.MessagePageColor;
 
             //Hover Buttons
-            ControlsColorOnThemeChange();
+            ControlsOnThemeChange();
 
             //BorderColor
             BorderPanel.BackColor = ChatTheme.BorderColor;
@@ -467,7 +466,7 @@ namespace ChatApplication.Forms
 
         }
 
-        private void ControlsColorOnThemeChange()
+        private void ControlsOnThemeChange()
         {
             MainPanel.SuspendLayout();
             LeftAlignButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(120, ChatTheme.ContactsColor);
@@ -482,6 +481,7 @@ namespace ChatApplication.Forms
             StarMessageButton.Image = ChatTheme.StarMessage;
             SideMenuBar.ChatSymbol = ChatTheme.ChatIcon;
             SideMenuBar.ExitSymbol = ChatTheme.ExitIcon;
+            SideMenuBar.ArchiveSymbol = ChatTheme.ArchieveIcon;
             SearchBox.SearchSymbol = ChatTheme.SearchIcon;
 
             MainPanel.ResumeLayout();
