@@ -89,7 +89,6 @@ namespace ChatApplication.UserControls
             SendButton.MouseEnter += MouseEnt1;
             FileShareIcon.MouseEnter += MouseEnt1;
 
-
             initialHeightOfRichtextbox = TextArea.Height;
             initialLocationRichtextbox = TextArea.Location;
             initialSize = Size;
@@ -134,26 +133,18 @@ namespace ChatApplication.UserControls
 
         private void TextAreaMouseClick(object sender, MouseEventArgs e)
         {
-            if (TextArea.ForeColor == Color.FromArgb(200, 200, 200))
+            if (TextArea.Text == "Type a message")
             {
                 TextArea.Text = "";
-                TextArea.ForeColor = Color.Black;
             }
+            //   TextArea.ForeColor = ChatTheme.TextColor;
         }
 
         private void SendButtonClick(object sender, EventArgs e)
         {
             TextArea.ForeColor = ChatTheme.TextColor;
-            if (TextArea.Text != "")
-            {
-                MsgReady?.Invoke(sender, TextArea.Text);
-                TextArea.Text = "Type a message";
-                TextArea.ForeColor = Color.FromArgb(200, 200, 200);
-
-                Size = initialSize;
-                Location = initialLocation;
-                flag = 0;
-            }
+            MsgReady?.Invoke(sender, TextArea.Text);
+            TextArea.Text = "";
         }
 
         private void FileShareIconClick(object sender, EventArgs e)

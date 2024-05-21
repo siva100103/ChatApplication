@@ -119,6 +119,7 @@ namespace ChatApplication.Managers
         {
             Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
+            DbManager.Messages.Add(msg.Id, msg);
             clt.UnSeenMessagesList.Add(msg);
             if (MessagePage != clt.MessagePage)
             {
