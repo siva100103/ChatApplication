@@ -14,6 +14,8 @@ namespace ChatApplication.UserControls
     public partial class FileSenderPage : UserControl
     {
         public EventHandler<string> FileMsgReady;
+        public event EventHandler CloseButtonClicked;
+
         private string path = "";
         public string FileName
         {
@@ -27,6 +29,7 @@ namespace ChatApplication.UserControls
         public FileSenderPage()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
 
         private void SendButtonClick(object sender, EventArgs e)
@@ -46,10 +49,28 @@ namespace ChatApplication.UserControls
 
         private void CloseButtonClick(object sender, EventArgs e)
         {
+            CloseButtonClicked?.Invoke(this, e);
             Hide();
             path = "";
             FileNameLabel.Text = "";
-            Chat.TextMessage = "Type a message";
+        }
+
+        public void OnThemeChanged()
+        {
+            //Back Color
+            FileNameLabel.BackColor = ChatTheme.BorderColor;
+            SendButton.BackColor = ChatTheme.BorderColor;
+            InfoLabel.BackColor = ChatTheme.OuterLayerColor;
+            FilePicture.BackColor = ChatTheme.OuterLayerColor;
+            CloseButton.BackColor = ChatTheme.ContactsColor;
+            PreviewPanel.BackColor = ChatTheme.ContactBackgroundColor;
+
+            //Hover color
+            CloseButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(100, CloseButton.BackColor);
+
+            //Fore color
+            FileNameLabel.ForeColor = ChatTheme.TextColor;
+            InfoLabel.ForeColor = ChatTheme.TextColor;
         }
     }
 }

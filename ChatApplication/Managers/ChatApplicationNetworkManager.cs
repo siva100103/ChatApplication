@@ -120,9 +120,6 @@ namespace ChatApplication.Managers
             Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessagesList.Add(msg);
-            //string path = msg.Msg;
-            //string savePath = @"C:\Users\Public\Downloads\";
-            //string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             if (MessagePage != clt.MessagePage)
             {
                 clt.UnseenMessages += 1;

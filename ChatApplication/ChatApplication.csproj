@@ -558,6 +558,8 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-paper-clip-48 black.png" />
+    <None Include="Resources\icons8-paper-clip-48.png" />
     <None Include="Resources\icons8-file-64.png" />
     <None Include="Resources\icons8-archive-22 white.png" />
     <None Include="Resources\icons8-archive-22.png" />

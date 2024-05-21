@@ -352,6 +352,7 @@ namespace ChatApplication.Forms
             // 
             // SideMenuBar
             // 
+            this.SideMenuBar.ArchiveSymbol = ((System.Drawing.Image)(resources.GetObject("SideMenuBar.ArchiveSymbol")));
             this.SideMenuBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
             this.SideMenuBar.ChatSymbol = ((System.Drawing.Image)(resources.GetObject("SideMenuBar.ChatSymbol")));
             this.SideMenuBar.Dock = System.Windows.Forms.DockStyle.Left;

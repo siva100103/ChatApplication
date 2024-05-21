@@ -36,12 +36,22 @@ namespace ChatApplication.UserControls
             set { SendButton.Visible = value; }
         }
 
-        public Image SendSymbol
+        public Image SendButtonSymbol
         {
             get { return SendButton.Image; }
             set
             {
                 SendButton.Image = value;
+            }
+        }
+
+        public Image FileShareSymbol
+        {
+            get { return FileShareIcon.Image; }
+            set
+            {
+                FileShareIcon.Image = value;
+                TextArea.ForeColor = ChatTheme.TextColor;
             }
         }
 
@@ -59,6 +69,7 @@ namespace ChatApplication.UserControls
                 BackColor = value;
                 TextArea.BackColor = value;
                 SendButton.BackColor = value;
+                FileShareIcon.BackColor = value;
             }
         }
 
@@ -94,16 +105,19 @@ namespace ChatApplication.UserControls
         private void TextAreaLostFocus(object sender, EventArgs e)
         {
             TextArea.Text = "Type a message";
+            TextArea.ForeColor = ChatTheme.TextColor;
         }
 
         private void TextAreaGotFocus(object sender, EventArgs e)
         {
             TextArea.Text = "";
+            TextArea.ForeColor = ChatTheme.TextColor;
         }
 
         public void OnThemeChange()
         {
             TextArea.ForeColor = ChatTheme.TextColor;
+            Refresh();
         }
 
         private void MouseEnt1(object o, EventArgs e)
@@ -129,6 +143,7 @@ namespace ChatApplication.UserControls
 
         private void SendButtonClick(object sender, EventArgs e)
         {
+            TextArea.ForeColor = ChatTheme.TextColor;
             if (TextArea.Text != "")
             {
                 MsgReady?.Invoke(sender, TextArea.Text);
@@ -186,8 +201,8 @@ namespace ChatApplication.UserControls
             if (textWidth >= TextArea.Width && flag == 0)
             {
 
-                this.Height += initialHeightOfRichtextbox;
-                this.Location = new Point(this.Location.X, this.Location.Y - initialHeightOfRichtextbox);
+                Height += initialHeightOfRichtextbox;
+                Location = new Point(Location.X, Location.Y - initialHeightOfRichtextbox);
                 TextArea.Location = new Point(TextArea.Location.X, TextArea.Location.Y - initialHeightOfRichtextbox);//(int)((float)richTextBox1.Height/1.5));
                 TextArea.Height *= 2;
 

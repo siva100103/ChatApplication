@@ -88,7 +88,7 @@ namespace ChatApplication.UserControls
             this.chatSenter.Name = "chatSenter";
             this.chatSenter.SendButtonVisibility = true;
             this.chatSenter.SenderColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.chatSenter.SendSymbol = ((System.Drawing.Image)(resources.GetObject("chatSenter.SendSymbol")));
+            this.chatSenter.SendButtonSymbol = ((System.Drawing.Image)(resources.GetObject("chatSenter.SendSymbol")));
             this.chatSenter.Size = new System.Drawing.Size(537, 39);
             this.chatSenter.TabIndex = 5;
             this.chatSenter.TextMessage = " ";

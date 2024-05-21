@@ -57,35 +57,35 @@
             // 
             // PicturePanel
             // 
-            this.PicturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
+            this.PicturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.PicturePanel.Controls.Add(this.FilePicture);
             this.PicturePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PicturePanel.Location = new System.Drawing.Point(0, 0);
             this.PicturePanel.Name = "PicturePanel";
-            this.PicturePanel.Padding = new System.Windows.Forms.Padding(10);
-            this.PicturePanel.Size = new System.Drawing.Size(98, 91);
+            this.PicturePanel.Padding = new System.Windows.Forms.Padding(8);
+            this.PicturePanel.Size = new System.Drawing.Size(98, 97);
             this.PicturePanel.TabIndex = 3;
             // 
             // FilePicture
             // 
-            this.FilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
+            this.FilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
             this.FilePicture.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FilePicture.Image = global::ChatApplication.Properties.Resources.icons8_file_64;
-            this.FilePicture.Location = new System.Drawing.Point(10, 10);
+            this.FilePicture.Location = new System.Drawing.Point(8, 8);
             this.FilePicture.Name = "FilePicture";
-            this.FilePicture.Size = new System.Drawing.Size(78, 71);
+            this.FilePicture.Size = new System.Drawing.Size(82, 81);
             this.FilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.FilePicture.TabIndex = 1;
             this.FilePicture.TabStop = false;
             // 
             // FileNameLabel
             // 
-            this.FileNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
+            this.FileNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(137)))), ((int)(((byte)(242)))));
             this.FileNameLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.FileNameLabel.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FileNameLabel.Location = new System.Drawing.Point(0, 91);
+            this.FileNameLabel.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FileNameLabel.Location = new System.Drawing.Point(0, 97);
             this.FileNameLabel.Name = "FileNameLabel";
-            this.FileNameLabel.Size = new System.Drawing.Size(98, 23);
+            this.FileNameLabel.Size = new System.Drawing.Size(98, 17);
             this.FileNameLabel.TabIndex = 2;
             this.FileNameLabel.Text = "label1";
             this.FileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

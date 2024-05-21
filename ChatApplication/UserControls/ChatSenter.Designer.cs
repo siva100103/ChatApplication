@@ -60,9 +60,9 @@
             this.TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TextArea.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextArea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.TextArea.Location = new System.Drawing.Point(102, 2);
+            this.TextArea.Location = new System.Drawing.Point(100, 2);
             this.TextArea.Name = "TextArea";
-            this.TextArea.Size = new System.Drawing.Size(366, 36);
+            this.TextArea.Size = new System.Drawing.Size(368, 36);
             this.TextArea.TabIndex = 2;
             this.TextArea.Text = " Type a message";
             this.TextArea.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextAreaMouseClick);
@@ -73,11 +73,11 @@
             // 
             this.FileShareIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.FileShareIcon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.FileShareIcon.Image = global::ChatApplication.Properties.Resources.paper_clip__3_;
+            this.FileShareIcon.Image = global::ChatApplication.Properties.Resources.icons8_paper_clip_48_black;
             this.FileShareIcon.Location = new System.Drawing.Point(52, 2);
             this.FileShareIcon.Name = "FileShareIcon";
-            this.FileShareIcon.Size = new System.Drawing.Size(50, 36);
-            this.FileShareIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.FileShareIcon.Size = new System.Drawing.Size(48, 36);
+            this.FileShareIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.FileShareIcon.TabIndex = 1;
             this.FileShareIcon.TabStop = false;
             this.FileShareIcon.Click += new System.EventHandler(this.FileShareIconClick);

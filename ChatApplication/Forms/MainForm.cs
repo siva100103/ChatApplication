@@ -49,7 +49,7 @@ namespace ChatApplication.Forms
             //Setting Color Scheme
             theme = DbManager.MyData.Theme;
             ChatTheme.SetTheme(theme);
-            ControlsOnThemeChange();
+            
 
             StarMainPanel.Dock = DockStyle.Fill;
             MainPanel.Visible = false;
@@ -75,6 +75,9 @@ namespace ChatApplication.Forms
 
             //Loading initialize
             LoadingScreenLoad();
+
+            ControlsOnThemeChange();
+            MyThemeChanged(this, theme);
         }
 
         private void LoadingScreenLoad()

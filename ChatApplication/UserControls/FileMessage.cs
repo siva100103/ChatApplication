@@ -19,7 +19,7 @@ namespace ChatApplication.UserControls
         public FileMessage(string path)
         {
             InitializeComponent();
-
+            DoubleBuffered = true;
             FilePath = path;
         }
 
@@ -86,6 +86,14 @@ namespace ChatApplication.UserControls
                 MessageBox.Show("File not found.");
             }
             Dispose();
+        }
+
+        public void ThemeChange()
+        {
+            FilePicture.BackColor = ChatTheme.OuterLayerColor;
+            PicturePanel.BackColor = ChatTheme.ContactsColor;
+            FileNameLabel.BackColor = ChatTheme.BorderColor;
+            FileNameLabel.ForeColor = ChatTheme.TextColor;
         }
     }
 }

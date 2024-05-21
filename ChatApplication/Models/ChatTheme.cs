@@ -29,6 +29,9 @@ namespace ChatApplication
         public static Image ArchieveIcon;
         public static Image ExitIcon;
         public static Image SearchIcon;
+        public static Image FileShareIcon;
+        public static Image MenuButtonIcon;
+        public static Image SendButtonIcon;
 
         public static void SetTheme(int theme)
         {
@@ -53,6 +56,9 @@ namespace ChatApplication
                 ExitIcon = Properties.Resources.icons8_macos_close_22_white;
                 SearchIcon = Properties.Resources.icons8_search_19_white;
                 ArchieveIcon = Properties.Resources.icons8_archive_22_white;
+                FileShareIcon = Properties.Resources.icons8_paper_clip_48;
+                MenuButtonIcon = Properties.Resources.icons8_menu_vertical_50;
+                SendButtonIcon = Properties.Resources.icons8_paper_plane_50__1_;
             }
             else if(theme == 0)
             {
@@ -74,6 +80,9 @@ namespace ChatApplication
                 ExitIcon = Properties.Resources.icons8_macos_close_22;
                 SearchIcon = Properties.Resources.icons8_search_19;
                 ArchieveIcon = Properties.Resources.icons8_archive_22;
+                FileShareIcon = Properties.Resources.icons8_paper_clip_48_black;
+                MenuButtonIcon = Properties.Resources.icons8_menu_vertical_50__1_;
+                SendButtonIcon = Properties.Resources.icons8_paper_plane_50__2_;
             }
         }
     }

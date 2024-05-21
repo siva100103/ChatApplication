@@ -25,7 +25,10 @@ namespace ChatApplication.UserControls
         public Client Client { get; set; }
         public event EventHandler<List<ChatU>> StarredMessages;
         private List<ChatU> Messages = new List<ChatU>();
-        public static event EventHandler<Client> Archived;
+        private FileSenderPage FileSharePage;
+        public ContentForm ContactInfo;
+        private MenuForm MenuF;
+
         public Image ProfileImage
         {
             get { return ProfilePicture.Image; }
@@ -50,17 +53,10 @@ namespace ChatApplication.UserControls
                 MenuTip.ForeColor = ChatTheme.TextColor;
                 MenuButton.FlatAppearance.MouseOverBackColor = ChatTheme.OuterLayerColor;
                 MenuButton.FlatAppearance.MouseDownBackColor = ChatTheme.ContactBackgroundColor;
-
-                if (ChatTheme.Current == 1)
-                {
-                    MenuButton.Image = Properties.Resources.icons8_menu_vertical_50;
-                    chatSenter.SendSymbol = Properties.Resources.icons8_paper_plane_50__1_;
-                }
-                else
-                {
-                    MenuButton.Image = Properties.Resources.icons8_menu_vertical_50__1_;
-                    chatSenter.SendSymbol = Properties.Resources.icons8_paper_plane_50__2_;
-                }
+                chatSenter.FileShareSymbol = ChatTheme.FileShareIcon;
+                chatSenter.SendButtonSymbol = ChatTheme.SendButtonIcon;
+                MenuButton.Image = ChatTheme.MenuButtonIcon;
+                FileSharePage.OnThemeChanged();
             }
         }
 
@@ -72,10 +68,6 @@ namespace ChatApplication.UserControls
                 ChatPanel.BackColor = value;
             }
         }
-
-        private FileSenderPage FileSharePage;
-        public ContentForm ContactInfo;
-        private MenuForm MenuF;
 
         public MessagePage(Client contact)
         {
@@ -108,7 +100,7 @@ namespace ChatApplication.UserControls
                 Dock = DockStyle.Fill
             };
             FileSharePage.FileMsgReady += FileSendMessage;
-
+            FileSharePage.CloseButtonClicked += (sender, e) => { chatSenter.Show(); };
             MainPanel.Controls.Add(FileSharePage);
 
             ContactInfo = new ContentForm()
@@ -190,6 +182,7 @@ namespace ChatApplication.UserControls
         private void FileShare(object sender, string filePath)
         {
             FileSharePage.Show();
+            FileSharePage.OnThemeChanged();
             FileSharePage.BringToFront();
             chatSenter.Hide();
             FileSharePage.FileName = filePath;
@@ -227,6 +220,7 @@ namespace ChatApplication.UserControls
             if (msg.type == MessageType.File)
             {
                 FileMessage file = new FileMessage(msg.Msg);
+                file.ThemeChange();
                 CustomPanel chatPanel = new CustomPanel()
                 {
                     Dock = DockStyle.Top,
@@ -244,6 +238,15 @@ namespace ChatApplication.UserControls
                 if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
                 {
                     file.Dock = DockStyle.Right;
+                    Timer SendTimer = new Timer
+                    {
+                        Interval = 5000
+                    };
+                    SendTimer.Tick += (sender, e) =>
+                    {
+                        file.Dispose();
+                    };
+                    SendTimer.Start();
                 }
                 else
                 {
@@ -307,28 +310,6 @@ namespace ChatApplication.UserControls
                     parent.BackColor = Color.Transparent;
                     ChatApplicationNetworkManager.SelectedMessages.Remove((sender as ChatU));
                 }
-            }
-        }
-
-        private void ChatMsgMouseClick(object sender, MouseEventArgs e)
-        {
-            string path = (sender as ChatU).FilePath;
-            string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
-            string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    Process.Start(filePath);
-                }
-                else
-                {
-                    MessageBox.Show("File not found.");
-                }
-            }
-            catch
-            {
-                MessageBox.Show("File not found.");
             }
         }
 

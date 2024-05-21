@@ -129,6 +129,18 @@
         gg==
 </value>
   </data>
+  <data name="SideMenuBar.ArchiveSymbol" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAAWdJREFUSEvtlb9Kw1AUhwu6d5VqRB18gvYJQrdCBpc8QslSnYSQLXs6CSEQcMnS
+        ZE4eIQhCcQ61SZNFEAdf4HjO5aaQP72tAXXxBx85cO/57iWEk96vZLPZnK7X69ssy+5F4J671Wp1ztv2
+        B5uegyAAx3GEeJ4HaZq+o/yat4qDN/lQFAV8328wnU4ZVNMeqnH/Gx5wydt3h8SqqkJRFA3m8zmDak3T
+        YDAYwGw2I3mR5/kZV7RHJLZtm0E1ifv9PpMbhgGvGOw94ZpmROLy/VJdiku5ZVl08ycAOOKqakRi13UZ
+        VC+Xy+27XywWMJlMSPyZJInEVdUcKq5DPSRGLriqGpFYlmUYj8eta53FYRiCJEmMKIoa653Fuq6DaZoM
+        +grq653FcRzDcDiE0WjE6vp6Z/E+/sVb/la8a2yKoB6hGGfryyGDvg71oDTB27fPCvyDXCEPeMDjd8Ae
+        B583ON2Oueqn0ut9AZcr+fa1bMaEAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="SideMenuBar.ChatSymbol" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
