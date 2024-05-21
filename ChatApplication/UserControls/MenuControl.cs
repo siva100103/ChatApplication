@@ -83,11 +83,10 @@ namespace ChatApplication.UserControls
         private HoverButton currentObject;
         private Color HoverColor = Color.FromArgb(234, 234, 234);
 
-        public EventHandler OnClickChatsBtn;
+        public event EventHandler OnClickChatsBtn;
         public EventHandler OnClickCallsBtn;
         public EventHandler OnClickStatusBtn;
         public EventHandler OnClickStarBtn;
-        public EventHandler OnClickArchivedBtn;
         public EventHandler OnClickSettingBtn;
         public event EventHandler OnClickExitBtn;
         public event EventHandler OnClickProfilePicture;
@@ -160,7 +159,7 @@ namespace ChatApplication.UserControls
 
         private void ArchivedBtnClick(object sender, EventArgs e)
         {
-            OnClickStarBtn?.Invoke(sender, EventArgs.Empty);
+            OnArciveButtonClick?.Invoke(sender, EventArgs.Empty);
         }
 
         private void StarBtnClick(object sender, EventArgs e)

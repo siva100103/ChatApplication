@@ -67,6 +67,7 @@
             this.TextArea.Text = " Type a message";
             this.TextArea.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextAreaMouseClick);
             this.TextArea.TextChanged += new System.EventHandler(this.TextAreaTextChanged);
+            this.TextArea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextAreaKeyDown);
             // 
             // FileShareIcon
             // 

@@ -36,7 +36,7 @@ namespace ChatApplication.UserControls
             this.contactNameLB = new System.Windows.Forms.Label();
             this.lastMessageLB = new System.Windows.Forms.Label();
             this.timeP = new System.Windows.Forms.Panel();
-            this.PendingMessages = new ChatApplication.UserControls.BendingMessages();
+            this.PendingMessages = new ChatApplication.UserControls.PendingMessages();
             this.timeLB = new System.Windows.Forms.Label();
             this.dpPictureBox = new ChatApplication.UserControls.CustomPictureBox();
             this.mainP.SuspendLayout();
@@ -125,7 +125,7 @@ namespace ChatApplication.UserControls
             // 
             // PendingMessages
             // 
-            this.PendingMessages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(243)))), ((int)(((byte)(253)))));
+            this.PendingMessages.BackColor = System.Drawing.Color.Transparent;
             this.PendingMessages.Location = new System.Drawing.Point(22, 19);
             this.PendingMessages.Name = "PendingMessages";
             this.PendingMessages.Size = new System.Drawing.Size(20, 20);
@@ -182,6 +182,6 @@ namespace ChatApplication.UserControls
         private System.Windows.Forms.Label timeLB;
         private CustomPictureBox dpPictureBox;
         private StatusIndicator statusIndicator1;
-        private BendingMessages PendingMessages;
+        private PendingMessages PendingMessages;
     }
 }

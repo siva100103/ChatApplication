@@ -39,14 +39,14 @@ namespace ChatApplication.Managers
 
         private static bool UpdatePreviousMessageFromDb()
         {
-           foreach(var a in DbManager.Clients)
+            foreach (var a in DbManager.Clients)
             {
                 a.Value.MessagePage = new MessagePage(a.Value);
                 a.Value.IdentifyUnSeenMsgs();
             }
             return true;
         }
-        
+
         private static bool StartListener()
         {
             Listener = new TcpListener(IPAddress.Parse(LocalIpAddress), 12346);
@@ -120,9 +120,9 @@ namespace ChatApplication.Managers
             Client clt = DbManager.Clients[msg.FromIP];
             clt.MessagePage.AddMessage(msg);
             clt.UnSeenMessagesList.Add(msg);
-            string path = msg.Msg;
-            string savePath = @"C:\Users\Public\Downloads\";
-            string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
+            //string path = msg.Msg;
+            //string savePath = @"C:\Users\Public\Downloads\";
+            //string newfilePath = Path.Combine(savePath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             if (MessagePage != clt.MessagePage)
             {
                 clt.UnseenMessages += 1;
@@ -141,120 +141,120 @@ namespace ChatApplication.Managers
             }
         }
 
-        private static void HandleResponses(MessageModel msg)
-        {
-            if (!DbManager.Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
+            private static void HandleResponses(MessageModel msg)
             {
-
-                Client client = DbManager.GetClientAtInstance(msg.FromIP);
-                DbManager.Clients.Add(client.IP, client);
-                client.MessagePage = new MessagePage(client);
-                ContactU label = new ContactU(client)
+                if (!DbManager.Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
                 {
-                    Dock = System.Windows.Forms.DockStyle.Top,
-                };
-                Inform?.Invoke(label);
-            }
 
-
-            if (msg.Msg.Equals("Close"))
-            {
-                Client clt = DbManager.Clients[msg.FromIP];
-                clt.StatusChanger(false);
-            }
-            else if (msg.Msg.Equals("Open"))
-            {
-                Client clt = DbManager.Clients[msg.FromIP];
-                clt.StatusChanger(true);
-            }
-            else
-            {
-                DbManager.Messages[msg.Id].IsReadedInvoker();
-            }
-        }
-
-        private async static void HandleMessages(MessageModel msg)
-        {
-            Client clt = DbManager.Clients[msg.FromIP];
-            clt.MessagePage.AddMessage(msg);
-            //clt.UnSeenMessagesList.Add(msg);
-            if (MessagePage != clt.MessagePage)
-            {
-                clt.UnseenMessages += 1;
-                clt.UnSeenMessagesList.Add(msg);
-            }
-            else
-            {
-                MessageModel m = new MessageModel(msg)
-                {
-                    Msg = "Readed",
-                    type = MessageType.Response
-                };
-                await SendMessage(m, DbManager.Clients[m.FromIP]);
-                msg.Seen = true;
-                DbManager.UpdateMessage(msg);
-            }
-            Client c = DbManager.Clients[msg.FromIP];
-            c.MessageReceiveInvoker();
-            DbManager.CreateMessage(msg);
-        }
-        #endregion
-
-        #region SendData to another Ip
-        public async static Task SendMessage(MessageModel message, Client c)
-        {
-            try
-            {
-                TcpClient Sender = new TcpClient();
-                await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
-                NetworkStream Stream = Sender.GetStream();
-                string msg = JsonConvert.SerializeObject(message);
-                byte[] data = Encoding.UTF8.GetBytes(msg);
-                await Stream.WriteAsync(data, 0, data.Length);
-                message.IsSendedInvoker();
-                c.MessageSendInvoker();
-                if (message.type == MessageType.Message)
-                {
-                    DbManager.CreateMessage(message);
+                    Client client = DbManager.GetClientAtInstance(msg.FromIP);
+                    DbManager.Clients.Add(client.IP, client);
+                    client.MessagePage = new MessagePage(client);
+                    ContactU label = new ContactU(client)
+                    {
+                        Dock = System.Windows.Forms.DockStyle.Top,
+                    };
+                    Inform?.Invoke(label);
                 }
-                c.StatusChanger(true);
-            }
-            catch
-            {
-                c.StatusChanger(false);
-            }
-        }
 
-        public static async void SendResponseForReadedMessage(List<MessageModel> Readedmessages, Client c)
-        {
-            foreach (var msg in Readedmessages)
-            {
-                MessageModel m = new MessageModel(msg)
+
+                if (msg.Msg.Equals("Close"))
                 {
-                    type = MessageType.Response,
-                    Msg = "Readed"
-                };
-                if (c.IsConnected) await SendMessage(m, c);
-
-                m = DbManager.Messages.Values.ToList().Find(m1 => msg.Id.Equals(m1.Id));
-                m.Seen = true;
-                DbManager.UpdateMessage(m);
+                    Client clt = DbManager.Clients[msg.FromIP];
+                    clt.StatusChanger(false);
+                }
+                else if (msg.Msg.Equals("Open"))
+                {
+                    Client clt = DbManager.Clients[msg.FromIP];
+                    clt.StatusChanger(true);
+                }
+                else
+                {
+                    DbManager.Messages[msg.Id].IsReadedInvoker();
+                }
             }
-            c.UnSeenMessagesList.Clear();
-        } 
-        #endregion
 
-        public static List<MessageModel> GetMessages(string FromIp, string ToIP)
-        {
-            return DbManager.Messages.Values.ToList().Where((msg) =>
-           {
-               return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
-           }).ToList();
+            private async static void HandleMessages(MessageModel msg)
+            {
+                Client clt = DbManager.Clients[msg.FromIP];
+                clt.MessagePage.AddMessage(msg);
+                //clt.UnSeenMessagesList.Add(msg);
+                if (MessagePage != clt.MessagePage)
+                {
+                    clt.UnseenMessages += 1;
+                    clt.UnSeenMessagesList.Add(msg);
+                }
+                else
+                {
+                    MessageModel m = new MessageModel(msg)
+                    {
+                        Msg = "Readed",
+                        type = MessageType.Response
+                    };
+                    await SendMessage(m, DbManager.Clients[m.FromIP]);
+                    msg.Seen = true;
+                    DbManager.UpdateMessage(msg);
+                }
+                Client c = DbManager.Clients[msg.FromIP];
+                c.MessageReceiveInvoker();
+                DbManager.CreateMessage(msg);
+            }
+            #endregion
+
+            #region SendData to another Ip
+            public async static Task SendMessage(MessageModel message, Client c)
+            {
+                try
+                {
+                    TcpClient Sender = new TcpClient();
+                    await Sender.ConnectAsync(IPAddress.Parse(c.IP), c.Port);
+                    NetworkStream Stream = Sender.GetStream();
+                    string msg = JsonConvert.SerializeObject(message);
+                    byte[] data = Encoding.UTF8.GetBytes(msg);
+                    await Stream.WriteAsync(data, 0, data.Length);
+                    message.IsSendedInvoker();
+                    c.MessageSendInvoker();
+                    if (message.type == MessageType.Message)
+                    {
+                        DbManager.CreateMessage(message);
+                    }
+                    c.StatusChanger(true);
+                }
+                catch
+                {
+                    c.StatusChanger(false);
+                }
+            }
+
+            public static async void SendResponseForReadedMessage(List<MessageModel> Readedmessages, Client c)
+            {
+                foreach (var msg in Readedmessages)
+                {
+                    MessageModel m = new MessageModel(msg)
+                    {
+                        type = MessageType.Response,
+                        Msg = "Readed"
+                    };
+                    if (c.IsConnected) await SendMessage(m, c);
+
+                    m = DbManager.Messages.Values.ToList().Find(m1 => msg.Id.Equals(m1.Id));
+                    m.Seen = true;
+                    DbManager.UpdateMessage(m);
+                }
+                c.UnSeenMessagesList.Clear();
+            }
+            #endregion
+
+            public static List<MessageModel> GetMessages(string FromIp, string ToIP)
+            {
+                return DbManager.Messages.Values.ToList().Where((msg) =>
+               {
+                   return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
+               }).ToList();
+            }
+
+
         }
-
-       
     }
-}
 
 
 

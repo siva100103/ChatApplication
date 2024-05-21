@@ -16,6 +16,7 @@ namespace ChatApplication.Managers
     {
         public static Dictionary<string, MessageModel> Messages { get; set; } = new Dictionary<string, MessageModel>();
         public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
+        public static LocalData MyData = new LocalData();
 
         private static DatabaseManager LocalDbManager = new MySqlHandler();
         private static DatabaseManager ServerDbManager = new MySqlHandler();
@@ -102,19 +103,17 @@ namespace ChatApplication.Managers
         #region LocalDatabase Operations
         public static bool LocalDbConfig()
         {
-            #region LocalDb
             string xmlFilePath = @".\data.xml";
-            LocalData data;
+            //LocalData data;
             XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
             using (TextReader reader = new StreamReader(xmlFilePath))
             {
-                data = (LocalData)serializer.Deserialize(reader);
+                MyData = (LocalData)serializer.Deserialize(reader);
             }
-            LocalDbManager.Database = $"{data.Database}";
-            LocalDbManager.HostName = $"{data.Server}";
-            LocalDbManager.UserName = $"{data.Uid}";
-            LocalDbManager.Password = $"{data.Password}";
-
+            LocalDbManager.Database = $"{MyData.Database}";
+            LocalDbManager.HostName = $"{MyData.Server}";
+            LocalDbManager.UserName = $"{MyData.Uid}";
+            LocalDbManager.Password = $"{MyData.Password}";
 
             Client me = Clients[ChatApplicationNetworkManager.LocalIpAddress];
             if (me != null)
@@ -156,30 +155,29 @@ namespace ChatApplication.Managers
             }
             FetchLocalDb();
             return true;
-            #endregion
         }
 
         public static void FetchLocalDb()
         {
-            var a = LocalDbManager.FetchData("Messages", "");
+            var data = LocalDbManager.FetchData("Messages", "");
 
-            if (a.Value.Count > 0)
+            if (data.Value.Count > 0)
             {
-                for (int i = 0; i < a.Value["Id"].Count; i++)
+                for (int i = 0; i < data.Value["Id"].Count; i++)
                 {
                     MessageModel m = new MessageModel()
                     {
-                        Id = a.Value["Id"][i].ToString(),
-                        FromIP = a.Value["FromIP"][i].ToString(),
-                        ReceiverIP = a.Value["ReceiverIP"][i].ToString(),
-                        Msg = a.Value["Msg"][i].ToString(),
-                        Time = (DateTime)a.Value["Time"][i],
-                        Seen = a.Value["Seen"][i].ToBoolean(),
-                        Starred = a.Value["Starred"][i].ToBoolean()
+                        Id = data.Value["Id"][i].ToString(),
+                        FromIP = data.Value["FromIP"][i].ToString(),
+                        ReceiverIP = data.Value["ReceiverIP"][i].ToString(),
+                        Msg = data.Value["Msg"][i].ToString(),
+                        Time = (DateTime)data.Value["Time"][i],
+                        Seen = data.Value["Seen"][i].ToBoolean(),
+                        Starred = data.Value["Starred"][i].ToBoolean()
                     };
                     if (!Messages.ContainsKey(m.Id))
                     {
-                        Messages.Add(m.Id, m); 
+                        Messages.Add(m.Id, m);
                     }
                 }
             }
@@ -220,14 +218,6 @@ namespace ChatApplication.Managers
             if (Messages.ContainsKey(id)) Messages.Remove(id);
         }
 
-        public static void DeleteMessages(IEnumerable<string> Messageid)
-        {
-            foreach (var id in Messageid)
-            {
-                if (Messages.ContainsKey(id)) Messages.Remove(id);
-            }
-        }
-
         public static void StarMessages(MessageModel message)
         {
             string condition = $"Id = '{message.Id}'";
@@ -236,9 +226,7 @@ namespace ChatApplication.Managers
                 new ParameterData("Starred" , message.Starred.ToInt32())
             };
             LocalDbManager.UpdateData("Messages", condition, data);
-        } 
+        }
         #endregion
-
-
     }
 }

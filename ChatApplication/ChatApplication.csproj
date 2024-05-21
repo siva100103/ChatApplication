@@ -194,6 +194,12 @@
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\LocalData.cs" />
+    <Compile Include="UserControls\FileMessage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\FileMessage.Designer.cs">
+      <DependentUpon>FileMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LoadingScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -218,19 +224,13 @@
     <Compile Include="UserControls\FileSenderPage.Designer.cs">
       <DependentUpon>FileSenderPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BendingMessages.cs">
+    <Compile Include="UserControls\PendingMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\BendingMessages.Designer.cs">
-      <DependentUpon>BendingMessages.cs</DependentUpon>
+    <Compile Include="UserControls\PendingMessages.Designer.cs">
+      <DependentUpon>PendingMessages.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\ChatApplicationNetworkManager.cs" />
-    <Compile Include="UserControls\ChatPageTitleU.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\ChatPageTitleU.Designer.cs">
-      <DependentUpon>ChatPageTitleU.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ChatSenter.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -353,6 +353,9 @@
     <EmbeddedResource Include="Forms\MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\FileMessage.resx">
+      <DependentUpon>FileMessage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LoadingScreen.resx">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -362,11 +365,8 @@
     <EmbeddedResource Include="UserControls\StarredMessages.resx">
       <DependentUpon>StarredMessages.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\BendingMessages.resx">
-      <DependentUpon>BendingMessages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ChatPageTitleU.resx">
-      <DependentUpon>ChatPageTitleU.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\PendingMessages.resx">
+      <DependentUpon>PendingMessages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ChatSenter.resx">
       <DependentUpon>ChatSenter.cs</DependentUpon>
@@ -558,6 +558,7 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
+    <None Include="Resources\icons8-file-64.png" />
     <None Include="Resources\icons8-archive-22 white.png" />
     <None Include="Resources\icons8-archive-22.png" />
     <None Include="Resources\icons8-wechat-481.png" />

@@ -21,6 +21,7 @@ namespace ChatApplication.UserControls
         private Point initialLocationRichtextbox;
         private Size initialSize;
         public Point initialLocation;
+        private int flag = 0, flag2 = 0;
 
         [Browsable(true)]
         public bool FileShareIconVisibility
@@ -128,18 +129,17 @@ namespace ChatApplication.UserControls
 
         private void SendButtonClick(object sender, EventArgs e)
         {
+            if (TextArea.Text != "")
+            {
+                MsgReady?.Invoke(sender, TextArea.Text);
+                TextArea.Text = "Type a message";
+                TextArea.ForeColor = Color.FromArgb(200, 200, 200);
 
-            MsgReady?.Invoke(sender, TextArea.Text);
-            TextArea.Text = "Type a message";
-            TextArea.ForeColor = Color.FromArgb(200, 200, 200);
-
-            Size = initialSize;
-            Location = initialLocation;
-            flag = 0;
-
-
+                Size = initialSize;
+                Location = initialLocation;
+                flag = 0;
+            }
         }
-        private int flag = 0, flag2 = 0;
 
         private void FileShareIconClick(object sender, EventArgs e)
         {
@@ -153,6 +153,21 @@ namespace ChatApplication.UserControls
                     string path = openFileDialog.FileName;
                     FileChoosen?.Invoke(this, path);
                 }
+            }
+        }
+
+        private void TextAreaKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && TextArea.Text != "")
+            {
+                MsgReady?.Invoke(sender, TextArea.Text);
+                TextArea.ResetText();
+                TextArea.Text = "Type a message";
+                TextArea.ForeColor = Color.FromArgb(200, 200, 200);
+
+                Size = initialSize;
+                Location = initialLocation;
+                flag = 0;
             }
         }
 

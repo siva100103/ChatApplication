@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileSenderPage));
             this.FileNamePanel = new System.Windows.Forms.Panel();
             this.FileNameLabel = new System.Windows.Forms.Label();
+            this.CloseButton = new ChatApplication.UserControls.HoverButton();
             this.PreviewPanel = new System.Windows.Forms.Panel();
             this.BottomPanel = new System.Windows.Forms.Panel();
+            this.Chat = new ChatApplication.UserControls.ChatSenter();
             this.SendButton = new System.Windows.Forms.PictureBox();
-            this.Chat = new ChatSenter();
-            this.CloseButton = new HoverButton();
             this.FileNamePanel.SuspendLayout();
             this.BottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SendButton)).BeginInit();
@@ -53,6 +54,7 @@
             // 
             // FileNameLabel
             // 
+            this.FileNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(168)))), ((int)(((byte)(133)))));
             this.FileNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileNameLabel.Location = new System.Drawing.Point(44, 0);
@@ -61,47 +63,6 @@
             this.FileNameLabel.TabIndex = 10;
             this.FileNameLabel.Text = "File Name";
             this.FileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // PreviewPanel
-            // 
-            this.PreviewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PreviewPanel.Location = new System.Drawing.Point(0, 55);
-            this.PreviewPanel.Name = "PreviewPanel";
-            this.PreviewPanel.Size = new System.Drawing.Size(482, 340);
-            this.PreviewPanel.TabIndex = 1;
-            // 
-            // BottomPanel
-            // 
-            this.BottomPanel.Controls.Add(this.Chat);
-            this.BottomPanel.Controls.Add(this.SendButton);
-            this.BottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BottomPanel.Location = new System.Drawing.Point(0, 395);
-            this.BottomPanel.Name = "BottomPanel";
-            this.BottomPanel.Size = new System.Drawing.Size(482, 42);
-            this.BottomPanel.TabIndex = 2;
-            // 
-            // SendButton
-            // 
-            this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(168)))), ((int)(((byte)(133)))));
-            this.SendButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.SendButton.Image = global::ChatApplication.Properties.Resources.send__3_;
-            this.SendButton.Location = new System.Drawing.Point(438, 0);
-            this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(44, 42);
-            this.SendButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.SendButton.TabIndex = 4;
-            this.SendButton.TabStop = false;
-            this.SendButton.Click += new System.EventHandler(this.SendButtonClick);
-            // 
-            // Chat
-            // 
-            this.Chat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Chat.FileShareIconVisibility = false;
-            this.Chat.Location = new System.Drawing.Point(0, 0);
-            this.Chat.Name = "Chat";
-            this.Chat.SendButtonVisibility = false;
-            this.Chat.Size = new System.Drawing.Size(438, 42);
-            this.Chat.TabIndex = 3;
             // 
             // CloseButton
             // 
@@ -127,6 +88,51 @@
             this.CloseButton.TextColor = System.Drawing.Color.White;
             this.CloseButton.UseVisualStyleBackColor = false;
             this.CloseButton.Click += new System.EventHandler(this.CloseButtonClick);
+            // 
+            // PreviewPanel
+            // 
+            this.PreviewPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PreviewPanel.Location = new System.Drawing.Point(0, 55);
+            this.PreviewPanel.Name = "PreviewPanel";
+            this.PreviewPanel.Size = new System.Drawing.Size(482, 340);
+            this.PreviewPanel.TabIndex = 1;
+            // 
+            // BottomPanel
+            // 
+            this.BottomPanel.Controls.Add(this.Chat);
+            this.BottomPanel.Controls.Add(this.SendButton);
+            this.BottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BottomPanel.Location = new System.Drawing.Point(0, 395);
+            this.BottomPanel.Name = "BottomPanel";
+            this.BottomPanel.Size = new System.Drawing.Size(482, 42);
+            this.BottomPanel.TabIndex = 2;
+            // 
+            // Chat
+            // 
+            this.Chat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.Chat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Chat.FileShareIconVisibility = false;
+            this.Chat.Location = new System.Drawing.Point(0, 0);
+            this.Chat.Name = "Chat";
+            this.Chat.SendButtonVisibility = false;
+            this.Chat.SenderColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
+            this.Chat.SendSymbol = ((System.Drawing.Image)(resources.GetObject("Chat.SendSymbol")));
+            this.Chat.Size = new System.Drawing.Size(438, 42);
+            this.Chat.TabIndex = 3;
+            this.Chat.TextMessage = " Type a message";
+            // 
+            // SendButton
+            // 
+            this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(168)))), ((int)(((byte)(133)))));
+            this.SendButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SendButton.Image = global::ChatApplication.Properties.Resources.send__3_;
+            this.SendButton.Location = new System.Drawing.Point(438, 0);
+            this.SendButton.Name = "SendButton";
+            this.SendButton.Size = new System.Drawing.Size(44, 42);
+            this.SendButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.SendButton.TabIndex = 4;
+            this.SendButton.TabStop = false;
+            this.SendButton.Click += new System.EventHandler(this.SendButtonClick);
             // 
             // FileSenderPage
             // 

@@ -16,6 +16,7 @@ using ChatApplication.Managers;
 using ChatApplication.Models;
 using System.Windows.Forms;
 using ChatApplication.Forms;
+using System.Xml.Serialization;
 
 namespace ChatApplication.UserControls
 {
@@ -24,7 +25,7 @@ namespace ChatApplication.UserControls
         public Client Client { get; set; }
         public event EventHandler<List<ChatU>> StarredMessages;
         private List<ChatU> Messages = new List<ChatU>();
-
+        public static event EventHandler<Client> Archived;
         public Image ProfileImage
         {
             get { return ProfilePicture.Image; }
@@ -107,6 +108,7 @@ namespace ChatApplication.UserControls
                 Dock = DockStyle.Fill
             };
             FileSharePage.FileMsgReady += FileSendMessage;
+
             MainPanel.Controls.Add(FileSharePage);
 
             ContactInfo = new ContentForm()
@@ -125,19 +127,12 @@ namespace ChatApplication.UserControls
             MenuF.Delete += Unselected;
             MenuF.Copy += Unselected;
             MenuF.Star += StarredMessage;
-            MenuF.Archive += ArchiveChat;
 
             foreach (var a in Messages)
             {
                 if (!a.Msg.Contains(@"\\SPARE-B11\Chat Application Profile\"))
                     AddMessage(a);
             }
-        }
-
-        private void ArchiveChat(object sender, EventArgs e)
-        {
-            LocalData data = new LocalData();
-            data.Archieved.Add(Client.IP);
         }
 
         private void StarredMessage(object sender, List<ChatU> e)
@@ -222,49 +217,79 @@ namespace ChatApplication.UserControls
         {
             HeaderPanel.SuspendLayout();
             ChatPanel.SuspendLayout();
-            ChatU chatMsg = new ChatU(msg);
-            chatMsg.MessageCreate();
-            CustomPanel chatPanel = new CustomPanel()
-            {
-                Dock = DockStyle.Top,
-                BackColor = Color.Transparent,
-                BorderColor = Color.Transparent,
-                BorderStyle = BorderStyle.None,
-                AllBorderRadius = 18,
-                Height = chatMsg.Height
-            };
-            chatPanel.Controls.Add(chatMsg);
-
-            if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
-            {
-                chatMsg.Dock = DockStyle.Right;
-                chatMsg.BackColor = ChatTheme.SentColor;
-            }
-            else
-            {
-                chatMsg.Dock = DockStyle.Left;
-                chatMsg.BackColor = ChatTheme.ReceivedColor;
-            }
             Panel space = new Panel()
             {
                 Dock = DockStyle.Top,
                 BackColor = Color.Transparent,
                 Height = 15
             };
-            Messages.Add(chatMsg);
-            ChatPanel.Controls.Add(chatPanel);
-            ChatPanel.Controls.Add(space);
-            chatPanel.BringToFront();
-            space.BringToFront();
+
             if (msg.type == MessageType.File)
             {
-                chatMsg.FilePath = msg.Msg;
-                chatMsg.MouseClick += ChatMsgMouseClick;
+                FileMessage file = new FileMessage(msg.Msg);
+                CustomPanel chatPanel = new CustomPanel()
+                {
+                    Dock = DockStyle.Top,
+                    BackColor = Color.Transparent,
+                    BorderColor = Color.Transparent,
+                    BorderStyle = BorderStyle.None,
+                    AllBorderRadius = 18,
+                    Height = file.Height
+                };
+                chatPanel.Controls.Add(file);
+                ChatPanel.Controls.Add(chatPanel);
+                chatPanel.BringToFront();
+                ChatPanel.Controls.Add(space);
+
+                if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
+                {
+                    file.Dock = DockStyle.Right;
+                }
+                else
+                {
+                    file.Dock = DockStyle.Left;
+                }
+
+                file.Disposed += (sender, e) =>
+                {
+                    chatPanel.Dispose();
+                    space.Dispose();
+                };
             }
-            chatMsg.ChatUClicked += ChatMsgClicked;
+            else
+            {
+                ChatU chatMsg = new ChatU(msg);
+                chatMsg.MessageCreate();
+                CustomPanel chatPanel = new CustomPanel()
+                {
+                    Dock = DockStyle.Top,
+                    BackColor = Color.Transparent,
+                    BorderColor = Color.Transparent,
+                    BorderStyle = BorderStyle.None,
+                    AllBorderRadius = 18,
+                    Height = chatMsg.Height
+                };
+                chatPanel.Controls.Add(chatMsg);
+
+                if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
+                {
+                    chatMsg.Dock = DockStyle.Right;
+                    chatMsg.BackColor = ChatTheme.SentColor;
+                }
+                else
+                {
+                    chatMsg.Dock = DockStyle.Left;
+                    chatMsg.BackColor = ChatTheme.ReceivedColor;
+                }
+                Messages.Add(chatMsg);
+                ChatPanel.Controls.Add(chatPanel);
+                chatPanel.BringToFront();
+                ChatPanel.Controls.Add(space);
+            }
+            space.BringToFront();
             ChatPanel.ResumeLayout();
-            ChatPanel.ScrollControlIntoView(space);
             HeaderPanel.ResumeLayout();
+            ChatPanel.ScrollControlIntoView(space);
         }
 
         private void ChatMsgClicked(object sender, EventArgs e)
@@ -290,7 +315,6 @@ namespace ChatApplication.UserControls
             string path = (sender as ChatU).FilePath;
             string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
             string filePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
-            //File.Open(filePath, FileMode.Open);
             try
             {
                 if (File.Exists(filePath))
@@ -304,6 +328,7 @@ namespace ChatApplication.UserControls
             }
             catch
             {
+                MessageBox.Show("File not found.");
             }
         }
 

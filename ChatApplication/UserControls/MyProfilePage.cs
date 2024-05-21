@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using ChatApplication.Models;
 using ChatApplication.Managers;
+using System.Drawing.Drawing2D;
 
 namespace ChatApplication.UserControls
 {
@@ -79,7 +80,7 @@ namespace ChatApplication.UserControls
         private void EditMouseLeave(object sender, EventArgs e)
         {
             Label Current = sender as Label;
-            if (Current.Name == "ThemeInfoLabel" || Current.Name == "SaveLabel" ||Current.Name == "CancelLabel" )
+            if (Current.Name == "ThemeInfoLabel" || Current.Name == "SaveLabel" || Current.Name == "CancelLabel")
             {
                 Current.BackColor = Color.Transparent;
             }
@@ -105,6 +106,7 @@ namespace ChatApplication.UserControls
 
         public void OnThemeChange()
         {
+            SuspendLayout();
             CurrentTheme = ChatTheme.Current == 1 ? DarkTheme : LightTheme;
 
             //Background Colors
@@ -130,6 +132,7 @@ namespace ChatApplication.UserControls
             AboutInfoLabel.ForeColor = ChatTheme.TextColor;
             ThemeInfoLabel.ForeColor = ChatTheme.TextColor;
             NameEdit.ForeColor = ProfileEdit.ForeColor = AboutEdit.ForeColor = ChatTheme.BorderColor;
+            ResumeLayout();
         }
 
         private void OnEditClick(object sender, EventArgs e)

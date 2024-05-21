@@ -1,6 +1,6 @@
 ﻿namespace ChatApplication.UserControls
 {
-    partial class BendingMessages
+    partial class PendingMessages
     {
         /// <summary> 
         /// Required designer variable.

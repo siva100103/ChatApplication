@@ -146,15 +146,5 @@ namespace ChatApplication.Forms
             Brush brush = new SolidBrush(Color.FromArgb(150, 31, 177, 65));
             g.FillRectangle(brush, new Rectangle(TopPanelX, 0, TopPanelWidth, TopPanel.Height));
         }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
-        }
     }
 }

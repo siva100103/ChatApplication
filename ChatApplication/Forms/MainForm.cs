@@ -2,19 +2,14 @@
 using ChatApplication.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ChatApplication;
 using ChatApplication.UserControls;
-using System.Reflection;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace ChatApplication.Forms
 {
@@ -52,6 +47,7 @@ namespace ChatApplication.Forms
             base.OnLoad(e);
 
             //Setting Color Scheme
+            theme = DbManager.MyData.Theme;
             ChatTheme.SetTheme(theme);
             ControlsOnThemeChange();
 
@@ -174,7 +170,7 @@ namespace ChatApplication.Forms
         }
         #endregion
 
-        #region Application Drag
+        #region Drag and Drop
         private void DragMouseDown(object sender, MouseEventArgs e)
         {
             dragging = true;
@@ -268,6 +264,7 @@ namespace ChatApplication.Forms
             MyProfilePage MyProfile = new MyProfilePage(DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress])
             {
                 Dock = DockStyle.Fill,
+                Visible = false
             };
             ChatPanel.Controls.Add(MyProfile);
             MyProfile.ThemeChanged += MyThemeChanged;
@@ -284,6 +281,7 @@ namespace ChatApplication.Forms
             }
             else
             {
+                MyProfile.Dispose();
                 chatContactPanel.Visible = true;
                 SearchPanel.Visible = true;
                 ChatHeaderPanel.Visible = true;
@@ -447,6 +445,17 @@ namespace ChatApplication.Forms
 
         protected override void OnClosed(EventArgs e)
         {
+            string xmlFilePath = @".\data.xml";
+
+            DbManager.MyData.Theme = ChatTheme.Current;
+            LocalData data = DbManager.MyData;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            using (TextWriter writer = new StreamWriter(xmlFilePath))
+            {
+                serializer.Serialize(writer, data);
+            }
+
             base.OnClosed(e);
 
             //Updating Last Seen...
@@ -485,6 +494,16 @@ namespace ChatApplication.Forms
             SearchBox.SearchSymbol = ChatTheme.SearchIcon;
 
             MainPanel.ResumeLayout();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
 
     }

@@ -97,6 +97,7 @@
             this.ArchiveLabel.TabIndex = 6;
             this.ArchiveLabel.Text = "Archive    🗂️";
             this.ArchiveLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ArchiveLabel.Visible = false;
             this.ArchiveLabel.Click += new System.EventHandler(this.ArchiveLabelClick);
             this.ArchiveLabel.MouseEnter += new System.EventHandler(this.MenuFormMouseEnter);
             this.ArchiveLabel.MouseLeave += new System.EventHandler(this.MenuFormMouseLeave);
@@ -106,7 +107,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(230)))), ((int)(((byte)(243)))));
-            this.ClientSize = new System.Drawing.Size(125, 134);
+            this.ClientSize = new System.Drawing.Size(125, 99);
             this.Controls.Add(this.ArchiveLabel);
             this.Controls.Add(this.StarLabel);
             this.Controls.Add(this.CopyLabel);

@@ -69,6 +69,7 @@ namespace ChatApplication.UserControls
             this.ArchieveButton.TabIndex = 11;
             this.ArchieveButton.TextColor = System.Drawing.Color.White;
             this.ArchieveButton.UseVisualStyleBackColor = false;
+            this.ArchieveButton.Visible = false;
             // 
             // StarBtn
             // 

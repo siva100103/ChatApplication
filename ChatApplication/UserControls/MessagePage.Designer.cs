@@ -83,7 +83,7 @@ namespace ChatApplication.UserControls
             // 
             this.chatSenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
             this.chatSenter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatSenter.FileShareIconVisibility = false;
+            this.chatSenter.FileShareIconVisibility = true;
             this.chatSenter.Location = new System.Drawing.Point(0, 519);
             this.chatSenter.Name = "chatSenter";
             this.chatSenter.SendButtonVisibility = true;

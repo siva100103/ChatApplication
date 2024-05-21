@@ -34,6 +34,15 @@ namespace ChatApplication.Forms
         ); 
         #endregion
 
+        public bool CanShowArchive
+        {
+            get { return ArchiveLabel.Visible; }
+            set
+            {
+                ArchiveLabel.Visible = value;
+            }
+        }
+
         public MenuForm()
         {
             InitializeComponent();

@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
-    public partial class BendingMessages : UserControl
+    public partial class PendingMessages : UserControl
     {
         private string Unread = "";
         private Font font = new Font("Arial", 11.2f, FontStyle.Regular);
         private PointF point = new PointF();
 
-        public BendingMessages()
+        public PendingMessages()
         {
             InitializeComponent();
             point = new PointF((Width * 8.5f) / 100, (Height * 7.5f) / 100);

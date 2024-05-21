@@ -14,7 +14,8 @@ namespace ChatApplication.Models
         public string Port { get; set; } = "3306";
         public string Uid { get; set; } = "root";
         public string Password { get; set; } = "123";
-        public List<string> Archieved = new List<string>();
+        public int Theme { get; set; } = 0;
+        //public List<string> Archieved = new List<string>();
     }
 
 }
