@@ -92,7 +92,7 @@ namespace ChatApplication.Forms
             Hide();
         }
 
-        private void CopyLabel_Click(object sender, EventArgs e)
+        private void CopyLabelClick(object sender, EventArgs e)
         {
             if (ChatApplicationNetworkManager.SelectedMessages.Count > 0)
             {

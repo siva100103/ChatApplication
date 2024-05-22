@@ -121,22 +121,22 @@ namespace ChatApplication.UserControls
             MenuF.Star += StarredMessage;
             if (messages.Count > 0)
             {
-                Label l = new Label
+                Label dateLabel = new Label
                 {
                     AutoSize = true,
                     BackColor = Color.AliceBlue,
                     Font = NameLabel.Font,
 
                 };
-                l.Text = messages[0].Time.ToShortDateString();
-                Panel date = new Panel()
+                dateLabel.Text = messages[0].Time.ToShortDateString();
+                Panel datePanel = new Panel()
                 {
                     Dock = DockStyle.Top,
-                    Height = l.Height,
+                    Height = dateLabel.Height,
                 };
-                l.Location = new Point((date.Width / 2) + 100, 0);
-                date.Controls.Add(l);
-                AddMessage(messages[0], date);
+                dateLabel.Location = new Point((datePanel.Width / 2) + 100, 0);
+                datePanel.Controls.Add(dateLabel);
+                AddMessage(messages[0], datePanel);
             }
 
             for (int i = 1; i < messages.Count; i++)
@@ -144,24 +144,22 @@ namespace ChatApplication.UserControls
 
                 if (messages[i].Time.Date != messages[i - 1].Time.Date)
                 {
-                    Label l = new Label
+                    Label dateLabel = new Label
                     {
                         AutoSize = true,
                         BackColor = Color.AliceBlue,
-                        Font = NameLabel.Font,
-
+                        Font = new Font("Microsoft YaHei", 10, FontStyle.Regular),
                     };
-                    l.Text = (messages[i].Time.Date == DateTime.Now.Date)?"Today":messages[i].Time.ToShortDateString();
-                    Panel date = new Panel()
+                    dateLabel.Text = (messages[i].Time.Date == DateTime.Now.Date) ? "Today" : messages[i].Time.ToShortDateString();
+
+                    Panel datePanel = new Panel()
                     {
                         Dock = DockStyle.Top,
-                        Height = l.Height,
+                        Height = dateLabel.Height,
                     };
-                    l.Location = new Point((date.Width / 2) + 100, 0);
-                    date.Controls.Add(l);
-                    //date.SendToBack();
-                    //ChatPanel.Controls.Add(date);
-                    AddMessage(messages[i], date);
+                    dateLabel.Location = new Point((datePanel.Width / 2) + 100, 0);
+                    datePanel.Controls.Add(dateLabel);
+                    AddMessage(messages[i], datePanel);
                 }
                 else AddMessage(messages[i]);
             }
@@ -246,7 +244,7 @@ namespace ChatApplication.UserControls
             }
         }
 
-        public void AddMessage(MessageModel msg, Panel p = null)
+        public void AddMessage(MessageModel msg, Panel DatePanel = null)
         {
             HeaderPanel.SuspendLayout();
             ChatPanel.SuspendLayout();
@@ -313,7 +311,7 @@ namespace ChatApplication.UserControls
                     Height = chatMsg.Height
                 };
                 chatPanel.Controls.Add(chatMsg);
-
+                chatMsg.ChatUClicked += ChatMsgClicked;
                 if (msg.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
                 {
                     chatMsg.Dock = DockStyle.Right;
@@ -327,10 +325,10 @@ namespace ChatApplication.UserControls
                 Messages.Add(chatMsg);
                 ChatPanel.Controls.Add(chatPanel);
                 ChatPanel.Controls.Add(space);
-                if (p != null)
+                if (DatePanel != null)
                 {
-                    ChatPanel.Controls.Add(p);
-                    p.BringToFront();
+                    ChatPanel.Controls.Add(DatePanel);
+                    DatePanel.BringToFront();
                 }
                 chatPanel.BringToFront();
             }

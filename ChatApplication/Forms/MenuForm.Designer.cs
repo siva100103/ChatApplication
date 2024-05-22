@@ -63,7 +63,7 @@
             this.CopyLabel.TabIndex = 4;
             this.CopyLabel.Text = "Copy      📋";
             this.CopyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CopyLabel.Click += new System.EventHandler(this.CopyLabel_Click);
+            this.CopyLabel.Click += new System.EventHandler(this.CopyLabelClick);
             this.CopyLabel.MouseEnter += new System.EventHandler(this.MenuFormMouseEnter);
             this.CopyLabel.MouseLeave += new System.EventHandler(this.MenuFormMouseLeave);
             // 

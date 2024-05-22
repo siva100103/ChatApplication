@@ -262,8 +262,8 @@ namespace ChatApplication.UserControls
             var g = CreateGraphics();
             SizeF a = g.MeasureString(str, messageLB.Font);
             messageLB.Size = new Size((int)(a.Width + 5), (int)a.Height + 20);
-            this.Width = messageLB.Width + this.Padding.Left + Padding.Right + chatArcWidth + 5;
-            this.Height = messageLB.Height + this.Padding.Top + Padding.Bottom + ChatUBottomP.Height;
+            Width = messageLB.Width + Padding.Left + Padding.Right + chatArcWidth + 5;
+            Height = messageLB.Height + Padding.Top + Padding.Bottom + ChatUBottomP.Height;
             Invalidate();
 
             if (Message.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress))
@@ -291,7 +291,7 @@ namespace ChatApplication.UserControls
             path.AddLine(0, Height - CornerRadius * 2, 0, CornerRadius * 2);
             path.CloseFigure();
 
-            this.Region = new Region(path);
+            Region = new Region(path);
 
             using (var pen = new Pen(this.BackColor, 1))
             {
