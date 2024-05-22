@@ -11,6 +11,7 @@ namespace ChatApplication
     {
         public static int Current = 0;
 
+        //Colors
         public static Color OuterLayerColor;
         public static Color InnerLayerColor;
         public static Color ContactsColor;
@@ -23,6 +24,7 @@ namespace ChatApplication
         public static Color ReceivedColor;
         public static Color ThemeColor;
 
+        //Icons
         public static Image LeftAlign;
         public static Image StarMessage;
         public static Image ChatIcon;
@@ -33,6 +35,7 @@ namespace ChatApplication
         public static Image MenuButtonIcon;
         public static Image SendButtonIcon;
 
+        //Theme setter
         public static void SetTheme(int theme)
         {
             Current = theme;

@@ -35,21 +35,21 @@ namespace ChatApplication.Forms
             this.MessagePageBackPanel = new System.Windows.Forms.Panel();
             this.MessagePagePanel = new System.Windows.Forms.Panel();
             this.AppIcon = new System.Windows.Forms.PictureBox();
-            this.MessagePageTopPanel = new ChatApplication.UserControls.CustomPanel();
-            this.MinMaxButton = new System.Windows.Forms.PictureBox();
             this.ChatPanel = new System.Windows.Forms.Panel();
             this.chatContactPanel = new System.Windows.Forms.Panel();
             this.SearchPanel = new System.Windows.Forms.Panel();
-            this.SearchBox = new ChatApplication.UserControls.CustomSearchBox();
             this.ChatHeaderPanel = new System.Windows.Forms.Panel();
-            this.ChatContainer = new ChatApplication.UserControls.CustomPanel();
-            this.StarMessageButton = new ChatApplication.UserControls.EllipseButton();
-            this.LeftAlignButton = new ChatApplication.UserControls.EllipseButton();
-            this.ChatLabel = new System.Windows.Forms.Label();
             this.StarMainPanel = new System.Windows.Forms.Panel();
             this.StarPanel = new System.Windows.Forms.Panel();
             this.StarMessageTopPanel = new System.Windows.Forms.Panel();
             this.StarLabel = new System.Windows.Forms.Label();
+            this.MessagePageTopPanel = new ChatApplication.UserControls.CustomPanel();
+            this.MinMaxButton = new System.Windows.Forms.PictureBox();
+            this.SearchBox = new ChatApplication.UserControls.CustomSearchBox();
+            this.ChatContainer = new ChatApplication.UserControls.CustomPanel();
+            this.StarMessageButton = new ChatApplication.UserControls.EllipseButton();
+            this.LeftAlignButton = new ChatApplication.UserControls.EllipseButton();
+            this.ChatLabel = new System.Windows.Forms.Label();
             this.StarBackButton = new ChatApplication.UserControls.EllipseButton();
             this.SideMenuBar = new ChatApplication.UserControls.MenuControl();
             this.BorderPanel = new ChatApplication.UserControls.CustomPanel();
@@ -57,14 +57,14 @@ namespace ChatApplication.Forms
             this.MessagePageBackPanel.SuspendLayout();
             this.MessagePagePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AppIcon)).BeginInit();
-            this.MessagePageTopPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MinMaxButton)).BeginInit();
             this.ChatPanel.SuspendLayout();
             this.SearchPanel.SuspendLayout();
             this.ChatHeaderPanel.SuspendLayout();
-            this.ChatContainer.SuspendLayout();
             this.StarMainPanel.SuspendLayout();
             this.StarMessageTopPanel.SuspendLayout();
+            this.MessagePageTopPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MinMaxButton)).BeginInit();
+            this.ChatContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -114,38 +114,6 @@ namespace ChatApplication.Forms
             this.AppIcon.TabIndex = 0;
             this.AppIcon.TabStop = false;
             // 
-            // MessagePageTopPanel
-            // 
-            this.MessagePageTopPanel.AllBorderRadius = 10;
-            this.MessagePageTopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
-            this.MessagePageTopPanel.BorderColor = System.Drawing.Color.Transparent;
-            this.MessagePageTopPanel.BorderMarginSize = 0;
-            this.MessagePageTopPanel.BottomLeftRadius = 10;
-            this.MessagePageTopPanel.BottomRight = 10;
-            this.MessagePageTopPanel.Controls.Add(this.MinMaxButton);
-            this.MessagePageTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.MessagePageTopPanel.Location = new System.Drawing.Point(350, 5);
-            this.MessagePageTopPanel.Name = "MessagePageTopPanel";
-            this.MessagePageTopPanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.MessagePageTopPanel.Size = new System.Drawing.Size(508, 12);
-            this.MessagePageTopPanel.TabIndex = 18;
-            this.MessagePageTopPanel.TopLeftRadius = 10;
-            this.MessagePageTopPanel.TopRightRadius = 10;
-            // 
-            // MinMaxButton
-            // 
-            this.MinMaxButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MinMaxButton.Image = global::ChatApplication.Properties.Resources.icons8_ellipsis_48__1_;
-            this.MinMaxButton.Location = new System.Drawing.Point(450, 0);
-            this.MinMaxButton.Name = "MinMaxButton";
-            this.MinMaxButton.Size = new System.Drawing.Size(48, 12);
-            this.MinMaxButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.MinMaxButton.TabIndex = 0;
-            this.MinMaxButton.TabStop = false;
-            this.MinMaxButton.Click += new System.EventHandler(this.MinMaxButtonClick);
-            this.MinMaxButton.MouseLeave += new System.EventHandler(this.MinMaxButtonMouseLeave);
-            this.MinMaxButton.MouseHover += new System.EventHandler(this.MinMaxButtonMouseHover);
-            // 
             // ChatPanel
             // 
             this.ChatPanel.Controls.Add(this.chatContactPanel);
@@ -179,6 +147,99 @@ namespace ChatApplication.Forms
             this.SearchPanel.Size = new System.Drawing.Size(350, 54);
             this.SearchPanel.TabIndex = 3;
             // 
+            // ChatHeaderPanel
+            // 
+            this.ChatHeaderPanel.BackColor = System.Drawing.Color.Transparent;
+            this.ChatHeaderPanel.Controls.Add(this.ChatContainer);
+            this.ChatHeaderPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ChatHeaderPanel.Location = new System.Drawing.Point(0, 0);
+            this.ChatHeaderPanel.Name = "ChatHeaderPanel";
+            this.ChatHeaderPanel.Padding = new System.Windows.Forms.Padding(15);
+            this.ChatHeaderPanel.Size = new System.Drawing.Size(350, 63);
+            this.ChatHeaderPanel.TabIndex = 1;
+            // 
+            // StarMainPanel
+            // 
+            this.StarMainPanel.AutoScroll = true;
+            this.StarMainPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.StarMainPanel.Controls.Add(this.StarPanel);
+            this.StarMainPanel.Controls.Add(this.StarMessageTopPanel);
+            this.StarMainPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.StarMainPanel.Location = new System.Drawing.Point(66, 0);
+            this.StarMainPanel.Name = "StarMainPanel";
+            this.StarMainPanel.Size = new System.Drawing.Size(10, 611);
+            this.StarMainPanel.TabIndex = 16;
+            this.StarMainPanel.Visible = false;
+            // 
+            // StarPanel
+            // 
+            this.StarPanel.AutoScroll = true;
+            this.StarPanel.BackColor = System.Drawing.Color.White;
+            this.StarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StarPanel.Location = new System.Drawing.Point(0, 99);
+            this.StarPanel.Name = "StarPanel";
+            this.StarPanel.Padding = new System.Windows.Forms.Padding(7, 5, 8, 5);
+            this.StarPanel.Size = new System.Drawing.Size(10, 512);
+            this.StarPanel.TabIndex = 1;
+            // 
+            // StarMessageTopPanel
+            // 
+            this.StarMessageTopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(209)))), ((int)(((byte)(149)))));
+            this.StarMessageTopPanel.Controls.Add(this.StarLabel);
+            this.StarMessageTopPanel.Controls.Add(this.StarBackButton);
+            this.StarMessageTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.StarMessageTopPanel.Location = new System.Drawing.Point(0, 0);
+            this.StarMessageTopPanel.Name = "StarMessageTopPanel";
+            this.StarMessageTopPanel.Padding = new System.Windows.Forms.Padding(5, 30, 5, 15);
+            this.StarMessageTopPanel.Size = new System.Drawing.Size(10, 99);
+            this.StarMessageTopPanel.TabIndex = 0;
+            // 
+            // StarLabel
+            // 
+            this.StarLabel.BackColor = System.Drawing.Color.Transparent;
+            this.StarLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StarLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StarLabel.ForeColor = System.Drawing.Color.White;
+            this.StarLabel.Location = new System.Drawing.Point(58, 30);
+            this.StarLabel.Name = "StarLabel";
+            this.StarLabel.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.StarLabel.Size = new System.Drawing.Size(0, 54);
+            this.StarLabel.TabIndex = 2;
+            this.StarLabel.Text = "Starred Messages";
+            this.StarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MessagePageTopPanel
+            // 
+            this.MessagePageTopPanel.AllBorderRadius = 10;
+            this.MessagePageTopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
+            this.MessagePageTopPanel.BorderColor = System.Drawing.Color.Transparent;
+            this.MessagePageTopPanel.BorderMarginSize = 0;
+            this.MessagePageTopPanel.BottomLeftRadius = 10;
+            this.MessagePageTopPanel.BottomRight = 10;
+            this.MessagePageTopPanel.Controls.Add(this.MinMaxButton);
+            this.MessagePageTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.MessagePageTopPanel.Location = new System.Drawing.Point(350, 5);
+            this.MessagePageTopPanel.Name = "MessagePageTopPanel";
+            this.MessagePageTopPanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.MessagePageTopPanel.Size = new System.Drawing.Size(508, 12);
+            this.MessagePageTopPanel.TabIndex = 18;
+            this.MessagePageTopPanel.TopLeftRadius = 10;
+            this.MessagePageTopPanel.TopRightRadius = 10;
+            // 
+            // MinMaxButton
+            // 
+            this.MinMaxButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.MinMaxButton.Image = global::ChatApplication.Properties.Resources.icons8_ellipsis_48__1_;
+            this.MinMaxButton.Location = new System.Drawing.Point(450, 0);
+            this.MinMaxButton.Name = "MinMaxButton";
+            this.MinMaxButton.Size = new System.Drawing.Size(48, 12);
+            this.MinMaxButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.MinMaxButton.TabIndex = 0;
+            this.MinMaxButton.TabStop = false;
+            this.MinMaxButton.Click += new System.EventHandler(this.MinMaxButtonClick);
+            this.MinMaxButton.MouseLeave += new System.EventHandler(this.MinMaxButtonMouseLeave);
+            this.MinMaxButton.MouseHover += new System.EventHandler(this.MinMaxButtonMouseHover);
+            // 
             // SearchBox
             // 
             this.SearchBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(227)))), ((int)(((byte)(222)))));
@@ -196,17 +257,6 @@ namespace ChatApplication.Forms
             this.SearchBox.SearchSymbol = ((System.Drawing.Image)(resources.GetObject("SearchBox.SearchSymbol")));
             this.SearchBox.Size = new System.Drawing.Size(339, 43);
             this.SearchBox.TabIndex = 1;
-            // 
-            // ChatHeaderPanel
-            // 
-            this.ChatHeaderPanel.BackColor = System.Drawing.Color.Transparent;
-            this.ChatHeaderPanel.Controls.Add(this.ChatContainer);
-            this.ChatHeaderPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ChatHeaderPanel.Location = new System.Drawing.Point(0, 0);
-            this.ChatHeaderPanel.Name = "ChatHeaderPanel";
-            this.ChatHeaderPanel.Padding = new System.Windows.Forms.Padding(15);
-            this.ChatHeaderPanel.Size = new System.Drawing.Size(350, 63);
-            this.ChatHeaderPanel.TabIndex = 1;
             // 
             // ChatContainer
             // 
@@ -277,56 +327,6 @@ namespace ChatApplication.Forms
             this.ChatLabel.TabIndex = 1;
             this.ChatLabel.Text = "Chats";
             this.ChatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // StarMainPanel
-            // 
-            this.StarMainPanel.AutoScroll = true;
-            this.StarMainPanel.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.StarMainPanel.Controls.Add(this.StarPanel);
-            this.StarMainPanel.Controls.Add(this.StarMessageTopPanel);
-            this.StarMainPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.StarMainPanel.Location = new System.Drawing.Point(66, 0);
-            this.StarMainPanel.Name = "StarMainPanel";
-            this.StarMainPanel.Size = new System.Drawing.Size(10, 611);
-            this.StarMainPanel.TabIndex = 16;
-            this.StarMainPanel.Visible = false;
-            // 
-            // StarPanel
-            // 
-            this.StarPanel.AutoScroll = true;
-            this.StarPanel.BackColor = System.Drawing.Color.White;
-            this.StarPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StarPanel.Location = new System.Drawing.Point(0, 99);
-            this.StarPanel.Name = "StarPanel";
-            this.StarPanel.Padding = new System.Windows.Forms.Padding(7, 5, 8, 5);
-            this.StarPanel.Size = new System.Drawing.Size(10, 512);
-            this.StarPanel.TabIndex = 1;
-            // 
-            // StarMessageTopPanel
-            // 
-            this.StarMessageTopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(209)))), ((int)(((byte)(149)))));
-            this.StarMessageTopPanel.Controls.Add(this.StarLabel);
-            this.StarMessageTopPanel.Controls.Add(this.StarBackButton);
-            this.StarMessageTopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.StarMessageTopPanel.Location = new System.Drawing.Point(0, 0);
-            this.StarMessageTopPanel.Name = "StarMessageTopPanel";
-            this.StarMessageTopPanel.Padding = new System.Windows.Forms.Padding(5, 30, 5, 15);
-            this.StarMessageTopPanel.Size = new System.Drawing.Size(10, 99);
-            this.StarMessageTopPanel.TabIndex = 0;
-            // 
-            // StarLabel
-            // 
-            this.StarLabel.BackColor = System.Drawing.Color.Transparent;
-            this.StarLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.StarLabel.Font = new System.Drawing.Font("Microsoft YaHei", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StarLabel.ForeColor = System.Drawing.Color.White;
-            this.StarLabel.Location = new System.Drawing.Point(58, 30);
-            this.StarLabel.Name = "StarLabel";
-            this.StarLabel.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.StarLabel.Size = new System.Drawing.Size(0, 54);
-            this.StarLabel.TabIndex = 2;
-            this.StarLabel.Text = "Starred Messages";
-            this.StarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // StarBackButton
             // 
@@ -405,14 +405,14 @@ namespace ChatApplication.Forms
             this.MessagePageBackPanel.ResumeLayout(false);
             this.MessagePagePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AppIcon)).EndInit();
-            this.MessagePageTopPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MinMaxButton)).EndInit();
             this.ChatPanel.ResumeLayout(false);
             this.SearchPanel.ResumeLayout(false);
             this.ChatHeaderPanel.ResumeLayout(false);
-            this.ChatContainer.ResumeLayout(false);
             this.StarMainPanel.ResumeLayout(false);
             this.StarMessageTopPanel.ResumeLayout(false);
+            this.MessagePageTopPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MinMaxButton)).EndInit();
+            this.ChatContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
