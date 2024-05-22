@@ -92,8 +92,8 @@ namespace ChatApplication.UserControls
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-            List<MessageModel> Messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
-            Messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
+            List<MessageModel> messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
+            messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
 
             FileSharePage = new FileSenderPage
             {
@@ -119,11 +119,51 @@ namespace ChatApplication.UserControls
             MenuF.Delete += Unselected;
             MenuF.Copy += Unselected;
             MenuF.Star += StarredMessage;
-
-            foreach (var a in Messages)
+            if (messages.Count > 0)
             {
-                if (!a.Msg.Contains(@"\\SPARE-B11\Chat Application Profile\"))
-                    AddMessage(a);
+                Label l = new Label
+                {
+                    AutoSize = true,
+                    BackColor = Color.AliceBlue,
+                    Font = NameLabel.Font,
+
+                };
+                l.Text = messages[0].Time.ToShortDateString();
+                Panel date = new Panel()
+                {
+                    Dock = DockStyle.Top,
+                    Height = l.Height,
+                };
+                l.Location = new Point((date.Width / 2) + 100, 0);
+                date.Controls.Add(l);
+                AddMessage(messages[0], date);
+            }
+
+            for (int i = 1; i < messages.Count; i++)
+            {
+
+                if (messages[i].Time.Date != messages[i - 1].Time.Date)
+                {
+                    Label l = new Label
+                    {
+                        AutoSize = true,
+                        BackColor = Color.AliceBlue,
+                        Font = NameLabel.Font,
+
+                    };
+                    l.Text = (messages[i].Time.Date == DateTime.Now.Date)?"Today":messages[i].Time.ToShortDateString();
+                    Panel date = new Panel()
+                    {
+                        Dock = DockStyle.Top,
+                        Height = l.Height,
+                    };
+                    l.Location = new Point((date.Width / 2) + 100, 0);
+                    date.Controls.Add(l);
+                    //date.SendToBack();
+                    //ChatPanel.Controls.Add(date);
+                    AddMessage(messages[i], date);
+                }
+                else AddMessage(messages[i]);
             }
         }
 
@@ -206,7 +246,7 @@ namespace ChatApplication.UserControls
             }
         }
 
-        public void AddMessage(MessageModel msg)
+        public void AddMessage(MessageModel msg, Panel p = null)
         {
             HeaderPanel.SuspendLayout();
             ChatPanel.SuspendLayout();
@@ -286,10 +326,16 @@ namespace ChatApplication.UserControls
                 }
                 Messages.Add(chatMsg);
                 ChatPanel.Controls.Add(chatPanel);
-                chatPanel.BringToFront();
                 ChatPanel.Controls.Add(space);
+                if (p != null)
+                {
+                    ChatPanel.Controls.Add(p);
+                    p.BringToFront();
+                }
+                chatPanel.BringToFront();
             }
             space.BringToFront();
+
             ChatPanel.ResumeLayout();
             HeaderPanel.ResumeLayout();
             ChatPanel.ScrollControlIntoView(space);
