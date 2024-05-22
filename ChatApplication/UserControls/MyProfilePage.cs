@@ -122,7 +122,7 @@ namespace ChatApplication.UserControls
             ProfilePanel.BackColor = ChatTheme.OuterLayerColor;
             TopPanel.BackColor = ChatTheme.OuterLayerColor;
             EditPanel.BackColor = ChatTheme.ThemeColor;
-
+            BackButton.FlatAppearance.MouseOverBackColor = BackColor;
             //Text Colors
             GuideToChangeProfile.ForeColor = ChatTheme.TextColor;
             NameBox.ForeColor = ChatTheme.TextColor;
@@ -132,6 +132,7 @@ namespace ChatApplication.UserControls
             AboutInfoLabel.ForeColor = ChatTheme.TextColor;
             ThemeInfoLabel.ForeColor = ChatTheme.TextColor;
             NameEdit.ForeColor = ProfileEdit.ForeColor = AboutEdit.ForeColor = ChatTheme.BorderColor;
+            BackButton.ForeColor = ChatTheme.TextColor;
             ResumeLayout();
         }
 
@@ -186,7 +187,6 @@ namespace ChatApplication.UserControls
                     ProfilePicture.SizeMode = PictureBoxSizeMode.Zoom;
                     string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
                     string newfilePath = $@"{Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(file.FileName) + Path.GetExtension(file.FileName))}";
-                    //File.Copy(file.FileName, newfilePath, true);
                     if (!File.Exists(newfilePath))
                     {
                         ProfilePicture.Image.Save(newfilePath);
@@ -199,16 +199,6 @@ namespace ChatApplication.UserControls
                     SendIndicationForProfileUpdate();
                 }
             }
-        }
-
-        private void UpdateInfo()
-        {
-            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
-            me.Name = NameBox.Text;
-            me.About = AboutBox.Text;
-            if (!ProfilePath.Equals("") && !ProfilePath.Equals(me.ProfilePath))
-                me.ProfilePath = ProfilePath;
-            DbManager.UpdateClient(me);
         }
 
         private void SendIndicationForProfileUpdate()
@@ -245,6 +235,23 @@ namespace ChatApplication.UserControls
         {
             ThemePanel.Visible = !ThemePanel.Visible;
             CurrentTheme.BackColor = SystemColors.Highlight;
+        }
+
+        private void BackButtonClick(object sender, EventArgs e)
+        {
+            Visible = false;
+            Dispose();
+        }
+
+        //Update DB
+        private void UpdateInfo()
+        {
+            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            me.Name = NameBox.Text;
+            me.About = AboutBox.Text;
+            if (!ProfilePath.Equals("") && !ProfilePath.Equals(me.ProfilePath))
+                me.ProfilePath = ProfilePath;
+            DbManager.UpdateClient(me);
         }
     }
 }

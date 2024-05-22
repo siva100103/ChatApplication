@@ -49,7 +49,7 @@ namespace ChatApplication.Forms
             //Setting Color Scheme
             theme = DbManager.MyData.Theme;
             ChatTheme.SetTheme(theme);
-            
+
 
             StarMainPanel.Dock = DockStyle.Fill;
             MainPanel.Visible = false;
@@ -273,6 +273,14 @@ namespace ChatApplication.Forms
             MyProfile.ThemeChanged += MyThemeChanged;
             MyProfile.ProfileChoosen += MyProfileProfileChoosen;
 
+            MyProfile.Disposed += (sndr, evnt) =>
+            {
+                chatContactPanel.Visible = true;
+                SearchPanel.Visible = true;
+                ChatHeaderPanel.Visible = true;
+                profileClicked = false;
+            };
+
             if (!profileClicked)
             {
                 MyProfile.Refresh();
@@ -284,7 +292,6 @@ namespace ChatApplication.Forms
             }
             else
             {
-                MyProfile.Dispose();
                 chatContactPanel.Visible = true;
                 SearchPanel.Visible = true;
                 ChatHeaderPanel.Visible = true;

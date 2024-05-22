@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.ThemePanel = new ChatApplication.UserControls.CustomPanel();
+            this.DarkTheme = new System.Windows.Forms.PictureBox();
+            this.SpacePanel = new System.Windows.Forms.Panel();
+            this.LightTheme = new System.Windows.Forms.PictureBox();
             this.EditPanel = new System.Windows.Forms.Panel();
             this.CancelLabel = new System.Windows.Forms.Label();
             this.SaveLabel = new System.Windows.Forms.Label();
@@ -38,31 +42,29 @@
             this.AboutBox = new System.Windows.Forms.Label();
             this.AboutEdit = new System.Windows.Forms.Label();
             this.AboutInfoLabel = new System.Windows.Forms.Label();
+            this.NamePanel = new ChatApplication.UserControls.CustomPanel();
+            this.NameEdit = new System.Windows.Forms.Label();
+            this.NameBox = new System.Windows.Forms.Label();
             this.NameInfoLabel = new System.Windows.Forms.Label();
             this.ProfilePanel = new System.Windows.Forms.Panel();
+            this.ProfilePicture = new System.Windows.Forms.PictureBox();
             this.ProfileEditPanel = new System.Windows.Forms.Panel();
             this.ProfileEdit = new System.Windows.Forms.Label();
             this.GuideToChangeProfile = new System.Windows.Forms.Label();
             this.ProfileInfoLabel = new System.Windows.Forms.Label();
             this.TopPanel = new System.Windows.Forms.Panel();
-            this.ProfilePicture = new System.Windows.Forms.PictureBox();
-            this.ThemePanel = new ChatApplication.UserControls.CustomPanel();
-            this.DarkTheme = new System.Windows.Forms.PictureBox();
-            this.SpacePanel = new System.Windows.Forms.Panel();
-            this.LightTheme = new System.Windows.Forms.PictureBox();
-            this.NamePanel = new ChatApplication.UserControls.CustomPanel();
-            this.NameEdit = new System.Windows.Forms.Label();
-            this.NameBox = new System.Windows.Forms.Label();
+            this.BackButton = new ChatApplication.UserControls.EllipseButton();
             this.MainPanel.SuspendLayout();
-            this.EditPanel.SuspendLayout();
-            this.AboutPanel.SuspendLayout();
-            this.ProfilePanel.SuspendLayout();
-            this.ProfileEditPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
             this.ThemePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DarkTheme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LightTheme)).BeginInit();
+            this.EditPanel.SuspendLayout();
+            this.AboutPanel.SuspendLayout();
             this.NamePanel.SuspendLayout();
+            this.ProfilePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).BeginInit();
+            this.ProfileEditPanel.SuspendLayout();
+            this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -79,11 +81,68 @@
             this.MainPanel.Controls.Add(this.ProfilePanel);
             this.MainPanel.Controls.Add(this.ProfileInfoLabel);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel.Location = new System.Drawing.Point(0, 10);
+            this.MainPanel.Location = new System.Drawing.Point(0, 29);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Padding = new System.Windows.Forms.Padding(2, 0, 5, 0);
-            this.MainPanel.Size = new System.Drawing.Size(348, 768);
+            this.MainPanel.Size = new System.Drawing.Size(348, 749);
             this.MainPanel.TabIndex = 24;
+            // 
+            // ThemePanel
+            // 
+            this.ThemePanel.AllBorderRadius = 30;
+            this.ThemePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(101)))), ((int)(((byte)(118)))));
+            this.ThemePanel.BorderColor = System.Drawing.Color.Transparent;
+            this.ThemePanel.BorderMarginSize = 0;
+            this.ThemePanel.BottomLeftRadius = 30;
+            this.ThemePanel.BottomRight = 30;
+            this.ThemePanel.Controls.Add(this.DarkTheme);
+            this.ThemePanel.Controls.Add(this.SpacePanel);
+            this.ThemePanel.Controls.Add(this.LightTheme);
+            this.ThemePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ThemePanel.Location = new System.Drawing.Point(2, 551);
+            this.ThemePanel.Name = "ThemePanel";
+            this.ThemePanel.Padding = new System.Windows.Forms.Padding(6);
+            this.ThemePanel.Size = new System.Drawing.Size(331, 65);
+            this.ThemePanel.TabIndex = 33;
+            this.ThemePanel.TopLeftRadius = 30;
+            this.ThemePanel.TopRightRadius = 30;
+            // 
+            // DarkTheme
+            // 
+            this.DarkTheme.BackColor = System.Drawing.Color.Transparent;
+            this.DarkTheme.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DarkTheme.Dock = System.Windows.Forms.DockStyle.Left;
+            this.DarkTheme.Image = global::ChatApplication.Properties.Resources.icons8_cloudy_night_30;
+            this.DarkTheme.Location = new System.Drawing.Point(82, 6);
+            this.DarkTheme.Name = "DarkTheme";
+            this.DarkTheme.Size = new System.Drawing.Size(66, 53);
+            this.DarkTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DarkTheme.TabIndex = 14;
+            this.DarkTheme.TabStop = false;
+            this.DarkTheme.Click += new System.EventHandler(this.ThemeClick);
+            // 
+            // SpacePanel
+            // 
+            this.SpacePanel.BackColor = System.Drawing.Color.Transparent;
+            this.SpacePanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.SpacePanel.Location = new System.Drawing.Point(72, 6);
+            this.SpacePanel.Name = "SpacePanel";
+            this.SpacePanel.Size = new System.Drawing.Size(10, 53);
+            this.SpacePanel.TabIndex = 15;
+            // 
+            // LightTheme
+            // 
+            this.LightTheme.BackColor = System.Drawing.Color.Transparent;
+            this.LightTheme.Cursor = System.Windows.Forms.Cursors.Default;
+            this.LightTheme.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LightTheme.Image = global::ChatApplication.Properties.Resources.icons8_partly_cloudy_day_30;
+            this.LightTheme.Location = new System.Drawing.Point(6, 6);
+            this.LightTheme.Name = "LightTheme";
+            this.LightTheme.Size = new System.Drawing.Size(66, 53);
+            this.LightTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.LightTheme.TabIndex = 13;
+            this.LightTheme.TabStop = false;
+            this.LightTheme.Click += new System.EventHandler(this.ThemeClick);
             // 
             // EditPanel
             // 
@@ -149,7 +208,7 @@
             this.ThemeInfoLabel.Location = new System.Drawing.Point(2, 505);
             this.ThemeInfoLabel.Name = "ThemeInfoLabel";
             this.ThemeInfoLabel.Padding = new System.Windows.Forms.Padding(2, 8, 0, 0);
-            this.ThemeInfoLabel.Size = new System.Drawing.Size(341, 46);
+            this.ThemeInfoLabel.Size = new System.Drawing.Size(331, 46);
             this.ThemeInfoLabel.TabIndex = 27;
             this.ThemeInfoLabel.Text = "Theme                                         ▼";
             this.ThemeInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -164,7 +223,7 @@
             this.AboutPanel.Location = new System.Drawing.Point(2, 422);
             this.AboutPanel.Name = "AboutPanel";
             this.AboutPanel.Padding = new System.Windows.Forms.Padding(4);
-            this.AboutPanel.Size = new System.Drawing.Size(341, 83);
+            this.AboutPanel.Size = new System.Drawing.Size(331, 83);
             this.AboutPanel.TabIndex = 26;
             // 
             // AboutBox
@@ -186,7 +245,7 @@
             this.AboutEdit.Dock = System.Windows.Forms.DockStyle.Right;
             this.AboutEdit.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AboutEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(137)))), ((int)(((byte)(242)))));
-            this.AboutEdit.Location = new System.Drawing.Point(267, 4);
+            this.AboutEdit.Location = new System.Drawing.Point(257, 4);
             this.AboutEdit.Margin = new System.Windows.Forms.Padding(0);
             this.AboutEdit.Name = "AboutEdit";
             this.AboutEdit.Size = new System.Drawing.Size(70, 75);
@@ -204,10 +263,57 @@
             this.AboutInfoLabel.Location = new System.Drawing.Point(2, 376);
             this.AboutInfoLabel.Name = "AboutInfoLabel";
             this.AboutInfoLabel.Padding = new System.Windows.Forms.Padding(2, 8, 0, 0);
-            this.AboutInfoLabel.Size = new System.Drawing.Size(341, 46);
+            this.AboutInfoLabel.Size = new System.Drawing.Size(331, 46);
             this.AboutInfoLabel.TabIndex = 24;
             this.AboutInfoLabel.Text = "About";
             this.AboutInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // NamePanel
+            // 
+            this.NamePanel.AllBorderRadius = 30;
+            this.NamePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
+            this.NamePanel.BorderColor = System.Drawing.Color.Transparent;
+            this.NamePanel.BorderMarginSize = 0;
+            this.NamePanel.BottomLeftRadius = 30;
+            this.NamePanel.BottomRight = 30;
+            this.NamePanel.Controls.Add(this.NameEdit);
+            this.NamePanel.Controls.Add(this.NameBox);
+            this.NamePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.NamePanel.Location = new System.Drawing.Point(2, 312);
+            this.NamePanel.Name = "NamePanel";
+            this.NamePanel.Padding = new System.Windows.Forms.Padding(6);
+            this.NamePanel.Size = new System.Drawing.Size(331, 64);
+            this.NamePanel.TabIndex = 32;
+            this.NamePanel.TopLeftRadius = 30;
+            this.NamePanel.TopRightRadius = 30;
+            // 
+            // NameEdit
+            // 
+            this.NameEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.NameEdit.Dock = System.Windows.Forms.DockStyle.Right;
+            this.NameEdit.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(137)))), ((int)(((byte)(242)))));
+            this.NameEdit.Location = new System.Drawing.Point(255, 6);
+            this.NameEdit.Margin = new System.Windows.Forms.Padding(0);
+            this.NameEdit.Name = "NameEdit";
+            this.NameEdit.Size = new System.Drawing.Size(70, 52);
+            this.NameEdit.TabIndex = 13;
+            this.NameEdit.Text = "✎";
+            this.NameEdit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.NameEdit.Click += new System.EventHandler(this.OnEditClick);
+            // 
+            // NameBox
+            // 
+            this.NameBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(55)))), ((int)(((byte)(78)))));
+            this.NameBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.NameBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameBox.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.NameBox.Location = new System.Drawing.Point(6, 6);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(257, 52);
+            this.NameBox.TabIndex = 12;
+            this.NameBox.Text = "Name";
+            this.NameBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // NameInfoLabel
             // 
@@ -218,7 +324,7 @@
             this.NameInfoLabel.Location = new System.Drawing.Point(2, 266);
             this.NameInfoLabel.Name = "NameInfoLabel";
             this.NameInfoLabel.Padding = new System.Windows.Forms.Padding(2, 8, 0, 0);
-            this.NameInfoLabel.Size = new System.Drawing.Size(341, 46);
+            this.NameInfoLabel.Size = new System.Drawing.Size(331, 46);
             this.NameInfoLabel.TabIndex = 25;
             this.NameInfoLabel.Text = "Name";
             this.NameInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -232,8 +338,20 @@
             this.ProfilePanel.Location = new System.Drawing.Point(2, 44);
             this.ProfilePanel.Name = "ProfilePanel";
             this.ProfilePanel.Padding = new System.Windows.Forms.Padding(4, 4, 4, 3);
-            this.ProfilePanel.Size = new System.Drawing.Size(341, 222);
+            this.ProfilePanel.Size = new System.Drawing.Size(331, 222);
             this.ProfilePanel.TabIndex = 30;
+            // 
+            // ProfilePicture
+            // 
+            this.ProfilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(55)))), ((int)(((byte)(78)))));
+            this.ProfilePicture.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProfilePicture.Image = global::ChatApplication.Properties.Resources.user__2_;
+            this.ProfilePicture.Location = new System.Drawing.Point(4, 4);
+            this.ProfilePicture.Name = "ProfilePicture";
+            this.ProfilePicture.Size = new System.Drawing.Size(323, 190);
+            this.ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ProfilePicture.TabIndex = 6;
+            this.ProfilePicture.TabStop = false;
             // 
             // ProfileEditPanel
             // 
@@ -244,7 +362,7 @@
             this.ProfileEditPanel.Location = new System.Drawing.Point(4, 194);
             this.ProfileEditPanel.Name = "ProfileEditPanel";
             this.ProfileEditPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.ProfileEditPanel.Size = new System.Drawing.Size(333, 25);
+            this.ProfileEditPanel.Size = new System.Drawing.Size(323, 25);
             this.ProfileEditPanel.TabIndex = 7;
             // 
             // ProfileEdit
@@ -253,7 +371,7 @@
             this.ProfileEdit.Dock = System.Windows.Forms.DockStyle.Right;
             this.ProfileEdit.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProfileEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(137)))), ((int)(((byte)(242)))));
-            this.ProfileEdit.Location = new System.Drawing.Point(260, 2);
+            this.ProfileEdit.Location = new System.Drawing.Point(250, 2);
             this.ProfileEdit.Margin = new System.Windows.Forms.Padding(0);
             this.ProfileEdit.Name = "ProfileEdit";
             this.ProfileEdit.Size = new System.Drawing.Size(71, 21);
@@ -284,7 +402,7 @@
             this.ProfileInfoLabel.Location = new System.Drawing.Point(2, 0);
             this.ProfileInfoLabel.Name = "ProfileInfoLabel";
             this.ProfileInfoLabel.Padding = new System.Windows.Forms.Padding(2, 8, 0, 0);
-            this.ProfileInfoLabel.Size = new System.Drawing.Size(341, 44);
+            this.ProfileInfoLabel.Size = new System.Drawing.Size(331, 44);
             this.ProfileInfoLabel.TabIndex = 29;
             this.ProfileInfoLabel.Text = "Profile";
             this.ProfileInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -292,127 +410,34 @@
             // TopPanel
             // 
             this.TopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
+            this.TopPanel.Controls.Add(this.BackButton);
             this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TopPanel.Location = new System.Drawing.Point(0, 0);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(348, 10);
+            this.TopPanel.Size = new System.Drawing.Size(348, 29);
             this.TopPanel.TabIndex = 25;
             // 
-            // ProfilePicture
+            // BackButton
             // 
-            this.ProfilePicture.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(55)))), ((int)(((byte)(78)))));
-            this.ProfilePicture.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ProfilePicture.Image = global::ChatApplication.Properties.Resources.user__2_;
-            this.ProfilePicture.Location = new System.Drawing.Point(4, 4);
-            this.ProfilePicture.Name = "ProfilePicture";
-            this.ProfilePicture.Size = new System.Drawing.Size(333, 190);
-            this.ProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ProfilePicture.TabIndex = 6;
-            this.ProfilePicture.TabStop = false;
-            // 
-            // ThemePanel
-            // 
-            this.ThemePanel.AllBorderRadius = 30;
-            this.ThemePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(101)))), ((int)(((byte)(118)))));
-            this.ThemePanel.BorderColor = System.Drawing.Color.Transparent;
-            this.ThemePanel.BorderMarginSize = 0;
-            this.ThemePanel.BottomLeftRadius = 30;
-            this.ThemePanel.BottomRight = 30;
-            this.ThemePanel.Controls.Add(this.DarkTheme);
-            this.ThemePanel.Controls.Add(this.SpacePanel);
-            this.ThemePanel.Controls.Add(this.LightTheme);
-            this.ThemePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ThemePanel.Location = new System.Drawing.Point(2, 551);
-            this.ThemePanel.Name = "ThemePanel";
-            this.ThemePanel.Padding = new System.Windows.Forms.Padding(6);
-            this.ThemePanel.Size = new System.Drawing.Size(341, 65);
-            this.ThemePanel.TabIndex = 33;
-            this.ThemePanel.TopLeftRadius = 30;
-            this.ThemePanel.TopRightRadius = 30;
-            // 
-            // DarkTheme
-            // 
-            this.DarkTheme.BackColor = System.Drawing.Color.Transparent;
-            this.DarkTheme.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DarkTheme.Dock = System.Windows.Forms.DockStyle.Left;
-            this.DarkTheme.Image = global::ChatApplication.Properties.Resources.icons8_cloudy_night_30;
-            this.DarkTheme.Location = new System.Drawing.Point(82, 6);
-            this.DarkTheme.Name = "DarkTheme";
-            this.DarkTheme.Size = new System.Drawing.Size(66, 53);
-            this.DarkTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DarkTheme.TabIndex = 14;
-            this.DarkTheme.TabStop = false;
-            this.DarkTheme.Click += new System.EventHandler(this.ThemeClick);
-            // 
-            // SpacePanel
-            // 
-            this.SpacePanel.BackColor = System.Drawing.Color.Transparent;
-            this.SpacePanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.SpacePanel.Location = new System.Drawing.Point(72, 6);
-            this.SpacePanel.Name = "SpacePanel";
-            this.SpacePanel.Size = new System.Drawing.Size(10, 53);
-            this.SpacePanel.TabIndex = 15;
-            // 
-            // LightTheme
-            // 
-            this.LightTheme.BackColor = System.Drawing.Color.Transparent;
-            this.LightTheme.Cursor = System.Windows.Forms.Cursors.Default;
-            this.LightTheme.Dock = System.Windows.Forms.DockStyle.Left;
-            this.LightTheme.Image = global::ChatApplication.Properties.Resources.icons8_partly_cloudy_day_30;
-            this.LightTheme.Location = new System.Drawing.Point(6, 6);
-            this.LightTheme.Name = "LightTheme";
-            this.LightTheme.Size = new System.Drawing.Size(66, 53);
-            this.LightTheme.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.LightTheme.TabIndex = 13;
-            this.LightTheme.TabStop = false;
-            this.LightTheme.Click += new System.EventHandler(this.ThemeClick);
-            // 
-            // NamePanel
-            // 
-            this.NamePanel.AllBorderRadius = 30;
-            this.NamePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(97)))), ((int)(((byte)(97)))));
-            this.NamePanel.BorderColor = System.Drawing.Color.Transparent;
-            this.NamePanel.BorderMarginSize = 0;
-            this.NamePanel.BottomLeftRadius = 30;
-            this.NamePanel.BottomRight = 30;
-            this.NamePanel.Controls.Add(this.NameEdit);
-            this.NamePanel.Controls.Add(this.NameBox);
-            this.NamePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.NamePanel.Location = new System.Drawing.Point(2, 312);
-            this.NamePanel.Name = "NamePanel";
-            this.NamePanel.Padding = new System.Windows.Forms.Padding(6);
-            this.NamePanel.Size = new System.Drawing.Size(341, 64);
-            this.NamePanel.TabIndex = 32;
-            this.NamePanel.TopLeftRadius = 30;
-            this.NamePanel.TopRightRadius = 30;
-            // 
-            // NameEdit
-            // 
-            this.NameEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.NameEdit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.NameEdit.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(137)))), ((int)(((byte)(242)))));
-            this.NameEdit.Location = new System.Drawing.Point(265, 6);
-            this.NameEdit.Margin = new System.Windows.Forms.Padding(0);
-            this.NameEdit.Name = "NameEdit";
-            this.NameEdit.Size = new System.Drawing.Size(70, 52);
-            this.NameEdit.TabIndex = 13;
-            this.NameEdit.Text = "✎";
-            this.NameEdit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.NameEdit.Click += new System.EventHandler(this.OnEditClick);
-            // 
-            // NameBox
-            // 
-            this.NameBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(55)))), ((int)(((byte)(78)))));
-            this.NameBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.NameBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.NameBox.Location = new System.Drawing.Point(6, 6);
-            this.NameBox.Name = "NameBox";
-            this.NameBox.Size = new System.Drawing.Size(257, 52);
-            this.NameBox.TabIndex = 12;
-            this.NameBox.Text = "Name";
-            this.NameBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BackButton.BackColor = System.Drawing.Color.Transparent;
+            this.BackButton.BackgroudColor = System.Drawing.Color.Transparent;
+            this.BackButton.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.BackButton.BorderRadius1 = 10;
+            this.BackButton.BorderSize1 = 0;
+            this.BackButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BackButton.FlatAppearance.BorderSize = 0;
+            this.BackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackButton.ForeColor = System.Drawing.Color.White;
+            this.BackButton.Location = new System.Drawing.Point(0, 0);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(42, 29);
+            this.BackButton.TabIndex = 2;
+            this.BackButton.Text = "⌫";
+            this.BackButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BackButton.TextColor = System.Drawing.Color.White;
+            this.BackButton.UseVisualStyleBackColor = false;
+            this.BackButton.Click += new System.EventHandler(this.BackButtonClick);
             // 
             // MyProfilePage
             // 
@@ -426,16 +451,17 @@
             this.Size = new System.Drawing.Size(350, 778);
             this.Load += new System.EventHandler(this.MyProfilePageLoad);
             this.MainPanel.ResumeLayout(false);
-            this.EditPanel.ResumeLayout(false);
-            this.EditPanel.PerformLayout();
-            this.AboutPanel.ResumeLayout(false);
-            this.ProfilePanel.ResumeLayout(false);
-            this.ProfileEditPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).EndInit();
             this.ThemePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DarkTheme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LightTheme)).EndInit();
+            this.EditPanel.ResumeLayout(false);
+            this.EditPanel.PerformLayout();
+            this.AboutPanel.ResumeLayout(false);
             this.NamePanel.ResumeLayout(false);
+            this.ProfilePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ProfilePicture)).EndInit();
+            this.ProfileEditPanel.ResumeLayout(false);
+            this.TopPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -466,5 +492,6 @@
         private System.Windows.Forms.PictureBox DarkTheme;
         private System.Windows.Forms.Panel SpacePanel;
         private System.Windows.Forms.PictureBox LightTheme;
+        private EllipseButton BackButton;
     }
 }
