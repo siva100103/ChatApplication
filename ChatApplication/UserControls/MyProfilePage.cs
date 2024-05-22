@@ -19,7 +19,6 @@ namespace ChatApplication.UserControls
         public event EventHandler<int> ThemeChanged;
         public event EventHandler<Dictionary<string, Image>> ProfileChoosen;
 
-        private int TargetHeight;
         private string CurrentEditClick = "";
         private PictureBox CurrentTheme;
         private Dictionary<string, Image> PathPic = new Dictionary<string, Image>();
@@ -123,6 +122,7 @@ namespace ChatApplication.UserControls
             TopPanel.BackColor = ChatTheme.OuterLayerColor;
             EditPanel.BackColor = ChatTheme.ThemeColor;
             BackButton.FlatAppearance.MouseOverBackColor = BackColor;
+            BackButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
             //Text Colors
             GuideToChangeProfile.ForeColor = ChatTheme.TextColor;
             NameBox.ForeColor = ChatTheme.TextColor;
