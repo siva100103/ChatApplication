@@ -262,9 +262,6 @@
     <Compile Include="UserControls\CustomSearchBox.designer.cs">
       <DependentUpon>CustomSearchBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CustomTooltip.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UserControls\DpPictureU.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -276,18 +273,6 @@
     </Compile>
     <Compile Include="UserControls\EllipseControl.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UserControls\FilterChatsByU.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\FilterChatsByU.Designer.cs">
-      <DependentUpon>FilterChatsByU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GroupChatU.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControls\GroupChatU.Designer.cs">
-      <DependentUpon>GroupChatU.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\HoverButton.cs">
       <SubType>Component</SubType>
@@ -385,12 +370,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\FileSenderPage.resx">
       <DependentUpon>FileSenderPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\FilterChatsByU.resx">
-      <DependentUpon>FilterChatsByU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\GroupChatU.resx">
-      <DependentUpon>GroupChatU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HoverMessageForm.resx">
       <DependentUpon>HoverMessageForm.cs</DependentUpon>

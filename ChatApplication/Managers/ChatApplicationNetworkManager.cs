@@ -198,7 +198,7 @@ namespace ChatApplication.Managers
             }
             #endregion
 
-            #region SendData to another Ip
+        #region SendData to another Ip
             public async static Task SendMessage(MessageModel message, Client c)
             {
                 try

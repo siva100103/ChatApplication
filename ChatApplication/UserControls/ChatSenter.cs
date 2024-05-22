@@ -137,13 +137,15 @@ namespace ChatApplication.UserControls
             {
                 TextArea.Text = "";
             }
-            //   TextArea.ForeColor = ChatTheme.TextColor;
         }
 
         private void SendButtonClick(object sender, EventArgs e)
         {
             TextArea.ForeColor = ChatTheme.TextColor;
-            MsgReady?.Invoke(sender, TextArea.Text);
+            if (TextArea.Text != "")
+            {
+                MsgReady?.Invoke(sender, TextArea.Text); 
+            }
             TextArea.Text = "";
         }
 
@@ -182,7 +184,7 @@ namespace ChatApplication.UserControls
             if (TextArea.ForeColor == Color.FromArgb(200, 200, 200) && !TextArea.Text.Equals("Type a message") && TextArea.Text.Length >= 1)
             {
                 TextArea.Text = TextArea.Text.ToString().Substring(0, 1);
-                TextArea.ForeColor = Color.Black;
+                TextArea.ForeColor = ChatTheme.TextColor;
                 TextArea.SelectionStart = TextArea.Text.Length;
                 TextArea.ScrollToCaret();
             }
@@ -191,10 +193,9 @@ namespace ChatApplication.UserControls
 
             if (textWidth >= TextArea.Width && flag == 0)
             {
-
                 Height += initialHeightOfRichtextbox;
                 Location = new Point(Location.X, Location.Y - initialHeightOfRichtextbox);
-                TextArea.Location = new Point(TextArea.Location.X, TextArea.Location.Y - initialHeightOfRichtextbox);//(int)((float)richTextBox1.Height/1.5));
+                TextArea.Location = new Point(TextArea.Location.X, TextArea.Location.Y - initialHeightOfRichtextbox);
                 TextArea.Height *= 2;
 
                 flag = 1;

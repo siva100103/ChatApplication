@@ -123,6 +123,8 @@ namespace ChatApplication.UserControls
             TopPanel.BackColor = ChatTheme.OuterLayerColor;
             EditPanel.BackColor = ChatTheme.ThemeColor;
             BackButton.FlatAppearance.MouseOverBackColor = BackColor;
+            BackButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
+
             //Text Colors
             GuideToChangeProfile.ForeColor = ChatTheme.TextColor;
             NameBox.ForeColor = ChatTheme.TextColor;
