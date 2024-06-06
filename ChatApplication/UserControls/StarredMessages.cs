@@ -46,7 +46,7 @@ namespace ChatApplication.UserControls
             EventSubscribers();
 
             FromName.Text = (Message.FromIP == ChatApplicationNetworkManager.LocalIpAddress)? "You" :
-                DbManager.Clients[Message.FromIP].Name;
+                ChatApplicationNetworkManager.ReadClient(Message.FromIP).Name;
         }
 
         private void EventSubscribers()
@@ -86,7 +86,7 @@ namespace ChatApplication.UserControls
             else if(e.Button == MouseButtons.Right)
             {
                 Message.Starred = false;
-                DbManager.StarMessages(Message);
+                ChatApplicationNetworkManager.UpdateMessage(Message);
                 Dispose();
             }
         }

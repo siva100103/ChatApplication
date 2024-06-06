@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Configuration;
+//using System.Net.Configuration;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ChatApplication.Models;
 using ChatApplication.UserControls;
+using System.Xml.Serialization;
 
 namespace ChatApplication.Managers
 {
@@ -30,24 +31,39 @@ namespace ChatApplication.Managers
         public static string LocalIpAddress { get; set; }
         private static TcpListener Listener;
         public static MessagePage MessagePage = null;
+        public static LocalData MyData = new LocalData();
+        private static Dictionary<string, Client> Clients = new Dictionary<string, Client>();
+        private static Dictionary<string, MessageModel> Messages = new Dictionary<string, MessageModel>();
 
+       
 
-        public static bool ManagerInitializer()
+        public static bool DataBaseConfiguration()
         {
-            return DbManager.LocalDbConfig() && StartListener() && UpdatePreviousMessageFromDb();
-        }
-
-        private static bool UpdatePreviousMessageFromDb()
-        {
-            foreach (var a in DbManager.Clients)
+            using (LocalDb local = new LocalDb())
             {
-                a.Value.MessagePage = new MessagePage(a.Value);
-                a.Value.IdentifyUnSeenMsgs();
+                local.Database.EnsureCreated();
+                var messages = local.Messages.ToList();
+                foreach (var msg in messages)
+                {
+                    MessageModel m = new MessageModel(msg);
+                    Messages.Add(m.Id, m);
+                }
+            }
+
+            using (ServerDb server = new ServerDb())
+            {
+                server.Database.EnsureCreated();
+                var clients = server.Clients.ToList();
+                foreach (var client in clients)
+                {
+                    Client clt = new Client(client.IP, client.Name, client.Port, client.LastSeen, client.ProfilePath, client.About);
+                    Clients.Add(clt.IP, clt);
+                }
             }
             return true;
         }
 
-        private static bool StartListener()
+        public static bool StartListener()
         {
             Listener = new TcpListener(IPAddress.Parse(LocalIpAddress), 12346);
             Listener.Start();
@@ -97,8 +113,8 @@ namespace ChatApplication.Managers
                 if (ex.Message.Equals("Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host."))
                 {
                     IPAddress ip = ((IPEndPoint)client.Client.RemoteEndPoint).Address;
-                    DbManager.Clients[ip.ToString()].StatusChanger(false);
-                    DbManager.Clients[ip.ToString()].IsConnected = false;
+                    ReadClient(ip.ToString()).StatusChanger(false);
+                    ReadClient(ip.ToString()).IsConnected = false;
                 }
             }
 
@@ -107,8 +123,8 @@ namespace ChatApplication.Managers
 
         private static void HandleUpdation(MessageModel msg)
         {
-            Client current = DbManager.Clients[msg.FromIP];
-            Client Updated = DbManager.GetClientAtInstance(msg.FromIP);
+            Client current = ReadClient(msg.FromIP);
+            Client Updated = GetClientAtInstance(msg.FromIP);
             current.About = Updated.About;
             current.ProfilePath = Updated.ProfilePath;
             current.ProfilePicture = Image.FromFile(current.ProfilePath);
@@ -117,9 +133,9 @@ namespace ChatApplication.Managers
 
         private async static void HandleFile(MessageModel msg)
         {
-            Client clt = DbManager.Clients[msg.FromIP];
+            Client clt = ReadClient(msg.Id);
             clt.MessagePage.AddMessage(msg);
-            DbManager.Messages.Add(msg.Id, msg);
+            CreateMessage(msg);
             clt.UnSeenMessagesList.Add(msg);
             if (MessagePage != clt.MessagePage)
             {
@@ -134,18 +150,18 @@ namespace ChatApplication.Managers
                     type = MessageType.Response
                 };
 
-                await SendMessage(m, DbManager.Clients[m.FromIP]);
+                await SendMessage(m, ReadClient(m.FromIP));
 
             }
         }
 
             private static void HandleResponses(MessageModel msg)
             {
-                if (!DbManager.Clients.ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
+                if (!ReadAllMessages().ContainsKey(msg.FromIP) && !msg.FromIP.Equals(LocalIpAddress))
                 {
 
-                    Client client = DbManager.GetClientAtInstance(msg.FromIP);
-                    DbManager.Clients.Add(client.IP, client);
+                    Client client = GetClientAtInstance(msg.FromIP);
+                    CreateClient(client);
                     client.MessagePage = new MessagePage(client);
                     ContactU label = new ContactU(client)
                     {
@@ -157,23 +173,23 @@ namespace ChatApplication.Managers
 
                 if (msg.Msg.Equals("Close"))
                 {
-                    Client clt = DbManager.Clients[msg.FromIP];
+                    Client clt = ReadClient(msg.FromIP);
                     clt.StatusChanger(false);
                 }
                 else if (msg.Msg.Equals("Open"))
                 {
-                    Client clt = DbManager.Clients[msg.FromIP];
+                    Client clt = ReadClient(msg.FromIP);
                     clt.StatusChanger(true);
                 }
                 else
                 {
-                    DbManager.Messages[msg.Id].IsReadedInvoker();
+                    ReadMessage(msg.Id).IsReadedInvoker();
                 }
             }
 
             private async static void HandleMessages(MessageModel msg)
             {
-                Client clt = DbManager.Clients[msg.FromIP];
+                Client clt = ReadClient(msg.FromIP);
                 clt.MessagePage.AddMessage(msg);
                 //clt.UnSeenMessagesList.Add(msg);
                 if (MessagePage != clt.MessagePage)
@@ -188,13 +204,13 @@ namespace ChatApplication.Managers
                         Msg = "Readed",
                         type = MessageType.Response
                     };
-                    await SendMessage(m, DbManager.Clients[m.FromIP]);
+                    await SendMessage(m, ReadClient(m.FromIP));
                     msg.Seen = true;
-                    DbManager.UpdateMessage(msg);
+                UpdateMessage(msg);
                 }
-                Client c = DbManager.Clients[msg.FromIP];
+                Client c = ReadClient(msg.FromIP);
                 c.MessageReceiveInvoker();
-                DbManager.CreateMessage(msg);
+            CreateMessage(msg);
             }
             #endregion
 
@@ -213,7 +229,7 @@ namespace ChatApplication.Managers
                     c.MessageSendInvoker();
                     if (message.type == MessageType.Message)
                     {
-                        DbManager.CreateMessage(message);
+                        CreateMessage(message);
                     }
                     c.StatusChanger(true);
                 }
@@ -234,25 +250,139 @@ namespace ChatApplication.Managers
                     };
                     if (c.IsConnected) await SendMessage(m, c);
 
-                    m = DbManager.Messages.Values.ToList().Find(m1 => msg.Id.Equals(m1.Id));
+                m = ReadMessage(msg.Id);
                     m.Seen = true;
-                    DbManager.UpdateMessage(m);
+                    UpdateMessage(m);
                 }
                 c.UnSeenMessagesList.Clear();
             }
             #endregion
 
-            public static List<MessageModel> GetMessages(string FromIp, string ToIP)
+        #region Clients
+
+        public static void CreateClient(Client clt)
+        {
+            using (ServerDb server = new ServerDb())
             {
-                return DbManager.Messages.Values.ToList().Where((msg) =>
-               {
-                   return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
-               }).ToList();
+                server.Clients.Add(clt);
+                server.SaveChanges();
+                Clients.Add(clt.IP, clt);
             }
+        }
+        public static Dictionary<string, Client> ReadAllClients()
+        {
+            return Clients;
+        }
 
+        public static Client ReadClient(string Ip)
+        {
+            return Clients[Ip];
+        }
 
+        public static void UpdateClient(Client client)
+        {
+            using (ServerDb server = new ServerDb())
+            {
+                Client client1 = server.Clients.FirstOrDefault(clt => clt.IP == client.IP);
+                client1 = client;
+                server.SaveChanges();
+                Clients[client.IP] = client1;
+            }
+        }
+
+        public static Client GetClientAtInstance(string Ip)
+        {
+            using (ServerDb server = new ServerDb())
+            {
+                return server.Clients.FirstOrDefault(clt => clt.IP == Ip);
+            }
+        }
+        #endregion
+
+        #region Messages
+        public static Dictionary<string, MessageModel> ReadAllMessages()
+        {
+            //using (LocalDb local = new LocalDb())
+            //{
+            //    return local.Messages.ToDictionary(msg => msg.Id);
+            //}
+            return Messages;
+        }
+
+        public static List<MessageModel> ReadMessages(string FromIp, string ToIP)
+        {
+            return ReadAllMessages().Values.ToList().Where((msg) =>
+            {
+                return (msg.FromIP.Equals(FromIp) && msg.ReceiverIP.Equals(ToIP)) || (msg.FromIP.Equals(ToIP) && msg.ReceiverIP.Equals(FromIp));
+            }).ToList();
+        }
+        public static MessageModel ReadMessage(string messageId)
+        {
+            using (LocalDb local = new LocalDb())
+            {
+                //return local.Messages.FirstOrDefault(msg => msg.Id == messageId);
+                return Messages[messageId];
+            }
+        }
+        public static void CreateMessage(MessageModel msg)
+        {
+            if (Messages.ContainsKey(msg.Id)) return;
+            using (LocalDb local = new LocalDb())
+            {
+                local.Messages.Add(msg);
+                local.SaveChanges();
+                Messages.Add(msg.Id, msg);
+            }
+        }
+
+        public static void DeleteMessage(string messageId)
+        {
+            using (LocalDb local = new LocalDb())
+            {
+                local.Messages.Remove(ReadMessage(messageId));
+                local.SaveChanges();
+                Messages.Remove(messageId);
+            }
+        }
+
+        public static void DeleteMessages(IEnumerable<string> Messageid)
+        {
+            using (LocalDb local = new LocalDb())
+            {
+                foreach (var item in Messageid)
+                {
+                    local.Messages.Remove(ReadMessage(item));
+                    local.SaveChanges();
+                    Messages.Remove(item);
+                }
+            }
+        }
+
+        public static void UpdateMessage(MessageModel message)
+        {
+            using (LocalDb local = new LocalDb())
+            {
+                MessageModel msg = ReadMessage(message.Id);
+                msg = message;
+                local.SaveChanges();
+                Messages[message.Id] = message;
+            }
+        }
+        #endregion
+
+        public static string ReadLocalConnectionString()
+        {
+            string s = @".\data.xml";
+            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            using (TextReader reader = new StreamReader(s))
+            {
+                LocalData Data = (LocalData)serializer.Deserialize(reader);
+                string connecctionString = $"server={Data.Server};port={Data.Port};uid={Data.Uid};pwd={Data.Password};database={Data.Database};charset=utf8mb4";
+                 return connecctionString;
+            }
         }
     }
+}
 
 
 

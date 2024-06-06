@@ -205,7 +205,7 @@ namespace ChatApplication.UserControls
 
         private void SendIndicationForProfileUpdate()
         {
-            foreach (var a in DbManager.Clients)
+            foreach (var a in ChatApplicationNetworkManager.ReadAllClients())
             {
                 if (!a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && a.Value.IsConnected)
                 {
@@ -248,12 +248,12 @@ namespace ChatApplication.UserControls
         //Update DB
         private void UpdateInfo()
         {
-            Client me = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            Client me = ChatApplicationNetworkManager.ReadClient(ChatApplicationNetworkManager.LocalIpAddress);
             me.Name = NameBox.Text;
             me.About = AboutBox.Text;
             if (!ProfilePath.Equals("") && !ProfilePath.Equals(me.ProfilePath))
                 me.ProfilePath = ProfilePath;
-            DbManager.UpdateClient(me);
+            ChatApplicationNetworkManager.UpdateClient(me);
         }
     }
 }

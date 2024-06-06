@@ -10,9 +10,11 @@ using System.Windows.Forms;
 using ChatApplication.UserControls;
 using System.Xml.Serialization;
 using System.IO;
+using System.Runtime.Versioning;
 
 namespace ChatApplication.Forms
 {
+    [SupportedOSPlatform("windows")]
     public partial class MainForm : Form
     {
         #region Curve Dll
@@ -47,7 +49,7 @@ namespace ChatApplication.Forms
             base.OnLoad(e);
 
             //Setting Color Scheme
-            theme = DbManager.MyData.Theme;
+           // theme = DbManager.MyData.Theme;
             ChatTheme.SetTheme(theme);
 
 
@@ -65,7 +67,7 @@ namespace ChatApplication.Forms
             EventSubscriber();
 
             //star message added to list
-            foreach (var a in DbManager.Messages.Values)
+            foreach (var a in ChatApplicationNetworkManager.ReadAllMessages().Values)
             {
                 if (a.Starred)
                 {
@@ -96,9 +98,8 @@ namespace ChatApplication.Forms
 
         private void LabelsAdder()
         {
-            foreach (var a in DbManager.Clients)
+            foreach (var a in ChatApplicationNetworkManager.ReadAllClients())
             {
-                if (a.Value.IP.Equals(ChatApplicationNetworkManager.LocalIpAddress)) continue;
                 ContactU con = new ContactU(a.Value)
                 {
                     Dock = DockStyle.Top,
@@ -165,7 +166,7 @@ namespace ChatApplication.Forms
 
         private void SendOpenMessage()
         {
-            foreach (var clt in DbManager.Clients.Values)
+            foreach (var clt in ChatApplicationNetworkManager.ReadAllClients().Values)
             {
                 MessageModel message = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, clt.IP, "Open", DateTime.Now, MessageType.Response);
                 Task t = ChatApplicationNetworkManager.SendMessage(message, clt);
@@ -264,10 +265,10 @@ namespace ChatApplication.Forms
 
         private void OnProfileInfoClick(object sender, EventArgs e)
         {
-            MyProfilePage MyProfile = new MyProfilePage(DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress])
+            MyProfilePage MyProfile = new MyProfilePage(ChatApplicationNetworkManager.ReadClient(ChatApplicationNetworkManager.LocalIpAddress))
             {
                 Dock = DockStyle.Fill,
-                Visible = false
+                Visible = false,
             };
             ChatPanel.Controls.Add(MyProfile);
             MyProfile.ThemeChanged += MyThemeChanged;
@@ -457,24 +458,24 @@ namespace ChatApplication.Forms
         {
             string xmlFilePath = @".\data.xml";
 
-            DbManager.MyData.Theme = ChatTheme.Current;
-            LocalData data = DbManager.MyData;
+//            DbManager.MyData.Theme = ChatTheme.Current;
+  //          LocalData data = DbManager.MyData;
 
-            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
-            using (TextWriter writer = new StreamWriter(xmlFilePath))
-            {
-                serializer.Serialize(writer, data);
-            }
+            //XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+            //using (TextWriter writer = new StreamWriter(xmlFilePath))
+            //{
+            //    serializer.Serialize(writer, data);
+            //}
 
             base.OnClosed(e);
 
             //Updating Last Seen...
-            Client clt = DbManager.Clients[ChatApplicationNetworkManager.LocalIpAddress];
+            Client clt = ChatApplicationNetworkManager.ReadClient(ChatApplicationNetworkManager.LocalIpAddress);
             clt.LastSeen = DateTime.Now;
-            DbManager.UpdateClient(clt);
+            ChatApplicationNetworkManager.UpdateClient(clt);
 
             //Sending Close Message...
-            foreach (var a in DbManager.Clients)
+            foreach (var a in ChatApplicationNetworkManager.ReadAllClients())
             {
                 MessageModel msg = new MessageModel(ChatApplicationNetworkManager.LocalIpAddress, a.Value.IP, "Close", DateTime.Now, MessageType.Response);
                 if (a.Value.IsConnected)

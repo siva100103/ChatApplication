@@ -57,9 +57,9 @@ namespace ChatApplication.Models
         public void IsReadedInvoker()
         {
             Seen = true;
-            MessageModel m = DbManager.Messages[Id];
+            MessageModel m = ChatApplicationNetworkManager.ReadMessage(Id);
             m.Seen = true;
-            DbManager.UpdateMessage(m);
+            ChatApplicationNetworkManager.UpdateMessage(m);
             IsReaded?.Invoke(this, EventArgs.Empty);
         }
 

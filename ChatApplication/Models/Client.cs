@@ -64,12 +64,17 @@ namespace ChatApplication.Models
             this.About = About;
             this.LastSeen = LastSeen;
             MessagePage = new MessagePage(this);
-            //IdentifyUnSeenMsgs();
+            IdentifyUnSeenMsgs();
+        }
+
+        public Client()
+        {
+            
         }
 
         public void IdentifyUnSeenMsgs()
         {
-            UnSeenMessagesList = DbManager.Messages.Values.Where(m =>
+            UnSeenMessagesList = ChatApplicationNetworkManager.ReadAllMessages().Values.Where(m =>
               {
                   return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen;
               }).ToList();

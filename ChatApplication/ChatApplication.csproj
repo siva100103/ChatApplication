@@ -1,475 +1,88 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3AB6ACE0-E5CB-4906-B991-FC193BE206E8}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ChatApplication</RootNamespace>
-    <AssemblyName>ChatApplication</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="DatabaseLibrary">
-      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\DatabaseLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="GoLibrary">
-      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\GoLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
-    </Reference>
-    <Reference Include="K4os.Compression.LZ4, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.1.1.11\lib\net46\K4os.Compression.LZ4.dll</HintPath>
-    </Reference>
-    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.1.11\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
-    </Reference>
-    <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
-      <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Design, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.3.1.32\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Caching.Memory, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Caching.Memory.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Caching.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.32\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Logging.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.32.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.32\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.22\lib\net48\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data.EntityFrameworkCore, Version=8.0.22.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.EntityFrameworkCore.8.0.22\lib\netstandard2.0\MySql.Data.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-    <Reference Include="MySqlBackup">
-      <HintPath>C:\Users\Lucid\Desktop\Database\MySQL\MySqlBackup.dll</HintPath>
-    </Reference>
-    <Reference Include="MySQLDatabase">
-      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\MySQLDatabase.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
-      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel" />
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.Install" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>C:\Users\SEZ-B11\Downloads\Database\MySQL\System.Data.SQLite.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.22\lib\net48\Ubiety.Dns.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.22\lib\net48\Zstandard.Net.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\ChatTheme.cs" />
-    <Compile Include="Managers\DbManager.cs" />
-    <Compile Include="Forms\ContentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ContentForm.Designer.cs">
-      <DependentUpon>ContentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MenuForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MenuForm.Designer.cs">
-      <DependentUpon>MenuForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LocalData.cs" />
-    <Compile Include="UserControls\FileMessage.cs">
+    <Compile Update="UserControls\FileMessage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\FileMessage.Designer.cs">
-      <DependentUpon>FileMessage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\LoadingScreen.cs">
+    <Compile Update="UserControls\LoadingScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\LoadingScreen.Designer.cs">
-      <DependentUpon>LoadingScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\MyProfilePage.cs">
+    <Compile Update="UserControls\MyProfilePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\MyProfilePage.Designer.cs">
-      <DependentUpon>MyProfilePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\StarredMessages.cs">
+    <Compile Update="UserControls\StarredMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\StarredMessages.Designer.cs">
-      <DependentUpon>StarredMessages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FileSenderPage.cs">
+    <Compile Update="UserControls\FileSenderPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\FileSenderPage.Designer.cs">
-      <DependentUpon>FileSenderPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PendingMessages.cs">
+    <Compile Update="UserControls\PendingMessages.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\PendingMessages.Designer.cs">
-      <DependentUpon>PendingMessages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Managers\ChatApplicationNetworkManager.cs" />
-    <Compile Include="UserControls\ChatSenter.cs">
+    <Compile Update="UserControls\ChatSenter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ChatSenter.Designer.cs">
-      <DependentUpon>ChatSenter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ChatU.cs">
+    <Compile Update="UserControls\ChatU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ChatU.designer.cs">
-      <DependentUpon>ChatU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Client.cs" />
-    <Compile Include="UserControls\ContactU.cs">
+    <Compile Update="UserControls\ContactU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\ContactU.designer.cs">
-      <DependentUpon>ContactU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\CustomPanel.cs">
+    <Compile Update="UserControls\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\CustomPictureBox.cs">
+    <Compile Update="UserControls\CustomPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\CustomSearchBox.cs">
+    <Compile Update="UserControls\CustomSearchBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\CustomSearchBox.designer.cs">
-      <DependentUpon>CustomSearchBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\DpPictureU.cs">
+    <Compile Update="UserControls\DpPictureU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\DpPictureU.Designer.cs">
-      <DependentUpon>DpPictureU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\EllipseButton.cs">
+    <Compile Update="UserControls\EllipseButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\EllipseControl.cs">
+    <Compile Update="UserControls\EllipseControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UserControls\HoverButton.cs">
+    <Compile Update="UserControls\HoverButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\HoverMessageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\HoverMessageForm.designer.cs">
-      <DependentUpon>HoverMessageForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\HoverMessageU.cs">
+    <Compile Update="UserControls\HoverMessageU.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\HoverMessageU.Designer.cs">
-      <DependentUpon>HoverMessageU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserControls\MenuControl.cs">
+    <Compile Update="UserControls\MenuControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\MenuControl.designer.cs">
-      <DependentUpon>MenuControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MessageModel.cs" />
-    <Compile Include="UserControls\MessagePage.cs">
+    <Compile Update="UserControls\MessagePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\MessagePage.Designer.cs">
-      <DependentUpon>MessagePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PlaceHolderTextBox.cs">
+    <Compile Update="UserControls\PlaceHolderTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\StatusIndicator.cs">
+    <Compile Update="UserControls\StatusIndicator.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\StatusIndicator.Designer.cs">
-      <DependentUpon>StatusIndicator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TextBox.cs">
+    <Compile Update="UserControls\TextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\TextBox.Designer.cs">
-      <DependentUpon>TextBox.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Forms\ContentForm.resx">
-      <DependentUpon>ContentForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MenuForm.resx">
-      <DependentUpon>MenuForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\FileMessage.resx">
-      <DependentUpon>FileMessage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\LoadingScreen.resx">
-      <DependentUpon>LoadingScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MyProfilePage.resx">
-      <DependentUpon>MyProfilePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\StarredMessages.resx">
-      <DependentUpon>StarredMessages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\PendingMessages.resx">
-      <DependentUpon>PendingMessages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ChatSenter.resx">
-      <DependentUpon>ChatSenter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ChatU.resx">
-      <DependentUpon>ChatU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\ContactU.resx">
-      <DependentUpon>ContactU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\CustomSearchBox.resx">
-      <DependentUpon>CustomSearchBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\DpPictureU.resx">
-      <DependentUpon>DpPictureU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\FileSenderPage.resx">
-      <DependentUpon>FileSenderPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\HoverMessageForm.resx">
-      <DependentUpon>HoverMessageForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\HoverMessageU.resx">
-      <DependentUpon>HoverMessageU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MenuControl.resx">
-      <DependentUpon>MenuControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\MessagePage.resx">
-      <DependentUpon>MessagePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="UserControls\StatusIndicator.resx">
-      <DependentUpon>StatusIndicator.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\TextBox.resx">
-      <DependentUpon>TextBox.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="bin\Debug\ChatApplication.exe.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\happy_569501 %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\HluF7g.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-box-22.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-chat-22.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-connection-status-on-22.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-done-12.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-done-14 %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-guardian-40.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-guardian-96.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-phone-18.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-phone-22 %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-search-19.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-setting-22.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-star-22.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-user-35.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\whatsapp-sixteen_nine.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\loginimage.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-add-24 %282%29.png" />
@@ -484,49 +97,13 @@
     <None Include="Resources\icons8-add-24 %284%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icons8-align-left-191.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-create-20.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Screenshot 2024-01-27 125613.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Screenshot 2024-01-27 130201.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-contact-28 %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-contact-26.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\chat.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\block-user %281%29.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\profile-user.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-double-tick-15.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\icons8-double-tick-15 %281%29.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-account-50.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icons8-happy-30.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\paper-clip %283%29.png" />
@@ -537,79 +114,22 @@
   <ItemGroup>
     <Content Include="bin\Debug\ChatApplication.exe" />
     <Content Include="bin\Debug\ChatApplication.pdb" />
-    <None Include="Resources\icons8-paper-clip-48 black.png" />
-    <None Include="Resources\icons8-paper-clip-48.png" />
-    <None Include="Resources\icons8-file-64.png" />
-    <None Include="Resources\icons8-archive-22 white.png" />
-    <None Include="Resources\icons8-archive-22.png" />
-    <None Include="Resources\icons8-wechat-481.png" />
-    <None Include="Resources\icons8-cloudy-night-30.png" />
-    <None Include="Resources\icons8-partly-cloudy-day-30.png" />
-    <None Include="Resources\icons8-do-not-disturb-ios-30.png" />
-    <None Include="Resources\icons8-light-mode-30.png" />
-    <None Include="Resources\Dark theme.png" />
-    <None Include="Resources\Dark theme icon.png" />
-    <None Include="Resources\Light theme Icon.jpg" />
-    <None Include="Resources\icons8-search-19 white.png" />
-    <None Include="Resources\icons8-macos-close-22.png" />
-    <None Include="Resources\icons8-macos-close-22 white.png" />
-    <None Include="Resources\icons8-chat white-22.png" />
-    <None Include="Resources\chat dark icon.jpeg" />
     <None Include="Resources\WhatsApp Image 2024-05-14 at 10.13.13 AM %281%29.jpeg" />
-    <None Include="Resources\icons8-star-22White.png" />
-    <None Include="Resources\icons8-align-left-19 Black.png" />
-    <None Include="Resources\icons8-align-left-19.png" />
-    <None Include="Resources\icons8-align-left-192.png" />
-    <None Include="Resources\icons8-align-left-48.png" />
     <None Include="Resources\icons8-menu-vertical-50 %281%29.png" />
-    <None Include="Resources\icons8-menu-vertical-50.png" />
-    <None Include="Resources\icons8-menu-vertical-100.png" />
-    <None Include="Resources\icons8-menu-80.png" />
-    <None Include="Resources\icons8-menu-16.png" />
-    <None Include="Resources\icons8-wechat-48.png" />
-    <None Include="Resources\icons8-wechat-48.ico" />
-    <None Include="Resources\Image1.bmp" />
-    <None Include="Resources\icons8-star-48.png" />
-    <None Include="Resources\icons8-left-50.png" />
-    <None Include="Resources\8665040_arrow_left_icon1.png" />
-    <None Include="Resources\8665040_arrow_left_icon.png" />
     <None Include="Resources\icons8-ellipsis-48 %281%29.png" />
-    <None Include="Resources\icons8-ellipsis-48.png" />
-    <None Include="Resources\icons8-more-481.png" />
     <None Include="Resources\icons8-more-48 %281%29.png" />
-    <None Include="Resources\icons8-more-48.png" />
     <None Include="Resources\icons8-log-out-32 %281%29.png" />
-    <None Include="Resources\icons8-log-out-32.png" />
     <None Include="Resources\icons8-log-out-48 %281%29.png" />
-    <None Include="Resources\icons8-log-out-48.png" />
     <None Include="Resources\icons8-paper-plane-50 %282%29.png" />
-    <None Include="Resources\icons8-menu-48.png" />
-    <None Include="Resources\icons8-menu-25.png" />
     <None Include="Resources\icons8-paper-plane-50 %281%29.png" />
-    <None Include="Resources\icons8-sent-641.png" />
-    <None Include="Resources\icons8-paper-plane-502.png" />
-    <None Include="Resources\icons8-paper-plane-501.png" />
-    <None Include="Resources\icons8-paper-plane-50.png" />
-    <None Include="Resources\icons8-sent-64.png" />
-    <None Include="Resources\icons8-no-image-24.png" />
-    <None Include="Resources\nopreview.jpeg" />
-    <None Include="Resources\no-preview-available.png" />
-    <None Include="Resources\icons8-x-48.png" />
     <None Include="Resources\icons8-three-dots-48 %281%29.png" />
-    <None Include="Resources\icons8-three-dots-48.png" />
-    <None Include="Resources\menu.png" />
-    <None Include="Resources\Chat Background 1.jpg" />
-    <None Include="Resources\Chat Background.png" />
     <None Include="Resources\double-check %281%29.png" />
-    <None Include="Resources\double-check.png" />
-    <None Include="Resources\icons8-double-tick-13.png" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.EntityFrameworkCore.Design.3.1.32\build\net461\Microsoft.EntityFrameworkCore.Design.props'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="K4os.Hash.xxHash" Version="1.0.8" />
+  </ItemGroup>
 </Project>

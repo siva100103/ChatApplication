@@ -11,6 +11,7 @@ using System.IO;
 using ChatApplication.Models;
 using System.Xml.Serialization;
 using ChatApplication.Forms;
+using System.Runtime.Versioning;
 
 namespace ChatApplication
 {
@@ -19,25 +20,31 @@ namespace ChatApplication
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// 
+
         [STAThread]
+        [SupportedOSPlatform("windows")]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string IpAddress = GetLocalIPAddress();
-            ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
-            DbManager.ServerDbConfig();
             if (!File.Exists(@".\data.xml"))
                 SerializeLocalDataToXml();
 
-            if (!DbManager.Clients.ContainsKey(IpAddress))
+            string IpAddress = GetLocalIPAddress();
+
+            ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
+            ChatApplicationNetworkManager.DataBaseConfiguration();
+
+
+            if (!ChatApplicationNetworkManager.ReadAllClients().ContainsKey(IpAddress))
             {
                 Application.Run(new LoginForm(IpAddress));
             }
             else
             {
-                if (ChatApplicationNetworkManager.ManagerInitializer()) 
+                if (ChatApplicationNetworkManager.StartListener())
                     Application.Run(new MainForm());
                 else
                 {

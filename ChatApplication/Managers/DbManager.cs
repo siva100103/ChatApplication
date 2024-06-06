@@ -1,232 +1,250 @@
-﻿using ChatApplication.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using GoLibrary;
-using DatabaseLibrary;
-using MySql.Data.MySqlClient;
+﻿//using ChatApplication.Models;
+//using System;
+//using System.Collections.Generic;
+//using System.IO;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Xml.Serialization;
+//using GoLibrary;
+//using DatabaseLibrary;
+//using MySql.Data.MySqlClient;
+//using MySqlX.XDevAPI.Common;
 
-namespace ChatApplication.Managers
-{
-    public static class DbManager
-    {
-        public static Dictionary<string, MessageModel> Messages { get; set; } = new Dictionary<string, MessageModel>();
-        public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
-        public static LocalData MyData = new LocalData();
+//namespace ChatApplication.Managers
+//{
+//    public static class DbManager
+//    {
+//        public static Dictionary<string, MessageModel> Messages { get; set; } = new Dictionary<string, MessageModel>();
+//        public static Dictionary<string, Client> Clients { get; set; } = new Dictionary<string, Client>();
+//        public static LocalData MyData = new LocalData();
 
-        private static DatabaseManager LocalDbManager = new MySqlHandler();
-        private static DatabaseManager ServerDbManager = new MySqlHandler();
+//        private static DatabaseManager LocalDbManager = new MySqlHandler();
+//        private static DatabaseManager ServerDbManager = new MySqlHandler();
 
-        #region ServerDatabase Operations
-        public static bool ServerDbConfig()
-        {
-            ServerDbManager.Database = "chatApplicationServer";
-            ServerDbManager.HostName = "192.168.3.52";
-            ServerDbManager.UserName = "root";
-            ServerDbManager.Password = "";
+//        #region ServerDatabase Operations
+//        public static bool ServerDbConfig()
+//        {
+//            ServerDbManager.Database = "chatApplicationServer";
+//            ServerDbManager.HostName = "localhost";
+//            ServerDbManager.UserName = "root";
+//            ServerDbManager.Password = "Suriya@123";
 
-            var ConnectionStatus = ServerDbManager.Connect();
-            FetchServerDb();
-            return true;
-        }
+//            ServerDbManager.CheckAndCreateDatabase();
 
-        private static void FetchServerDb()
-        {
-            var data = ServerDbManager.FetchData("Clients", "");
+//            var ConnectionStatus = ServerDbManager.Connect();
 
-            if (data.Value.Count > 0)
-            {
-                for (int i = 0; i < data.Value["IP"].Count; i++)
-                {
-                    string path = data.Value["ProfilePath"][i].ToString().Replace('~', '\\');
-                    Client clt = new Client(data.Value["IP"][i].ToString(), data.Value["Name"][i].ToString(), (int)data.Value["Port"][i], DateTime.Parse(data.Value["LastSeen"][i].ToString()), path, data.Value["About"][i].ToString());
-                    Clients.Add(clt.IP, clt);
-                }
-            }
-        }
+//            var result= ServerDbManager.TableExists("Clients");
 
-        public static void AddClient(Client c)
-        {
-            string path = $@"{c.ProfilePath}";
-            path = path.Replace('\\', '~');
-            ParameterData[] pd = new ParameterData[]
-            {
-               new ParameterData("IP",c.IP),
-               new ParameterData("Name",c.Name),
-               new ParameterData("Port",c.Port),
-               new ParameterData("LastSeen",c.LastSeen),
-               new ParameterData("ProfilePath",@path),
-               new ParameterData("Password",c.Password),
-               new ParameterData("About",c.About),
-               new ParameterData("UnseenMessages",c.UnseenMessages)
-            };
-            ServerDbManager.InsertData("Clients", pd);
-            Clients.Add(c.IP, c);
+//            if (!result)
+//            {
+//                ColumnDetails[] Column = new ColumnDetails[]
+//                {
+//                    new ColumnDetails("IP",BaseDatatypes.VARCHAR,length:100,notNull:true),
+//                    new ColumnDetails("Name",BaseDatatypes.VARCHAR,length:100,notNull:true),
+//                    new ColumnDetails("Port",BaseDatatypes.INT,length:100,notNull:true),
+//                    new ColumnDetails("LastSeen",BaseDatatypes.VARCHAR,length:1000),
+//                    new ColumnDetails("About",BaseDatatypes.DATETIME,notNull:true),
+//                };
+//                var c = ServerDbManager.CreateTable("Clients", Column);
+//            }
+//            FetchServerDb();
+//            return true;
+//        }
 
-        }
+//        private static void FetchServerDb()
+//        {
+//            var data = ServerDbManager.FetchData("Columns", "");
 
-        public static void UpdateClient(Client c)
-        {
-            string path = $@"{c.ProfilePath}";
-            path = path.Replace('\\', '~');
-            ParameterData[] pd = new ParameterData[]
-            {
-               new ParameterData("Name",c.Name),
-               new ParameterData("Port",c.Port),
-               new ParameterData("LastSeen",c.LastSeen),
-               new ParameterData("ProfilePath",path),
-               new ParameterData("Password",c.Password),
-               new ParameterData("About",c.About),
-               new ParameterData("UnseenMessages",c.UnseenMessages)
-            };
-            ServerDbManager.UpdateData("Clients", $"IP='{c.IP}'", pd);
-        }
+//            if (data.Value.Count > 0)
+//            {
+//                for (int i = 0; i < data.Value["IP"].Count; i++)
+//                {
+//                    string path = data.Value["ProfilePath"][i].ToString().Replace('~', '\\');
+//                    Client clt = new Client(data.Value["IP"][i].ToString(), data.Value["Name"][i].ToString(), (int)data.Value["Port"][i], DateTime.Parse(data.Value["LastSeen"][i].ToString()), path, data.Value["About"][i].ToString());
+//                    Clients.Add(clt.IP, clt);
+//                }
+//            }
+//        }
 
-        public static Client GetClientAtInstance(string Ip)
-        {
-            var data = ServerDbManager.FetchData("Clients", $"IP='{Ip}'");
-            int i = 0;
-            if (data.Value != null)
-            {
-                string path = data.Value["ProfilePath"][i].ToString().Replace('~', '\\');
-                Client clt = new Client(data.Value["IP"][i].ToString(), data.Value["Name"][i].ToString(), (int)data.Value["Port"][i], DateTime.Parse(data.Value["LastSeen"][i].ToString()), path, data.Value["About"][i].ToString());
-                return clt;
-            }
-            return null;
-        }
-        #endregion
+//        public static void AddClient(Client c)
+//        {
+//            string path = $@"{c.ProfilePath}";
+//            path = path.Replace('\\', '~');
+//            ParameterData[] pd = new ParameterData[]
+//            {
+//               new ParameterData("IP",c.IP),
+//               new ParameterData("Name",c.Name),
+//               new ParameterData("Port",c.Port),
+//               new ParameterData("LastSeen",c.LastSeen),
+//               new ParameterData("ProfilePath",@path),
+//               new ParameterData("Password",c.Password),
+//               new ParameterData("About",c.About),
+//               new ParameterData("UnseenMessages",c.UnseenMessages)
+//            };
+//            ServerDbManager.InsertData("Clients", pd);
+//            Clients.Add(c.IP, c);
 
-        #region LocalDatabase Operations
-        public static bool LocalDbConfig()
-        {
-            string xmlFilePath = @".\data.xml";
-            //LocalData data;
-            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
-            using (TextReader reader = new StreamReader(xmlFilePath))
-            {
-                MyData = (LocalData)serializer.Deserialize(reader);
-            }
-            LocalDbManager.Database = $"{MyData.Database}";
-            LocalDbManager.HostName = $"{MyData.Server}";
-            LocalDbManager.UserName = $"{MyData.Uid}";
-            LocalDbManager.Password = $"{MyData.Password}";
+//        }
 
-            Client me = Clients[ChatApplicationNetworkManager.LocalIpAddress];
-            if (me != null)
-            {
-                if (!me.Password.Equals(LocalDbManager.Password) || me.Password == null)
-                {
-                    me.Password = LocalDbManager.Password;
-                    string condition = $"IP='{me.IP}'";
-                    ParameterData[] pd = new ParameterData[]
-                     {
-                            new ParameterData("Password",LocalDbManager.Password)
-                     };
-                    ServerDbManager.UpdateData("Clients", condition, pd);
-                }
-            }
+//        public static void UpdateClient(Client c)
+//        {
+//            string path = $@"{c.ProfilePath}";
+//            path = path.Replace('\\', '~');
+//            ParameterData[] pd = new ParameterData[]
+//            {
+//               new ParameterData("Name",c.Name),
+//               new ParameterData("Port",c.Port),
+//               new ParameterData("LastSeen",c.LastSeen),
+//               new ParameterData("ProfilePath",path),
+//               new ParameterData("Password",c.Password),
+//               new ParameterData("About",c.About),
+//               new ParameterData("UnseenMessages",c.UnseenMessages)
+//            };
+//            ServerDbManager.UpdateData("Clients", $"IP='{c.IP}'", pd);
+//        }
 
-            var DBcreation = LocalDbManager.CheckAndCreateDatabase();
+//        public static Client GetClientAtInstance(string Ip)
+//        {
+//            var data = ServerDbManager.FetchData("Clients", $"IP='{Ip}'");
+//            int i = 0;
+//            if (data.Value != null)
+//            {
+//                string path = data.Value["ProfilePath"][i].ToString().Replace('~', '\\');
+//                Client clt = new Client(data.Value["IP"][i].ToString(), data.Value["Name"][i].ToString(), (int)data.Value["Port"][i], DateTime.Parse(data.Value["LastSeen"][i].ToString()), path, data.Value["About"][i].ToString());
+//                return clt;
+//            }
+//            return null;
+//        }
+//        #endregion
 
-            var ConnectionStatus = LocalDbManager.Connect();
+//        #region LocalDatabase Operations
+//        public static bool LocalDbConfig()
+//        {
+//            string xmlFilePath = @".\data.xml";
+//            //LocalData data;
+//            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
+//            using (TextReader reader = new StreamReader(xmlFilePath))
+//            {
+//                MyData = (LocalData)serializer.Deserialize(reader);
+//            }
+//            LocalDbManager.Database = $"{MyData.Database}";
+//            LocalDbManager.HostName = $"{MyData.Server}";
+//            LocalDbManager.UserName = $"{MyData.Uid}";
+//            LocalDbManager.Password = $"{MyData.Password}";
 
-            if (!ConnectionStatus.Result)
-            {
-                return false;
-            }
+//            Client me = Clients[ChatApplicationNetworkManager.LocalIpAddress];
+//            if (me != null)
+//            {
+//                if (!me.Password.Equals(LocalDbManager.Password) || me.Password == null)
+//                {
+//                    me.Password = LocalDbManager.Password;
+//                    string condition = $"IP='{me.IP}'";
+//                    ParameterData[] pd = new ParameterData[]
+//                     {
+//                            new ParameterData("Password",LocalDbManager.Password)
+//                     };
+//                    ServerDbManager.UpdateData("Clients", condition, pd);
+//                }
+//            }
 
-            if (!LocalDbManager.TableExists("Messages"))
-            {
-                ColumnDetails[] Column = new ColumnDetails[]
-                {
-                    new ColumnDetails("Id",BaseDatatypes.VARCHAR,length:100,notNull:true),
-                    new ColumnDetails("FromIP",BaseDatatypes.VARCHAR,length:100,notNull:true),
-                    new ColumnDetails("ReceiverIP",BaseDatatypes.VARCHAR,length:100,notNull:true),
-                    new ColumnDetails("Msg",BaseDatatypes.VARCHAR,length:1000),
-                    new ColumnDetails("Time",BaseDatatypes.DATETIME,notNull:true),
-                    new ColumnDetails("Seen",BaseDatatypes.TINYINT),
-                    new ColumnDetails("Starred",BaseDatatypes.TINYINT),
-                };
-                var c = LocalDbManager.CreateTable("Messages", Column);
-            }
-            FetchLocalDb();
-            return true;
-        }
+//            var DBcreation = LocalDbManager.CheckAndCreateDatabase();
 
-        public static void FetchLocalDb()
-        {
-            var data = LocalDbManager.FetchData("Messages", "");
+//            var ConnectionStatus = LocalDbManager.Connect();
 
-            if (data.Value.Count > 0)
-            {
-                for (int i = 0; i < data.Value["Id"].Count; i++)
-                {
-                    MessageModel m = new MessageModel()
-                    {
-                        Id = data.Value["Id"][i].ToString(),
-                        FromIP = data.Value["FromIP"][i].ToString(),
-                        ReceiverIP = data.Value["ReceiverIP"][i].ToString(),
-                        Msg = data.Value["Msg"][i].ToString(),
-                        Time = (DateTime)data.Value["Time"][i],
-                        Seen = data.Value["Seen"][i].ToBoolean(),
-                        Starred = data.Value["Starred"][i].ToBoolean()
-                    };
-                    if (!Messages.ContainsKey(m.Id))
-                    {
-                        Messages.Add(m.Id, m);
-                    }
-                }
-            }
-        }
+//            if (!ConnectionStatus.Result)
+//            {
+//                return false;
+//            }
 
-        public static void CreateMessage(MessageModel m)
-        {
-            ParameterData[] data = new ParameterData[] {
-                new ParameterData("Id", m.Id),
-                new ParameterData("FromIP",m.FromIP),
-                new ParameterData("ReceiverIP",m.ReceiverIP),
-                new ParameterData("Msg",m.Msg),
-                new ParameterData("Time",m.Time),
-                new ParameterData("Seen",m.Seen.ToInt32()),
-                new ParameterData("Starred",m.Starred.ToInt32())
-            };
-            LocalDbManager.InsertData("Messages", data);
-            Messages.Add(m.Id, m);
-        }
+//            if (!LocalDbManager.TableExists("Messages"))
+//            {
+//                ColumnDetails[] Column = new ColumnDetails[]
+//                {
+//                    new ColumnDetails("Id",BaseDatatypes.VARCHAR,length:100,notNull:true),
+//                    new ColumnDetails("FromIP",BaseDatatypes.VARCHAR,length:100,notNull:true),
+//                    new ColumnDetails("ReceiverIP",BaseDatatypes.VARCHAR,length:100,notNull:true),
+//                    new ColumnDetails("Msg",BaseDatatypes.VARCHAR,length:1000),
+//                    new ColumnDetails("Time",BaseDatatypes.DATETIME,notNull:true),
+//                    new ColumnDetails("Seen",BaseDatatypes.TINYINT),
+//                    new ColumnDetails("Starred",BaseDatatypes.TINYINT),
+//                };
+//                var c = LocalDbManager.CreateTable("Messages", Column);
+//            }
+//            FetchLocalDb();
+//            return true;
+//        }
 
-        public static void UpdateMessage(MessageModel m)
-        {
-            string condition = $"Id='{m.Id}'";
-            ParameterData[] data = new ParameterData[] {
-                new ParameterData("FromIP",m.FromIP),
-                new ParameterData("ReceiverIP",m.ReceiverIP),
-                new ParameterData("Msg",m.Msg),
-                new ParameterData("Time",m.Time),
-                new ParameterData("Seen",m.Seen.ToInt32()),
-                new ParameterData("Starred",m.Starred.ToInt32())
-            };
-            LocalDbManager.UpdateData("Messages", condition, data);
-        }
+//        public static void FetchLocalDb()
+//        {
+//            var data = LocalDbManager.FetchData("Messages", "");
 
-        public static void DeleteMessage(string id)
-        {
-            LocalDbManager.DeleteData("Messages", $"Id='{id}'");
-            if (Messages.ContainsKey(id)) Messages.Remove(id);
-        }
+//            if (data.Value.Count > 0)
+//            {
+//                for (int i = 0; i < data.Value["Id"].Count; i++)
+//                {
+//                    MessageModel m = new MessageModel()
+//                    {
+//                        Id = data.Value["Id"][i].ToString(),
+//                        FromIP = data.Value["FromIP"][i].ToString(),
+//                        ReceiverIP = data.Value["ReceiverIP"][i].ToString(),
+//                        Msg = data.Value["Msg"][i].ToString(),
+//                        Time = (DateTime)data.Value["Time"][i],
+//                        Seen = data.Value["Seen"][i].ToBoolean(),
+//                        Starred = data.Value["Starred"][i].ToBoolean()
+//                    };
+//                    if (!Messages.ContainsKey(m.Id))
+//                    {
+//                        Messages.Add(m.Id, m);
+//                    }
+//                }
+//            }
+//        }
 
-        public static void StarMessages(MessageModel message)
-        {
-            string condition = $"Id = '{message.Id}'";
-            ParameterData[] data = new ParameterData[]
-            {
-                new ParameterData("Starred" , message.Starred.ToInt32())
-            };
-            LocalDbManager.UpdateData("Messages", condition, data);
-        }
-        #endregion
-    }
-}
+//        public static void CreateMessage(MessageModel m)
+//        {
+//            ParameterData[] data = new ParameterData[] {
+//                new ParameterData("Id", m.Id),
+//                new ParameterData("FromIP",m.FromIP),
+//                new ParameterData("ReceiverIP",m.ReceiverIP),
+//                new ParameterData("Msg",m.Msg),
+//                new ParameterData("Time",m.Time),
+//                new ParameterData("Seen",m.Seen.ToInt32()),
+//                new ParameterData("Starred",m.Starred.ToInt32())
+//            };
+//            LocalDbManager.InsertData("Messages", data);
+//            Messages.Add(m.Id, m);
+//        }
+
+//        public static void UpdateMessage(MessageModel m)
+//        {
+//            string condition = $"Id='{m.Id}'";
+//            ParameterData[] data = new ParameterData[] {
+//                new ParameterData("FromIP",m.FromIP),
+//                new ParameterData("ReceiverIP",m.ReceiverIP),
+//                new ParameterData("Msg",m.Msg),
+//                new ParameterData("Time",m.Time),
+//                new ParameterData("Seen",m.Seen.ToInt32()),
+//                new ParameterData("Starred",m.Starred.ToInt32())
+//            };
+//            LocalDbManager.UpdateData("Messages", condition, data);
+//        }
+
+//        public static void DeleteMessage(string id)
+//        {
+//            LocalDbManager.DeleteData("Messages", $"Id='{id}'");
+//            if (Messages.ContainsKey(id)) Messages.Remove(id);
+//        }
+
+//        public static void StarMessages(MessageModel message)
+//        {
+//            string condition = $"Id = '{message.Id}'";
+//            ParameterData[] data = new ParameterData[]
+//            {
+//                new ParameterData("Starred" , message.Starred.ToInt32())
+//            };
+//            LocalDbManager.UpdateData("Messages", condition, data);
+//        }
+//        #endregion
+//    }
+//}

@@ -108,9 +108,9 @@ namespace ChatApplication.Forms
 
                 #region Client Creation
                 Client c = new Client(IPLabel.Text, firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(), 12346, DateTime.Now, DpPicturePath, "");
-                DbManager.AddClient(c);
+                ChatApplicationNetworkManager.CreateClient(c);
                 Hide();
-                if (!ChatApplicationNetworkManager.ManagerInitializer())
+                if (!ChatApplicationNetworkManager.StartListener())
                 {
                     DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "WARNING",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);

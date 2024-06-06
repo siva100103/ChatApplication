@@ -17,9 +17,11 @@ using ChatApplication.Models;
 using System.Windows.Forms;
 using ChatApplication.Forms;
 using System.Xml.Serialization;
+using System.Runtime.Versioning;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
     public partial class MessagePage : UserControl
     {
         public Client Client { get; set; }
@@ -92,7 +94,7 @@ namespace ChatApplication.UserControls
             ChatPanel.AutoScroll = true;
             ChatPanel.Padding = new Padding(0, 0, SystemInformation.VerticalScrollBarWidth, 0);
 
-            List<MessageModel> messages = ChatApplicationNetworkManager.GetMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
+            List<MessageModel> messages = ChatApplicationNetworkManager.ReadMessages(ChatApplicationNetworkManager.LocalIpAddress, contact.IP);
             messages.Sort((m1, m2) => m1.Time.CompareTo(m2.Time));
 
             FileSharePage = new FileSenderPage
@@ -171,7 +173,7 @@ namespace ChatApplication.UserControls
             foreach (ChatU msg in ChatApplicationNetworkManager.SelectedMessages)
             {
                 msg.Message.Starred = true;
-                DbManager.StarMessages(msg.Message);
+                ChatApplicationNetworkManager.UpdateMessage(msg.Message);
                 CustomPanel parent = (CustomPanel)msg.Parent;
                 parent.BackColor = Color.Transparent;
             }
@@ -388,7 +390,7 @@ namespace ChatApplication.UserControls
             if (!MessageModel.ClickedInfo && !ContactInfo.Visible)
             {
                 ContactInfo.DP = ProfilePicture.Image;
-                ContactInfo.About = DbManager.Clients[Client.IP].About;
+                ContactInfo.About = ChatApplicationNetworkManager.ReadClient(Client.IP).About;
                 ContactInfo.Visible = true;
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);

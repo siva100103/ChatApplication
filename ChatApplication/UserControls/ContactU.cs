@@ -62,7 +62,7 @@ namespace ChatApplication.UserControls
             contactNameLB.Text = c.Name;
             dpPictureBox.Image = Img;
 
-            MessageModel LastMsg = DbManager.Messages.Values.LastOrDefault(m =>
+            MessageModel LastMsg = ChatApplicationNetworkManager.ReadAllMessages().Values.LastOrDefault(m =>
                 {
                     return (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
                 });
