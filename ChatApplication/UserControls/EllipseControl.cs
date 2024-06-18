@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public class EllipseControl : Component
 
     {

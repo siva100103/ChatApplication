@@ -31,88 +31,87 @@ namespace ChatApplication.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.messageLB = new System.Windows.Forms.Label();
-            this.ChatUBottomP = new System.Windows.Forms.Panel();
-            this.timingLB = new System.Windows.Forms.Label();
-            this.MessageSendIconPB = new System.Windows.Forms.PictureBox();
-            this.ChatUBottomP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MessageSendIconPB)).BeginInit();
-            this.SuspendLayout();
+            messageLB = new Label();
+            ChatUBottomP = new Panel();
+            timingLB = new Label();
+            MessageSendIconPB = new PictureBox();
+            ChatUBottomP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)MessageSendIconPB).BeginInit();
+            SuspendLayout();
             // 
             // messageLB
             // 
-            this.messageLB.AutoSize = true;
-            this.messageLB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.messageLB.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.messageLB.Location = new System.Drawing.Point(10, 3);
-            this.messageLB.Margin = new System.Windows.Forms.Padding(0);
-            this.messageLB.Name = "messageLB";
-            this.messageLB.Size = new System.Drawing.Size(22, 19);
-            this.messageLB.TabIndex = 0;
-            this.messageLB.Text = "Hi";
+            messageLB.AutoSize = true;
+            messageLB.Dock = DockStyle.Top;
+            messageLB.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            messageLB.Location = new Point(12, 3);
+            messageLB.Margin = new Padding(0);
+            messageLB.Name = "messageLB";
+            messageLB.Size = new Size(22, 19);
+            messageLB.TabIndex = 0;
+            messageLB.Text = "Hi";
             // 
             // ChatUBottomP
             // 
-            this.ChatUBottomP.Controls.Add(this.timingLB);
-            this.ChatUBottomP.Controls.Add(this.MessageSendIconPB);
-            this.ChatUBottomP.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ChatUBottomP.Location = new System.Drawing.Point(10, 32);
-            this.ChatUBottomP.Margin = new System.Windows.Forms.Padding(2);
-            this.ChatUBottomP.MinimumSize = new System.Drawing.Size(0, 12);
-            this.ChatUBottomP.Name = "ChatUBottomP";
-            this.ChatUBottomP.Padding = new System.Windows.Forms.Padding(0, 1, 3, 2);
-            this.ChatUBottomP.Size = new System.Drawing.Size(115, 15);
-            this.ChatUBottomP.TabIndex = 1;
+            ChatUBottomP.Controls.Add(timingLB);
+            ChatUBottomP.Controls.Add(MessageSendIconPB);
+            ChatUBottomP.Dock = DockStyle.Bottom;
+            ChatUBottomP.Location = new Point(12, 37);
+            ChatUBottomP.Margin = new Padding(2);
+            ChatUBottomP.MinimumSize = new Size(0, 14);
+            ChatUBottomP.Name = "ChatUBottomP";
+            ChatUBottomP.Padding = new Padding(0, 1, 4, 2);
+            ChatUBottomP.Size = new Size(134, 17);
+            ChatUBottomP.TabIndex = 1;
             // 
             // timingLB
             // 
-            this.timingLB.AutoSize = true;
-            this.timingLB.Dock = System.Windows.Forms.DockStyle.Right;
-            this.timingLB.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timingLB.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.timingLB.Location = new System.Drawing.Point(67, 1);
-            this.timingLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.timingLB.Name = "timingLB";
-            this.timingLB.Padding = new System.Windows.Forms.Padding(0, 0, 2, 3);
-            this.timingLB.Size = new System.Drawing.Size(29, 15);
-            this.timingLB.TabIndex = 0;
-            this.timingLB.Text = "12:00";
-            this.timingLB.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            timingLB.AutoSize = true;
+            timingLB.Dock = DockStyle.Right;
+            timingLB.Font = new Font("Segoe UI", 6.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            timingLB.ForeColor = SystemColors.ControlDarkDark;
+            timingLB.Location = new Point(82, 1);
+            timingLB.Margin = new Padding(2, 0, 2, 0);
+            timingLB.Name = "timingLB";
+            timingLB.Padding = new Padding(0, 0, 2, 3);
+            timingLB.Size = new Size(29, 15);
+            timingLB.TabIndex = 0;
+            timingLB.Text = "12:00";
+            timingLB.TextAlign = ContentAlignment.TopCenter;
             // 
             // MessageSendIconPB
             // 
-            this.MessageSendIconPB.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MessageSendIconPB.Image = global::ChatApplication.Properties.Resources.icons8_done_14__1_;
-            this.MessageSendIconPB.Location = new System.Drawing.Point(96, 1);
-            this.MessageSendIconPB.Margin = new System.Windows.Forms.Padding(1);
-            this.MessageSendIconPB.Name = "MessageSendIconPB";
-            this.MessageSendIconPB.Size = new System.Drawing.Size(16, 12);
-            this.MessageSendIconPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.MessageSendIconPB.TabIndex = 1;
-            this.MessageSendIconPB.TabStop = false;
-            this.MessageSendIconPB.Visible = false;
+            MessageSendIconPB.Dock = DockStyle.Right;
+            MessageSendIconPB.Image = Properties.Resources.icons8_done_14__1_;
+            MessageSendIconPB.Location = new Point(111, 1);
+            MessageSendIconPB.Margin = new Padding(1);
+            MessageSendIconPB.Name = "MessageSendIconPB";
+            MessageSendIconPB.Size = new Size(19, 14);
+            MessageSendIconPB.SizeMode = PictureBoxSizeMode.CenterImage;
+            MessageSendIconPB.TabIndex = 1;
+            MessageSendIconPB.TabStop = false;
+            MessageSendIconPB.Visible = false;
             // 
             // ChatU
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(252)))), ((int)(((byte)(210)))));
-            this.Controls.Add(this.messageLB);
-            this.Controls.Add(this.ChatUBottomP);
-            this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.MinimumSize = new System.Drawing.Size(90, 32);
-            this.Name = "ChatU";
-            this.Padding = new System.Windows.Forms.Padding(10, 3, 0, 0);
-            this.Size = new System.Drawing.Size(125, 47);
-            this.Load += new System.EventHandler(this.ChatULoad);
-            this.Click += new System.EventHandler(this.ChatUClick);
-            this.ChatUBottomP.ResumeLayout(false);
-            this.ChatUBottomP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MessageSendIconPB)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(216, 252, 210);
+            Controls.Add(messageLB);
+            Controls.Add(ChatUBottomP);
+            DoubleBuffered = true;
+            Margin = new Padding(0);
+            MinimumSize = new Size(105, 37);
+            Name = "ChatU";
+            Padding = new Padding(12, 3, 0, 0);
+            Size = new Size(146, 54);
+            Load += ChatULoad;
+            Click += ChatUClick;
+            ChatUBottomP.ResumeLayout(false);
+            ChatUBottomP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)MessageSendIconPB).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

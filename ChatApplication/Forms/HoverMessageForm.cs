@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
-using ChatApplication;
-using ChatApplication.UserControls;
 
 namespace ChatApplication.Forms
 {
+    [SupportedOSPlatform("windows")]
 
     public partial class HoverMessageForm : Form
     {
@@ -33,6 +25,6 @@ namespace ChatApplication.Forms
             }
         }
 
-       
+
     }
 }

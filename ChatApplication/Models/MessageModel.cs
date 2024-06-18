@@ -24,7 +24,7 @@ namespace ChatApplication.Models
         public event EventHandler IsReaded;
 
         [JsonConstructor]
-        public MessageModel(string FromIP, string ReceiverIP, String Msg, DateTime Time,MessageType type)
+        public MessageModel(string FromIP, string ReceiverIP, String Msg, DateTime Time, MessageType type)
         {
             Id = UniqueIdGenerator();
             this.FromIP = FromIP;
@@ -44,9 +44,11 @@ namespace ChatApplication.Models
             Id = m.Id;
             FromIP = m.FromIP;
             ReceiverIP = m.ReceiverIP;
-            Msg = Msg;
+            Msg = m.Msg;
             Time = m.Time;
             type = m.type;
+            Seen = m.Seen;
+            Starred = m.Starred;
         }
 
         public void IsSendedInvoker()
@@ -73,6 +75,6 @@ namespace ChatApplication.Models
 
     public enum MessageType
     {
-        Message, Response, File,ProfileUpdated
+        Message, Response, File, ProfileUpdated
     }
 }

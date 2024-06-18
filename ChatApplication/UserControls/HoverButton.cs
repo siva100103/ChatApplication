@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public class HoverButton : EllipseButton
     {
         private Color buttonSideHoverlineColor = Color.FromArgb(9, 211, 57);

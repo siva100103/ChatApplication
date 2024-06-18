@@ -28,100 +28,106 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.MainPanel = new System.Windows.Forms.Panel();
-            this.TextArea = new System.Windows.Forms.RichTextBox();
-            this.FileShareIcon = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.SendButton = new System.Windows.Forms.PictureBox();
-            this.MainPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FileShareIcon)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SendButton)).BeginInit();
-            this.SuspendLayout();
+            MainPanel = new System.Windows.Forms.Panel();
+            TextArea = new System.Windows.Forms.RichTextBox();
+            FileShareIcon = new System.Windows.Forms.PictureBox();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            SendButton = new System.Windows.Forms.PictureBox();
+            MainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)FileShareIcon).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SendButton).BeginInit();
+            SuspendLayout();
             // 
             // MainPanel
             // 
-            this.MainPanel.BackColor = System.Drawing.Color.Transparent;
-            this.MainPanel.Controls.Add(this.TextArea);
-            this.MainPanel.Controls.Add(this.FileShareIcon);
-            this.MainPanel.Controls.Add(this.pictureBox1);
-            this.MainPanel.Controls.Add(this.SendButton);
-            this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel.Location = new System.Drawing.Point(0, 0);
-            this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.MainPanel.Size = new System.Drawing.Size(520, 40);
-            this.MainPanel.TabIndex = 6;
+            MainPanel.BackColor = System.Drawing.Color.Transparent;
+            MainPanel.Controls.Add(TextArea);
+            MainPanel.Controls.Add(FileShareIcon);
+            MainPanel.Controls.Add(pictureBox1);
+            MainPanel.Controls.Add(SendButton);
+            MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            MainPanel.Location = new System.Drawing.Point(0, 0);
+            MainPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MainPanel.Name = "MainPanel";
+            MainPanel.Padding = new System.Windows.Forms.Padding(2);
+            MainPanel.Size = new System.Drawing.Size(607, 46);
+            MainPanel.TabIndex = 6;
             // 
             // TextArea
             // 
-            this.TextArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.TextArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextArea.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextArea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.TextArea.Location = new System.Drawing.Point(100, 2);
-            this.TextArea.Name = "TextArea";
-            this.TextArea.Size = new System.Drawing.Size(368, 36);
-            this.TextArea.TabIndex = 2;
-            this.TextArea.Text = " Type a message";
-            this.TextArea.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TextAreaMouseClick);
-            this.TextArea.TextChanged += new System.EventHandler(this.TextAreaTextChanged);
-            this.TextArea.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextAreaKeyDown);
+            TextArea.BackColor = System.Drawing.Color.FromArgb(243, 243, 243);
+            TextArea.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            TextArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            TextArea.Font = new System.Drawing.Font("Nirmala UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            TextArea.ForeColor = System.Drawing.Color.FromArgb(200, 200, 200);
+            TextArea.Location = new System.Drawing.Point(116, 2);
+            TextArea.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TextArea.Name = "TextArea";
+            TextArea.Size = new System.Drawing.Size(431, 42);
+            TextArea.TabIndex = 2;
+            TextArea.Text = " Type a message";
+            TextArea.MouseClick += TextAreaMouseClick;
+            TextArea.TextChanged += TextAreaTextChanged;
+            TextArea.KeyDown += TextAreaKeyDown;
             // 
             // FileShareIcon
             // 
-            this.FileShareIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.FileShareIcon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.FileShareIcon.Image = global::ChatApplication.Properties.Resources.icons8_paper_clip_48_black;
-            this.FileShareIcon.Location = new System.Drawing.Point(52, 2);
-            this.FileShareIcon.Name = "FileShareIcon";
-            this.FileShareIcon.Size = new System.Drawing.Size(48, 36);
-            this.FileShareIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.FileShareIcon.TabIndex = 1;
-            this.FileShareIcon.TabStop = false;
-            this.FileShareIcon.Click += new System.EventHandler(this.FileShareIconClick);
+            FileShareIcon.BackColor = System.Drawing.Color.FromArgb(243, 243, 243);
+            FileShareIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            FileShareIcon.Image = Properties.Resources.icons8_paper_clip_48_black;
+            FileShareIcon.Location = new System.Drawing.Point(60, 2);
+            FileShareIcon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FileShareIcon.Name = "FileShareIcon";
+            FileShareIcon.Size = new System.Drawing.Size(56, 42);
+            FileShareIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            FileShareIcon.TabIndex = 1;
+            FileShareIcon.TabStop = false;
+            FileShareIcon.Visible = false;
+            FileShareIcon.Click += FileShareIconClick;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBox1.Image = global::ChatApplication.Properties.Resources.icons8_happy_30;
-            this.pictureBox1.Location = new System.Drawing.Point(2, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 36);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
+            pictureBox1.BackColor = System.Drawing.Color.FromArgb(243, 243, 243);
+            pictureBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            pictureBox1.Image = Properties.Resources.icons8_happy_30;
+            pictureBox1.Location = new System.Drawing.Point(2, 2);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(58, 42);
+            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            pictureBox1.Visible = false;
             // 
             // SendButton
             // 
-            this.SendButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.SendButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.SendButton.Image = global::ChatApplication.Properties.Resources.icons8_paper_plane_50__2_;
-            this.SendButton.Location = new System.Drawing.Point(468, 2);
-            this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(50, 36);
-            this.SendButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.SendButton.TabIndex = 3;
-            this.SendButton.TabStop = false;
-            this.SendButton.Click += new System.EventHandler(this.SendButtonClick);
+            SendButton.BackColor = System.Drawing.Color.FromArgb(243, 243, 243);
+            SendButton.Dock = System.Windows.Forms.DockStyle.Right;
+            SendButton.Image = Properties.Resources.icons8_paper_plane_50__2_;
+            SendButton.Location = new System.Drawing.Point(547, 2);
+            SendButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            SendButton.Name = "SendButton";
+            SendButton.Size = new System.Drawing.Size(58, 42);
+            SendButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            SendButton.TabIndex = 3;
+            SendButton.TabStop = false;
+            SendButton.Click += SendButtonClick;
             // 
             // ChatSenter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(243)))), ((int)(((byte)(243)))));
-            this.Controls.Add(this.MainPanel);
-            this.Name = "ChatSenter";
-            this.Size = new System.Drawing.Size(520, 40);
-            this.MainPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.FileShareIcon)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SendButton)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(243, 243, 243);
+            Controls.Add(MainPanel);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ChatSenter";
+            Size = new System.Drawing.Size(607, 46);
+            MainPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)FileShareIcon).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SendButton).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

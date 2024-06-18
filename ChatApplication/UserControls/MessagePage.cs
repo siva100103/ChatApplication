@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Net;
-using ChatApplication;
-using System.Diagnostics;
-using System.Drawing.Drawing2D;
-using System.Reflection;
+﻿using ChatApplication.Forms;
 using ChatApplication.Managers;
 using ChatApplication.Models;
-using System.Windows.Forms;
-using ChatApplication.Forms;
-using System.Xml.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
@@ -390,7 +380,7 @@ namespace ChatApplication.UserControls
             if (!MessageModel.ClickedInfo && !ContactInfo.Visible)
             {
                 ContactInfo.DP = ProfilePicture.Image;
-                ContactInfo.About = ChatApplicationNetworkManager.ReadClient(Client.IP).About;
+                ContactInfo.About = (ChatApplicationNetworkManager.ReadClient(Client.IP)).Value.About;
                 ContactInfo.Visible = true;
                 Point location = PointToScreen(HeaderPanel.Location);
                 location.Offset(ProfilePicture.Width / 3, HeaderPanel.Height + 10);

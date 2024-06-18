@@ -1,19 +1,16 @@
-﻿using System;
+﻿using ChatApplication.Managers;
+using ChatApplication.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using ChatApplication.Models;
-using ChatApplication.Managers;
-using System.Drawing.Drawing2D;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
     public partial class MyProfilePage : UserControl
     {
         public event EventHandler<int> ThemeChanged;

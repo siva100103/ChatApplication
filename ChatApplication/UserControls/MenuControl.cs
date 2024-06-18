@@ -1,18 +1,16 @@
-﻿using ChatApplication.Managers;
+﻿using ChatApplication.Forms;
+using ChatApplication.Managers;
 using ChatApplication.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
-using ChatApplication.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class MenuControl : UserControl
     {
         List<HoverButton> buttonArray;
@@ -68,15 +66,15 @@ namespace ChatApplication.UserControls
                 ChatsBtn.ButtonSideHoverlineColor = value;
                 ArchieveButton.ButtonSideHoverlineColor = value;
 
-                ChatsBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(200, BackColor.R+10,BackColor.G+10,BackColor.B+10);
-                ChatsBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R+10,BackColor.G+10,BackColor.B+10);
+                ChatsBtn.FlatAppearance.MouseDownBackColor = Color.FromArgb(200, BackColor.R + 10, BackColor.G + 10, BackColor.B + 10);
+                ChatsBtn.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R + 10, BackColor.G + 10, BackColor.B + 10);
 
                 ArchieveButton.FlatAppearance.MouseDownBackColor = ChatsBtn.FlatAppearance.MouseDownBackColor;
                 ArchieveButton.FlatAppearance.MouseOverBackColor = ChatsBtn.FlatAppearance.MouseOverBackColor;
 
                 ExitButton.FlatAppearance.MouseDownBackColor = Color.FromArgb(128, Color.Red);
-                ExitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R+10,BackColor.G+10,BackColor.B+10);
-                
+                ExitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(BackColor.R + 10, BackColor.G + 10, BackColor.B + 10);
+
             }
         }
 
@@ -99,7 +97,7 @@ namespace ChatApplication.UserControls
         public MenuControl()
         {
             InitializeComponent();
-            buttonArray = new List<HoverButton> { ChatsBtn, CallsBtn, StatusBtn, StarBtn, ArchivedBtn, SettingBtn,ArchieveButton };
+            buttonArray = new List<HoverButton> { ChatsBtn, CallsBtn, StatusBtn, StarBtn, ArchivedBtn, SettingBtn, ArchieveButton };
             messageFormobj = new HoverMessageForm();
             currentObject = ChatsBtn;
             for (int i = 0; i < buttonArray.Count; i++)
@@ -108,7 +106,7 @@ namespace ChatApplication.UserControls
                 buttonArray[i].MouseLeave += HoverMessageLeave;
                 buttonArray[i].Click += ButtonClick;
             }
-          
+
 
             //messageFormobj.Visible = true;
             //messageFormobj.Enabled = false;
@@ -146,7 +144,7 @@ namespace ChatApplication.UserControls
         {
             OnArciveButtonClick?.Invoke(this, e);
         }
-        
+
         private void ProfilePictureBoxClick(object sender, EventArgs e)
         {
             OnClickProfilePicture?.Invoke(this, EventArgs.Empty);
@@ -244,7 +242,7 @@ namespace ChatApplication.UserControls
                 //messageFormobj.MessageText = "Chats";
                 return;
             }
-            else if(obj == ArchieveButton)
+            else if (obj == ArchieveButton)
             {
                 return;
             }

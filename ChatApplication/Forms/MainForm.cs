@@ -1,16 +1,13 @@
 ﻿using ChatApplication.Managers;
 using ChatApplication.Models;
+using ChatApplication.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ChatApplication.UserControls;
-using System.Xml.Serialization;
-using System.IO;
-using System.Runtime.Versioning;
 
 namespace ChatApplication.Forms
 {
@@ -48,8 +45,12 @@ namespace ChatApplication.Forms
         {
             base.OnLoad(e);
 
+            ///start the Server..
+            ChatApplicationNetworkManager.StartListener();
+
             //Setting Color Scheme
-           // theme = DbManager.MyData.Theme;
+            theme = ChatApplicationNetworkManager.GetTheme();
+
             ChatTheme.SetTheme(theme);
 
 
@@ -304,8 +305,8 @@ namespace ChatApplication.Forms
         {
             ChatTheme.SetTheme(e);
             ControlsOnThemeChange();
-
-            theme = (theme == 0) ? 1 : 0;
+            ChatApplicationNetworkManager.UpdateTheme(e);
+            //theme = (theme == 0) ? 1 : 0;
 
             SuspendLayout();
             //OuterLayer
@@ -458,8 +459,8 @@ namespace ChatApplication.Forms
         {
             string xmlFilePath = @".\data.xml";
 
-//            DbManager.MyData.Theme = ChatTheme.Current;
-  //          LocalData data = DbManager.MyData;
+            //            DbManager.MyData.Theme = ChatTheme.Current;
+            //          LocalData data = DbManager.MyData;
 
             //XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
             //using (TextWriter writer = new StreamWriter(xmlFilePath))

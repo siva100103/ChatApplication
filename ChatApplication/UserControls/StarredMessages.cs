@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ChatApplication.Managers;
+﻿using ChatApplication.Managers;
 using ChatApplication.Models;
+using System;
+using System.Drawing;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class StarredMessages : UserControl
     {
         private int chatArcWidth = 10;
@@ -45,8 +42,8 @@ namespace ChatApplication.UserControls
             MessageCreate();
             EventSubscribers();
 
-            FromName.Text = (Message.FromIP == ChatApplicationNetworkManager.LocalIpAddress)? "You" :
-                ChatApplicationNetworkManager.ReadClient(Message.FromIP).Name;
+            FromName.Text = (Message.FromIP == ChatApplicationNetworkManager.LocalIpAddress) ? "You" :
+                ChatApplicationNetworkManager.ReadClient(Message.FromIP).Value.Name;
         }
 
         private void EventSubscribers()
@@ -83,7 +80,7 @@ namespace ChatApplication.UserControls
             {
                 Clipboard.SetText(Message.Msg);
             }
-            else if(e.Button == MouseButtons.Right)
+            else if (e.Button == MouseButtons.Right)
             {
                 Message.Starred = false;
                 ChatApplicationNetworkManager.UpdateMessage(Message);

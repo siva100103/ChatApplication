@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class PendingMessages : UserControl
     {
         private string Unread = "";
@@ -45,7 +41,7 @@ namespace ChatApplication.UserControls
                 point = new PointF((Width * 4) / 100, (Height * 18f) / 100);
                 font = new Font("Arial", 7.2f, FontStyle.Regular);
             }
-            else if(n > 9)
+            else if (n > 9)
             {
                 point = new PointF((Width * 4) / 100, (Height * 18) / 100);
                 font = new Font("Arial", 10f, FontStyle.Regular);

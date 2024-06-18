@@ -1,20 +1,16 @@
 ﻿using ChatApplication.Managers;
+using ChatApplication.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ChatApplication.Models;
 using System.Reflection;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class ChatU : UserControl
     {
         public event EventHandler ChatUClicked;

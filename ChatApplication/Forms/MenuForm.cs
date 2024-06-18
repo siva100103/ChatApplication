@@ -1,19 +1,17 @@
 ﻿using ChatApplication.Managers;
+using ChatApplication.UserControls;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
-using ChatApplication;
-using ChatApplication.UserControls;
 
 namespace ChatApplication.Forms
 {
+
+    [SupportedOSPlatform("windows")]
+
     public partial class MenuForm : Form
     {
         public event EventHandler Delete;
@@ -31,7 +29,7 @@ namespace ChatApplication.Forms
             int nBottomRect,   // y-coordinate of lower-right corner
             int nWidthEllipse, // width of ellipse
             int nHeightEllipse // height of ellipse
-        ); 
+        );
         #endregion
 
         public bool CanShowArchive
@@ -75,7 +73,7 @@ namespace ChatApplication.Forms
 
         private void DeleteLabelClick(object sender, EventArgs e)
         {
-            if(ChatApplicationNetworkManager.SelectedMessages.Count > 0)
+            if (ChatApplicationNetworkManager.SelectedMessages.Count > 0)
             {
                 Delete?.Invoke(this, e);
 

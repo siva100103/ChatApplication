@@ -1,22 +1,15 @@
-﻿using System;
+﻿using ChatApplication.Managers;
+using ChatApplication.UserControls;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ChatApplication;
-using ChatApplication.Managers;
-using ChatApplication.UserControls;
-using Newtonsoft.Json;
+using System.Runtime.Versioning;
 
 namespace ChatApplication.Models
 {
+    [SupportedOSPlatform("windows")]
     public class Client
     {
         public string IP { get; set; }
@@ -69,15 +62,16 @@ namespace ChatApplication.Models
 
         public Client()
         {
-            
+
         }
 
         public void IdentifyUnSeenMsgs()
         {
             UnSeenMessagesList = ChatApplicationNetworkManager.ReadAllMessages().Values.Where(m =>
-              {
-                  return m.FromIP.Equals(this.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen;
-              }).ToList();
+            {
+                return m.FromIP.Equals(IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && !m.Seen;
+            }).ToList();
+
             unSeenMessages = UnSeenMessagesList.Count;
         }
 

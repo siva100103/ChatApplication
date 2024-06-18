@@ -32,53 +32,52 @@ namespace ChatApplication.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.MessageLB = new System.Windows.Forms.Label();
-            this.ellipseControl2 = new ChatApplication.UserControls.EllipseControl();
-            this.SuspendLayout();
+            MessageLB = new Label();
+            ellipseControl2 = new EllipseControl();
+            SuspendLayout();
             // 
             // MessageLB
             // 
-            this.MessageLB.AutoSize = true;
-            this.MessageLB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessageLB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MessageLB.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MessageLB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(26)))), ((int)(((byte)(26)))));
-            this.MessageLB.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.MessageLB.Location = new System.Drawing.Point(9, 7);
-            this.MessageLB.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.MessageLB.Name = "MessageLB";
-            this.MessageLB.Padding = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.MessageLB.Size = new System.Drawing.Size(63, 21);
-            this.MessageLB.TabIndex = 0;
-            this.MessageLB.Text = "Message";
-            this.MessageLB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            MessageLB.AutoSize = true;
+            MessageLB.Dock = DockStyle.Fill;
+            MessageLB.FlatStyle = FlatStyle.Flat;
+            MessageLB.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MessageLB.ForeColor = Color.FromArgb(25, 26, 26);
+            MessageLB.ImageAlign = ContentAlignment.TopCenter;
+            MessageLB.Location = new Point(9, 7);
+            MessageLB.Margin = new Padding(2, 0, 2, 0);
+            MessageLB.Name = "MessageLB";
+            MessageLB.Padding = new Padding(5, 3, 5, 3);
+            MessageLB.Size = new Size(63, 21);
+            MessageLB.TabIndex = 0;
+            MessageLB.Text = "Message";
+            MessageLB.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ellipseControl2
             // 
-            this.ellipseControl2.CornerRadius = 7;
-            this.ellipseControl2.TargetControl = this;
+            ellipseControl2.CornerRadius = 7;
+            ellipseControl2.TargetControl = this;
             // 
             // HoverMessageForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(148, 41);
-            this.Controls.Add(this.MessageLB);
-            this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "HoverMessageForm";
-            this.Padding = new System.Windows.Forms.Padding(9, 7, 9, 12);
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "HoverMessageForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImageLayout = ImageLayout.Zoom;
+            ClientSize = new Size(148, 41);
+            Controls.Add(MessageLB);
+            DoubleBuffered = true;
+            Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(2);
+            Name = "HoverMessageForm";
+            Padding = new Padding(9, 7, 9, 12);
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Show;
+            Text = "HoverMessageForm";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 using System.Reflection;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class ChatSenter : UserControl
     {
         public EventHandler<string> MsgReady;
@@ -144,7 +141,7 @@ namespace ChatApplication.UserControls
             TextArea.ForeColor = ChatTheme.TextColor;
             if (TextArea.Text != "")
             {
-                MsgReady?.Invoke(sender, TextArea.Text); 
+                MsgReady?.Invoke(sender, TextArea.Text);
             }
             TextArea.Text = "";
         }

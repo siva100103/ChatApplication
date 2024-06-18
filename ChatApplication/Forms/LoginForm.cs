@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ChatApplication.Managers;
-using System.IO;
-using System.Xml.Serialization;
+﻿using ChatApplication.Managers;
 using ChatApplication.Models;
-using Microsoft.EntityFrameworkCore;
-using ChatApplication;
 using ChatApplication.UserControls;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Reflection;
-using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.Forms
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class LoginForm : Form
     {
         #region Curve Dll
@@ -52,7 +43,7 @@ namespace ChatApplication.Forms
         private void DpPicturePathGet(object sender, string path)
         {
             Image dp = Image.FromFile(path);
-            string NetworkPath = @"\\SPARE-B11\Chat Application Profile\";
+            string NetworkPath = ChatApplicationNetworkManager.GetImagePath();
             string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
             DpPicturePath = newfilePath;
             try
@@ -88,7 +79,7 @@ namespace ChatApplication.Forms
 
         private void PaintTick(object sender, EventArgs e)
         {
-            if (TopPanelWidth >= Width + Width/2)
+            if (TopPanelWidth >= Width + Width / 2)
             {
                 TopPanelWidth = TopPanelX = 0;
             }
@@ -110,16 +101,16 @@ namespace ChatApplication.Forms
                 Client c = new Client(IPLabel.Text, firstNameTB.TextBoxtext.Trim() + " " + lastNameTB.TextBoxtext.Trim(), 12346, DateTime.Now, DpPicturePath, "");
                 ChatApplicationNetworkManager.CreateClient(c);
                 Hide();
-                if (!ChatApplicationNetworkManager.StartListener())
-                {
-                    DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "WARNING",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (dialog == DialogResult.OK)
-                    {
-                        Close();
-                        return;
-                    }
-                }
+                //if (!ChatApplicationNetworkManager.StartListener())
+                //{
+                //    DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "WARNING",
+                //            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    if (dialog == DialogResult.OK)
+                //    {
+                //        Close();
+                //        return;
+                //    }
+                //}
 
                 MainForm mf = new MainForm();
                 mf?.Show();

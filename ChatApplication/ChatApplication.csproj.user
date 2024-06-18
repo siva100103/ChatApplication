@@ -10,6 +10,9 @@
     <Compile Update="Forms\ContentForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\DataBaseDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\HoverMessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -21,6 +24,15 @@
     </Compile>
     <Compile Update="Forms\MenuForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ServerDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserControls\CustomPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="UserControls\LoadingScreen.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 </Project>

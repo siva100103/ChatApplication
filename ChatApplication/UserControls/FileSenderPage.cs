@@ -1,16 +1,13 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class FileSenderPage : UserControl
     {
         public EventHandler<string> FileMsgReady;
@@ -40,7 +37,7 @@ namespace ChatApplication.UserControls
                 string newfilePath = Path.Combine(NetworkPath, Path.GetFileNameWithoutExtension(path) + Path.GetExtension(path));
                 if (!File.Exists(newfilePath))
                 {
-                    File.Copy(path, newfilePath, true); 
+                    File.Copy(path, newfilePath, true);
                 }
                 FileMsgReady?.Invoke(this, path);
             }

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing.Drawing2D;
-using ChatApplication;
-using ChatApplication.Managers;
+﻿using ChatApplication.Managers;
 using ChatApplication.Models;
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 namespace ChatApplication.UserControls
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class ContactU : UserControl
     {
         public Image Img { get; set; }
@@ -63,9 +60,9 @@ namespace ChatApplication.UserControls
             dpPictureBox.Image = Img;
 
             MessageModel LastMsg = ChatApplicationNetworkManager.ReadAllMessages().Values.LastOrDefault(m =>
-                {
-                    return (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
-                });
+            {
+                return (m.FromIP.Equals(ChatApplicationNetworkManager.LocalIpAddress) && m.ReceiverIP.Equals(c.IP)) || (m.FromIP.Equals(c.IP) && m.ReceiverIP.Equals(ChatApplicationNetworkManager.LocalIpAddress));
+            });
 
             if (LastMsg != null)
             {
@@ -135,7 +132,7 @@ namespace ChatApplication.UserControls
             if (!Selected)
             {
                 SuspendLayout();
-                mainP.BackColor = Color.FromArgb(255, MPBackColor.R, MPBackColor.G,MPBackColor.B);
+                mainP.BackColor = Color.FromArgb(255, MPBackColor.R, MPBackColor.G, MPBackColor.B);
                 ResumeLayout();
             }
         }

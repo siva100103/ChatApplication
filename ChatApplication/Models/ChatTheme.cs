@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace ChatApplication
 {
@@ -63,7 +58,7 @@ namespace ChatApplication
                 MenuButtonIcon = Properties.Resources.icons8_menu_vertical_50;
                 SendButtonIcon = Properties.Resources.icons8_paper_plane_50__1_;
             }
-            else if(theme == 0)
+            else if (theme == 0)
             {
                 OuterLayerColor = Color.FromArgb(229, 227, 222);
                 InnerLayerColor = Color.FromArgb(229, 227, 222);
@@ -87,6 +82,11 @@ namespace ChatApplication
                 MenuButtonIcon = Properties.Resources.icons8_menu_vertical_50__1_;
                 SendButtonIcon = Properties.Resources.icons8_paper_plane_50__2_;
             }
+        }
+
+        public static void RestartTheme()
+        {
+
         }
     }
 }

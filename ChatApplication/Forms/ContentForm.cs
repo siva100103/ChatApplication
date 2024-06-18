@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using ChatApplication.Models;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using ChatApplication.Models;
-using ChatApplication.UserControls;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.Forms
 {
+    [SupportedOSPlatform("windows")]
+
     public partial class ContentForm : Form
     {
         public string NameInfo

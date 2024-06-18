@@ -1,18 +1,16 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Windows.Forms;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.ComponentModel;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication.UserControls
 {
-   public class EllipseButton : Button
+    [SupportedOSPlatform("windows")]
+
+    public class EllipseButton : Button
     {
         private int BorderSize = 0;
         private int BorderRadius = 40;

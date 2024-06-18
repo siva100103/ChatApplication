@@ -7,12 +7,13 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="Forms\.Designer.resx" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="UserControls\FileMessage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="UserControls\LoadingScreen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="UserControls\LoadingScreen.cs" />
     <Compile Update="UserControls\MyProfilePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -37,9 +38,7 @@
     <Compile Update="UserControls\CustomPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UserControls\CustomPictureBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="UserControls\CustomPictureBox.cs" />
     <Compile Update="UserControls\CustomSearchBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

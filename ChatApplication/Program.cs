@@ -1,20 +1,14 @@
-﻿using ChatApplication.Managers;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net.NetworkInformation;
-using System.IO;
+﻿using ChatApplication.Forms;
+using ChatApplication.Managers;
 using ChatApplication.Models;
-using System.Xml.Serialization;
-using ChatApplication.Forms;
+using System;
 using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace ChatApplication
 {
+    [SupportedOSPlatform("windows")]
+
     static class Program
     {
         /// <summary>
@@ -29,68 +23,20 @@ namespace ChatApplication
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (!File.Exists(@".\data.xml"))
-                SerializeLocalDataToXml();
+            BooleanMsg DbConfig = ChatApplicationNetworkManager.DataBaseConfiguration();
 
-            string IpAddress = GetLocalIPAddress();
-
-            ChatApplicationNetworkManager.LocalIpAddress = IpAddress;
-            ChatApplicationNetworkManager.DataBaseConfiguration();
-
-
-            if (!ChatApplicationNetworkManager.ReadAllClients().ContainsKey(IpAddress))
-            {
-                Application.Run(new LoginForm(IpAddress));
-            }
-            else
-            {
-                if (ChatApplicationNetworkManager.StartListener())
-                    Application.Run(new MainForm());
-                else
-                {
-                    DialogResult dialog = MessageBox.Show("Invalid Credentials \nPlease Check data.xml", "",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-
+            if (DbConfig) StartApp();
+            else if (DbConfig.Message == "Fetching Messages Failed") Application.Run(new DataBaseDetailsForm());
+            else if (DbConfig.Message == "Fetching Clients Failed") Application.Run(new ServerDetailsForm());
         }
 
-        private static string GetLocalIPAddress()
+        private static void StartApp()
         {
-            string ipAddress = string.Empty;
-            foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (networkInterface.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation addressInfo in networkInterface.GetIPProperties().UnicastAddresses)
-                    {
-                        if (addressInfo.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) // Check for IPv4 addresses
-                        {
-                            ipAddress = addressInfo.Address.ToString();
-                            break;
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(ipAddress))
-                    {
-                        break;
-                    }
-                }
-            }
-            return ipAddress;
+            string IpAddress = ChatApplicationNetworkManager.LocalIpAddress;
+            BooleanMsg UserExist = ChatApplicationNetworkManager.ReadClient(IpAddress);
+            if (UserExist) Application.Run(new MainForm());
+            else Application.Run(new LoginForm(IpAddress));
         }
 
-        private static void SerializeLocalDataToXml()
-        {
-            string xmlFilePath = @".\data.xml";
-
-            LocalData data = new LocalData();
-
-            XmlSerializer serializer = new XmlSerializer(typeof(LocalData));
-            using (TextWriter writer = new StreamWriter(xmlFilePath))
-            {
-                serializer.Serialize(writer, data);
-            }
-        }
     }
 }
